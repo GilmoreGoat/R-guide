@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 3: The Dragonfly</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+<nav><a href="index.html">&larr; Back to Town</a></nav>
+<header>
+    <h1>Module 3: Tidying the Kitchen</h1>
+    <p>"Sookie, the data is everywhere! We need to pivot!"</p>
+</header>
+
+<div class="concept-card">
+    <h2>1. What is "Tidy" Data?</h2>
+    <p>Tidy data is a format R loves. </p>
+    <ul>
+        <li><strong>Rule 1:</strong> Each variable is a column.</li>
+        <li><strong>Rule 2:</strong> Each observation is a row.</li>
+    </ul>
+</div>
+
+<div class="concept-card">
+    <h2>2. Pivot Longer (Wide to Long)</h2>
+    <p>Michel's spreadsheet is "Wide" (Dates are columns). We need to melt it down.</p>
+    <div class="instruction-box">
+        <h3>📝 Mission: Tidy the Pantry</h3>
+        <ul class="instruction-list">
+            <li>Use <code>pivot_longer()</code> on <code>kitchen</code>.</li>
+            <li>Pivot columns <code>Monday</code> and <code>Tuesday</code>.</li>
+            <li>Name the new columns <code>"Day"</code> and <code>"Eggs"</code>.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn"
+                        data-answer='kitchen |> pivot_longer(cols = c(Monday, Tuesday), names_to = "Day", values_to = "Eggs")'
+                        data-output="  Dish      Day        Eggs<br>1 Omelette  Monday     50...">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>3. Pivot Wider (Long to Wide)</h2>
+    <p>Sometimes you need to do the reverse! Use <code>pivot_wider()</code>.</p>
+    <div class="instruction-box">
+        <h3>📝 Mission: Spread it Out</h3>
+        <ul class="instruction-list">
+            <li>Take <code>long_data</code>.</li>
+            <li>Use <code>pivot_wider(names_from = "Day", values_from = "Eggs")</code>.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn"
+                        data-answer='long_data |> pivot_wider(names_from = "Day", values_from = "Eggs")'
+                        data-output="  Dish      Monday  Tuesday<br>1 Omelette  50      45">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+</body>
+</html>

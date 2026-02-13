@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 2: Luke's Diner</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+<nav><a href="index.html">&larr; Back to Town</a></nav>
+<header>
+    <h1>Module 2: Wrangling at Luke's</h1>
+    <p>"I can't filter my feelings, but I can filter this data."</p>
+</header>
+
+<div class="concept-card">
+    <h2>1. The Data Frame (The Menu)</h2>
+    <p>A Data Frame is a table. Rows are observations, columns are variables.</p>
+    <p>Use <code>glimpse(diner_data)</code> to peek at it.</p>
+</div>
+
+<div class="concept-card">
+    <h2>2. Select vs Pull (The Receipt)</h2>
+    <p><strong>Critical Concept:</strong></p>
+    <ul>
+        <li><code>select()</code>: Returns a <strong>Table</strong> (Data Frame).</li>
+        <li><code>pull()</code>: Returns a <strong>Vector</strong> (List of numbers). Used for math!</li>
+    </ul>
+    <div class="instruction-box">
+        <h3>📝 Mission: Calculate Profits</h3>
+        <ul class="instruction-list">
+            <li>Extract the <code>price</code> column from <code>menu</code> using <code>pull(price)</code>.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn" data-answer="menu |> pull(price)" data-output="[1] 12.00  6.50  3.00">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>3. The Dollar Sign ($)</h2>
+    <p>The <code>$</code> is a shortcut for <code>pull()</code>. It grabs a specific column.</p>
+    <p><em>Think:</em> <code>Luke's_Wallet$Cash</code>.</p>
+    <div class="instruction-box">
+        <h3>📝 Mission: Grab the Tips</h3>
+        <ul class="instruction-list">
+            <li>Extract the <code>tips</code> column from <code>orders</code> using <code>$</code>.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn" data-answer="orders$tips" data-output="[1] 2.00 5.00 0.00">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>4. Filter (Rows)</h2>
+    <p>Luke wants to kick out annoying customers. <code>filter()</code> keeps rows where the condition is TRUE.</p>
+    <div class="instruction-box">
+        <h3>📝 Mission: Ban Taylor</h3>
+        <ul class="instruction-list">
+            <li>Filter <code>customers</code> where <code>name != "Taylor"</code>.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn" data-answer='customers |> filter(name != "Taylor")' data-output="  name      status<br>1 Lorelai   VIP<br>2 Rory      VIP">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>5. Arrange (Sorting)</h2>
+    <p>Sort the menu. Default is Ascending. Use <code>desc()</code> for Descending.</p>
+    <div class="instruction-box">
+        <h3>📝 Mission: Most Expensive First</h3>
+        <ul class="instruction-list">
+            <li>Arrange <code>menu</code> by <code>desc(price)</code>.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn" data-answer="menu |> arrange(desc(price))" data-output="  item           price<br>1 Lobster_Roll   25.00">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>6. Mutate (Special Orders)</h2>
+    <p>Lorelai never orders off the menu; she changes it. <code>mutate()</code> creates new columns.</p>
+    <div class="instruction-box">
+        <h3>📝 Mission: Inflation Hits</h3>
+        <ul class="instruction-list">
+            <li>Create <code>new_price</code>.</li>
+            <li>Calculate <code>price * 1.10</code>.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn" data-answer="menu |> mutate(new_price = price * 1.10)" data-output="  item    price  new_price<br>1 Burger  12.00  13.20">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>7. Inspecting the Crowd</h2>
+    <p>Who is actually here? Use <code>unique()</code> for a list, or <code>table()</code> for counts.</p>
+    <div class="instruction-box">
+        <h3>📝 Mission: Count the Townies</h3>
+        <ul class="instruction-list">
+            <li>Run <code>table()</code> on <code>townies$role</code>.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn" data-answer="table(townies$role)" data-output="Owner: 1  Mechanic: 1  Selectman: 1">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+</body>
+</html>

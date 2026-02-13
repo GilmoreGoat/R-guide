@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 4: The Gazette</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+<nav><a href="index.html">&larr; Back to Town</a></nav>
+<header>
+    <h1>Module 4: The Gazette</h1>
+    <p>Making charts pretty enough for Taylor Doose.</p>
+</header>
+
+<div class="concept-card">
+    <h2>1. Histogram (1 Numeric Var)</h2>
+    <p>Shows distribution. Use <code>geom_histogram()</code>.</p>
+
+
+    [Image of histogram showing distribution]
+
+    <div class="instruction-box">
+        <h3>📝 Mission: Pumpkin Stats</h3>
+        <ul class="instruction-list">
+            <li>Plot <code>pumpkins</code>, <code>aes(x = weight)</code>.</li>
+            <li>Add <code>geom_histogram()</code>.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn" data-answer="ggplot(pumpkins, aes(x = weight)) + geom_histogram()" data-output="[Plot created: Histogram]">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>2. Bar Plot (1 Categorical Var)</h2>
+    <p>Shows counts of categories. Use <code>geom_bar()</code>.</p>
+
+    <div class="instruction-box">
+        <h3>📝 Mission: Student Counts</h3>
+        <ul class="instruction-list">
+            <li>Plot <code>students</code>, <code>aes(x = house)</code>.</li>
+            <li>Add <code>geom_bar()</code>.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn" data-answer="ggplot(students, aes(x = house)) + geom_bar()" data-output="[Plot created: Bar Plot]">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>3. Boxplot (Num vs Cat)</h2>
+    <p>Compares groups. Use <code>geom_boxplot()</code>.</p>
+
+
+    [Image of boxplot comparison]
+
+    <div class="instruction-box">
+        <h3>📝 Mission: Study Wars</h3>
+        <ul class="instruction-list">
+            <li>Plot <code>students</code>, <code>aes(x = school, y = hours)</code>.</li>
+            <li>Add <code>geom_boxplot()</code>.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn" data-answer="ggplot(students, aes(x = school, y = hours)) + geom_boxplot()" data-output="[Plot created: Boxplot]">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>4. Scatterplot (Num vs Num)</h2>
+    <p>Shows correlation. Use <code>geom_point()</code>.</p>
+
+
+    [Image of scatterplot correlation]
+
+    <div class="instruction-box">
+        <h3>📝 Mission: Coffee vs Jitters</h3>
+        <ul class="instruction-list">
+            <li>Plot <code>data</code>, <code>aes(x = coffee, y = jitters)</code>.</li>
+            <li>Add <code>geom_point()</code>.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn" data-answer="ggplot(data, aes(x = coffee, y = jitters)) + geom_point()" data-output="[Plot created: Scatterplot]">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>5. Color vs Fill</h2>
+    <p>Taylor is picky. <code>color</code> is for lines/outlines. <code>fill</code> is for insides (bars).</p>
+    <div class="instruction-box">
+        <h3>📝 Mission: Colorful Pumpkins</h3>
+        <ul class="instruction-list">
+            <li>Plot <code>pumpkins</code> with <code>aes(x = type, fill = type)</code>.</li>
+            <li>Add <code>geom_bar()</code>.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn" data-answer="ggplot(pumpkins, aes(x = type, fill = type)) + geom_bar()" data-output="[Plot created: Colorful Bar Chart]">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>6. Labels & Themes</h2>
+    <p>Don't turn in ugly graphs! Use <code>labs()</code> and <code>theme_classic()</code>.</p>
+    <div class="instruction-box">
+        <h3>📝 Mission: Make it Pretty</h3>
+        <ul class="instruction-list">
+            <li>Take your scatterplot and add <code>+ theme_classic()</code>.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn" data-answer="ggplot(data, aes(x = coffee, y = jitters)) + geom_point() + theme_classic()" data-output="[Plot created: Pretty Scatterplot]">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>7. Saving Your Work</h2>
+    <p>The Gazette goes to print at 5 AM. Use <code>ggsave()</code>.</p>
+    <div class="instruction-box">
+        <h3>📝 Mission: Save It</h3>
+        <ul class="instruction-list">
+            <li>Save as <code>"front_page.png"</code>.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn" data-answer='ggsave("front_page.png")' data-output="Saving 7 x 5 in image...">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+</body>
+</html>

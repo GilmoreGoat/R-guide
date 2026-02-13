@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The R Gilmore Study Guide</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>The R Gilmore Study Guide</h1>
+    <div class="subtitle">"Life's short. Talk fast. Code faster."</div>
+    <div style="margin-top: 10px; font-size: 2em;">☕ 🍂 📚</div>
+</header>
+<div class="concept-card" style="text-align: center; background: #fff8e1; border: 2px dashed var(--luke-yellow);">
+    <h3>📋 The "Sunday Night Panic" Starter Kit</h3>
+    <p>Copy this into every new R script to avoid errors.</p>
+    <pre><code>library(tidyverse)
+library(skimr)
+library(rstatix)
+
+# Set your working directory if needed
+# setwd("~/Desktop/BILD5")
+
+# Turn off scientific notation (optional)
+options(scipen = 999)</code></pre>
+</div>
+<div class="town-square-menu">
+
+    <a href="reference.html" class="town-menu-item">
+        <span class="menu-icon">📖</span>
+        <div class="menu-text">
+            <h3>Paris Geller's Master Reference</h3>
+            <p>Every function, defined and organized.</p>
+        </div>
+    </a>
+
+    <a href="about.html" class="town-menu-item">
+        <span class="menu-icon">☕</span>
+        <div class="menu-text">
+            <h3>Town Meeting Minutes (About)</h3>
+            <p>Read the manifesto and credits.</p>
+        </div>
+    </a>
+
+</div>
+<div class="module-grid">
+    <a href="basics.html" class="module-card">
+        <h2>Module 1: Chilton Basics</h2>
+        <p>Before you get to Yale, you have to survive Chilton. Learn the strict rules of R logic, vectors, and types.</p>
+        <span class="start-btn">Start Studying &rarr;</span>
+    </a>
+
+    <a href="wrangling.html" class="module-card">
+        <h2>Module 2: Luke's Diner Orders</h2>
+        <p>Filtering bad data like Luke filters out decaf. Learn to select, filter, and mutate your menu.</p>
+        <span class="start-btn">Enter the Diner &rarr;</span>
+    </a>
+
+    <a href="tidying.html" class="module-card">
+        <h2>Module 3: The Dragonfly Inn</h2>
+        <p>Sookie made a mess of the kitchen (and the data). Use <code>pivot_longer</code> to tidy it up before the guests arrive.</p>
+        <span class="start-btn">Start Cleaning &rarr;</span>
+    </a>
+
+    <a href="visualization.html" class="module-card">
+        <h2>Module 4: Stars Hollow Gazette</h2>
+        <p>You need front-page visuals. Use <code>ggplot2</code> to make charts pretty enough for Taylor Doose to approve.</p>
+        <span class="start-btn">Start Printing &rarr;</span>
+    </a>
+
+    <a href="statistics.html" class="module-card">
+        <h2>Module 5: Yale Daily News</h2>
+        <p>Hard-hitting facts only. Paris Geller demands significant p-values. T-tests, Normality, and Sampling.</p>
+        <span class="start-btn">Check the Facts &rarr;</span>
+    </a>
+</div>
+
+<footer style="text-align: center; margin-top: 20px; color: #8d6e63; font-style: italic;">
+    <p>Oy with the poodles already! • Created for BILD 5</p>
+</footer>
+</body>
+</html>

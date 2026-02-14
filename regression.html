@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 7: The Dance Marathon</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+<nav><a href="index.html">&larr; Back to Town</a></nav>
+<header>
+    <h1>Module 7: The Dance Marathon</h1>
+    <p>"I've been dancing for 23 hours. I need to know if the coffee is actually helping."</p>
+</header>
+
+<div class="concept-card">
+    <h2>1. Correlation (The Relationship)</h2>
+    <div class="lesson-text">
+        <p><strong>The Concept:</strong> Correlation measures the strength of the relationship between two numeric variables.</p>
+        <ul>
+            <li><strong>r = 1:</strong> Perfect positive match (More coffee = More dancing).</li>
+            <li><strong>r = -1:</strong> Perfect negative match (More heels = Less dancing).</li>
+            <li><strong>r = 0:</strong> No relationship (Kirk's dancing = Random chaos).</li>
+        </ul>
+        <p>We use <strong>Pearson's Correlation</strong> (`cor.test`).</p>
+    </div>
+
+    <div class="instruction-box">
+        <h3>💃 Mission: Check the Vibe</h3>
+        <ul class="instruction-list">
+            <li>We have a dataset <code>marathon</code>.</li>
+            <li>Test if <code>caffeine</code> correlates with <code>hours</code>.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn"
+                        data-answer="cor.test(marathon$caffeine, marathon$hours)"
+                        data-output="Pearson's product-moment correlation<br>cor = 0.85, p-value < 0.001<br>(Strong positive relationship)">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>2. Linear Regression (The Prediction)</h2>
+    <div class="lesson-text">
+        <p><strong>The Concept:</strong> Correlation tells you <em>if</em> they are related. <strong>Regression</strong> gives you the math to <em>predict</em> one based on the other.</p>
+        <p><strong>The Formula:</strong> $Y = mx + b$ (Slope and Intercept).</p>
+        <p><strong>Syntax:</strong> <code>model <- lm(y ~ x, data = df)</code>.</p>
+        <p><em>(Think: "Linear Model of Y by X")</em>.</p>
+    </div>
+
+    <div class="instruction-box">
+        <h3>💃 Mission: Build the Model</h3>
+        <ul class="instruction-list">
+            <li>Create a model named <code>dance_model</code>.</li>
+            <li>Predict <code>hours</code> (Y) based on <code>caffeine</code> (X).</li>
+            <li>Run <code>summary()</code> on it.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn"
+                        data-answer='dance_model <- lm(hours ~ caffeine, data = marathon); summary(dance_model)'
+                        data-output="Coefficients:<br>(Intercept)  2.5<br>caffeine     1.5<br><br>Multiple R-squared: 0.72">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>3. Visualizing the Trend</h2>
+    <div class="lesson-text">
+        <p>A scatterplot shows the dots. To show the Regression Model, we add a "Line of Best Fit".</p>
+        <p>We use <strong>`geom_smooth(method = "lm")`</strong>.</p>
+    </div>
+
+
+
+    [Image of linear regression plot]
+
+
+    <div class="instruction-box">
+        <h3>💃 Mission: Draw the Line</h3>
+        <ul class="instruction-list">
+            <li>Plot <code>marathon</code> with x=caffeine, y=hours.</li>
+            <li>Add <code>geom_point()</code>.</li>
+            <li>Add <code>geom_smooth(method = "lm")</code>.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn"
+                        data-answer='ggplot(marathon, aes(x = caffeine, y = hours)) + geom_point() + geom_smooth(method = "lm")'
+                        data-output="[Plot Created: Scatterplot with a blue regression line]">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>4. Reporting Results</h2>
+    <div class="lesson-text">
+        <p>For your BILD 5 lab report, report the $R^2$ (how much variation is explained) and the P-value.</p>
+        <blockquote style="background:#f9f9f9; padding:10px; border-left: 5px solid var(--yale-blue);">
+            "There was a significant positive relationship between caffeine intake and dance duration ($R^2$ = 0.72, F(1, 48) = 120.5, p < 0.001)."
+        </blockquote>
+    </div>
+</div>
+
+<footer style="text-align: center; margin-top: 50px; color: #8d6e63; font-style: italic;">
+    <p>And the winner is... Kirk. Obviously. • Created for BILD 5</p>
+</footer>
+
+</body>
+</html>

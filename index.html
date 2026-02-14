@@ -13,6 +13,7 @@
     <div class="subtitle">"Life's short. Talk fast. Code faster."</div>
     <div style="margin-top: 10px; font-size: 2em;">☕ 🍂 📚</div>
 </header>
+
 <div class="concept-card" style="text-align: center; background: #fff8e1; border: 2px dashed var(--luke-yellow);">
     <h3>📋 The "Sunday Night Panic" Starter Kit</h3>
     <p>Copy this into every new R script to avoid errors.</p>
@@ -26,8 +27,12 @@ library(rstatix)
 # Turn off scientific notation (optional)
 options(scipen = 999)</code></pre>
 </div>
-<div class="town-square-menu">
 
+<div class="town-divider">
+    <span>🍂</span>
+</div>
+
+<div class="town-square-menu">
     <a href="reference.html" class="town-menu-item">
         <span class="menu-icon">📖</span>
         <div class="menu-text">
@@ -35,7 +40,6 @@ options(scipen = 999)</code></pre>
             <p>Every function, defined and organized.</p>
         </div>
     </a>
-
     <a href="about.html" class="town-menu-item">
         <span class="menu-icon">☕</span>
         <div class="menu-text">
@@ -43,41 +47,101 @@ options(scipen = 999)</code></pre>
             <p>Read the manifesto and credits.</p>
         </div>
     </a>
-
 </div>
+
+<div class="toc-header" style="margin-top: 60px;">
+    <h3>🎓 Tier 1: The BILD 5 Syllabus</h3>
+    <p>Required for Midterms & Finals. Follows the course calendar.</p>
+</div>
+
 <div class="module-grid">
     <a href="basics.html" class="module-card">
         <h2>Module 1: Chilton Basics</h2>
-        <p>Before you get to Yale, you have to survive Chilton. Learn the strict rules of R logic, vectors, and types.</p>
+        <p><strong>Weeks 1-2:</strong> Objects, Vectors, and Types. The strict rules you must follow.</p>
         <span class="start-btn">Start Studying &rarr;</span>
     </a>
 
     <a href="wrangling.html" class="module-card">
-        <h2>Module 2: Luke's Diner Orders</h2>
-        <p>Filtering bad data like Luke filters out decaf. Learn to select, filter, and mutate your menu.</p>
+        <h2>Module 2: Luke's Diner</h2>
+        <p><strong>Week 1:</strong> Data Frames. Selecting, filtering, and mutating your menu.</p>
         <span class="start-btn">Enter the Diner &rarr;</span>
     </a>
 
     <a href="tidying.html" class="module-card">
         <h2>Module 3: The Dragonfly Inn</h2>
-        <p>Sookie made a mess of the kitchen (and the data). Use <code>pivot_longer</code> to tidy it up before the guests arrive.</p>
+        <p><strong>Week 2:</strong> Tidying Data. Pivoting wide data into long format.</p>
         <span class="start-btn">Start Cleaning &rarr;</span>
     </a>
 
     <a href="visualization.html" class="module-card">
-        <h2>Module 4: Stars Hollow Gazette</h2>
-        <p>You need front-page visuals. Use <code>ggplot2</code> to make charts pretty enough for Taylor Doose to approve.</p>
+        <h2>Module 4: The Gazette</h2>
+        <p><strong>Week 2:</strong> Graphing. Histograms, Boxplots, and Scatterplots with <code>ggplot2</code>.</p>
         <span class="start-btn">Start Printing &rarr;</span>
     </a>
 
     <a href="statistics.html" class="module-card">
         <h2>Module 5: Yale Daily News</h2>
-        <p>Hard-hitting facts only. Paris Geller demands significant p-values. T-tests, Normality, and Sampling.</p>
+        <p><strong>Weeks 3-6:</strong> T-Tests, Normality, and Power Analysis. Hard-hitting facts.</p>
         <span class="start-btn">Check the Facts &rarr;</span>
+    </a>
+
+    <a href="anova.html" class="module-card">
+        <h2>Module 6: Town Meeting (ANOVA)</h2>
+        <p><strong>Weeks 6-7:</strong> Competing groups? Use ANOVA and Tukey's HSD to find the difference.</p>
+        <span class="start-btn">Start the Meeting &rarr;</span>
+    </a>
+
+    <a href="regression.html" class="module-card">
+        <h2>Module 7: Dance Marathon</h2>
+        <p><strong>Week 8:</strong> Predict the winner. Correlation (<code>cor.test</code>) and Linear Regression (<code>lm</code>).</p>
+        <span class="start-btn">Join the Dance &rarr;</span>
+    </a>
+
+    <a href="categorical.html" class="module-card">
+        <h2>Module 8: The DAR Tea</h2>
+        <p><strong>Week 9:</strong> Categorical Data. Use <code>chisq.test</code> to see if gossip and tea are related.</p>
+        <span class="start-btn">Sip Tea &rarr;</span>
     </a>
 </div>
 
-<footer style="text-align: center; margin-top: 20px; color: #8d6e63; font-style: italic;">
+<div class="town-divider" style="margin-top: 60px;">
+    <span>🌂</span>
+</div>
+
+<div class="toc-header">
+    <h3 style="color: var(--yale-blue);">🔬 Tier 2: Research Skills (The Life & Death Brigade)</h3>
+    <p>Not on the syllabus, but essential for real-world lab work.</p>
+</div>
+
+<div class="module-grid">
+    <a href="module6.html" class="module-card" style="border-left: 5px solid var(--yale-blue);">
+        <h2>Skill A: The Secret Society</h2>
+        <p>Advanced Logic. merging datasets with <code>left_join</code> and <code>case_when</code>.</p>
+        <span class="start-btn">Jump In &rarr;</span>
+    </a>
+
+</div>
+
+<div class="town-divider" style="margin-top: 60px;">
+    <span>🚧</span>
+</div>
+
+<div class="toc-header">
+    <h3>⚙️ Tier 3: Professional Certification</h3>
+    <p>The roadmap to becoming a full-stack R developer.</p>
+</div>
+
+<div class="town-square-menu">
+    <a href="syllabus.html" class="town-menu-item" style="border-color: var(--coffee-dark);">
+        <span class="menu-icon">🚧</span>
+        <div class="menu-text">
+            <h3>The Future Syllabus</h3>
+            <p>Functional Programming, Package Dev, and Machine Learning.</p>
+        </div>
+    </a>
+</div>
+
+<footer style="text-align: center; margin-top: 50px; color: #8d6e63; font-style: italic;">
     <p>Oy with the poodles already! • Created for BILD 5</p>
 </footer>
 </body>

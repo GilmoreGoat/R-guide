@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 6: The Town Meeting</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+<nav><a href="index.html">&larr; Back to Town</a></nav>
+<header>
+    <h1>Module 6: The Town Meeting (ANOVA)</h1>
+    <p>"I have the floor! We have three distinct groups yelling, and I need to know if the difference is significant." — Taylor Doose</p>
+</header>
+
+<div class="concept-card">
+    <h2>1. The Problem: Too Many Groups</h2>
+    <div class="lesson-text">
+        <p><strong>The Concept:</strong> The T-Test is great for <strong>2 groups</strong> (Luke vs. Lorelai). but what if you want to compare <strong>3+ groups</strong>?</p>
+        <ul>
+            <li><strong>Scenario:</strong> You want to compare the sugar content of pies from <strong>Luke's</strong>, <strong>Weston's</strong>, and <strong>Sookie's</strong>.</li>
+            <li><strong>Bad Idea:</strong> Running 3 separate T-tests. (This increases your chance of a False Positive error).</li>
+            <li><strong>Good Idea:</strong> Run <strong>One-Way ANOVA</strong> (Analysis of Variance). It tests them all at once.</li>
+        </ul>
+        <p><strong>Null Hypothesis ($H_0$):</strong> All pies have the same average sugar. (No difference).</p>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>2. Running the ANOVA (`aov`)</h2>
+    <div class="lesson-text">
+        <p><strong>Syntax:</strong> It looks exactly like a T-Test, but we save it as an object first.</p>
+        <p><code>model <- aov(Numeric ~ Group, data = df)</code></p>
+        <p>Then, we look at the results using <code>summary(model)</code>.</p>
+    </div>
+
+    <div class="instruction-box">
+        <h3>統 Mission: The Pie Contest</h3>
+        <ul class="instruction-list">
+            <li>We have a dataset <code>pies</code> with columns <code>sugar</code> and <code>baker</code>.</li>
+            <li>Run an ANOVA and save it as <code>my_model</code>.</li>
+            <li>Use <code>summary(my_model)</code> to see the P-value.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn"
+                        data-answer='my_model <- aov(sugar ~ baker, data = pies); summary(my_model)'
+                        data-output="            Df Sum Sq Mean Sq F value   Pr(>F)    <br>baker        2  150.2   75.10   12.45 0.00012 ***<br>Residuals   27  162.8    6.03                     ">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>3. The Post-Hoc Test (Tukey's HSD)</h2>
+    <div class="lesson-text">
+        <p><strong>The Concept:</strong> The ANOVA result was significant (P < 0.05). Hooray! But wait...</p>
+        <p>ANOVA only tells you <strong>"At least one group is different."</strong> It doesn't tell you <em>which</em> one. Is Luke different from Sookie? Or is Weston different from Luke?</p>
+        <p>To find the culprit, we run a <strong>Post-Hoc Test</strong> (After the Fact). The standard one is <strong>Tukey's Honestly Significant Difference (HSD)</strong>.</p>
+    </div>
+
+    <div class="instruction-box">
+        <h3>統 Mission: Who Added the Sugar?</h3>
+        <ul class="instruction-list">
+            <li>Run <code>TukeyHSD()</code> on your saved <code>my_model</code>.</li>
+            <li>Look for P-values (p adj) less than 0.05.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn"
+                        data-answer="TukeyHSD(my_model)"
+                        data-output="  diff    lwr    upr    p adj<br>Sookie-Luke    5.2   1.1   9.3   0.002<br>Weston-Luke    0.4  -3.2   4.0   0.921<br>Weston-Sookie -4.8  -8.9  -0.7   0.041">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>4. Visualizing ANOVA</h2>
+    <div class="lesson-text">
+        <p>The best way to show ANOVA results is with a <strong>Boxplot</strong>.</p>
+        <p>If the "boxes" (the middle 50% of data) don't overlap much, the groups are likely different.</p>
+    </div>
+
+    <div class="instruction-box">
+        <h3>統 Mission: Plot the Evidence</h3>
+        <ul class="instruction-list">
+            <li>Use <code>ggplot(pies, aes(x = baker, y = sugar, fill = baker))</code>.</li>
+            <li>Add <code>geom_boxplot()</code>.</li>
+            <li>Add <code>theme_classic()</code> to make it professional.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn"
+                        data-answer="ggplot(pies, aes(x = baker, y = sugar, fill = baker)) + geom_boxplot() + theme_classic()"
+                        data-output="[Plot Created: Three colorful boxplots showing Sookie's sugar is way higher]">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>5. How to Report It</h2>
+    <div class="lesson-text">
+        <p>For your BILD 5 lab report, you need to write a sentence like this:</p>
+        <blockquote style="background:#f9f9f9; padding:10px; border-left: 5px solid var(--yale-blue);">
+            "There was a significant effect of Baker on Sugar Content (One-way ANOVA, F(2, 27) = 12.45, p < 0.001). Post-hoc Tukey tests revealed that Sookie's pies had significantly higher sugar than Luke's (p = 0.002) and Weston's (p = 0.041)."
+        </blockquote>
+    </div>
+</div>
+
+<footer style="text-align: center; margin-top: 50px; color: #8d6e63; font-style: italic;">
+    <p>Meeting Adjourned. • Created for BILD 5</p>
+</footer>
+
+</body>
+</html>

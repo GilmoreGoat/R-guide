@@ -8,151 +8,106 @@
     <script>
         // SMART NAVIGATION SCRIPT
         function openSection(id) {
-            // 1. Close all other sections to keep it clean (Optional - remove this block if you want them to stay open)
+            // 1. Close all other sections
             document.querySelectorAll('details').forEach((el) => {
                 el.removeAttribute('open');
             });
-
-            // 2. Open the target section
+            // 2. Open target
             const target = document.getElementById(id);
             if (target) {
                 target.setAttribute('open', '');
-
-                // 3. Scroll to it smoothly
                 target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }
     </script>
     <style>
         /* --- SPECIAL REFERENCE STYLING --- */
-        body { max-width: 1000px; } /* Wider reading area */
+        body { max-width: 1100px; } /* Wider for all this knowledge */
 
-        /* The Dropdown Header (Clickable) */
+        /* --- DROPDOWN MENUS (THEMED) --- */
+        details { margin-bottom: 20px; }
+
         summary {
-            background: var(--yale-blue);
-            color: white;
             padding: 15px 20px;
             border-radius: 8px;
-            margin-top: 30px;
-            margin-bottom: 10px;
             font-family: 'Segoe UI', sans-serif;
-            border-left: 10px solid var(--autumn-orange);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            cursor: pointer;
             font-weight: bold;
             font-size: 1.2em;
-            list-style: none; /* Hides default triangle */
-            transition: background 0.2s;
-        }
-
-        summary:hover {
-            background: #1a5276; /* Slightly darker blue on hover */
+            cursor: pointer;
+            list-style: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            color: white;
+            position: relative;
         }
 
         /* Custom Arrow */
         summary::after {
-            content: '+';
-            float: right;
-            font-weight: bold;
-            color: var(--autumn-orange);
+            content: '+'; float: right; font-weight: 800; font-size: 1.1em; transition: transform 0.3s;
         }
+        details[open] summary::after { content: '-'; transform: rotate(180deg); }
 
-        details[open] summary::after {
-            content: '-';
-        }
+        /* THEME 1: ESSENTIALS (Autumn Orange) */
+        .essentials-section summary { background: var(--autumn-orange); border-left: 10px solid var(--coffee-dark); }
+        .essentials-section summary:hover { background: #a04000; }
 
-        /* The Content Inside */
+        /* THEME 2: ADVANCED (Yale Blue) */
+        .advanced-section summary { background: var(--yale-blue); border-left: 10px solid #0a3d75; }
+        .advanced-section summary:hover { background: #1a5276; }
+
+        /* Content Animation */
         .ref-content {
-            padding: 10px 5px;
-            animation: fadeIn 0.3s ease-in-out;
+            padding: 20px 10px; background: #fffdf9; border-radius: 0 0 8px 8px;
+            border: 1px solid #ddd; border-top: none; animation: slideDown 0.3s ease-out;
         }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        /* Reference Items */
         .ref-item {
-            background: white;
-            border: 1px solid #ddd;
-            border-left: 5px solid #ccc;
-            padding: 25px;
-            margin-bottom: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            background: white; border: 1px solid #e0e0e0; border-left: 5px solid #ccc;
+            padding: 25px; margin-bottom: 30px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.03);
         }
-
         .ref-item h3 {
-            color: var(--yale-blue);
-            margin-top: 0;
-            font-family: 'Consolas', monospace;
-            font-size: 1.5em;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
+            color: var(--coffee-dark); margin-top: 0; font-family: 'Consolas', monospace; font-size: 1.3em;
+            border-bottom: 2px dashed #eee; padding-bottom: 10px;
         }
+        .advanced-section .ref-item h3 { color: var(--yale-blue); }
 
+        /* Syntax Highlighting */
         .syntax-block {
-            background: #282c34;
-            color: #abb2bf;
-            padding: 15px;
-            border-radius: 6px;
-            font-family: 'Consolas', monospace;
-            margin: 15px 0;
-            overflow-x: auto;
+            background: #282c34; color: #abb2bf; padding: 15px; border-radius: 6px;
+            font-family: 'Consolas', monospace; margin: 15px 0; overflow-x: auto; border: 1px solid #444;
         }
-
-        .arg-list {
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 6px;
-            margin: 15px 0;
-        }
+        .arg-list { background: #f4f4f4; padding: 15px; border-radius: 6px; margin: 15px 0; font-size: 0.95em;}
         .arg-list li { margin-bottom: 8px; }
         .arg-name { font-family: monospace; font-weight: bold; color: #d35400; }
 
+        /* Warnings */
         .warning-box {
-            background: #fff5f5;
-            border-left: 5px solid #c0392b;
-            padding: 15px;
-            color: #c0392b;
-            font-style: italic;
-            margin-top: 15px;
+            background: #fff5f5; border-left: 5px solid #c0392b; padding: 15px;
+            color: #c0392b; font-style: italic; margin-top: 15px; font-size: 0.9em;
         }
-        .warning-title { font-weight: bold; text-transform: uppercase; font-size: 0.8em; display: block; margin-bottom: 5px; }
+        .warning-title { font-weight: bold; text-transform: uppercase; font-size: 0.8em; display: block; margin-bottom: 5px; color: #a93226;}
 
-        /* REPURPOSED TOC Styling (Buttons) */
-        .toc {
-            background: #fff8e1;
-            padding: 20px;
-            border: 2px dashed var(--luke-yellow);
-            border-radius: 12px;
-            margin-bottom: 50px;
-            text-align: center;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-        }
+        /* TOC Styling */
+        .toc-container { border-radius: 12px; padding: 25px; margin-bottom: 30px; text-align: center; }
+        .toc-container.stars-hollow-theme { background: #fff8e1; border: 2px dashed var(--luke-yellow); }
+        .toc-container.yale-theme { background: #e8f4f8; border: 2px dashed var(--yale-blue); }
+        .toc-title { margin-bottom: 20px; border-bottom: 1px dashed rgba(0,0,0,0.1); padding-bottom: 15px; }
+        .toc-title h3 { margin: 0; font-size: 1.4em; color: var(--coffee-dark); }
+        .toc-title p { margin: 5px 0 0 0; font-style: italic; color: #666; }
+
+        .toc-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
 
         .toc-btn {
-            background: white;
-            border: 1px solid var(--coffee-light);
-            color: var(--coffee-dark);
-            padding: 10px 15px;
-            border-radius: 20px; /* Pill shape */
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.9em;
-            transition: all 0.2s;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            background: white; border: 1px solid var(--coffee-light); color: var(--coffee-dark);
+            padding: 10px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 0.9em;
+            transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.05); flex: 1 1 auto;
+            min-width: 130px; max-width: 250px;
         }
-
-        .toc-btn:hover {
-            background: var(--autumn-orange);
-            color: white;
-            transform: translateY(-2px);
-            border-color: var(--autumn-orange);
-        }
+        .toc-btn:hover { background: var(--autumn-orange); color: white; transform: translateY(-2px); border-color: var(--autumn-orange); }
+        .toc-btn.yale-btn { border: 1px solid var(--yale-blue); color: var(--yale-blue); }
+        .toc-btn.yale-btn:hover { background: var(--yale-blue); color: white; }
     </style>
 </head>
 <body>
@@ -162,289 +117,426 @@
     <p>"I have verified this information three times. It is correct. Do not deviate."</p>
 </header>
 
-<div class="toc">
-    <button class="toc-btn" onclick="openSection('setup')">1. Setup & Import</button>
-    <button class="toc-btn" onclick="openSection('basics')">2. Syntax & Objects</button>
-    <button class="toc-btn" onclick="openSection('math')">3. Math & Stats</button>
-    <button class="toc-btn" onclick="openSection('wrangling')">4. Wrangling</button>
-    <button class="toc-btn" onclick="openSection('tidying')">5. Tidying</button>
-    <button class="toc-btn" onclick="openSection('viz')">6. Visualization</button>
-    <button class="toc-btn" onclick="openSection('testing')">7. Statistical Tests</button>
+<div class="toc-container stars-hollow-theme">
+    <div class="toc-title">
+        <h3>🎓 Stars Hollow (Essentials)</h3>
+        <p>Everything you need to survive <strong>BILD 5</strong>.</p>
+    </div>
+    <div class="toc-buttons">
+        <button class="toc-btn" onclick="openSection('setup')">1. Setup</button>
+        <button class="toc-btn" onclick="openSection('basics')">2. Basics</button>
+        <button class="toc-btn" onclick="openSection('math')">3. Math</button>
+        <button class="toc-btn" onclick="openSection('wrangling')">4. Wrangling</button>
+        <button class="toc-btn" onclick="openSection('tidying')">5. Tidying</button>
+        <button class="toc-btn" onclick="openSection('viz')">6. Viz</button>
+        <button class="toc-btn" onclick="openSection('testing')">7. Stats</button>
+    </div>
 </div>
 
-<details id="setup">
+<div class="town-divider" style="margin: 40px auto; max-width: 60%; text-align: center;">
+    <span style="font-size: 0.9em; font-weight: bold; letter-spacing: 1px; color: #7f8c8d;">
+        🌂 You Jump, I Jump, Jack 🌂
+    </span>
+</div>
+
+<div class="toc-container yale-theme">
+    <div class="toc-title">
+        <h3 style="color: var(--yale-blue);">The Life & Death Brigade (Advanced)</h3>
+        <p><em>In Omnia Paratus.</em> (Ready for anything).</p>
+    </div>
+    <div class="toc-buttons">
+        <button class="toc-btn yale-btn" onclick="openSection('adv-wrangling')">8. Adv. Wrangling</button>
+        <button class="toc-btn yale-btn" onclick="openSection('adv-viz')">9. Adv. Viz</button>
+        <button class="toc-btn yale-btn" onclick="openSection('adv-tidy')">10. Deep Tidying</button>
+        <button class="toc-btn yale-btn" onclick="openSection('adv-strings')">11. String Theory</button>
+        <button class="toc-btn yale-btn" onclick="openSection('adv-time')">12. Time Travel</button>
+        <button class="toc-btn yale-btn" onclick="openSection('adv-stats')">13. The Model Shop</button>
+    </div>
+</div>
+
+<details id="setup" class="essentials-section">
     <summary>1. Setup & Import</summary>
     <div class="ref-content">
         <div class="ref-item">
             <h3>install.packages() / library()</h3>
-            <p><strong>Usage:</strong> The two-step process to get tools (like buying a bulb vs. turning it on).</p>
+            <p><strong>Usage:</strong> The two-step process to get tools.</p>
             <div class="syntax-block">
-                install.packages("pkg_name") <span style="color:#7f8c8d"># Run ONCE per computer</span>
-                library(pkg_name)            <span style="color:#7f8c8d"># Run EVERY time you restart R</span>
+                install.packages("tidyverse") <span style="color:#7f8c8d"># Run ONCE per computer</span>
+                library(tidyverse)            <span style="color:#7f8c8d"># Run EVERY time you restart R</span>
             </div>
             <div class="warning-box">
                 <span class="warning-title">Paris's Warning:</span>
-                <code>install</code> REQUIRES quotes (<code>"tidyverse"</code>). <code>library</code> does NOT require quotes (<code>tidyverse</code>). Memorize this.
+                <code>install</code> REQUIRES quotes. <code>library</code> does NOT.
             </div>
         </div>
-
         <div class="ref-item">
             <h3>read.csv()</h3>
-            <p><strong>Usage:</strong> Loads a dataset file into R.</p>
-            <div class="syntax-block">my_data <- read.csv("filename.csv")</div>
-            <div class="arg-list">
-                <strong>Arguments:</strong>
-                <ul>
-                    <li><span class="arg-name">file</span>: The name of the file in quotes. Must include <code>.csv</code>.</li>
-                    <li><span class="arg-name">header</span>: (Optional) <code>TRUE</code> if the first row contains column names.</li>
-                </ul>
-            </div>
-            <div class="warning-box">
-                <span class="warning-title">Common Error:</span>
-                "File not found"? Check your spelling. Check that the file is in the <strong>same folder</strong> as your R script.
-            </div>
+            <p><strong>Usage:</strong> Loading data.</p>
+            <div class="syntax-block">data <- read.csv("filename.csv")</div>
         </div>
     </div>
 </details>
 
-<details id="basics">
+<details id="basics" class="essentials-section">
     <summary>2. Syntax & Objects</summary>
     <div class="ref-content">
         <div class="ref-item">
             <h3>&lt;- (Assignment)</h3>
-            <p><strong>Usage:</strong> Creates an object (variable) and saves data inside it.</p>
-            <div class="syntax-block">name &lt;- value</div>
-            <p><strong>Example:</strong> <code>gpa &lt;- 4.0</code></p>
-            <div class="warning-box">
-                <span class="warning-title">Nuance:</span>
-                Keyboard Shortcut: <code>Alt</code> + <code>-</code> (Windows) or <code>Option</code> + <code>-</code> (Mac).
-            </div>
+            <p><strong>Usage:</strong> Saves data into a name.</p>
+            <div class="syntax-block">my_gpa &lt;- 4.0</div>
         </div>
-
         <div class="ref-item">
             <h3>c()</h3>
-            <p><strong>Usage:</strong> "Combine". Creates a <strong>Vector</strong> (a list of values).</p>
-            <div class="syntax-block">my_vector &lt;- c(value1, value2, value3)</div>
+            <p><strong>Usage:</strong> "Combine". Creates a <strong>Vector</strong> (list).</p>
+            <div class="syntax-block">grades &lt;- c(95, 82, 100)</div>
             <div class="warning-box">
-                <span class="warning-title">Paris's Warning:</span>
-                A vector must be <strong>ATOMIC</strong>. That means you cannot mix Numbers and Text. If you try <code>c(1, 2, "three")</code>, R will force them all to be text: <code>"1", "2", "three"</code>.
+                <span class="warning-title">Atomic Rule:</span>
+                You cannot mix types! <code>c(1, "two")</code> becomes <code>"1", "two"</code> (all text).
             </div>
         </div>
-
         <div class="ref-item">
-            <h3>class()</h3>
-            <p><strong>Usage:</strong> Checks the data type of an object. Essential for debugging "Argument is not numeric" errors.</p>
-            <div class="syntax-block">class(object_name)</div>
-            <p><strong>Returns:</strong> <code>"numeric"</code>, <code>"character"</code>, <code>"logical"</code>, or <code>"data.frame"</code>.</p>
-        </div>
-    </div>
-</details>
-
-<details id="math">
-    <summary>3. Math & Summary Stats</summary>
-    <div class="ref-content">
-        <div class="ref-item">
-            <h3>mean() / sd() / median()</h3>
-            <p><strong>Usage:</strong> Calculates basic statistics of a vector.</p>
-            <div class="syntax-block">
-                mean(vector, na.rm = FALSE)
-                sd(vector)
-                max(vector)
-            </div>
-            <div class="arg-list">
-                <strong>Key Argument:</strong>
-                <ul>
-                    <li><span class="arg-name">na.rm</span>: "NA Remove". If your data has missing values (NA), the result will be NA unless you set this to <code>TRUE</code>.</li>
-                </ul>
-            </div>
-            <div class="warning-box">
-                <span class="warning-title">Pro Tip:</span>
-                If you get <code>NA</code> as an answer, try <code>mean(data, na.rm = TRUE)</code>.
-            </div>
-        </div>
-
-        <div class="ref-item">
-            <h3>skim()</h3>
-            <p><strong>Usage:</strong> (From <code>skimr</code>) The ultimate summary function. Gives Mean, SD, Histograms, and Missing counts for every column.</p>
-            <div class="syntax-block">skim(dataframe)</div>
-        </div>
-
-        <div class="ref-item">
-            <h3>table() / unique()</h3>
-            <p><strong>Usage:</strong> Inspecting categorical data.</p>
+            <h3>class() & glimpse()</h3>
+            <p><strong>Usage:</strong> Checking what you are working with.</p>
             <ul>
-                <li><code>unique(vec)</code>: Shows a list of unique values (removes duplicates).</li>
-                <li><code>table(vec)</code>: Counts how many times each value appears.</li>
+                <li><code>class(x)</code>: Tells you if it's "numeric", "character", etc.</li>
+                <li><code>glimpse(df)</code>: Shows a quick preview of your entire dataset.</li>
             </ul>
         </div>
     </div>
 </details>
 
-<details id="wrangling">
+<details id="math" class="essentials-section">
+    <summary>3. Math & Summary Stats</summary>
+    <div class="ref-content">
+        <div class="ref-item">
+            <h3>Basic Stats</h3>
+            <p><strong>Usage:</strong> Analyzing a single column (vector).</p>
+            <div class="syntax-block">
+                mean(vec, na.rm = TRUE)
+                median(vec)
+                sd(vec)
+                range(vec)
+            </div>
+        </div>
+        <div class="ref-item">
+            <h3>skim()</h3>
+            <p><strong>Usage:</strong> (From <code>skimr</code>). The "SparkNotes" of your data.</p>
+            <div class="syntax-block">skim(data)</div>
+        </div>
+        <div class="ref-item">
+            <h3>table()</h3>
+            <p><strong>Usage:</strong> Counts frequency of values in a vector.</p>
+            <div class="syntax-block">table(data$column)</div>
+        </div>
+    </div>
+</details>
+
+<details id="wrangling" class="essentials-section">
     <summary>4. Wrangling (dplyr)</summary>
     <div class="ref-content">
         <div class="ref-item">
             <h3>|&gt; (The Pipe)</h3>
-            <p><strong>Usage:</strong> Passes the output of the left side to the function on the right. Reads as "And Then".</p>
+            <p><strong>Usage:</strong> Passes data from left to right.</p>
             <div class="syntax-block">data |&gt; filter(...) |&gt; select(...)</div>
-            <div class="warning-box">
-                <span class="warning-title">Note:</span>
-                You may also see <code>%&gt;%</code> (the old Magrittr pipe). For this class, they are interchangeable.
-            </div>
         </div>
-
         <div class="ref-item">
-            <h3>filter()</h3>
-            <p><strong>Usage:</strong> Selects <strong>Rows</strong> based on a condition.</p>
-            <div class="syntax-block">data |&gt; filter(column == value)</div>
-            <div class="arg-list">
-                <strong>Logical Operators:</strong>
-                <ul>
-                    <li><code>==</code> : Exactly Equal (Two equals signs!)</li>
-                    <li><code>!=</code> : Not Equal</li>
-                    <li><code>&gt;</code> / <code>&lt;</code> : Greater / Less Than</li>
-                    <li><code>|</code> : OR (this OR that)</li>
-                    <li><code>&</code> : AND (this AND that)</li>
-                </ul>
-            </div>
+            <h3>filter() vs select()</h3>
+            <p><strong>Usage:</strong> Cutting the data.</p>
+            <ul>
+                <li><code>filter()</code>: Keeps <strong>ROWS</strong> based on logic (e.g., <code>age > 18</code>).</li>
+                <li><code>select()</code>: Keeps <strong>COLUMNS</strong> by name.</li>
+            </ul>
         </div>
-
         <div class="ref-item">
-            <h3>select() vs pull()</h3>
-            <p><strong>Usage:</strong> Grabbing columns.</p>
+            <h3>arrange()</h3>
+            <p><strong>Usage:</strong> Sorting rows.</p>
             <div class="syntax-block">
-                data |&gt; select(col1, col2)  <span style="color:#7f8c8d"># Returns a TABLE (Data Frame)</span>
-                data |&gt; pull(col1)          <span style="color:#7f8c8d"># Returns a VECTOR (List of numbers)</span>
-            </div>
-            <div class="warning-box">
-                <span class="warning-title">Paris's Warning:</span>
-                You cannot run a T-Test on a <code>select()</code> result. T-Tests need Vectors. Use <code>pull()</code> or <code>$</code>.
+                data |&gt; arrange(score)        <span style="color:#7f8c8d"># Low to High</span>
+                data |&gt; arrange(desc(score))  <span style="color:#7f8c8d"># High to Low</span>
             </div>
         </div>
-
         <div class="ref-item">
             <h3>mutate()</h3>
-            <p><strong>Usage:</strong> Creates a <strong>New Column</strong> based on math from other columns.</p>
-            <div class="syntax-block">data |&gt; mutate(new_col = col1 / col2)</div>
-            <p><strong>Example:</strong> <code>penguins |> mutate(log_mass = log10(mass_kg))</code></p>
+            <p><strong>Usage:</strong> Creating new columns.</p>
+            <div class="syntax-block">mutate(new_col = old_col * 2)</div>
         </div>
-
+        <div class="ref-item">
+            <h3>count()</h3>
+            <p><strong>Usage:</strong> "How many people are in each group?"</p>
+            <div class="syntax-block">data |&gt; count(gender, sort = TRUE)</div>
+        </div>
         <div class="ref-item">
             <h3>group_by() + summarise()</h3>
-            <p><strong>Usage:</strong> The power combo. Splits data into groups, calculates a stat for each, and squashes it into a summary table.</p>
+            <p><strong>Usage:</strong> The Pivot Table. Splits, calculates, recombines.</p>
             <div class="syntax-block">
                 data |&gt;
-                group_by(category_col) |&gt;
-                summarise(avg = mean(number_col))
+                group_by(house) |&gt;
+                summarise(avg_gpa = mean(gpa))
             </div>
         </div>
     </div>
 </details>
 
-<details id="tidying">
+<details id="tidying" class="essentials-section">
     <summary>5. Tidying (tidyr)</summary>
     <div class="ref-content">
         <div class="ref-item">
             <h3>pivot_longer()</h3>
-            <p><strong>Usage:</strong> Converts "Wide" data (columns like Week1, Week2) into "Long" data (rows). Necessary for ggplot.</p>
-            <div class="syntax-block">pivot_longer(data, cols = 2:5, names_to = "Category", values_to = "Value")</div>
-            <div class="arg-list">
-                <strong>Arguments:</strong>
-                <ul>
-                    <li><span class="arg-name">cols</span>: Which columns are we melting? (e.g., <code>2:5</code> or <code>c("Mon", "Tue")</code>).</li>
-                    <li><span class="arg-name">names_to</span>: Name for the new column that will hold the old headers.</li>
-                    <li><span class="arg-name">values_to</span>: Name for the new column that will hold the numbers.</li>
-                </ul>
-            </div>
+            <p><strong>Usage:</strong> "Wide" to "Long". Needed for ggplot.</p>
+            <div class="syntax-block">pivot_longer(data, cols = c("Week1", "Week2"), names_to = "Time", values_to = "Score")</div>
         </div>
-
         <div class="ref-item">
             <h3>pivot_wider()</h3>
-            <p><strong>Usage:</strong> The reverse of longer. Spreads rows into columns.</p>
-            <div class="syntax-block">pivot_wider(data, names_from = "category_col", values_from = "number_col")</div>
+            <p><strong>Usage:</strong> "Long" to "Wide". Good for readable tables.</p>
         </div>
     </div>
 </details>
 
-<details id="viz">
+<details id="viz" class="essentials-section">
     <summary>6. Visualization (ggplot2)</summary>
     <div class="ref-content">
         <div class="ref-item">
-            <h3>ggplot Template</h3>
-            <p><strong>Usage:</strong> The 3-layer cake: Data + Aes + Geom.</p>
-            <div class="syntax-block">ggplot(data, aes(x = col1, y = col2)) + geom_POINT()</div>
+            <h3>The Template</h3>
+            <div class="syntax-block">ggplot(data, aes(x=col1, y=col2)) + geom_FUNCTION()</div>
             <div class="warning-box">
-                <span class="warning-title">Critical Error:</span>
-                We use the <strong>PLUS SIGN (+)</strong> to add layers in ggplot. Do NOT use the pipe (<code>|&gt;</code>).
+                <span class="warning-title">Plus Sign Alert:</span>
+                Use <code>+</code> to add layers, NOT the pipe <code>|&gt;</code>.
             </div>
         </div>
-
         <div class="ref-item">
-            <h3>Geometries (Geoms)</h3>
+            <h3>Essential Geoms</h3>
             <ul>
-                <li><code>geom_histogram()</code>: 1 Numeric Var. Shows distribution (Bell curve).</li>
-                <li><code>geom_bar()</code>: 1 Categorical Var. Shows counts (How many?).</li>
-                <li><code>geom_boxplot()</code>: Numeric vs Categorical. Compares distributions.</li>
-                <li><code>geom_point()</code>: Numeric vs Numeric. Scatterplot.</li>
+                <li><code>geom_histogram()</code>: Distribution (1 numeric var).</li>
+                <li><code>geom_bar()</code>: Counts (1 category var).</li>
+                <li><code>geom_col()</code>: Values (1 category + 1 numeric).</li>
+                <li><code>geom_boxplot()</code>: Comparison (Cat vs Num).</li>
+                <li><code>geom_point()</code>: Scatterplot (Num vs Num).</li>
+                <li><code>geom_smooth(method="lm")</code>: Add a trend line.</li>
             </ul>
         </div>
-
         <div class="ref-item">
-            <h3>aes() Nuances</h3>
-            <p><strong>Usage:</strong> Mapping data to visuals.</p>
-            <div class="arg-list">
-                <ul>
-                    <li><span class="arg-name">color</span>: Changes the OUTLINE (dots, lines).</li>
-                    <li><span class="arg-name">fill</span>: Changes the INSIDE (bars, boxplots, histograms).</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="ref-item">
-            <h3>Polishing (Themes & Facets)</h3>
+            <h3>Polishing</h3>
             <ul>
-                <li><code>+ theme_classic()</code>: Removes the grey background.</li>
-                <li><code>+ labs(title="...", x="...", y="...")</code>: Adds labels.</li>
-                <li><code>+ facet_wrap(~ column)</code>: Splits the graph into multiple mini-graphs.</li>
+                <li><code>+ theme_classic()</code>: Clean look.</li>
+                <li><code>+ labs(title="...", x="...", y="...")</code>: Labels.</li>
+                <li><code>+ facet_wrap(~ group)</code>: Splits plot into small multiples.</li>
             </ul>
         </div>
     </div>
 </details>
 
-<details id="testing">
+<details id="testing" class="essentials-section">
     <summary>7. Statistical Tests</summary>
     <div class="ref-content">
         <div class="ref-item">
-            <h3>ks.test()</h3>
-            <p><strong>Usage:</strong> Kolmogorov-Smirnov Test. Checks for <strong>Normality</strong>.</p>
-            <div class="syntax-block">ks.test(x = vector, y = "pnorm", mean = mean(vec), sd = sd(vec))</div>
-            <p><strong>Interpretation:</strong> If P < 0.05, data is NOT Normal (Reject Null). If P > 0.05, data IS Normal.</p>
+            <h3>The Workflow</h3>
+            <ol>
+                <li><strong>Check Normality:</strong> <code>ks.test()</code> or <code>shapiro.test()</code>.</li>
+                <li><strong>Run Test:</strong> <code>t.test()</code>.</li>
+            </ol>
         </div>
-
         <div class="ref-item">
-            <h3>t.test() (3 Flavors)</h3>
-            <p><strong>1. One-Sample:</strong> Compare one group to a specific number.</p>
-            <div class="syntax-block">t.test(vector, mu = 140)</div>
-
-            <p style="margin-top:20px;"><strong>2. Paired:</strong> Compare two measurements of the SAME subject.</p>
-            <div class="syntax-block">t.test(vec_A, vec_B, paired = TRUE)</div>
-            <p class="nuance-note"><strong>Critical:</strong> Forget <code>paired=TRUE</code> and the result is wrong.</p>
-
-            <p style="margin-top:20px;"><strong>3. Unpaired:</strong> Compare two INDEPENDENT groups.</p>
-            <div class="syntax-block">t.test(Numeric ~ Group, data = df)</div>
-            <p class="nuance-note"><strong>Syntax:</strong> Uses the Tilde <code>~</code> (read as "by").</p>
+            <h3>t.test() Flavors</h3>
+            <ul>
+                <li><strong>One Sample:</strong> <code>t.test(vec, mu=100)</code>.</li>
+                <li><strong>Unpaired:</strong> <code>t.test(val ~ group, data=df)</code>.</li>
+                <li><strong>Paired:</strong> <code>t.test(pre, post, paired=TRUE)</code>.</li>
+            </ul>
         </div>
+    </div>
+</details>
 
+<details id="adv-wrangling" class="advanced-section">
+    <summary>8. Advanced Wrangling (The Logic)</summary>
+    <div class="ref-content">
         <div class="ref-item">
-            <h3>power.t.test()</h3>
-            <p><strong>Usage:</strong> Calculate Sample Size (n) OR Power. Leave ONE argument as <code>NULL</code>.</p>
-            <div class="syntax-block">power.t.test(n=NULL, delta=diff, sd=std_dev, power=0.8, type="paired")</div>
-            <div class="arg-list">
-                <ul>
-                    <li><span class="arg-name">n</span>: Sample size.</li>
-                    <li><span class="arg-name">delta</span>: Effect size (difference you expect).</li>
-                    <li><span class="arg-name">power</span>: Probability of finding effect (Standard is 0.8).</li>
-                </ul>
+            <h3>case_when()</h3>
+            <p><strong>Usage:</strong> Creates new columns with multiple conditions.</p>
+            <div class="syntax-block">
+                mutate(grade = case_when(
+                score >= 90 ~ "A",
+                TRUE ~ "F"
+                ))
+            </div>
+        </div>
+        <div class="ref-item">
+            <h3>Joins (Merging)</h3>
+            <p><strong>Usage:</strong> Combining tables by ID.</p>
+            <ul>
+                <li><code>left_join(x, y)</code>: Keep all X (most common).</li>
+                <li><code>inner_join(x, y)</code>: Keep only matches.</li>
+                <li><code>anti_join(x, y)</code>: Find what is missing (in X but not Y).</li>
+                <li><code>full_join(x, y)</code>: Keep everything from both.</li>
+            </ul>
+        </div>
+        <div class="ref-item">
+            <h3>distinct()</h3>
+            <p><strong>Usage:</strong> Removes duplicate rows.</p>
+            <div class="syntax-block">distinct(data, student_id, .keep_all = TRUE)</div>
+        </div>
+        <div class="ref-item">
+            <h3>slice() & sample_n()</h3>
+            <p><strong>Usage:</strong> Picking specific rows.</p>
+            <ul>
+                <li><code>slice(1:5)</code>: Grab the first 5 rows.</li>
+                <li><code>sample_n(10)</code>: Pick 10 random rows.</li>
+                <li><code>top_n(5, wt=score)</code>: Pick the top 5 highest scores.</li>
+            </ul>
+        </div>
+        <div class="ref-item">
+            <h3>bind_rows()</h3>
+            <p><strong>Usage:</strong> Stacking tables (e.g., "Class A" + "Class B").</p>
+            <div class="syntax-block">bind_rows(df1, df2)</div>
+        </div>
+        <div class="ref-item">
+            <h3>lag() & lead()</h3>
+            <p><strong>Usage:</strong> Looking forwards or backwards.</p>
+            <div class="syntax-block">mutate(change = price - lag(price))</div>
+        </div>
+        <div class="ref-item">
+            <h3>Summary Counters</h3>
+            <p><strong>Usage:</strong> Inside <code>summarise()</code>.</p>
+            <ul>
+                <li><code>n()</code>: Counts number of rows in the group.</li>
+                <li><code>n_distinct(col)</code>: Counts number of unique items.</li>
+            </ul>
+        </div>
+    </div>
+</details>
+
+<details id="adv-viz" class="advanced-section">
+    <summary>9. Advanced Visualization (The Art)</summary>
+    <div class="ref-content">
+        <div class="ref-item">
+            <h3>Manual Scales</h3>
+            <p><strong>Usage:</strong> Defining your own colors.</p>
+            <div class="syntax-block">+ scale_fill_manual(values = c("A"="red", "B"="blue"))</div>
+        </div>
+        <div class="ref-item">
+            <h3>coord_flip()</h3>
+            <p><strong>Usage:</strong> Flips X and Y axis. Lifesaver for bar charts with long names.</p>
+        </div>
+        <div class="ref-item">
+            <h3>Reordering Factors</h3>
+            <p><strong>Usage:</strong> Fixing the order of bars (High to Low instead of A-Z).</p>
+            <div class="syntax-block">aes(x = fct_reorder(category, value))</div>
+        </div>
+        <div class="ref-item">
+            <h3>Position Adjustments</h3>
+            <p><strong>Usage:</strong> How bars sit next to each other.</p>
+            <ul>
+                <li><code>geom_bar(position = "dodge")</code>: Side-by-side bars.</li>
+                <li><code>geom_bar(position = "fill")</code>: 100% stacked bars.</li>
+            </ul>
+        </div>
+        <div class="ref-item">
+            <h3>Violin Plots</h3>
+            <p><strong>Usage:</strong> Like a boxplot, but shows the density shape.</p>
+            <div class="syntax-block">+ geom_violin()</div>
+        </div>
+        <div class="ref-item">
+            <h3>ggsave()</h3>
+            <p><strong>Usage:</strong> Saving high-res plots.</p>
+            <div class="syntax-block">ggsave("plot.png", width=6, height=4, dpi=300)</div>
+        </div>
+    </div>
+</details>
+
+<details id="adv-tidy" class="advanced-section">
+    <summary>10. Deep Tidying (The Cleanup)</summary>
+    <div class="ref-content">
+        <div class="ref-item">
+            <h3>separate() & unite()</h3>
+            <p><strong>Usage:</strong> Splitting or merging text columns.</p>
+            <ul>
+                <li><code>separate(col, into=c("A","B"), sep="-")</code>: "2024-01" -> "2024", "01".</li>
+                <li><code>unite()</code>: The reverse.</li>
+            </ul>
+        </div>
+        <div class="ref-item">
+            <h3>Handling Missing Data</h3>
+            <p><strong>Usage:</strong> Dealing with <code>NA</code>.</p>
+            <ul>
+                <li><code>drop_na()</code>: Deletes the whole row.</li>
+                <li><code>replace_na()</code>: Fills with a value (e.g., 0).</li>
+                <li><code>fill()</code>: Fills with the value above it.</li>
+            </ul>
+        </div>
+        <div class="ref-item">
+            <h3>complete()</h3>
+            <p><strong>Usage:</strong> Adds rows for missing combinations (e.g., if "Day 3" is missing, it adds it).</p>
+            <div class="syntax-block">complete(data, Day, Student)</div>
+        </div>
+        <div class="ref-item">
+            <h3>nest() & unnest()</h3>
+            <p><strong>Usage:</strong> The "Inception" of data frames. Puts a whole table inside a single cell.</p>
+        </div>
+    </div>
+</details>
+
+<details id="adv-strings" class="advanced-section">
+    <summary>11. String Theory (stringr)</summary>
+    <div class="ref-content">
+        <div class="ref-item">
+            <h3>str_detect()</h3>
+            <p><strong>Usage:</strong> The search function. Returns TRUE/FALSE.</p>
+            <div class="syntax-block">filter(data, str_detect(email, ".edu"))</div>
+        </div>
+        <div class="ref-item">
+            <h3>str_replace()</h3>
+            <p><strong>Usage:</strong> Find and replace text.</p>
+            <div class="syntax-block">mutate(city = str_replace(city, "San Fran", "SF"))</div>
+        </div>
+        <div class="ref-item">
+            <h3>str_sub()</h3>
+            <p><strong>Usage:</strong> Extract part of a string by position.</p>
+            <div class="syntax-block">str_sub("2024-01-01", 1, 4) # Returns "2024"</div>
+        </div>
+    </div>
+</details>
+
+<details id="adv-time" class="advanced-section">
+    <summary>12. Time Travel (lubridate)</summary>
+    <div class="ref-content">
+        <div class="ref-item">
+            <h3>ymd() / mdy()</h3>
+            <p><strong>Usage:</strong> Auto-converts text to Date format.</p>
+            <div class="syntax-block">ymd("2024-02-14")</div>
+        </div>
+        <div class="ref-item">
+            <h3>Extracting Parts</h3>
+            <p><strong>Usage:</strong> Pulling info from a date.</p>
+            <ul>
+                <li><code>year(date_col)</code></li>
+                <li><code>month(date_col, label = TRUE)</code> (Returns "Jan", "Feb").</li>
+                <li><code>wday(date_col)</code> (Day of the week).</li>
+            </ul>
+        </div>
+    </div>
+</details>
+
+<details id="adv-stats" class="advanced-section">
+    <summary>13. The Model Shop (Adv. Stats)</summary>
+    <div class="ref-content">
+        <div class="ref-item">
+            <h3>Linear Regression (lm)</h3>
+            <p><strong>Usage:</strong> Predicting one variable based on another.</p>
+            <div class="syntax-block">model <- lm(height ~ age, data = df)</div>
+            <div class="warning-box">
+                <span class="warning-title">Tip:</span> Use <code>summary(model)</code> to see the results.
+            </div>
+        </div>
+        <div class="ref-item">
+            <h3>Correlation (cor.test)</h3>
+            <p><strong>Usage:</strong> Checking if two things are related.</p>
+            <div class="syntax-block">cor.test(df$age, df$height)</div>
+        </div>
+        <div class="ref-item">
+            <h3>ANOVA (aov)</h3>
+            <p><strong>Usage:</strong> Comparing 3+ groups.</p>
+            <div class="syntax-block">
+                model <- aov(score ~ school, data = df)
+                TukeyHSD(model) # Post-hoc test to see WHICH group is different
             </div>
         </div>
     </div>

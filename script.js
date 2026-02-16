@@ -1,4 +1,5 @@
 import { WebR } from 'https://webr.r-wasm.org/latest/webr.mjs';
+import { normalizeCode, compareCode } from './logic.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
 
@@ -92,9 +93,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (!userCode || userCode.trim() === "") return;
 
             const expectedAnswer = this.dataset.answer;
-            const cleanUser = userCode.replace(/\s/g, '').replace(/['"]/g, '"').toLowerCase();
-            const cleanAnswer = expectedAnswer.replace(/\s/g, '').replace(/['"]/g, '"').toLowerCase();
-            const isCorrect = (cleanUser === cleanAnswer);
+            const isCorrect = compareCode(userCode, expectedAnswer);
 
             // THE WRAPPER:
             // 1. webr::canvas() -> Opens the plot device.

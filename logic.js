@@ -9,13 +9,15 @@ export function compareCode(userCode, expectedAnswer) {
     return normalizeCode(userCode) === normalizeCode(expectedAnswer);
 }
 
+const HTML_ESCAPES = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+};
+
 export const escapeHTML = (str) => {
     if (!str) return str;
-    return str.replace(/[&<>"']/g, (m) => ({
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#39;',
-    })[m]);
+    return str.replace(/[&<>"']/g, (m) => HTML_ESCAPES[m]);
 };

@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             `;
 
             consoleDiv.style.display = "block";
-            consoleDiv.innerHTML = `<span style="color: ${COLORS.muted};">> ${userCode}</span><br><span style="color: ${COLORS.lukeYellow};">Running...</span>`;
+            consoleDiv.innerHTML = `<span style="color: ${COLORS.muted};">> ${escapeHTML(userCode)}</span><br><span style="color: ${COLORS.lukeYellow};">Running...</span>`;
 
             try {
                 const shelter = await new webR.Shelter();
@@ -175,19 +175,26 @@ document.addEventListener('DOMContentLoaded', async () => {
                 // Process Text
                 let outputHTML = result.output.map(line => {
                     let data = line.data;
-                    if (typeof data === 'string') return data;
-                    if (data && typeof data === 'object') {
-                        if (data.message) return data.message;
-                        // Avoid printing empty objects (often condition objects with non-enumerable props)
-                        if (Object.keys(data).length === 0) return '';
-                        try {
-                            const str = JSON.stringify(data);
-                            return str === '{}' ? '' : str;
-                        } catch (e) {
-                            return '';
+                    let text = '';
+                    if (typeof data === 'string') {
+                        text = data;
+                    } else if (data && typeof data === 'object') {
+                        if (data.message) {
+                            text = data.message;
+                        } else if (Object.keys(data).length === 0) {
+                            text = '';
+                        } else {
+                            try {
+                                const str = JSON.stringify(data);
+                                text = str === '{}' ? '' : str;
+                            } catch (e) {
+                                text = '';
+                            }
                         }
+                    } else {
+                        text = String(data);
                     }
-                    return String(data);
+                    return escapeHTML(text);
                 }).join('<br>');
 
                 // Process Plots (from result.images)
@@ -211,10 +218,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 // Grading
                 if (isCorrect) {
-                    consoleDiv.innerHTML = `<span style="color: ${COLORS.success};">> ${userCode}</span><br>${outputHTML}`;
+                    consoleDiv.innerHTML = `<span style="color: ${COLORS.success};">> ${escapeHTML(userCode)}</span><br>${outputHTML}`;
                     input.style.borderBottom = `2px solid ${COLORS.success}`;
                 } else {
-                    consoleDiv.innerHTML = `<span style="color: ${COLORS.warning};">> ${userCode}</span><br>${outputHTML}<br><br><span style="color: ${COLORS.warning}; font-weight:bold;">⚠️ Paris says: "The code works, but that's not what I asked for."</span>`;
+                    consoleDiv.innerHTML = `<span style="color: ${COLORS.warning};">> ${escapeHTML(userCode)}</span><br>${outputHTML}<br><br><span style="color: ${COLORS.warning}; font-weight:bold;">⚠️ Paris says: "The code works, but that's not what I asked for."</span>`;
                     input.style.borderBottom = `2px solid ${COLORS.warning}`;
                 }
 
@@ -223,7 +230,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (errorMsg.includes("could not find function")) {
                     errorMsg += `<br><br><strong>Tip:</strong> Packages might still be loading. Wait for the green banner!`;
                 }
-                consoleDiv.innerHTML = `<span style="color: ${COLORS.muted};">> ${userCode}</span><br><span style="color: ${COLORS.error};">${errorMsg}</span>`;
+                consoleDiv.innerHTML = `<span style="color: ${COLORS.muted};">> ${escapeHTML(userCode)}</span><br><span style="color: ${COLORS.error};">${errorMsg}</span>`;
                 input.style.borderBottom = `2px solid ${COLORS.error}`;
             }
         });

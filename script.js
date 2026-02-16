@@ -1,5 +1,6 @@
 import { compareCode, escapeHTML } from './logic.js';
 
+// Utility functions (escapeHTML, compareCode) are consolidated in logic.js
 // Note: Ensure utility functions are not redefined locally.
 const COLORS = {
     // Theme Colors

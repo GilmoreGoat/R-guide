@@ -1,91 +1,81 @@
-# ☕ The R Gilmore Study Guide
+# The R Gilmore Study Guide ☕ 🍂 📚
 
-*"Life's short. Talk fast. Code faster."*
+> "Life's short. Talk fast. Code faster."
 
-A **Gilmore Girls-themed** interactive study guide for learning R programming. This project combines the charm of Stars Hollow with the power of data science, covering everything from basic R syntax to advanced statistical analysis.
+A Gilmore Girls-themed interactive study guide for R programming, built with [WebR](https://docs.r-wasm.org/webr/latest/). This project provides a static website where students can learn R concepts, run code directly in the browser, and receive immediate feedback.
 
-## 🍂 Features
+## Features
 
-- **Interactive R Console:** Run R code directly in your browser using [WebR](https://docs.r-wasm.org/webr/latest/).
-- **Themed Modules:** Learn data wrangling at *Luke's Diner*, tidying at *The Dragonfly Inn*, and visualization with *The Gazette*.
-- **Instant Feedback:** Get real-time validation on your code exercises.
-- **Cheat Sheets:** Quick access to essential `tidyverse` functions and a "Sunday Night Panic" starter kit.
-- **Visualizations:** Create plots using `ggplot2` right in the browser.
+- **WebR Integration**: Runs R code entirely in the browser using WebAssembly—no server-side R required.
+- **Interactive Exercises**: "Missions" with code editors that check student answers against expected solutions.
+- **Themed Modules**:
+    - **Chilton Basics**: Objects, Vectors, Types.
+    - **Luke's Diner**: Data Frames & Wrangling (`dplyr`).
+    - **The Dragonfly Inn**: Tidying Data (`tidyr`).
+    - **The Gazette**: Visualization (`ggplot2`).
+    - **Town Meeting**: Statistics (ANOVA, T-Tests).
+- **Instant Feedback**: Visual cues (Success/Warning/Error) and console output.
+- **Cheat Menu**: Quick access to common R functions and package loading.
+- **Strict Linting**: Encourages best practices (e.g., using `<-` for assignment, proper naming conventions).
 
-## 🎓 Curriculum
+## Getting Started
 
-The guide is divided into three tiers:
+Since this project uses ES modules and WebAssembly, it must be served via a local web server (opening `index.html` directly as a file won't work due to CORS policies).
 
-### **Tier 1: The BILD 5 Syllabus**
-- **Module 1 (Chilton Basics):** Objects, Vectors, and Types.
-- **Module 2 (Luke's Diner):** Data Frames, Selecting, Filtering, Mutating.
-- **Module 3 (The Dragonfly Inn):** Tidying Data (Pivoting).
-- **Module 4 (The Gazette):** Visualization with `ggplot2`.
-- **Module 5 (Yale Daily News):** T-Tests, Normality, Power Analysis.
-- **Module 6 (Town Meeting):** ANOVA and Tukey's HSD.
-- **Module 7 (Dance Marathon):** Correlation and Linear Regression.
-- **Module 8 (The DAR Tea):** Categorical Data (Chi-Square).
+### Prerequisites
 
-### **Tier 2: Research Skills (The Life & Death Brigade)**
-- **Skill A:** Logic & Joining Data.
-- **Skill B:** Dates & Time (`lubridate`).
-- **Skill C:** Strings & Text (`stringr`).
+- Python 3 (for the simple HTTP server) or any other static site server (e.g., `http-server`, `Live Server` in VS Code).
+- Node.js (for running tests).
 
-### **Tier 3: Professional Certification**
-- Advanced topics like Functional Programming and Machine Learning (Coming Soon).
+### Running the Project
 
-## 🛠️ Tech Stack
-
-- **Frontend:** HTML5, CSS3, JavaScript (ES Modules)
-- **R Engine:** WebR (WebAssembly R)
-- **Styling:** Custom CSS with a Stars Hollow color palette (`--luke-yellow`, `--yale-blue`, `--coffee-dark`)
-
-## 🚀 How to Run
-
-Since this project uses ES Modules and WebAssembly, you need to serve it via a local HTTP server.
-
-1.  **Clone the repository:**
-    ```bash
-    git clone <repository-url>
-    cd r-gilmore-study-guide
-    ```
-
-2.  **Start a local server:**
-    Using Python (pre-installed on most systems):
-    ```bash
-    python3 -m http.server
-    ```
-    Or using Node.js `http-server`:
-    ```bash
-    npx http-server .
-    ```
-
-3.  **Open in Browser:**
-    Navigate to `http://localhost:8000` (or the port shown in your terminal).
-
-## 🧪 Testing
-
-The project uses Node.js native test runner and Playwright for end-to-end testing.
-
-1.  **Install Dependencies:**
+1.  Clone the repository.
+2.  Navigate to the project root.
+3.  Install dependencies (optional, for testing):
     ```bash
     npm install
     ```
-
-2.  **Run Tests:**
+4.  Start a local server:
     ```bash
-    npm test
+    python3 -m http.server
     ```
+5.  Open your browser and go to `http://localhost:8000`.
 
-## 📦 Data
+## Testing
 
-The environment comes pre-loaded with several datasets for practice:
-- `menu`: Items at Luke's Diner.
-- `orders`: Customer orders.
-- `pumpkins`: Generated weights for the Pumpkin Patch.
-- `students`: Chilton and Stars Hollow High students.
-- `penguins`: Mass data for t-tests.
-- And more!
+### Unit Tests
+The project uses the Node.js native test runner for verifying the logic in `logic.js`.
 
----
-*Oy with the poodles already!* 🐩
+```bash
+npm test
+```
+(Runs `tests/logic.test.js`)
+
+### End-to-End Tests
+Playwright is used to verify WebR loading and page interactions.
+
+```bash
+npx playwright test
+```
+(Runs tests in `tests/verify_webr_load.spec.js`)
+
+## Project Structure
+
+- `index.html`: Main landing page / Table of Contents.
+- `script.js`: Core application logic, WebR initialization, and UI handling.
+- `logic.js`: Pure utility functions for code normalization and comparison (testable).
+- `style.css`: Global styles and theming (CSS Variables).
+- `*.html`: Individual module pages (e.g., `basics.html`, `wrangling.html`).
+- `tests/`: Unit and E2E tests.
+
+## Tech Stack
+
+- **Frontend**: HTML5, CSS3, JavaScript (ES Modules).
+- **R Engine**: [WebR](https://docs.r-wasm.org/webr/latest/) (WASM).
+- **Testing**: Node.js Test Runner, Playwright.
+
+## License & Credits
+
+Created for **BILD 5**.
+
+> Oy with the poodles already!

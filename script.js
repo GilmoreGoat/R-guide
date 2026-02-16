@@ -18,6 +18,18 @@ const COLORS = {
     borderDark: '#333'
 };
 
+/**
+ * Normalizes code for comparison by removing whitespace,
+ * standardizing quotes, and converting to lowercase.
+ * @param {string} code - The code to normalize.
+ * @returns {string} The normalized code.
+ */
+function normalizeCode(code) {
+    if (typeof code !== 'string') return '';
+    return code.replace(/\s/g, '').replace(/['"]/g, '"').toLowerCase();
+}
+
+
 document.addEventListener('DOMContentLoaded', async () => {
 
     // --- 1. UI SETUP ---
@@ -111,8 +123,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (!userCode || userCode.trim() === "") return;
 
             const expectedAnswer = this.dataset.answer;
-            const cleanUser = userCode.replace(/\s/g, '').replace(/['"]/g, '"').toLowerCase();
-            const cleanAnswer = expectedAnswer.replace(/\s/g, '').replace(/['"]/g, '"').toLowerCase();
+            const cleanUser = normalizeCode(userCode);
+            const cleanAnswer = normalizeCode(expectedAnswer);
             const isCorrect = (cleanUser === cleanAnswer);
 
             // THE WRAPPER:

@@ -1,6 +1,7 @@
 import { WebR } from 'https://webr.r-wasm.org/latest/webr.mjs';
 import { normalizeCode, compareCode, escapeHTML } from './logic.js';
 
+// Note: Ensure utility functions are not redefined locally.
 const COLORS = {
     // Theme Colors
     lukeYellow: 'var(--luke-yellow)',

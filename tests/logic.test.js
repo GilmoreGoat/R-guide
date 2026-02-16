@@ -18,11 +18,26 @@ describe('escapeHTML', () => {
     });
 });
 
-describe('normalizeCode', () => {
-    it('should handle standard input', () => {
-        assert.strictEqual(normalizeCode('  ggplot2  '), 'ggplot2');
-        assert.strictEqual(normalizeCode('filter(df, x == 1)'), 'filter(df,x==1)');
-    });
+test('escapeHTML should handle numeric input', () => {
+    assert.strictEqual(escapeHTML(123), '123');
+    assert.strictEqual(escapeHTML(0), '0');
+    assert.strictEqual(escapeHTML(123.45), '123.45');
+});
+
+test('escapeHTML should handle object input', () => {
+    assert.strictEqual(escapeHTML({}), '[object Object]');
+    assert.strictEqual(escapeHTML([]), '');
+});
+
+test('escapeHTML should handle mixed special characters', () => {
+    assert.strictEqual(escapeHTML('<div class="test">'), '&lt;div class=&quot;test&quot;&gt;');
+    assert.strictEqual(escapeHTML("O'Reilly & Co."), "O&#39;Reilly &amp; Co.");
+});
+
+test('normalizeCode should handle standard input', () => {
+    assert.strictEqual(normalizeCode('  ggplot2  '), 'ggplot2');
+    assert.strictEqual(normalizeCode('filter(df, x == 1)'), 'filter(df,x==1)');
+});
 
     it('should handle quotes', () => {
         assert.strictEqual(normalizeCode("print('hello')"), 'print("hello")');

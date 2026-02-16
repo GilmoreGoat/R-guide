@@ -18,6 +18,6 @@ const HTML_ESCAPES = {
 };
 
 export const escapeHTML = (str) => {
-    if (!str) return str;
-    return str.replace(/[&<>"']/g, (m) => HTML_ESCAPES[m]);
+    if (str === null || str === undefined) return str;
+    return String(str).replace(/[&<>"']/g, (m) => HTML_ESCAPES[m]);
 };

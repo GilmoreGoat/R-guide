@@ -58,7 +58,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             townies <- data.frame(role = c("Owner", "Mechanic", "Selectman"))
             kitchen <- data.frame(Dish = c("Omelette", "Pancakes"), Monday = c(50, 30), Tuesday = c(40, 35))
             long_data <- data.frame(Dish = c("Omelette", "Omelette", "Pancakes", "Pancakes"), Day = c("Monday", "Tuesday", "Monday", "Tuesday"), Eggs = c(50, 45, 30, 35))
-            pumpkins <- data.frame(weight = c(5, 8, 2, 12, 6, 9, 10, 3), type = c("A","A","B","A","B","A","B","B"))
+            set.seed(42)
+            pumpkins <- data.frame(weight = round(rnorm(200, mean=15, sd=5), 1), type = sample(c("A","B"), 200, replace=TRUE))
             students <- data.frame(house = c("Yale", "Harvard", "Yale", "Yale", "Harvard"), school = c("Chilton","Chilton","StarsHollow","Chilton","StarsHollow"), hours = c(5, 2, 6, 8, 1))
             data <- data.frame(coffee = c(1, 2, 3, 4, 5), jitters = c(1, 3, 4, 7, 9))
             mass <- c(4500, 3200, 5100, 2900, 120000) 
@@ -97,18 +98,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             const isCorrect = (cleanUser === cleanAnswer);
 
             // THE WRAPPER:
-            // 1. webr::canvas() -> Opens the plot device.
-            // 2. val <- { code } -> Runs user code in a block (preserving variables).
-            // 3. print(val) -> Manually prints the result (draws the plot or prints the text).
-            // 4. dev.off() -> Closes the plot device.
-            // 5. invisible(NULL) -> Returns NOTHING to JS (Preventing the crash).
+            // 1. val <- { code } -> Runs user code in a block.
+            // 2. print(val) -> Prints the result. If it's a plot, webR captures it.
             const wrappedCode = `
-                webr::canvas(width=400, height=300)
                 val <- {
                     ${userCode}
                 }
                 print(val)
-                dev.off()
                 invisible(NULL)
             `;
 
@@ -118,7 +114,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             try {
                 const shelter = await new webR.Shelter();
 
-                // IMPORTANT: withAutoprint: false. We handle printing ourselves.
+                // Use captureR to handle everything (including plots)
                 const result = await shelter.captureR(wrappedCode, {
                     withAutoprint: false,
                     captureStreams: true,
@@ -131,21 +127,21 @@ document.addEventListener('DOMContentLoaded', async () => {
                     if (typeof data === 'string') return data;
                     if (data && typeof data === 'object') {
                         if (data.message) return data.message;
+                        // Avoid printing empty objects (often condition objects with non-enumerable props)
+                        if (Object.keys(data).length === 0) return '';
                         try {
-                            return JSON.stringify(data);
+                            const str = JSON.stringify(data);
+                            return str === '{}' ? '' : str;
                         } catch (e) {
-                            return '[Object]';
+                            return '';
                         }
                     }
                     return String(data);
                 }).join('<br>');
 
-                // Process Plots
-                const msgs = await webR.flush();
-                const plotImages = msgs.filter(msg => msg.type === 'canvas' && msg.data.event === 'canvasImage');
-
-                if (plotImages.length > 0) {
-                    const img = plotImages[0].data.image;
+                // Process Plots (from result.images)
+                if (result.images.length > 0) {
+                    const img = result.images[0];
                     if (img instanceof ImageBitmap) {
                         const canvas = document.createElement('canvas');
                         canvas.width = img.width;
@@ -153,8 +149,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                         const ctx = canvas.getContext('2d');
                         ctx.drawImage(img, 0, 0);
                         outputHTML += '<br><img src="' + canvas.toDataURL() + '" style="max-width:100%; border:1px solid #333;">';
-                    } else {
-                        outputHTML += '<br><img src="' + img + '" style="max-width:100%; border:1px solid #333;">';
                     }
                 }
 

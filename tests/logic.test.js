@@ -32,6 +32,12 @@ describe('escapeHTML', () => {
         assert.strictEqual(escapeHTML('<div class="test">'), '&lt;div class=&quot;test&quot;&gt;');
         assert.strictEqual(escapeHTML("O'Reilly & Co."), "O&#39;Reilly &amp; Co.");
     });
+
+    it('should handle complex XSS vector', () => {
+        const input = `<script>alert("XSS") & 'boo'</script>`;
+        const expected = '&lt;script&gt;alert(&quot;XSS&quot;) &amp; &#39;boo&#39;&lt;/script&gt;';
+        assert.strictEqual(escapeHTML(input), expected);
+    });
 });
 
 describe('normalizeCode', () => {

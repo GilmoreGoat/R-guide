@@ -1,6 +1,16 @@
 import { WebR } from 'https://webr.r-wasm.org/latest/webr.mjs';
 
 document.addEventListener('DOMContentLoaded', async () => {
+    const escapeHTML = (str) => {
+        if (!str) return str;
+        return str.replace(/[&<>"']/g, (m) => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;',
+        })[m]);
+    };
 
     // --- 1. UI SETUP ---
     const fab = document.createElement('div');
@@ -113,7 +123,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             `;
 
             consoleDiv.style.display = "block";
-            consoleDiv.innerHTML = `<span style="color: #ccc;">> ${userCode}</span><br><span style="color: #f1c40f;">Running...</span>`;
+            consoleDiv.innerHTML = `<span style="color: #ccc;">> ${escapeHTML(userCode)}</span><br><span style="color: #f1c40f;">Running...</span>`;
 
             try {
                 const shelter = await new webR.Shelter();
@@ -126,14 +136,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                 });
 
                 // Process Text
-                let outputHTML = result.output.map(line => line.data).join('<br>');
+                let outputHTML = result.output.map(line => escapeHTML(line.data)).join('<br>');
 
                 // Process Plots
                 const msgs = await webR.flush();
                 const plotImages = msgs.filter(msg => msg.type === 'canvas' && msg.data.event === 'canvasImage');
 
                 if (plotImages.length > 0) {
-                    outputHTML += '<br><img src="' + plotImages[0].data.image + '" style="max-width:100%; border:1px solid #333;">';
+                    outputHTML += '<br><img src="' + escapeHTML(plotImages[0].data.image) + '" style="max-width:100%; border:1px solid #333;">';
                 }
 
                 shelter.purge();
@@ -144,19 +154,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 // Grading
                 if (isCorrect) {
-                    consoleDiv.innerHTML = `<span style="color: #2ecc71;">> ${userCode}</span><br>${outputHTML}`;
+                    consoleDiv.innerHTML = `<span style="color: #2ecc71;">> ${escapeHTML(userCode)}</span><br>${outputHTML}`;
                     input.style.borderBottom = "2px solid #2ecc71";
                 } else {
-                    consoleDiv.innerHTML = `<span style="color: #e67e22;">> ${userCode}</span><br>${outputHTML}<br><br><span style="color: #e67e22; font-weight:bold;">⚠️ Paris says: "The code works, but that's not what I asked for."</span>`;
+                    consoleDiv.innerHTML = `<span style="color: #e67e22;">> ${escapeHTML(userCode)}</span><br>${outputHTML}<br><br><span style="color: #e67e22; font-weight:bold;">⚠️ Paris says: "The code works, but that's not what I asked for."</span>`;
                     input.style.borderBottom = "2px solid #e67e22";
                 }
 
             } catch (e) {
-                let errorMsg = e.message;
+                let errorMsg = escapeHTML(e.message);
                 if (errorMsg.includes("could not find function")) {
                     errorMsg += `<br><br><strong>Tip:</strong> Packages might still be loading. Wait for the green banner!`;
                 }
-                consoleDiv.innerHTML = `<span style="color: #ccc;">> ${userCode}</span><br><span style="color: #e74c3c;">${errorMsg}</span>`;
+                consoleDiv.innerHTML = `<span style="color: #ccc;">> ${escapeHTML(userCode)}</span><br><span style="color: #e74c3c;">${errorMsg}</span>`;
                 input.style.borderBottom = "2px solid #e74c3c";
             }
         });

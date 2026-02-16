@@ -1,5 +1,23 @@
 import { WebR } from 'https://webr.r-wasm.org/latest/webr.mjs';
 
+const COLORS = {
+    // Theme Colors
+    lukeYellow: 'var(--luke-yellow)',
+    coffeeDark: 'var(--coffee-dark)',
+    yaleBlue: 'var(--yale-blue)',
+
+    // Status Colors
+    success: '#2ecc71',
+    error: '#e74c3c',
+    warning: '#e67e22',
+
+    // UI Colors
+    lightBlueBg: '#e8f4f8',
+    muted: '#ccc',
+    subtle: '#888',
+    borderDark: '#333'
+};
+
 document.addEventListener('DOMContentLoaded', async () => {
 
     // --- 1. UI SETUP ---
@@ -11,10 +29,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     const menu = document.createElement('div');
     menu.className = 'cheat-menu';
     menu.innerHTML = `
-        <div class="cheat-item" id="btn-load-pkg" style="background:#e8f4f8; cursor:pointer; border:1px solid var(--yale-blue);">
+        <div class="cheat-item" id="btn-load-pkg" style="background:${COLORS.lightBlueBg}; cursor:pointer; border:1px solid ${COLORS.yaleBlue};">
             <strong>📦 Load Tidyverse</strong><br><span style="font-size:0.8em">Click to install packages</span>
         </div>
-        <hr style="border:0; border-top:1px dashed #ccc; margin:5px 0;">
+        <hr style="border:0; border-top:1px dashed ${COLORS.muted}; margin:5px 0;">
         <div class="cheat-item"><strong>filter()</strong>: Pick Rows</div>
         <div class="cheat-item"><strong>select()</strong>: Pick Columns</div>
         <div class="cheat-item"><strong>mutate()</strong>: New Column</div>
@@ -23,7 +41,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.body.appendChild(menu);
 
     const loadingBanner = document.createElement('div');
-    loadingBanner.style.cssText = "position:fixed; top:0; left:0; width:100%; background:#f1c40f; color:#4b3621; text-align:center; padding:5px; font-weight:bold; z-index:1000; transition: top 0.5s;";
+    loadingBanner.style.cssText = `position:fixed; top:0; left:0; width:100%; background:${COLORS.lukeYellow}; color:${COLORS.coffeeDark}; text-align:center; padding:5px; font-weight:bold; z-index:1000; transition: top 0.5s;`;
     loadingBanner.innerText = "☕ Brewing R Engine...";
     document.body.appendChild(loadingBanner);
 
@@ -70,12 +88,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             lizards <- data.frame(horn_length = c(10, 12, 11, 14, 9, 22, 24, 21, 25, 20), survival = c(rep("Died", 5), rep("Lived", 5)))
         `);
 
-        loadingBanner.style.backgroundColor = "#2ecc71";
+        loadingBanner.style.backgroundColor = COLORS.success;
         loadingBanner.innerText = "R is Ready! 🚀";
         setTimeout(() => { loadingBanner.style.top = '-50px'; }, 2000);
 
     } catch (e) {
-        loadingBanner.style.backgroundColor = "#e74c3c";
+        loadingBanner.style.backgroundColor = COLORS.error;
         loadingBanner.innerText = "Error loading packages. Refresh page.";
         console.error(e);
     }
@@ -109,7 +127,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             `;
 
             consoleDiv.style.display = "block";
-            consoleDiv.innerHTML = `<span style="color: #ccc;">> ${userCode}</span><br><span style="color: #f1c40f;">Running...</span>`;
+            consoleDiv.innerHTML = `<span style="color: ${COLORS.muted};">> ${userCode}</span><br><span style="color: ${COLORS.lukeYellow};">Running...</span>`;
 
             try {
                 const shelter = await new webR.Shelter();
@@ -148,23 +166,23 @@ document.addEventListener('DOMContentLoaded', async () => {
                         canvas.height = img.height;
                         const ctx = canvas.getContext('2d');
                         ctx.drawImage(img, 0, 0);
-                        outputHTML += '<br><img src="' + canvas.toDataURL() + '" style="max-width:100%; border:1px solid #333;">';
+                        outputHTML += '<br><img src="' + canvas.toDataURL() + '" style="max-width:100%; border:1px solid ' + COLORS.borderDark + ';">';
                     }
                 }
 
                 shelter.purge();
 
-                if (!outputHTML && !plotImages.length) {
-                    outputHTML = `<span style="color:#888; font-style:italic;">(Value saved)</span>`;
+                if (!outputHTML && !result.images.length) {
+                    outputHTML = `<span style="color:${COLORS.subtle}; font-style:italic;">(Value saved)</span>`;
                 }
 
                 // Grading
                 if (isCorrect) {
-                    consoleDiv.innerHTML = `<span style="color: #2ecc71;">> ${userCode}</span><br>${outputHTML}`;
-                    input.style.borderBottom = "2px solid #2ecc71";
+                    consoleDiv.innerHTML = `<span style="color: ${COLORS.success};">> ${userCode}</span><br>${outputHTML}`;
+                    input.style.borderBottom = `2px solid ${COLORS.success}`;
                 } else {
-                    consoleDiv.innerHTML = `<span style="color: #e67e22;">> ${userCode}</span><br>${outputHTML}<br><br><span style="color: #e67e22; font-weight:bold;">⚠️ Paris says: "The code works, but that's not what I asked for."</span>`;
-                    input.style.borderBottom = "2px solid #e67e22";
+                    consoleDiv.innerHTML = `<span style="color: ${COLORS.warning};">> ${userCode}</span><br>${outputHTML}<br><br><span style="color: ${COLORS.warning}; font-weight:bold;">⚠️ Paris says: "The code works, but that's not what I asked for."</span>`;
+                    input.style.borderBottom = `2px solid ${COLORS.warning}`;
                 }
 
             } catch (e) {
@@ -172,8 +190,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (errorMsg.includes("could not find function")) {
                     errorMsg += `<br><br><strong>Tip:</strong> Packages might still be loading. Wait for the green banner!`;
                 }
-                consoleDiv.innerHTML = `<span style="color: #ccc;">> ${userCode}</span><br><span style="color: #e74c3c;">${errorMsg}</span>`;
-                input.style.borderBottom = "2px solid #e74c3c";
+                consoleDiv.innerHTML = `<span style="color: ${COLORS.muted};">> ${userCode}</span><br><span style="color: ${COLORS.error};">${errorMsg}</span>`;
+                input.style.borderBottom = `2px solid ${COLORS.error}`;
             }
         });
     });

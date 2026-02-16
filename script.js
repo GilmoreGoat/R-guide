@@ -126,14 +126,36 @@ document.addEventListener('DOMContentLoaded', async () => {
                 });
 
                 // Process Text
-                let outputHTML = result.output.map(line => line.data).join('<br>');
+                let outputHTML = result.output.map(line => {
+                    let data = line.data;
+                    if (typeof data === 'string') return data;
+                    if (data && typeof data === 'object') {
+                        if (data.message) return data.message;
+                        try {
+                            return JSON.stringify(data);
+                        } catch (e) {
+                            return '[Object]';
+                        }
+                    }
+                    return String(data);
+                }).join('<br>');
 
                 // Process Plots
                 const msgs = await webR.flush();
                 const plotImages = msgs.filter(msg => msg.type === 'canvas' && msg.data.event === 'canvasImage');
 
                 if (plotImages.length > 0) {
-                    outputHTML += '<br><img src="' + plotImages[0].data.image + '" style="max-width:100%; border:1px solid #333;">';
+                    const img = plotImages[0].data.image;
+                    if (img instanceof ImageBitmap) {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0);
+                        outputHTML += '<br><img src="' + canvas.toDataURL() + '" style="max-width:100%; border:1px solid #333;">';
+                    } else {
+                        outputHTML += '<br><img src="' + img + '" style="max-width:100%; border:1px solid #333;">';
+                    }
                 }
 
                 shelter.purge();

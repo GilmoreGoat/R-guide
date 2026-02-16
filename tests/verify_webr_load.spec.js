@@ -43,7 +43,7 @@ test('WebR loads with pinned version', async ({ page }) => {
         }
     });
 
-    await page.goto(`http://localhost:${PORT}/index.html`);
+    await page.goto(`http://localhost:${PORT}/basics.html`);
 
     // The page initially shows "Brewing R Engine..."
     const banner = page.locator('text=Brewing R Engine...');
@@ -55,4 +55,26 @@ test('WebR loads with pinned version', async ({ page }) => {
     // Check for critical errors (excluding benign ones if any)
     const criticalErrors = errors.filter(e => e.includes('TypeError') || e.includes('SyntaxError') || e.includes('404'));
     expect(criticalErrors).toEqual([]);
+});
+
+test('WebR does NOT load on static page (index.html)', async ({ page }) => {
+    let requestedWebR = false;
+
+    // Intercept network requests to check if WebR is requested
+    await page.route('**', route => {
+        const url = route.request().url();
+        if (url.includes('webr.r-wasm.org/v0.5.8/webr.mjs')) {
+            requestedWebR = true;
+        }
+        route.continue();
+    });
+
+    await page.goto(`http://localhost:${PORT}/index.html`);
+
+    // The page should NOT show "Brewing R Engine..."
+    const banner = page.locator('text=Brewing R Engine...');
+    await expect(banner).not.toBeVisible({ timeout: 5000 });
+
+    // Verify WebR was NOT requested
+    expect(requestedWebR).toBe(false);
 });

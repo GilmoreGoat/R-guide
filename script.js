@@ -133,9 +133,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (!userCode || userCode.trim() === "") return;
 
             const expectedAnswer = this.dataset.answer;
-            const cleanUser = normalizeCode(userCode);
-            const cleanAnswer = normalizeCode(expectedAnswer);
-            const isCorrect = (cleanUser === cleanAnswer);
+            const isCorrect = compareCode(userCode, expectedAnswer);
 
             // THE WRAPPER:
             // 1. val <- { code } -> Runs user code in a block.

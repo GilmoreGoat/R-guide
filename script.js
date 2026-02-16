@@ -68,6 +68,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     loadingBanner.innerText = "☕ Brewing R Engine...";
     document.body.appendChild(loadingBanner);
 
+    // --- 5. COPY BUTTONS ---
+    const codeBlocks = document.querySelectorAll('pre');
+    codeBlocks.forEach(block => {
+        const codeElement = block.querySelector('code');
+        if (!codeElement) return;
+
+        const button = document.createElement('button');
+        button.innerText = 'Copy';
+        button.className = 'copy-btn';
+        button.addEventListener('click', () => {
+            const codeText = codeElement.innerText;
+            navigator.clipboard.writeText(codeText).then(() => {
+                const originalText = button.innerText;
+                button.innerText = 'Copied!';
+                setTimeout(() => { button.innerText = originalText; }, 2000);
+            });
+        });
+        block.appendChild(button);
+    });
+
     // --- 2. INITIALIZE WEBR ---
     const webR = new WebR();
     await webR.init();
@@ -125,11 +145,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     const checkBtns = document.querySelectorAll('.check-btn');
 
     checkBtns.forEach(btn => {
-        btn.addEventListener('click', async function() {
-            const container = this.closest('.editor-container') || this.closest('.question-box');
-            const input = container.querySelector('.input-code');
-            const consoleDiv = container.querySelector('.console-output');
+        const container = btn.closest('.editor-container') || btn.closest('.question-box');
+        const input = container.querySelector('.input-code');
+        const consoleDiv = container.querySelector('.console-output');
 
+        btn.addEventListener('click', async function() {
             let userCode = input.value;
             if (!userCode || userCode.trim() === "") return;
 

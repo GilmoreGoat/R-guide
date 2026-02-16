@@ -1,5 +1,5 @@
 import { WebR } from 'https://webr.r-wasm.org/latest/webr.mjs';
-import { normalizeCode, compareCode, escapeHTML } from './logic.js';
+import { compareCode, escapeHTML } from './logic.js';
 
 const COLORS = {
     // Theme Colors
@@ -133,9 +133,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (!userCode || userCode.trim() === "") return;
 
             const expectedAnswer = this.dataset.answer;
-            const cleanUser = normalizeCode(userCode);
-            const cleanAnswer = normalizeCode(expectedAnswer);
-            const isCorrect = (cleanUser === cleanAnswer);
+            const isCorrect = compareCode(userCode, expectedAnswer);
 
             // THE WRAPPER:
             // 1. val <- { code } -> Runs user code in a block.

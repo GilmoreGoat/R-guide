@@ -229,20 +229,4 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     });
 
-    // --- 5. COPY BUTTONS ---
-    const codeBlocks = document.querySelectorAll('pre');
-    codeBlocks.forEach(block => {
-        const button = document.createElement('button');
-        button.innerText = 'Copy';
-        button.className = 'copy-btn';
-        button.addEventListener('click', () => {
-            const codeText = block.querySelector('code').innerText;
-            navigator.clipboard.writeText(codeText).then(() => {
-                const originalText = button.innerText;
-                button.innerText = 'Copied!';
-                setTimeout(() => { button.innerText = originalText; }, 2000);
-            });
-        });
-        block.appendChild(button);
-    });
 });

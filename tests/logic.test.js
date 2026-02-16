@@ -19,6 +19,13 @@ test('normalizeCode should handle null', () => {
     assert.strictEqual(normalizeCode(null), '');
 });
 
+test('normalizeCode should handle non-string inputs', () => {
+    assert.strictEqual(normalizeCode(123), '123');
+    assert.strictEqual(normalizeCode(true), 'true');
+    assert.strictEqual(normalizeCode({}), '[objectobject]');
+    assert.strictEqual(normalizeCode([]), '');
+});
+
 test('compareCode should compare correctly', () => {
     assert.strictEqual(compareCode('A', 'a'), true);
     assert.strictEqual(compareCode('A ', 'a'), true);

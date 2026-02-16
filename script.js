@@ -31,6 +31,16 @@ function normalizeCode(code) {
 
 
 document.addEventListener('DOMContentLoaded', async () => {
+    const escapeHTML = (str) => {
+        if (!str) return str;
+        return str.replace(/[&<>"']/g, (m) => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;',
+        })[m]);
+    };
 
     // --- 1. UI SETUP ---
     const fab = document.createElement('div');
@@ -198,7 +208,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
 
             } catch (e) {
-                let errorMsg = e.message;
+                let errorMsg = escapeHTML(e.message);
                 if (errorMsg.includes("could not find function")) {
                     errorMsg += `<br><br><strong>Tip:</strong> Packages might still be loading. Wait for the green banner!`;
                 }

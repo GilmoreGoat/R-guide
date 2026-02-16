@@ -190,7 +190,7 @@ pre code { background: transparent; color: inherit; padding: 0; font-weight: nor
 .cheat-menu {
     display: none; /* Hidden until hover */
     position: fixed;
-    bottom: 100px;
+    bottom: 90px;
     right: 30px;
     background: white;
     border: 2px solid var(--coffee-dark);

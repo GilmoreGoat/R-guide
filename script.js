@@ -19,16 +19,6 @@ const COLORS = {
     borderDark: '#333'
 };
 
-/**
- * Normalizes code for comparison by removing whitespace,
- * standardizing quotes, and converting to lowercase.
- * @param {string} code - The code to normalize.
- * @returns {string} The normalized code.
- */
-function normalizeCode(code) {
-    if (typeof code !== 'string') return '';
-    return code.replace(/\s/g, '').replace(/['"]/g, '"').toLowerCase();
-}
 
 
 document.addEventListener('DOMContentLoaded', async () => {

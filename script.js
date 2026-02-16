@@ -1,4 +1,4 @@
-import { WebR } from 'https://webr.r-wasm.org/latest/webr.mjs';
+import { WebR } from 'https://webr.r-wasm.org/v0.5.8/webr.mjs';
 import { compareCode, escapeHTML } from './logic.js';
 
 // Note: Ensure utility functions are not redefined locally.

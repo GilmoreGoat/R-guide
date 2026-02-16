@@ -1,6 +1,19 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
-import { normalizeCode, compareCode } from '../logic.js';
+import { normalizeCode, compareCode, escapeHTML } from '../logic.js';
+
+test('escapeHTML should escape dangerous characters', () => {
+    assert.strictEqual(escapeHTML('<script>'), '&lt;script&gt;');
+    assert.strictEqual(escapeHTML('hello & world'), 'hello &amp; world');
+    assert.strictEqual(escapeHTML('"quote"'), '&quot;quote&quot;');
+    assert.strictEqual(escapeHTML("'single'"), '&#39;single&#39;');
+});
+
+test('escapeHTML should handle empty or null input', () => {
+    assert.strictEqual(escapeHTML(''), '');
+    assert.strictEqual(escapeHTML(null), null);
+    assert.strictEqual(escapeHTML(undefined), undefined);
+});
 
 test('normalizeCode should handle standard input', () => {
     assert.strictEqual(normalizeCode('  ggplot2  '), 'ggplot2');

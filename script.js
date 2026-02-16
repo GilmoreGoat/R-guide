@@ -1,5 +1,5 @@
 import { WebR } from 'https://webr.r-wasm.org/latest/webr.mjs';
-import { normalizeCode, compareCode } from './logic.js';
+import { normalizeCode, compareCode, escapeHTML } from './logic.js';
 
 const COLORS = {
     // Theme Colors
@@ -22,17 +22,6 @@ const COLORS = {
 
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const escapeHTML = (str) => {
-        if (!str) return str;
-        return str.replace(/[&<>"']/g, (m) => ({
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#39;',
-        })[m]);
-    };
-
     // --- 1. UI SETUP ---
     const fab = document.createElement('div');
     fab.className = 'cheat-fab';

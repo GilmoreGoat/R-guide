@@ -39,6 +39,23 @@ test('normalizeCode should handle non-string inputs', () => {
     assert.strictEqual(normalizeCode([]), '');
 });
 
+test('normalizeCode should handle different whitespace characters', () => {
+    assert.strictEqual(normalizeCode('a\tb\nc'), 'abc');
+    assert.strictEqual(normalizeCode(' a   b '), 'ab');
+    assert.strictEqual(normalizeCode('\n\t\r'), '');
+});
+
+test('normalizeCode should handle mixed and nested quotes', () => {
+    assert.strictEqual(normalizeCode('print("say \'hi\'")'), 'print("say"hi"")');
+    assert.strictEqual(normalizeCode("print('say \"hi\"')"), 'print("say"hi"")');
+});
+
+test('normalizeCode should handle empty and whitespace-only strings', () => {
+    assert.strictEqual(normalizeCode(''), '');
+    assert.strictEqual(normalizeCode('   '), '');
+    assert.strictEqual(normalizeCode('\t\n'), '');
+});
+
 test('compareCode should compare correctly', () => {
     assert.strictEqual(compareCode('A', 'a'), true);
     assert.strictEqual(compareCode('A ', 'a'), true);
@@ -48,4 +65,15 @@ test('compareCode should compare correctly', () => {
 test('compareCode should handle missing expected answer', () => {
     assert.strictEqual(compareCode('some code', undefined), false);
     assert.strictEqual(compareCode(undefined, undefined), true);
+});
+
+test('compareCode should handle formatting differences', () => {
+    assert.strictEqual(compareCode('x <- 5', 'x<-5'), true);
+    assert.strictEqual(compareCode('x  <-  5', 'x<-5'), true);
+    assert.strictEqual(compareCode('x\n<-\n5', 'x<-5'), true);
+});
+
+test('compareCode should handle quote style differences', () => {
+    assert.strictEqual(compareCode('print("hello")', "print('hello')"), true);
+    assert.strictEqual(compareCode("print('hello')", 'print("hello")'), true);
 });

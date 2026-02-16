@@ -1,5 +1,5 @@
 import { WebR } from 'https://webr.r-wasm.org/latest/webr.mjs';
-import { normalizeCode, compareCode, escapeHTML } from './logic.js';
+import { compareCode, escapeHTML } from './logic.js';
 
 const COLORS = {
     // Theme Colors

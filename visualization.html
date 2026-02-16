@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Module 4: The Gazette</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <script type="module" src="script.js"></script>
 </head>
 <body>
 <nav><a href="index.html">&larr; Back to Town</a></nav>
@@ -15,16 +15,36 @@
 </header>
 
 <div class="concept-card">
-    <h2>1. Histogram (1 Numeric Var)</h2>
-    <p>Shows distribution. Use <code>geom_histogram()</code>.</p>
+    <h2>1. The ggplot Recipe</h2>
+    <div class="lesson-text">
+        <p><strong>The Concept:</strong> Making a graph in R is like making a cake. You have to add layers one by one using the <code>+</code> sign.</p>
+        <div style="background: #e8f4f8; padding: 15px; border-radius: 6px; border-left: 5px solid var(--yale-blue); margin-bottom: 15px;">
+            <strong>The 3 Layers:</strong><br>
+            1. <strong>Data:</strong> <code>ggplot(data)</code><br>
+            2. <strong>Aesthetics (aes):</strong> <code>aes(x = col, y = col)</code><br>
+            3. <strong>Geometry (geom):</strong> <code>+ geom_point()</code>
+        </div>
+        <p><em>Warning:</em> Do NOT use the pipe <code>|></code> here. Graphs use <code>+</code>.</p>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>2. Histogram (1 Numeric Var)</h2>
+    <div class="lesson-text">
+        <p>Shows the distribution of a single number column (e.g., "How heavy are the pumpkins?").</p>
+        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+            <strong>Syntax:</strong> <code>ggplot(df, aes(x = numeric_col)) + geom_histogram()</code>
+        </div>
+    </div>
 
 
     [Image of histogram showing distribution]
 
     <div class="instruction-box">
-        <h3>📝 Mission: Pumpkin Stats</h3>
+        <h3>📰 Mission: Pumpkin Stats</h3>
         <ul class="instruction-list">
-            <li>Plot <code>pumpkins</code>, <code>aes(x = weight)</code>.</li>
+            <li>Start a plot with <code>pumpkins</code>.</li>
+            <li>Set x-axis to <code>weight</code>.</li>
             <li>Add <code>geom_histogram()</code>.</li>
         </ul>
     </div>
@@ -34,7 +54,10 @@
             <div class="code-input-line">
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
-                <button class="check-btn" data-answer="ggplot(pumpkins, aes(x = weight)) + geom_histogram()" data-output="[Plot created: Histogram]">Run</button>
+                <button class="check-btn"
+                        data-answer="ggplot(pumpkins, aes(x = weight)) + geom_histogram()"
+                        data-output="[Plot created: Histogram]"
+                        data-image="https://www.r-graph-gallery.com/img/graph/histogram_basic.png">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -42,13 +65,17 @@
 </div>
 
 <div class="concept-card">
-    <h2>2. Bar Plot (1 Categorical Var)</h2>
-    <p>Shows counts of categories. Use <code>geom_bar()</code>.</p>
-
+    <h2>3. Bar Plot (1 Categorical Var)</h2>
+    <div class="lesson-text">
+        <p>Shows counts of categories (e.g., "How many students in each House?"). R counts the rows for you.</p>
+        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+            <strong>Syntax:</strong> <code>ggplot(df, aes(x = category_col)) + geom_bar()</code>
+        </div>
+    </div>
     <div class="instruction-box">
-        <h3>📝 Mission: Student Counts</h3>
+        <h3>📰 Mission: Student Counts</h3>
         <ul class="instruction-list">
-            <li>Plot <code>students</code>, <code>aes(x = house)</code>.</li>
+            <li>Plot <code>students</code> with x-axis <code>house</code>.</li>
             <li>Add <code>geom_bar()</code>.</li>
         </ul>
     </div>
@@ -66,16 +93,22 @@
 </div>
 
 <div class="concept-card">
-    <h2>3. Boxplot (Num vs Cat)</h2>
-    <p>Compares groups. Use <code>geom_boxplot()</code>.</p>
+    <h2>4. Boxplot (Num vs Cat)</h2>
+    <div class="lesson-text">
+        <p>Comparing a number across different groups (e.g., "Study Hours" by "School").</p>
+        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+            <strong>Syntax:</strong> <code>ggplot(df, aes(x = category, y = number)) + geom_boxplot()</code>
+        </div>
+    </div>
 
 
     [Image of boxplot comparison]
 
     <div class="instruction-box">
-        <h3>📝 Mission: Study Wars</h3>
+        <h3>📰 Mission: Study Wars</h3>
         <ul class="instruction-list">
-            <li>Plot <code>students</code>, <code>aes(x = school, y = hours)</code>.</li>
+            <li>Plot <code>students</code>.</li>
+            <li>Set x to <code>school</code> and y to <code>hours</code>.</li>
             <li>Add <code>geom_boxplot()</code>.</li>
         </ul>
     </div>
@@ -93,16 +126,22 @@
 </div>
 
 <div class="concept-card">
-    <h2>4. Scatterplot (Num vs Num)</h2>
-    <p>Shows correlation. Use <code>geom_point()</code>.</p>
+    <h2>5. Scatterplot (Num vs Num)</h2>
+    <div class="lesson-text">
+        <p>Shows the relationship between two numbers (e.g., "Coffee" vs "Jitters").</p>
+        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+            <strong>Syntax:</strong> <code>ggplot(df, aes(x = number1, y = number2)) + geom_point()</code>
+        </div>
+    </div>
 
 
     [Image of scatterplot correlation]
 
     <div class="instruction-box">
-        <h3>📝 Mission: Coffee vs Jitters</h3>
+        <h3>📰 Mission: Coffee vs Jitters</h3>
         <ul class="instruction-list">
-            <li>Plot <code>data</code>, <code>aes(x = coffee, y = jitters)</code>.</li>
+            <li>Plot <code>data</code>.</li>
+            <li>Set x to <code>coffee</code> and y to <code>jitters</code>.</li>
             <li>Add <code>geom_point()</code>.</li>
         </ul>
     </div>
@@ -120,12 +159,21 @@
 </div>
 
 <div class="concept-card">
-    <h2>5. Color vs Fill</h2>
-    <p>Taylor is picky. <code>color</code> is for lines/outlines. <code>fill</code> is for insides (bars).</p>
+    <h2>6. Color vs Fill</h2>
+    <div class="lesson-text">
+        <p>Taylor Doose is picky about colors. You need to know the difference:</p>
+        <ul>
+            <li><strong>color:</strong> Changes the outline (dots, lines).</li>
+            <li><strong>fill:</strong> Changes the inside (bars, boxplots).</li>
+        </ul>
+        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+            <strong>Syntax:</strong> <code>aes(x = type, fill = type)</code>
+        </div>
+    </div>
     <div class="instruction-box">
-        <h3>📝 Mission: Colorful Pumpkins</h3>
+        <h3>📰 Mission: Colorful Pumpkins</h3>
         <ul class="instruction-list">
-            <li>Plot <code>pumpkins</code> with <code>aes(x = type, fill = type)</code>.</li>
+            <li>Plot <code>pumpkins</code> with x = <code>type</code> and fill = <code>type</code>.</li>
             <li>Add <code>geom_bar()</code>.</li>
         </ul>
     </div>
@@ -143,10 +191,10 @@
 </div>
 
 <div class="concept-card">
-    <h2>6. Labels & Themes</h2>
+    <h2>7. Labels & Themes</h2>
     <p>Don't turn in ugly graphs! Use <code>labs()</code> and <code>theme_classic()</code>.</p>
     <div class="instruction-box">
-        <h3>📝 Mission: Make it Pretty</h3>
+        <h3>📰 Mission: Make it Pretty</h3>
         <ul class="instruction-list">
             <li>Take your scatterplot and add <code>+ theme_classic()</code>.</li>
         </ul>
@@ -164,13 +212,20 @@
     </div>
 </div>
 
-<div class="concept-card">
-    <h2>7. Saving Your Work</h2>
-    <p>The Gazette goes to print at 5 AM. Use <code>ggsave()</code>.</p>
+<div class="concept-card" style="border-left: 5px solid var(--autumn-orange);">
+    <h2>8. Faceting (Small Multiples)</h2>
+    <div class="lesson-text">
+        <p>Sometimes you have too much data for one chart. Faceting splits your chart into multiple panels, one for each group.</p>
+        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+            <strong>Syntax:</strong> <code>+ facet_wrap(~ grouping_variable)</code>
+        </div>
+        <p><strong>Note:</strong> You MUST use the tilde <code>~</code> (read as "by").</p>
+    </div>
     <div class="instruction-box">
-        <h3>📝 Mission: Save It</h3>
+        <h3>📰 Mission: Split by Town</h3>
         <ul class="instruction-list">
-            <li>Save as <code>"front_page.png"</code>.</li>
+            <li>Plot <code>sales</code> with x=<code>day</code>, y=<code>profit</code>. Add <code>geom_col()</code>.</li>
+            <li>Add <code>facet_wrap(~ town)</code> to see Stars Hollow vs. Woodbridge.</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -179,11 +234,14 @@
             <div class="code-input-line">
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
-                <button class="check-btn" data-answer='ggsave("front_page.png")' data-output="Saving 7 x 5 in image...">Run</button>
+                <button class="check-btn"
+                        data-answer="ggplot(sales, aes(x = day, y = profit)) + geom_col() + facet_wrap(~ town)"
+                        data-output="[Plot created: Two side-by-side bar charts]">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
     </div>
 </div>
+
 </body>
 </html>

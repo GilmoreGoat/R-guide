@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Module 2: Luke's Diner</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <script type="module" src="script.js"></script>
 </head>
 <body>
 <nav><a href="index.html">&larr; Back to Town</a></nav>
@@ -22,15 +22,20 @@
 
 <div class="concept-card">
     <h2>2. Select vs Pull (The Receipt)</h2>
-    <p><strong>Critical Concept:</strong></p>
-    <ul>
-        <li><code>select()</code>: Returns a <strong>Table</strong> (Data Frame).</li>
-        <li><code>pull()</code>: Returns a <strong>Vector</strong> (List of numbers). Used for math!</li>
-    </ul>
+    <div class="lesson-text">
+        <p><strong>Critical Concept:</strong></p>
+        <ul>
+            <li><code>select()</code>: Returns a <strong>Table</strong> (Data Frame). Use this to create a smaller dataset.</li>
+            <li><code>pull()</code>: Returns a <strong>Vector</strong> (List of numbers). Use this if you want to do math on it immediately.</li>
+        </ul>
+        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+            <strong>Syntax:</strong> <code>data |> select(col1, col2)</code> OR <code>data |> pull(col1)</code>
+        </div>
+    </div>
     <div class="instruction-box">
-        <h3>📝 Mission: Calculate Profits</h3>
+        <h3>🍔 Mission: Calculate Profits</h3>
         <ul class="instruction-list">
-            <li>Extract the <code>price</code> column from <code>menu</code> using <code>pull(price)</code>.</li>
+            <li>Extract the <code>price</code> column from <code>menu</code> using <code>pull()</code> so we can sum it up later.</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -48,10 +53,15 @@
 
 <div class="concept-card">
     <h2>3. The Dollar Sign ($)</h2>
-    <p>The <code>$</code> is a shortcut for <code>pull()</code>. It grabs a specific column.</p>
-    <p><em>Think:</em> <code>Luke's_Wallet$Cash</code>.</p>
+    <div class="lesson-text">
+        <p>The <code>$</code> is a shortcut for <code>pull()</code>. It grabs a specific column from a dataframe.</p>
+        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+            <strong>Syntax:</strong> <code>dataframe$column_name</code>
+        </div>
+        <p><em>Think:</em> <code>Luke's_Wallet$Cash</code>.</p>
+    </div>
     <div class="instruction-box">
-        <h3>📝 Mission: Grab the Tips</h3>
+        <h3>🍔 Mission: Grab the Tips</h3>
         <ul class="instruction-list">
             <li>Extract the <code>tips</code> column from <code>orders</code> using <code>$</code>.</li>
         </ul>
@@ -71,11 +81,17 @@
 
 <div class="concept-card">
     <h2>4. Filter (Rows)</h2>
-    <p>Luke wants to kick out annoying customers. <code>filter()</code> keeps rows where the condition is TRUE.</p>
+    <div class="lesson-text">
+        <p>Luke wants to kick out annoying customers. <code>filter()</code> keeps rows where the condition is TRUE.</p>
+        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+            <strong>Syntax:</strong> <code>data |> filter(column == "Value")</code>
+        </div>
+        <p><strong>Note:</strong> Use <code>==</code> for "is equal to", and <code>!=</code> for "is NOT equal to".</p>
+    </div>
     <div class="instruction-box">
-        <h3>📝 Mission: Ban Taylor</h3>
+        <h3>🍔 Mission: Ban Taylor</h3>
         <ul class="instruction-list">
-            <li>Filter <code>customers</code> where <code>name != "Taylor"</code>.</li>
+            <li>Filter <code>customers</code> where <code>name</code> is NOT equal to <code>"Taylor"</code>.</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -93,11 +109,17 @@
 
 <div class="concept-card">
     <h2>5. Arrange (Sorting)</h2>
-    <p>Sort the menu. Default is Ascending. Use <code>desc()</code> for Descending.</p>
+    <div class="lesson-text">
+        <p>Sort the menu. Default is Ascending (Low to High).</p>
+        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+            <strong>Syntax:</strong> <code>data |> arrange(column)</code><br>
+            <strong>Reverse:</strong> <code>data |> arrange(desc(column))</code>
+        </div>
+    </div>
     <div class="instruction-box">
-        <h3>📝 Mission: Most Expensive First</h3>
+        <h3>🍔 Mission: Most Expensive First</h3>
         <ul class="instruction-list">
-            <li>Arrange <code>menu</code> by <code>desc(price)</code>.</li>
+            <li>Arrange <code>menu</code> by <code>price</code> in descending order.</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -115,12 +137,17 @@
 
 <div class="concept-card">
     <h2>6. Mutate (Special Orders)</h2>
-    <p>Lorelai never orders off the menu; she changes it. <code>mutate()</code> creates new columns.</p>
+    <div class="lesson-text">
+        <p>Lorelai never orders off the menu; she changes it. <code>mutate()</code> creates new columns based on math from old ones.</p>
+        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+            <strong>Syntax:</strong> <code>data |> mutate(new_col = old_col * 2)</code>
+        </div>
+    </div>
     <div class="instruction-box">
-        <h3>📝 Mission: Inflation Hits</h3>
+        <h3>🍔 Mission: Inflation Hits</h3>
         <ul class="instruction-list">
-            <li>Create <code>new_price</code>.</li>
-            <li>Calculate <code>price * 1.10</code>.</li>
+            <li>Create a column <code>new_price</code> in <code>menu</code>.</li>
+            <li>Set it equal to <code>price * 1.10</code>.</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -140,9 +167,10 @@
     <h2>7. Inspecting the Crowd</h2>
     <p>Who is actually here? Use <code>unique()</code> for a list, or <code>table()</code> for counts.</p>
     <div class="instruction-box">
-        <h3>📝 Mission: Count the Townies</h3>
+        <h3>🍔 Mission: Count the Townies</h3>
         <ul class="instruction-list">
-            <li>Run <code>table()</code> on <code>townies$role</code>.</li>
+            <li>Run <code>table()</code> on the <code>role</code> column inside <code>townies</code>.</li>
+            <li>Remember to use <code>$</code> to grab the column!</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -157,5 +185,38 @@
         <div class="console-output feedback"></div>
     </div>
 </div>
+
+<div class="concept-card" style="border-left: 5px solid var(--autumn-orange);">
+    <h2>8. Group By & Summarise (The Power Move)</h2>
+    <div class="lesson-text">
+        <p>This splits your data into groups (like "Townie" vs. "Tourist"), calculates a stat for each, and gives you a summary table.</p>
+        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+            <strong>Syntax:</strong><br>
+            <code>data |> group_by(category) |> summarise(avg = mean(values))</code>
+        </div>
+    </div>
+    <div class="instruction-box">
+        <h3>🍔 Mission: Average Tips by Server</h3>
+        <ul class="instruction-list">
+            <li>Take <code>orders</code>.</li>
+            <li>Group by <code>server</code>.</li>
+            <li>Summarise to create <code>avg_tip</code> which is the <code>mean(tip)</code>.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn"
+                        data-answer="orders |> group_by(server) |> summarise(avg_tip = mean(tip))"
+                        data-output="  server  avg_tip<br>1 Luke    0.50<br>2 Lane    5.00">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
 </body>
 </html>

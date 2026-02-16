@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Module 5: Yale Stats</title>
   <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+  <script type="module" src="script.js"></script>
 </head>
 <body>
 <nav><a href="index.html">&larr; Back to Town</a></nav>
@@ -16,15 +16,14 @@
 
 <div class="concept-card">
   <h2>1. Data Cleaning (The Kirk Penguin)</h2>
-
   <div class="lesson-text">
-    <p><strong>The Concept:</strong> Before you run any stats, you must check your data for errors. If you see a penguin that weighs 120kg, that is not a penguin. That is Kirk in a costume.</p>
-    <p>Leaving outliers in your data will ruin your T-test (skewing the mean).</p>
-    <p><strong>The Fix:</strong> Use <code>filter()</code> to remove rows that are biologically impossible.</p>
+    <p><strong>The Concept:</strong> Before you run any stats, check for errors. If a penguin weighs 120kg, that is Kirk in a costume.</p>
+    <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+      <strong>Syntax:</strong> <code>data |> filter(column < 100)</code>
+    </div>
   </div>
-
   <div class="instruction-box">
-    <h3>📝 Mission: Remove the Giant</h3>
+    <h3>📰 Mission: Remove the Giant</h3>
     <ul class="instruction-list">
       <li>Filter <code>penguins</code> to keep mass less than <code>120</code>.</li>
     </ul>
@@ -37,7 +36,7 @@
         <input type="text" class="editor-input input-code" placeholder="...">
         <button class="check-btn"
                 data-answer="penguins |> filter(mass_kg < 120)"
-                data-output="[Filtered: 1 row removed]">Run</button>
+                data-output="[Filtered: 1 row removed. Kirk has been ejected.]">Run</button>
       </div>
     </div>
     <div class="console-output feedback"></div>
@@ -46,20 +45,16 @@
 
 <div class="concept-card">
   <h2>2. Normality Check (The KS Test)</h2>
-
   <div class="lesson-text">
-    <p><strong>The Concept:</strong> Most statistical tests (like the T-Test) assume your data follows a <strong>Normal Distribution</strong> (Bell Curve).</p>
-
-    <p>We use the <strong>Kolmogorov-Smirnov Test</strong> (`ks.test`) to check this.</p>
-    <ul>
-      <li><strong>Null Hypothesis ($H_0$):</strong> The data IS Normal.</li>
-      <li><strong>Alternative Hypothesis ($H_1$):</strong> The data is NOT Normal.</li>
-      <li><strong>The Rule:</strong> If P < 0.05, you REJECT the Null (The data is weird/skewed).</li>
-    </ul>
+    <p><strong>The Concept:</strong> Most tests assume your data fits a <strong>Normal Distribution</strong> (Bell Curve). We use the <strong>Kolmogorov-Smirnov Test</strong> (`ks.test`).</p>
+    <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+      <strong>Syntax:</strong><br>
+      <code>ks.test(x, "pnorm", mean(x), sd(x))</code>
+    </div>
+    <p><strong>Rule:</strong> If P < 0.05, the data is NOT Normal (Weird).</p>
   </div>
-
   <div class="instruction-box">
-    <h3>📝 Mission: Run the Test</h3>
+    <h3>📰 Mission: Run the Test</h3>
     <ul class="instruction-list">
       <li>Run <code>ks.test</code> on the <code>mass</code> vector.</li>
       <li>Use arguments: <code>y="pnorm"</code>, <code>mean=mean(mass)</code>, <code>sd=sd(mass)</code>.</li>
@@ -73,7 +68,7 @@
         <input type="text" class="editor-input input-code" placeholder="...">
         <button class="check-btn"
                 data-answer='ks.test(x = mass, y = "pnorm", mean = mean(mass), sd = sd(mass))'
-                data-output="One-sample Kolmogorov-Smirnov test<br>D = 0.12, p-value = 0.003<br>(Not Normal)">Run</button>
+                data-output="One-sample Kolmogorov-Smirnov test<br>D = 0.12, p-value = 0.003<br>(Not Normal. Data is weird.)">Run</button>
       </div>
     </div>
     <div class="console-output feedback"></div>
@@ -82,19 +77,16 @@
 
 <div class="concept-card">
   <h2>3. The Makeover (Log Transform)</h2>
-
   <div class="lesson-text">
-    <p><strong>The Concept:</strong> If your KS Test failed (P < 0.05), you can't run a T-Test yet. You need to fix the skew.</p>
-    <p>A <strong>Log Transformation</strong> squashes extremely large numbers down, making the data look more normal.</p>
-
-    <p>We use <code>log10()</code> inside a <code>mutate()</code> command to create a new, fixed column.</p>
+    <p><strong>The Concept:</strong> If your data is skewed, fix it. A <strong>Log Transformation</strong> squashes big numbers down.</p>
+    <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+      <strong>Syntax:</strong> <code>mutate(new_col = log10(old_col))</code>
+    </div>
   </div>
-
   <div class="instruction-box">
-    <h3>📝 Mission: Log It</h3>
+    <h3>📰 Mission: Log It</h3>
     <ul class="instruction-list">
-      <li>Create a new column <code>log_mass</code>.</li>
-      <li>Calculate it using <code>log10(mass_kg)</code>.</li>
+      <li>Create column <code>log_mass</code> using <code>log10(mass_kg)</code>.</li>
     </ul>
   </div>
   <div class="editor-container">
@@ -102,7 +94,7 @@
     <div class="editor-body">
       <div class="code-input-line">
         <span class="prompt">></span>
-        <input type="text" class="editor-input input-code" placeholder="penguins |> ...">
+        <input type="text" class="editor-input input-code" placeholder="...">
         <button class="check-btn"
                 data-answer="penguins |> mutate(log_mass = log10(mass_kg))"
                 data-output="  mass_kg  log_mass<br>1 4500     3.65">Run</button>
@@ -114,18 +106,17 @@
 
 <div class="concept-card">
   <h2>4. One-Sample T-Test (The Standard)</h2>
-
   <div class="lesson-text">
-    <p><strong>The Concept:</strong> This test compares the mean of <strong>ONE group</strong> against a specific, known number (like a national average or a recommended limit).</p>
-    <p><strong>Example:</strong> Do UCSD students eat more salt than the recommended 140 mEq/L?</p>
-    <p><strong>Syntax:</strong> <code>t.test(vector, mu = number)</code></p>
+    <p><strong>The Concept:</strong> Compare <strong>ONE group</strong> against a known number.</p>
+    <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+      <strong>Syntax:</strong> <code>t.test(vector, mu = number)</code>
+    </div>
   </div>
-
   <div class="instruction-box">
-    <h3>📝 Mission: Salt Levels</h3>
+    <h3>📰 Mission: Caffeine Check</h3>
     <ul class="instruction-list">
-      <li>Run a t-test on <code>sodium_vector</code>.</li>
-      <li>Compare it to the limit <code>mu = 140</code>.</li>
+      <li>Run a t-test on <code>coffee_vector</code>.</li>
+      <li>Compare it to the limit <code>mu = 4</code>.</li>
     </ul>
   </div>
   <div class="editor-container">
@@ -135,8 +126,8 @@
         <span class="prompt">></span>
         <input type="text" class="editor-input input-code" placeholder="...">
         <button class="check-btn"
-                data-answer="t.test(sodium_vector, mu = 140)"
-                data-output="One Sample t-test<br>t = 3.5, p-value = 0.002<br>(Significant difference)">Run</button>
+                data-answer="t.test(coffee_vector, mu = 4)"
+                data-output="One Sample t-test<br>t = 3.5, p-value = 0.002<br>(Significant. They drink way too much.)">Run</button>
       </div>
     </div>
     <div class="console-output feedback"></div>
@@ -145,21 +136,16 @@
 
 <div class="concept-card">
   <h2>5. Paired T-Test (Before & After)</h2>
-
   <div class="lesson-text">
-    <p><strong>The Concept:</strong> Use this when you measure the <strong>SAME subject</strong> twice.</p>
-    <ul>
-      <li>Measuring Kirk's anxiety <em>before</em> coffee vs. <em>after</em> coffee.</li>
-      <li>Comparing Cream A vs. Cream B on the <em>left vs. right arm</em> of the same person.</li>
-    </ul>
-
-    <p><strong>Crucial:</strong> You MUST add the argument <code>paired = TRUE</code>, or R will treat them as different people!</p>
+    <p><strong>The Concept:</strong> Use this when you measure the <strong>SAME person</strong> twice.</p>
+    <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+      <strong>Syntax:</strong> <code>t.test(vecA, vecB, paired = TRUE)</code>
+    </div>
   </div>
-
   <div class="instruction-box">
-    <h3>📝 Mission: Skin Cream Test</h3>
+    <h3>📰 Mission: The Dinner Effect</h3>
     <ul class="instruction-list">
-      <li>Compare <code>Cream_A</code> and <code>Cream_B</code> vectors.</li>
+      <li>Compare <code>Stress_Pre</code> and <code>Stress_Post</code>.</li>
       <li>Set <code>paired = TRUE</code>.</li>
     </ul>
   </div>
@@ -170,8 +156,8 @@
         <span class="prompt">></span>
         <input type="text" class="editor-input input-code" placeholder="...">
         <button class="check-btn"
-                data-answer="t.test(Cream_A, Cream_B, paired = TRUE)"
-                data-output="Paired t-test<br>t = -5.1, p-value = 0.0001<br>(Significant difference)">Run</button>
+                data-answer="t.test(Stress_Pre, Stress_Post, paired = TRUE)"
+                data-output="Paired t-test<br>t = -5.1, p-value = 0.0001<br>(Significant increase in stress.)">Run</button>
       </div>
     </div>
     <div class="console-output feedback"></div>
@@ -180,22 +166,17 @@
 
 <div class="concept-card">
   <h2>6. Unpaired T-Test (Two Groups)</h2>
-
   <div class="lesson-text">
-    <p><strong>The Concept:</strong> Use this when you are comparing two <strong>independent</strong> groups of people.</p>
-    <ul>
-      <li>Chilton Students vs. Stars Hollow High Students.</li>
-      <li>Lizards that survived vs. Lizards that died.</li>
-    </ul>
-
-    <p><strong>Syntax:</strong> We use the Tilde (<code>~</code>) which means "by".<br><code>t.test(Numeric ~ Group, data = df)</code></p>
+    <p><strong>The Concept:</strong> Compare two <strong>independent</strong> groups (e.g., Jess vs. Dean).</p>
+    <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+      <strong>Syntax:</strong> <code>t.test(Numeric ~ Group, data = df)</code>
+    </div>
+    <p><strong>Note:</strong> You must use the Tilde <code>~</code> (read as "by").</p>
   </div>
-
   <div class="instruction-box">
-    <h3>📝 Mission: Lizard Survival</h3>
+    <h3>📰 Mission: The Swan Incident</h3>
     <ul class="instruction-list">
-      <li>Compare <code>horn_length</code> by <code>survival</code> group.</li>
-      <li>Use the <code>~</code> syntax with the <code>lizards</code> data.</li>
+      <li>Compare <code>beak_marks</code> by <code>victim</code> using the <code>swans</code> data.</li>
     </ul>
   </div>
   <div class="editor-container">
@@ -205,8 +186,8 @@
         <span class="prompt">></span>
         <input type="text" class="editor-input input-code" placeholder="...">
         <button class="check-btn"
-                data-answer="t.test(horn_length ~ survival, data = lizards)"
-                data-output="Two Sample t-test<br>t = 2.1, p-value = 0.04<br>(Survivors were bigger)">Run</button>
+                data-answer="t.test(beak_marks ~ victim, data = swans)"
+                data-output="Two Sample t-test<br>t = 4.2, p-value = 0.01<br>(Jess has significantly more beak marks.)">Run</button>
       </div>
     </div>
     <div class="console-output feedback"></div>
@@ -214,25 +195,19 @@
 </div>
 
 <div class="concept-card">
-  <h2>7. Power Analysis (The Prep Work)</h2>
-
+  <h2>7. Power Analysis (The Prep)</h2>
   <div class="lesson-text">
-    <p><strong>The Concept:</strong> Paris Geller never starts a project without knowing she will succeed. <strong>Power Analysis</strong> tells you how many participants you need to guarantee you will find a significant result (if one exists).</p>
-    <p><strong>The Variables:</strong></p>
-    <ul>
-      <li><strong>n:</strong> Sample size (How many people?).</li>
-      <li><strong>delta:</strong> Effect size (How big is the difference?).</li>
-      <li><strong>sd:</strong> Standard Deviation (How messy is the data?).</li>
-      <li><strong>power:</strong> Probability of success (Aim for 0.8 or 80%).</li>
-    </ul>
-    <p><strong>The Rule:</strong> Leave ONE argument as <code>NULL</code>, and R will calculate it for you.</p>
+    <p><strong>The Concept:</strong> Paris Geller doesn't guess. She calculates. <strong>Power Analysis</strong> tells you how many samples you need.</p>
+    <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+      <strong>Syntax:</strong> <code>power.t.test(delta=, sd=, power=, type=)</code>
+    </div>
+    <p><strong>Rule:</strong> Leave <code>n=NULL</code> so R solves for it.</p>
   </div>
-
   <div class="instruction-box">
-    <h3>📝 Mission: How Many Patients?</h3>
+    <h3>📰 Mission: How Many Pies?</h3>
     <ul class="instruction-list">
-      <li>You expect the drug to lower glucose by <strong>10</strong> (<code>delta=10</code>).</li>
-      <li>The SD is <strong>15</strong>. You want <strong>0.8</strong> power.</li>
+      <li>You expect a difference of <strong>10</strong> (<code>delta=10</code>).</li>
+      <li>Standard Deviation is <strong>15</strong>. Power is <strong>0.8</strong>.</li>
       <li>Calculate <code>n</code> for a <code>"paired"</code> test.</li>
     </ul>
   </div>
@@ -244,7 +219,7 @@
         <input type="text" class="editor-input input-code" placeholder="...">
         <button class="check-btn"
                 data-answer='power.t.test(delta = 10, sd = 15, power = 0.8, type = "paired")'
-                data-output="Paired t test power calculation<br>n = 19.9 (Round up to 20!)">Run</button>
+                data-output="Paired t test power calculation<br>n = 19.9 (Round up to 20 pies!)">Run</button>
       </div>
     </div>
     <div class="console-output feedback"></div>

@@ -436,3 +436,12 @@ pre code { background: transparent; color: inherit; padding: 0; font-weight: nor
     box-shadow: 0 4px 8px rgba(15, 77, 146, 0.3);
     transform: translateY(-2px);
 }
+/* --- CONSOLE PLOT STYLING --- */
+.console-img {
+    display: block;
+    max-width: 100%;
+    margin-top: 15px;
+    border: 2px solid #333;
+    border-radius: 4px;
+    background: white; /* Plots usually have white backgrounds */
+}

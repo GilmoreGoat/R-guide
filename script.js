@@ -1,6 +1,8 @@
-document.addEventListener('DOMContentLoaded', () => {
+import { WebR } from 'https://webr.r-wasm.org/latest/webr.mjs';
 
-    // --- 1. AUTO-GENERATE CHEAT SHEET ---
+document.addEventListener('DOMContentLoaded', async () => {
+
+    // --- 1. UI SETUP ---
     const fab = document.createElement('div');
     fab.className = 'cheat-fab';
     fab.innerText = '?';
@@ -9,50 +11,158 @@ document.addEventListener('DOMContentLoaded', () => {
     const menu = document.createElement('div');
     menu.className = 'cheat-menu';
     menu.innerHTML = `
+        <div class="cheat-item" id="btn-load-pkg" style="background:#e8f4f8; cursor:pointer; border:1px solid var(--yale-blue);">
+            <strong>📦 Load Tidyverse</strong><br><span style="font-size:0.8em">Click to install packages</span>
+        </div>
+        <hr style="border:0; border-top:1px dashed #ccc; margin:5px 0;">
         <div class="cheat-item"><strong>filter()</strong>: Pick Rows</div>
         <div class="cheat-item"><strong>select()</strong>: Pick Columns</div>
         <div class="cheat-item"><strong>mutate()</strong>: New Column</div>
-        <div class="cheat-item"><strong>c()</strong>: Create Vector</div>
         <div class="cheat-item"><strong>ggplot()</strong>: Start Plot</div>
-        <div style="text-align:center; margin-top:10px; font-size:0.8em; color:#888;">
-            <em>"Copper Boom!"</em>
-        </div>
     `;
     document.body.appendChild(menu);
 
-    // --- 2. EDITOR LOGIC (THE FIX) ---
+    const loadingBanner = document.createElement('div');
+    loadingBanner.style.cssText = "position:fixed; top:0; left:0; width:100%; background:#f1c40f; color:#4b3621; text-align:center; padding:5px; font-weight:bold; z-index:1000; transition: top 0.5s;";
+    loadingBanner.innerText = "☕ Brewing R Engine...";
+    document.body.appendChild(loadingBanner);
+
+    // --- 2. INITIALIZE WEBR ---
+    const webR = new WebR();
+    await webR.init();
+
+    // --- 3. AUTO-LOAD PACKAGES & DATA ---
+    loadingBanner.innerText = "📦 Downloading Packages (ggplot2, dplyr)... This takes ~20s";
+
+    try {
+        await webR.installPackages(['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate']);
+
+        await webR.evalR(`
+            library(dplyr)
+            library(ggplot2)
+            library(tidyr)
+            library(stringr)
+            library(lubridate)
+
+            # --- PRE-LOAD DATA ---
+            menu <- data.frame(
+                item = c("Burger", "Fries", "Coffee", "Pie", "Salad"),
+                price = c(12.00, 6.50, 3.00, 5.00, 9.00),
+                calories = c(800, 400, 5, 450, 300)
+            )
+            orders <- data.frame(id = 1:5, tips = c(2.00, 5.00, 0.00, 1.50, 10.00))
+            customers <- data.frame(
+                name = c("Lorelai", "Rory", "Taylor", "Kirk", "Luke"),
+                status = c("VIP", "VIP", "Banned", "Odd", "Owner")
+            )
+            townies <- data.frame(role = c("Owner", "Mechanic", "Selectman"))
+            kitchen <- data.frame(Dish = c("Omelette", "Pancakes"), Monday = c(50, 30), Tuesday = c(40, 35))
+            long_data <- data.frame(Dish = c("Omelette", "Omelette", "Pancakes", "Pancakes"), Day = c("Monday", "Tuesday", "Monday", "Tuesday"), Eggs = c(50, 45, 30, 35))
+            pumpkins <- data.frame(weight = c(5, 8, 2, 12, 6, 9, 10, 3), type = c("A","A","B","A","B","A","B","B"))
+            students <- data.frame(house = c("Yale", "Harvard", "Yale", "Yale", "Harvard"), school = c("Chilton","Chilton","StarsHollow","Chilton","StarsHollow"), hours = c(5, 2, 6, 8, 1))
+            data <- data.frame(coffee = c(1, 2, 3, 4, 5), jitters = c(1, 3, 4, 7, 9))
+            mass <- c(4500, 3200, 5100, 2900, 120000) 
+            penguins <- data.frame(mass_kg = mass)
+            sodium_vector <- c(145, 150, 138, 142, 160, 155)
+            Cream_A <- c(10, 12, 11, 14, 9)
+            Cream_B <- c(15, 18, 16, 19, 14)
+            lizards <- data.frame(horn_length = c(10, 12, 11, 14, 9, 22, 24, 21, 25, 20), survival = c(rep("Died", 5), rep("Lived", 5)))
+        `);
+
+        loadingBanner.style.backgroundColor = "#2ecc71";
+        loadingBanner.innerText = "R is Ready! 🚀";
+        setTimeout(() => { loadingBanner.style.top = '-50px'; }, 2000);
+
+    } catch (e) {
+        loadingBanner.style.backgroundColor = "#e74c3c";
+        loadingBanner.innerText = "Error loading packages. Refresh page.";
+        console.error(e);
+    }
+
+    // --- 4. EXECUTION LOGIC ---
     const checkBtns = document.querySelectorAll('.check-btn');
+
     checkBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            // Find parent container
+        btn.addEventListener('click', async function() {
             const container = this.closest('.editor-container') || this.closest('.question-box');
             const input = container.querySelector('.input-code');
-            const consoleDiv = container.querySelector('.console-output'); // The black box
+            const consoleDiv = container.querySelector('.console-output');
 
-            // Get expected values
+            let userCode = input.value;
+            if (!userCode || userCode.trim() === "") return;
+
             const expectedAnswer = this.dataset.answer;
-            const realOutput = this.dataset.output; // The R output text
-
-            // Clean up user input
-            const cleanUser = input.value.replace(/\s/g, '').replace(/['"]/g, '"').toLowerCase();
+            const cleanUser = userCode.replace(/\s/g, '').replace(/['"]/g, '"').toLowerCase();
             const cleanAnswer = expectedAnswer.replace(/\s/g, '').replace(/['"]/g, '"').toLowerCase();
+            const isCorrect = (cleanUser === cleanAnswer);
 
-            // Show the console box
+            // THE WRAPPER:
+            // 1. webr::canvas() -> Opens the plot device.
+            // 2. val <- { code } -> Runs user code in a block (preserving variables).
+            // 3. print(val) -> Manually prints the result (draws the plot or prints the text).
+            // 4. dev.off() -> Closes the plot device.
+            // 5. invisible(NULL) -> Returns NOTHING to JS (Preventing the crash).
+            const wrappedCode = `
+                webr::canvas(width=400, height=300)
+                val <- {
+                    ${userCode}
+                }
+                print(val)
+                dev.off()
+                invisible(NULL)
+            `;
+
             consoleDiv.style.display = "block";
+            consoleDiv.innerHTML = `<span style="color: #ccc;">> ${userCode}</span><br><span style="color: #f1c40f;">Running...</span>`;
 
-            if (cleanUser === cleanAnswer) {
-                // SUCCESS: Show the actual R output in green/white
-                consoleDiv.innerHTML = `<span style="color: #2ecc71;">> ${input.value}</span><br>${realOutput}`;
-                input.style.borderBottom = "2px solid #2ecc71"; // Green line
-            } else {
-                // FAILURE: Show a fake R error
-                consoleDiv.innerHTML = `<span style="color: #e74c3c;">Error: unexpected symbol in "${input.value}"</span>`;
-                input.style.borderBottom = "2px solid #e74c3c"; // Red line
+            try {
+                const shelter = await new webR.Shelter();
+
+                // IMPORTANT: withAutoprint: false. We handle printing ourselves.
+                const result = await shelter.captureR(wrappedCode, {
+                    withAutoprint: false,
+                    captureStreams: true,
+                    captureConditions: true
+                });
+
+                // Process Text
+                let outputHTML = result.output.map(line => line.data).join('<br>');
+
+                // Process Plots
+                const msgs = await webR.flush();
+                const plotImages = msgs.filter(msg => msg.type === 'canvas' && msg.data.event === 'canvasImage');
+
+                if (plotImages.length > 0) {
+                    outputHTML += '<br><img src="' + plotImages[0].data.image + '" style="max-width:100%; border:1px solid #333;">';
+                }
+
+                shelter.purge();
+
+                if (!outputHTML && !plotImages.length) {
+                    outputHTML = `<span style="color:#888; font-style:italic;">(Value saved)</span>`;
+                }
+
+                // Grading
+                if (isCorrect) {
+                    consoleDiv.innerHTML = `<span style="color: #2ecc71;">> ${userCode}</span><br>${outputHTML}`;
+                    input.style.borderBottom = "2px solid #2ecc71";
+                } else {
+                    consoleDiv.innerHTML = `<span style="color: #e67e22;">> ${userCode}</span><br>${outputHTML}<br><br><span style="color: #e67e22; font-weight:bold;">⚠️ Paris says: "The code works, but that's not what I asked for."</span>`;
+                    input.style.borderBottom = "2px solid #e67e22";
+                }
+
+            } catch (e) {
+                let errorMsg = e.message;
+                if (errorMsg.includes("could not find function")) {
+                    errorMsg += `<br><br><strong>Tip:</strong> Packages might still be loading. Wait for the green banner!`;
+                }
+                consoleDiv.innerHTML = `<span style="color: #ccc;">> ${userCode}</span><br><span style="color: #e74c3c;">${errorMsg}</span>`;
+                input.style.borderBottom = "2px solid #e74c3c";
             }
         });
     });
 
-    // --- 3. COPY BUTTONS ---
+    // --- 5. COPY BUTTONS ---
     const codeBlocks = document.querySelectorAll('pre');
     codeBlocks.forEach(block => {
         const button = document.createElement('button');

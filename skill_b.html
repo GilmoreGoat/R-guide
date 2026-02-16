@@ -3,36 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skill A: The Secret Society</title>
+    <title>Skill B: The Festival Calendar</title>
     <link rel="stylesheet" href="style.css">
     <script type="module" src="script.js"></script>
 </head>
 <body>
 <nav><a href="index.html">&larr; Back to Town</a></nav>
 <header>
-    <h1>Skill A: The Secret Society</h1>
-    <p>"In Omnia Paratus. (Ready for anything.)"</p>
+    <h1>Skill B: The Festival Calendar</h1>
+    <p>"If you can't track the timeline, you can't track the drama."</p>
 </header>
 
 <div class="concept-card">
-    <h2>1. Advanced Logic (case_when)</h2>
+    <h2>1. Parsing Dates (The Format Fix)</h2>
     <div class="lesson-text">
-        <p><strong>The Concept:</strong> `ifelse()` is fine for two choices (Coffee vs. Tea). But life is messy. For complex logic, we use <strong>`case_when()`</strong>.</p>
+        <p><strong>The Problem:</strong> Excel ruins dates. R needs to know the format to understand it.</p>
         <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
             <strong>Syntax:</strong><br>
-            <code>mutate(new_col = case_when(<br>
-                &nbsp;&nbsp;condition1 ~ "Value1",<br>
-                &nbsp;&nbsp;condition2 ~ "Value2",<br>
-                &nbsp;&nbsp;TRUE ~ "ElseValue"<br>
-                ))</code>
+            <code>mdy("Jan 1, 2024")</code> -> Month-Day-Year<br>
+            <code>ymd("2024-01-01")</code> -> Year-Month-Day
         </div>
-        <p>It reads like a list of requirements. If the first one is true, it assigns that value and stops.</p>
     </div>
     <div class="instruction-box">
-        <h3>☂️ Mission: Sort the Guests</h3>
+        <h3>🍂 Mission: Fix the Festival</h3>
         <ul class="instruction-list">
-            <li>We have a `guests` table with an `age` column.</li>
-            <li>Create `status`: < 21 is "Minor", > 65 is "Elder", else "Adult".</li>
+            <li>Convert the <code>date_str</code> column using <code>mdy()</code>.</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -42,8 +37,8 @@
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
                 <button class="check-btn"
-                        data-answer='guests |> mutate(status = case_when(age < 21 ~ "Minor", age > 65 ~ "Elder", TRUE ~ "Adult"))'
-                        data-output="  age status<br>1  20  Minor<br>2  30  Adult<br>3  70  Elder">Run</button>
+                        data-answer="festivals |> mutate(date = mdy(date_str))"
+                        data-output="  event          date<br>1 Firelight      2024-02-14">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -51,22 +46,17 @@
 </div>
 
 <div class="concept-card">
-    <h2>2. Joining Data (The Merger)</h2>
+    <h2>2. Doing Math with Time</h2>
     <div class="lesson-text">
-        <p><strong>The Concept:</strong> Often your data is split into two files. One has names, the other has grades. To combine them, we use <strong>Joins</strong>.</p>
+        <p><strong>The Concept:</strong> Once R knows it's a date, you can do math! Calculate duration by subtraction.</p>
         <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
-            <strong>Syntax:</strong> <code>left_join(x, y, by = "shared_col")</code>
+            <strong>Syntax:</strong> <code>mutate(diff = end_date - start_date)</code>
         </div>
-        <ul>
-            <li><strong>`left_join`</strong>: Keep everyone in Table X. Match info from Table Y if it exists.</li>
-            <li><strong>`inner_join`</strong>: Keep ONLY people who are in BOTH tables.</li>
-        </ul>
     </div>
     <div class="instruction-box">
-        <h3>☂️ Mission: Find the Members</h3>
+        <h3>🍂 Mission: Calculate Duration</h3>
         <ul class="instruction-list">
-            <li>Use `left_join()` to add `society_list` to `students`.</li>
-            <li>Join by the column `"id"`.</li>
+            <li>Calculate <code>hours</code> by subtracting <code>start</code> from <code>end</code> in `marathon`.</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -76,8 +66,8 @@
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
                 <button class="check-btn"
-                        data-answer='students |> left_join(society_list, by = "id")'
-                        data-output="  id  name    society<br>1 01  Rory    LDB<br>2 02  Paris   <NA>">Run</button>
+                        data-answer="marathon |> mutate(hours = end - start)"
+                        data-output="  contestant  hours<br>1 Kirk        24.0 hours">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -85,18 +75,19 @@
 </div>
 
 <div class="concept-card">
-    <h2>3. The Anti-Join (The Bouncer)</h2>
+    <h2>3. Extracting Details</h2>
     <div class="lesson-text">
-        <p><strong>The Concept:</strong> Sometimes you don't want to match data; you want to find <strong>who is missing</strong>.</p>
+        <p><strong>The Concept:</strong> Pull out specific parts of a date for grouping.</p>
         <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
-            <strong>Syntax:</strong> <code>anti_join(x, y, by = "id")</code>
+            <strong>Syntax:</strong><br>
+            <code>month(date, label = TRUE)</code> -> "Jan"<br>
+            <code>wday(date, label = TRUE)</code> -> "Mon"
         </div>
-        <p>This keeps rows in X that are <strong>NOT</strong> in Y. Great for finding students who forgot to turn in an assignment.</p>
     </div>
     <div class="instruction-box">
-        <h3>☂️ Mission: Who is Missing?</h3>
+        <h3>🍂 Mission: Analyze Seasonality</h3>
         <ul class="instruction-list">
-            <li>Find students in `class_roster` who are NOT in `turned_in`.</li>
+            <li>Create a <code>season</code> column using <code>month()</code> with labels.</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -106,8 +97,8 @@
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
                 <button class="check-btn"
-                        data-answer='anti_join(class_roster, turned_in, by = "id")'
-                        data-output="  id  name<br>1 05  Logan">Run</button>
+                        data-answer="data |> mutate(season = month(date, label = TRUE))"
+                        data-output="  date        season<br>1 2024-10-31  Oct">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -115,17 +106,18 @@
 </div>
 
 <div class="concept-card">
-    <h2>4. Distinct (Removing Duplicates)</h2>
+    <h2>4. Rounding Dates (Floor)</h2>
     <div class="lesson-text">
-        <p><strong>The Concept:</strong> If you see the same person listed three times, you need to clean it.</p>
+        <p><strong>The Concept:</strong> To group data by week or month, we "round down" the date.</p>
         <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
-            <strong>Syntax:</strong> <code>distinct(data, col, .keep_all = TRUE)</code>
+            <strong>Syntax:</strong> <code>floor_date(date, unit = "week")</code>
         </div>
+        <p>This sets every date to the start of its week.</p>
     </div>
     <div class="instruction-box">
-        <h3>☂️ Mission: Clean the Guest List</h3>
+        <h3>🍂 Mission: Weekly Sales</h3>
         <ul class="instruction-list">
-            <li>Run `distinct()` on `invites` to keep unique names only.</li>
+            <li>Round the <code>date</code> down to the <code>"week"</code>.</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -135,8 +127,8 @@
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
                 <button class="check-btn"
-                        data-answer="invites |> distinct()"
-                        data-output="[Duplicates removed. 50 unique guests remain.]">Run</button>
+                        data-answer='sales |> mutate(week_start = floor_date(date, "week"))'
+                        data-output="  date        week_start<br>1 2024-01-05  2024-01-01">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -144,7 +136,7 @@
 </div>
 
 <footer style="text-align: center; margin-top: 50px; color: #8d6e63; font-style: italic;">
-    <p>Detailed Reference Guide • BILD 5</p>
+    <p>Time flies when you're caffeinated. • Created for Research</p>
 </footer>
 
 </body>

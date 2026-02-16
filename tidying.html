@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Module 3: The Dragonfly</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <script type="module" src="script.js"></script>
 </head>
 <body>
 <nav><a href="index.html">&larr; Back to Town</a></nav>
@@ -16,22 +16,36 @@
 
 <div class="concept-card">
     <h2>1. What is "Tidy" Data?</h2>
-    <p>Tidy data is a format R loves. </p>
-    <ul>
-        <li><strong>Rule 1:</strong> Each variable is a column.</li>
-        <li><strong>Rule 2:</strong> Each observation is a row.</li>
-    </ul>
+    <div class="lesson-text">
+        <p>R is picky. It demands <strong>Tidy Data</strong>. Think of it like Sookie's kitchen AFTER a cleanup.</p>
+        <ul>
+            <li><strong>Rule 1:</strong> Each variable gets its own column.</li>
+            <li><strong>Rule 2:</strong> Each observation gets its own row.</li>
+        </ul>
+        <p>If you have a column for "Monday" and a column for "Tuesday", that is untidy. "Day" should be a column, and "Monday" should be a value inside it.</p>
+    </div>
 </div>
 
 <div class="concept-card">
     <h2>2. Pivot Longer (Wide to Long)</h2>
-    <p>Michel's spreadsheet is "Wide" (Dates are columns). We need to melt it down.</p>
+    <div class="lesson-text">
+        <p>Michel's reservation spreadsheet is "Wide" (Dates are columns like "Mon", "Tue"). We need to melt it down so R can read it.</p>
+
+        <div style="background: #e8f4f8; padding: 15px; border-radius: 6px; border-left: 5px solid var(--yale-blue); margin-bottom: 15px;">
+            <strong>The Syntax:</strong>
+            <pre style="background:none; border:none; padding:0; color:#333;">pivot_longer(data, cols = c(Old1, Old2), names_to = "NewName", values_to = "NewValue")</pre>
+        </div>
+
+        <p><strong>Example:</strong> Melting a "Grades" table:</p>
+        <pre><code>grades |> pivot_longer(cols = c(Math, English), names_to = "Subject", values_to = "Score")</code></pre>
+    </div>
+
     <div class="instruction-box">
-        <h3>📝 Mission: Tidy the Pantry</h3>
+        <h3>🍳 Mission: Tidy the Pantry</h3>
         <ul class="instruction-list">
             <li>Use <code>pivot_longer()</code> on <code>kitchen</code>.</li>
-            <li>Pivot columns <code>Monday</code> and <code>Tuesday</code>.</li>
-            <li>Name the new columns <code>"Day"</code> and <code>"Eggs"</code>.</li>
+            <li>We want to combine columns <code>Monday</code> and <code>Tuesday</code>.</li>
+            <li>Call the new name column <code>"Day"</code> and the value column <code>"Eggs"</code>.</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -39,10 +53,10 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <input type="text" class="editor-input input-code" placeholder="kitchen |> ...">
                 <button class="check-btn"
                         data-answer='kitchen |> pivot_longer(cols = c(Monday, Tuesday), names_to = "Day", values_to = "Eggs")'
-                        data-output="  Dish      Day        Eggs<br>1 Omelette  Monday     50...">Run</button>
+                        data-output="  Dish      Day        Eggs<br>1 Omelette  Monday     50<br>2 Omelette  Tuesday    40">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -51,12 +65,22 @@
 
 <div class="concept-card">
     <h2>3. Pivot Wider (Long to Wide)</h2>
-    <p>Sometimes you need to do the reverse! Use <code>pivot_wider()</code>.</p>
+    <div class="lesson-text">
+        <p>Sometimes you need to do the reverse! Michel wants a printed schedule for the lobby. This requires spreading rows back into columns.</p>
+
+        <div style="background: #e8f4f8; padding: 15px; border-radius: 6px; border-left: 5px solid var(--yale-blue); margin-bottom: 15px;">
+            <strong>The Syntax:</strong>
+            <pre style="background:none; border:none; padding:0; color:#333;">pivot_wider(data, names_from = "ColumnA", values_from = "ColumnB")</pre>
+        </div>
+    </div>
+
     <div class="instruction-box">
-        <h3>📝 Mission: Spread it Out</h3>
+        <h3>🍳 Mission: Set the Tables</h3>
         <ul class="instruction-list">
             <li>Take <code>long_data</code>.</li>
-            <li>Use <code>pivot_wider(names_from = "Day", values_from = "Eggs")</code>.</li>
+            <li>Use <code>pivot_wider()</code>.</li>
+            <li>Take column names from <code>"Day"</code>.</li>
+            <li>Take values from <code>"Eggs"</code>.</li>
         </ul>
     </div>
     <div class="editor-container">

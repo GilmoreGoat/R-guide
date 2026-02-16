@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill C: The Rumor Mill</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="script.js"></script>
+</head>
+<body>
+<nav><a href="index.html">&larr; Back to Town</a></nav>
+<header>
+    <h1>Skill C: The Rumor Mill (Strings)</h1>
+    <p>"Gossip travels faster than light in this town. You need to parse it."</p>
+</header>
+
+<div class="concept-card">
+    <h2>1. Detecting Patterns (str_detect)</h2>
+    <div class="lesson-text">
+        <p><strong>The Concept:</strong> Filter for rows that contain a specific word (like "Wedding" or "Heist").</p>
+        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+            <strong>Syntax:</strong> <code>str_detect(column, "pattern")</code>
+        </div>
+        <p>Returns TRUE or FALSE.</p>
+    </div>
+    <div class="instruction-box">
+        <h3>🗞️ Mission: Filter the Gossip</h3>
+        <ul class="instruction-list">
+            <li>Filter <code>rumors</code> where <code>text</code> contains <code>"wedding"</code>.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn"
+                        data-answer='rumors |> filter(str_detect(text, "wedding"))'
+                        data-output="  source   text<br>1 MissPatty  I heard a wedding is coming!">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>2. Find and Replace (str_replace)</h2>
+    <div class="lesson-text">
+        <p><strong>The Concept:</strong> Fix typos or standardize names.</p>
+        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+            <strong>Syntax:</strong> <code>str_replace(column, "Old", "New")</code>
+        </div>
+    </div>
+    <div class="instruction-box">
+        <h3>🗞️ Mission: Correct the Names</h3>
+        <ul class="instruction-list">
+            <li>Replace <code>"Assistant"</code> with <code>"Kirk"</code> in the <code>name</code> column.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn"
+                        data-answer='staff |> mutate(name = str_replace(name, "Assistant", "Kirk"))'
+                        data-output="  id   name<br>1 01   Kirk">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>3. Splitting Columns (separate)</h2>
+    <div class="lesson-text">
+        <p><strong>The Concept:</strong> Split "Lorelai_Gilmore" into "Lorelai" and "Gilmore".</p>
+        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+            <strong>Syntax:</strong> <code>separate(col, into = c("A", "B"), sep = "_")</code>
+        </div>
+    </div>
+    <div class="instruction-box">
+        <h3>🗞️ Mission: Split the Names</h3>
+        <ul class="instruction-list">
+            <li>Split <code>full_name</code> into <code>c("First", "Last")</code> using <code>sep = "_"</code>.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn"
+                        data-answer='people |> separate(full_name, into = c("First", "Last"), sep = "_")'
+                        data-output="  First    Last<br>1 Rory     Gilmore">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>4. Combining Text (str_glue)</h2>
+    <div class="lesson-text">
+        <p><strong>The Concept:</strong> Create sentences from data columns. This is great for plot labels.</p>
+        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+            <strong>Syntax:</strong> <code>str_glue("Name: {col_A}, Age: {col_B}")</code>
+        </div>
+        <p>It uses curly braces <code>{}</code> to insert column values.</p>
+    </div>
+    <div class="instruction-box">
+        <h3>🗞️ Mission: Create Labels</h3>
+        <ul class="instruction-list">
+            <li>Create a new column <code>label</code>.</li>
+            <li>Use <code>str_glue()</code> to say: "Student: {name}".</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn"
+                        data-answer='roster |> mutate(label = str_glue("Student: {name}"))'
+                        data-output="  name   label<br>1 Rory   Student: Rory">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+<footer style="text-align: center; margin-top: 50px; color: #8d6e63; font-style: italic;">
+    <p>That's what she said. • Created for Research</p>
+</footer>
+
+</body>
+</html>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Module 1: Chilton Basics</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <script type="module" src="script.js"></script>
 </head>
 <body>
 <nav><a href="index.html">&larr; Back to Town</a></nav>
@@ -16,18 +16,14 @@
 
 <div class="concept-card">
     <h2>1. Objects (The Bucket)</h2>
-
     <div class="lesson-text">
         <p><strong>The Concept:</strong> R is an "Object-Oriented" language. Imagine your computer memory is a giant empty warehouse. To store data, we need to put it into a box and label it.</p>
-
-        <p>We call these boxes <strong>Objects</strong> (or Variables).</p>
-        <ul>
-            <li>To put data <em>into</em> an object, we use the <strong>Assignment Operator</strong>: <code>&lt;-</code></li>
-            <li>It looks like an arrow pointing to the left. It takes the value on the right and stuffs it into the name on the left.</li>
-            <li><em>Tip:</em> You can use <code>=</code>, but R purists (like Paris Geller) insist on <code>&lt;-</code>.</li>
-        </ul>
+        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+            <strong>Syntax:</strong> <code>name <- value</code>
+        </div>
+        <p>We call these boxes <strong>Objects</strong>. To put data <em>into</em> an object, we use the <strong>Assignment Operator</strong>: <code>&lt;-</code>.</p>
+        <p><em>Tip:</em> You can use <code>=</code>, but R purists (like Paris Geller) insist on <code>&lt;-</code>.</p>
     </div>
-
     <div class="instruction-box">
         <h3>📝 Mission: The Caffeine Fix</h3>
         <ul class="instruction-list">
@@ -50,16 +46,16 @@
 
 <div class="concept-card">
     <h2>2. Naming Rules (The Strict Code)</h2>
-
     <div class="lesson-text">
         <p><strong>The Concept:</strong> Just like Chilton has a dress code, R has a naming code. If you break these rules, the code will error.</p>
-        <ul>
-            <li><strong>Rule 1: No Spaces.</strong> <code>my grade</code> is illegal. Use <code>my_grade</code> (snake_case) or <code>myGrade</code> (camelCase).</li>
-            <li><strong>Rule 2: No Numbers at the Start.</strong> <code>1st_place</code> is illegal. <code>place_1</code> is fine.</li>
-            <li><strong>Rule 3: Case Sensitive.</strong> <code>Coffee</code> and <code>coffee</code> are two different objects.</li>
-        </ul>
+        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+            <strong>Rules:</strong><br>
+            1. No Spaces (<code>my grade</code> is bad).<br>
+            2. No Numbers at start (<code>1st_place</code> is bad).<br>
+            3. Case Sensitive (<code>Data</code> != <code>data</code>).
+        </div>
+        <p>Use <strong>snake_case</strong> (<code>my_grade</code>) or <strong>camelCase</strong> (<code>myGrade</code>).</p>
     </div>
-
     <div class="instruction-box">
         <h3>📝 Mission: Fix the Band Name</h3>
         <ul class="instruction-list">
@@ -83,21 +79,18 @@
 
 <div class="concept-card">
     <h2>3. Math & PEMDAS</h2>
-
     <div class="lesson-text">
-        <p><strong>The Concept:</strong> At its core, R is just a super-powered calculator. It uses standard symbols:</p>
-        <ul>
-            <li><code>+</code>, <code>-</code>, <code>*</code>, <code>/</code></li>
-            <li><code>^</code> for Exponents (Power).</li>
-        </ul>
+        <p><strong>The Concept:</strong> At its core, R is just a super-powered calculator.</p>
+        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+            <strong>Operators:</strong> <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>^</code> (Exponent)
+        </div>
         <p><strong>PEMDAS Applies:</strong> R follows the Order of Operations. <code>(4+6)*2</code> equals 20, but <code>4+6*2</code> equals 16. Parentheses are your best friends.</p>
     </div>
-
     <div class="instruction-box">
         <h3>📝 Mission: Calculate the Tip</h3>
         <ul class="instruction-list">
             <li>Calculate <code>(10 + 2) / 4</code>.</li>
-            <li>(Use spaces to keep your code clean, though R doesn't technically care).</li>
+            <li>(Use spaces to keep your code clean).</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -115,18 +108,16 @@
 
 <div class="concept-card">
     <h2>4. Logic (True/False)</h2>
-
     <div class="lesson-text">
         <p><strong>The Concept:</strong> Sometimes we don't want to do math; we want to ask a question. These are called <strong>Logical Operators</strong>.</p>
+        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+            <strong>Syntax:</strong><br>
+            <code>==</code> (Exactly Equal?)<br>
+            <code>!=</code> (Not Equal?)<br>
+            <code>&gt;</code>, <code>&lt;</code> (Greater/Less Than)
+        </div>
         <p>They always return <code>TRUE</code> or <code>FALSE</code>.</p>
-        <table style="width:100%; border-collapse: collapse; margin-bottom: 15px;">
-            <tr style="border-bottom: 1px solid #ccc;"><th>Symbol</th><th>Meaning</th></tr>
-            <tr><td><code>==</code></td><td><strong>Exactly Equal</strong> (Double equals is a question, Single equals is an assignment!)</td></tr>
-            <tr><td><code>!=</code></td><td><strong>Not Equal</strong> (Is different from)</td></tr>
-            <tr><td><code>&lt;</code> / <code>&gt;</code></td><td>Less Than / Greater Than</td></tr>
-        </table>
     </div>
-
     <div class="instruction-box">
         <h3>📝 Mission: The Logic Check</h3>
         <ul class="instruction-list">
@@ -149,14 +140,13 @@
 
 <div class="concept-card">
     <h2>5. Vectors (The Pro/Con List)</h2>
-
     <div class="lesson-text">
         <p><strong>The Concept:</strong> Rory loves a list. In R, a list of items is called a <strong>Vector</strong>.</p>
-        <p>To create one, we use the function <code>c()</code>, which stands for <strong>Combine</strong> (or Concatenate).</p>
-
-        <p><strong>Crucial Rule:</strong> A vector is atomic. That means every item inside must be the SAME type (all numbers or all text). You cannot mix them!</p>
+        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+            <strong>Syntax:</strong> <code>c(value1, value2, value3)</code>
+        </div>
+        <p><code>c()</code> stands for <strong>Combine</strong>. <br><strong>Crucial Rule:</strong> A vector is atomic. Every item inside must be the SAME type.</p>
     </div>
-
     <div class="instruction-box">
         <h3>📝 Mission: The Book List</h3>
         <ul class="instruction-list">
@@ -179,18 +169,17 @@
 
 <div class="concept-card">
     <h2>6. Data Types (Identity Crisis)</h2>
-
     <div class="lesson-text">
         <p><strong>The Concept:</strong> R treats different data differently. You can't do math on text.</p>
-
+        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+            <strong>Check Type:</strong> <code>class(object_name)</code>
+        </div>
         <ul>
-            <li><strong>Numeric:</strong> Numbers (e.g., <code>4.0</code>, <code>150</code>). Used for math.</li>
-            <li><strong>Character:</strong> Text strings. These MUST be wrapped in quotes (e.g., <code>"Paris"</code>).</li>
-            <li><strong>Logical:</strong> Boolean values. <code>TRUE</code> or <code>FALSE</code> (Must be all caps, no quotes).</li>
+            <li><strong>Numeric:</strong> Numbers (e.g., <code>4.0</code>).</li>
+            <li><strong>Character:</strong> Text (e.g., <code>"Paris"</code>). MUST have quotes.</li>
+            <li><strong>Logical:</strong> <code>TRUE</code> or <code>FALSE</code>.</li>
         </ul>
-        <p>Use the function <code>class()</code> to check what something is.</p>
     </div>
-
     <div class="instruction-box">
         <h3>📝 Mission: Identify Kirk</h3>
         <ul class="instruction-list">
@@ -213,13 +202,13 @@
 
 <div class="concept-card">
     <h2>7. Comments (The Post-It Note)</h2>
-
     <div class="lesson-text">
-        <p><strong>The Concept:</strong> Code can be confusing. Sometimes you need to leave a note for your future self (or your professor) explaining what you did.</p>
-        <p>We use the hashtag symbol <code>#</code> to create a <strong>Comment</strong>.</p>
-        <p>When R sees a <code>#</code>, it ignores everything after it on that line. It doesn't run it. It's just for humans.</p>
+        <p><strong>The Concept:</strong> Sometimes you need to leave a note for your future self.</p>
+        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+            <strong>Syntax:</strong> <code># This is a comment</code>
+        </div>
+        <p>When R sees a <code>#</code>, it ignores everything after it on that line. It doesn't run it.</p>
     </div>
-
     <div class="instruction-box">
         <h3>📝 Mission: Leave a Note</h3>
         <ul class="instruction-list">
@@ -242,20 +231,18 @@
 
 <div class="concept-card">
     <h2>8. Packages (The Lightbulb)</h2>
-
     <div class="lesson-text">
         <p><strong>The Concept:</strong> R comes with basic tools, but for the cool stuff (like making graphs), you need extra toolkits called <strong>Packages</strong>.</p>
-        <p>There is a specific workflow for this:</p>
-        <ol>
-            <li><strong>Install:</strong> <code>install.packages("name")</code>. This is like buying a lightbulb at the store. You only do this ONCE per computer.</li>
-            <li><strong>Load:</strong> <code>library(name)</code>. This is like screwing in the bulb and flipping the switch. You must do this EVERY time you restart R.</li>
-        </ol>
+        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+            <strong>1. Install:</strong> <code>install.packages("name")</code> (Once)<br>
+            <strong>2. Load:</strong> <code>library(name)</code> (Every time)
+        </div>
+        <p>Think of installing as buying the bulb, and loading as flipping the switch.</p>
     </div>
-
     <div class="instruction-box">
         <h3>📝 Mission: Load Tidyverse</h3>
         <ul class="instruction-list">
-            <li>We have already installed the package <code>tidyverse</code>.</li>
+            <li>We have already installed <code>tidyverse</code>.</li>
             <li>Now, load it using <code>library()</code>.</li>
         </ul>
     </div>
@@ -274,21 +261,17 @@
 
 <div class="concept-card">
     <h2>9. The Summary (Skimr)</h2>
-
     <div class="lesson-text">
         <p><strong>The Concept:</strong> When you get a new dataset, you shouldn't just stare at the raw numbers. You need a summary.</p>
-        <p>The <code>skimr</code> package is your best friend. It provides a "Spark Notes" version of your data:</p>
-        <ul>
-            <li><strong>Mean:</strong> The average.</li>
-            <li><strong>SD:</strong> Standard Deviation (spread).</li>
-            <li><strong>Missing:</strong> How many empty cells?</li>
-        </ul>
+        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+            <strong>Syntax:</strong> <code>skim(dataframe)</code>
+        </div>
+        <p>The <code>skimr</code> package provides a "Spark Notes" version: Mean, SD, and Missing counts.</p>
     </div>
-
     <div class="instruction-box">
         <h3>📝 Mission: Skim the Grades</h3>
         <ul class="instruction-list">
-            <li>We have a dataset loaded called <code>grades</code>.</li>
+            <li>We have a dataset called <code>grades</code>.</li>
             <li>Run <code>skim(grades)</code> to see the report.</li>
         </ul>
     </div>

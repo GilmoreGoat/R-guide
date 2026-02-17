@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert';
-import { normalizeCode, compareCode, escapeHTML } from '../logic.js';
+import { normalizeCode, compareCode, escapeHTML, processWebROutput } from '../logic.js';
 
 describe('escapeHTML', () => {
     it('should escape dangerous characters', () => {
@@ -104,5 +104,69 @@ describe('compareCode', () => {
     it('should handle quote style differences', () => {
         assert.strictEqual(compareCode('print("hello")', "print('hello')"), true);
         assert.strictEqual(compareCode("print('hello')", 'print("hello")'), true);
+    });
+});
+
+describe('processWebROutput', () => {
+    it('should handle simple string output', () => {
+        const output = [{ data: 'Hello' }];
+        assert.strictEqual(processWebROutput(output), 'Hello');
+    });
+
+    it('should join multiple lines with <br>', () => {
+        const output = [{ data: 'Hello' }, { data: 'World' }];
+        assert.strictEqual(processWebROutput(output), 'Hello<br>World');
+    });
+
+    it('should handle object output with message (e.g. conditions)', () => {
+        const output = [{ data: { message: 'Warning' } }];
+        assert.strictEqual(processWebROutput(output), 'Warning');
+    });
+
+    it('should handle empty objects', () => {
+        const output = [{ data: {} }];
+        assert.strictEqual(processWebROutput(output), '');
+    });
+
+    it('should JSON stringify other objects and escape HTML', () => {
+         const output = [{ data: { foo: 'bar' } }];
+         // JSON.stringify({foo:'bar'}) -> '{"foo":"bar"}'
+         // escapeHTML('{"foo":"bar"}') -> '{&quot;foo&quot;:&quot;bar&quot;}'
+         assert.strictEqual(processWebROutput(output), '{&quot;foo&quot;:&quot;bar&quot;}');
+    });
+
+    it('should handle non-string, non-object data', () => {
+        const output = [{ data: 123 }, { data: true }];
+        assert.strictEqual(processWebROutput(output), '123<br>true');
+    });
+
+    it('should handle mixed content types', () => {
+        const output = [
+            { data: 'Line 1' },
+            { data: { message: 'Line 2' } },
+            { data: 123 }
+        ];
+        assert.strictEqual(processWebROutput(output), 'Line 1<br>Line 2<br>123');
+    });
+
+    it('should escape HTML in string data', () => {
+        const output = [{ data: '<script>' }];
+        assert.strictEqual(processWebROutput(output), '&lt;script&gt;');
+    });
+
+    it('should handle empty input array', () => {
+        assert.strictEqual(processWebROutput([]), '');
+    });
+
+    it('should handle null/undefined input', () => {
+        assert.strictEqual(processWebROutput(null), '');
+        assert.strictEqual(processWebROutput(undefined), '');
+    });
+
+     it('should handle circular objects gracefully', () => {
+        const circular = {};
+        circular.self = circular;
+        const output = [{ data: circular }];
+        assert.strictEqual(processWebROutput(output), '');
     });
 });

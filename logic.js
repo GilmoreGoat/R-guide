@@ -38,3 +38,35 @@ export const escapeHTML = (str) => {
     if (str === null || str === undefined) return str;
     return String(str).replace(/[&<>"']/g, (m) => HTML_ESCAPES[m]);
 };
+
+/**
+ * Processes the output from WebR into an HTML string.
+ * @param {Array<Object>} output - The output array from WebR.
+ * @returns {string} The processed HTML string joined by <br>.
+ */
+export function processWebROutput(output) {
+    if (!output || !Array.isArray(output)) return '';
+    return output.map(line => {
+        let data = line.data;
+        let text = '';
+        if (typeof data === 'string') {
+            text = data;
+        } else if (data && typeof data === 'object') {
+            if (data.message) {
+                text = data.message;
+            } else if (Object.keys(data).length === 0) {
+                text = '';
+            } else {
+                try {
+                    const str = JSON.stringify(data);
+                    text = str === '{}' ? '' : str;
+                } catch (e) {
+                    text = '';
+                }
+            }
+        } else {
+            text = String(data);
+        }
+        return escapeHTML(text);
+    }).join('<br>');
+}

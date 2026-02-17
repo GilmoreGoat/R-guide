@@ -9,11 +9,18 @@ A Gilmore Girls-themed interactive study guide for R programming, built with [We
 - **WebR Integration**: Runs R code entirely in the browser using WebAssembly—no server-side R required.
 - **Interactive Exercises**: "Missions" with code editors that check student answers against expected solutions.
 - **Themed Modules**:
-    - **Chilton Basics**: Objects, Vectors, Types.
-    - **Luke's Diner**: Data Frames & Wrangling (`dplyr`).
-    - **The Dragonfly Inn**: Tidying Data (`tidyr`).
-    - **The Gazette**: Visualization (`ggplot2`).
-    - **Town Meeting**: Statistics (ANOVA, T-Tests).
+    - **Module 1: Chilton Basics**: Objects, Vectors, and Types.
+    - **Module 2: Luke's Diner**: Data Frames & Wrangling (`dplyr`).
+    - **Module 3: The Dragonfly Inn**: Tidying Data (`tidyr`).
+    - **Module 4: The Gazette**: Visualization (`ggplot2`).
+    - **Module 5: Yale Daily News**: Statistics (T-Tests, Normality, Power Analysis).
+    - **Module 6: Town Meeting**: ANOVA & Tukey's HSD.
+    - **Module 7: Dance Marathon**: Correlation & Linear Regression.
+    - **Module 8: The DAR Tea**: Categorical Data (`chisq.test`).
+- **Research Skills (Tier 2)**:
+    - **Skill A: The Secret Society**: Logic & Joining Data.
+    - **Skill B: The Festival Calendar**: Dates & Time (`lubridate`).
+    - **Skill C: The Rumor Mill**: Strings & Text (`stringr`).
 - **Instant Feedback**: Visual cues (Success/Warning/Error) and console output.
 - **Cheat Menu**: Quick access to common R functions and package loading.
 - **Strict Linting**: Encourages best practices (e.g., using `<-` for assignment, proper naming conventions).
@@ -65,7 +72,20 @@ npx playwright test
 - `script.js`: Core application logic, WebR initialization, and UI handling.
 - `logic.js`: Pure utility functions for code normalization and comparison (testable).
 - `style.css`: Global styles and theming (CSS Variables).
-- `*.html`: Individual module pages (e.g., `basics.html`, `wrangling.html`).
+- `basics.html`: Module 1 (Basics).
+- `wrangling.html`: Module 2 (Data Frames).
+- `tidying.html`: Module 3 (Tidying).
+- `visualization.html`: Module 4 (Graphing).
+- `statistics.html`: Module 5 (T-Tests).
+- `anova.html`: Module 6 (ANOVA).
+- `regression.html`: Module 7 (Regression).
+- `categorical.html`: Module 8 (Categorical).
+- `module6.html`: Skill A (Joining).
+- `skill_b.html`: Skill B (Dates).
+- `skill_c.html`: Skill C (Strings).
+- `syllabus.html`: Future Syllabus (Tier 3).
+- `reference.html`: Paris Geller's Master Reference.
+- `about.html`: About page.
 - `tests/`: Unit and E2E tests.
 
 ## Tech Stack

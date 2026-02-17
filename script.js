@@ -1,6 +1,6 @@
-import { compareCode, escapeHTML } from './logic.js';
+import { compareCode, escapeHTML, processWebROutput } from './logic.js';
 
-// Utility functions (escapeHTML, compareCode) are consolidated in logic.js
+// Utility functions (escapeHTML, compareCode, processWebROutput) are consolidated in logic.js
 // Note: Ensure utility functions are not redefined locally.
 const COLORS = {
     // Theme Colors
@@ -163,29 +163,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     });
 
                     // Process Text
-                    let outputHTML = result.output.map(line => {
-                        let data = line.data;
-                        let text = '';
-                        if (typeof data === 'string') {
-                            text = data;
-                        } else if (data && typeof data === 'object') {
-                            if (data.message) {
-                                text = data.message;
-                            } else if (Object.keys(data).length === 0) {
-                                text = '';
-                            } else {
-                                try {
-                                    const str = JSON.stringify(data);
-                                    text = str === '{}' ? '' : str;
-                                } catch (e) {
-                                    text = '';
-                                }
-                            }
-                        } else {
-                            text = String(data);
-                        }
-                        return escapeHTML(text);
-                    }).join('<br>');
+                    let outputHTML = processWebROutput(result.output);
 
                     // Process Plots (from result.images)
                     if (result.images.length > 0) {

@@ -10,6 +10,13 @@
     --luke-accent: #f39c12;  /* The "Luke's Diner" Orange */
     /* The functional fix for code */
     --code-bg: #282c34;       /* Dark High-Contrast */
+    --success-color: #2ecc71;
+    --error-color: #e74c3c;
+    --warning-color: #e67e22;
+    --muted-color: #ccc;
+    --subtle-color: #888;
+    --light-blue-bg: #e8f4f8;
+    --border-dark: #333;
 }
 
 body {
@@ -209,6 +216,54 @@ pre code { background: transparent; color: inherit; padding: 0; font-weight: nor
 .cheat-item { margin-bottom: 8px; border-bottom: 1px dashed #ccc; padding-bottom: 5px; }
 .cheat-item strong { color: var(--yale-blue); }
 
+.cheat-item-pkg-btn {
+    background: var(--light-blue-bg);
+    cursor: pointer;
+    border: 1px solid var(--yale-blue);
+}
+
+.cheat-item-subtext {
+    font-size: 0.8em;
+}
+
+.cheat-menu-hr {
+    border: 0;
+    border-top: 1px dashed var(--muted-color);
+    margin: 5px 0;
+}
+
+/* Loading Banner */
+.loading-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: var(--luke-yellow);
+    color: var(--coffee-dark);
+    text-align: center;
+    padding: 5px;
+    font-weight: bold;
+    z-index: 1000;
+    transition: top 0.5s, background-color 0.3s;
+}
+.loading-banner.is-success { background-color: var(--success-color); }
+.loading-banner.is-error { background-color: var(--error-color); }
+.loading-banner.is-hidden { top: -50px; }
+
+/* Console Output Styling */
+.console-user-code { color: var(--muted-color); }
+.console-status-running { color: var(--luke-yellow); }
+.console-status-success { color: var(--success-color); }
+.console-status-warning { color: var(--warning-color); }
+.console-status-error { color: var(--error-color); }
+.console-status-info { color: var(--subtle-color); font-style: italic; }
+.console-bold { font-weight: bold; }
+
+/* Input state classes */
+.input-code.is-success { border-bottom: 2px solid var(--success-color) !important; }
+.input-code.is-warning { border-bottom: 2px solid var(--warning-color) !important; }
+.input-code.is-error { border-bottom: 2px solid var(--error-color) !important; }
+
 /* --- CODECADEMY STYLE LAYOUT --- */
 
 /* The "Instructions" Box */
@@ -279,6 +334,7 @@ pre code { background: transparent; color: inherit; padding: 0; font-weight: nor
     border-top: 1px solid #333;
     display: none; /* Hidden until run */
 }
+.console-output.is-visible { display: block; }
 /* --- AUTHOR PHOTO STYLING --- */
 .author-photo {
     width: 150px;            /* Sets the size */

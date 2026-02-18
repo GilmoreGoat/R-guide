@@ -9,15 +9,15 @@ const COLORS = {
     yaleBlue: 'var(--yale-blue)',
 
     // Status Colors
-    success: '#2ecc71',
-    error: '#e74c3c',
-    warning: '#e67e22',
+    success: 'var(--success-color)',
+    error: 'var(--error-color)',
+    warning: 'var(--warning-color)',
 
     // UI Colors
-    lightBlueBg: '#e8f4f8',
-    muted: '#ccc',
-    subtle: '#888',
-    borderDark: '#333'
+    lightBlueBg: 'var(--light-blue-bg)',
+    muted: 'var(--muted-color)',
+    subtle: 'var(--subtle-color)',
+    borderDark: 'var(--border-dark)'
 };
 
 
@@ -32,10 +32,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     const menu = document.createElement('div');
     menu.className = 'cheat-menu';
     menu.innerHTML = `
-        <div class="cheat-item" id="btn-load-pkg" style="background:${COLORS.lightBlueBg}; cursor:pointer; border:1px solid ${COLORS.yaleBlue};">
-            <strong>📦 Load Tidyverse</strong><br><span style="font-size:0.8em">Click to install packages</span>
+        <div class="cheat-item cheat-item-pkg-btn" id="btn-load-pkg">
+            <strong>📦 Load Tidyverse</strong><br><span class="cheat-item-subtext">Click to install packages</span>
         </div>
-        <hr style="border:0; border-top:1px dashed ${COLORS.muted}; margin:5px 0;">
+        <hr class="cheat-menu-hr">
         <div class="cheat-item"><strong>filter()</strong>: Pick Rows</div>
         <div class="cheat-item"><strong>select()</strong>: Pick Columns</div>
         <div class="cheat-item"><strong>mutate()</strong>: New Column</div>
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (checkBtns.length > 0) {
         const loadingBanner = document.createElement('div');
-        loadingBanner.style.cssText = `position:fixed; top:0; left:0; width:100%; background:${COLORS.lukeYellow}; color:${COLORS.coffeeDark}; text-align:center; padding:5px; font-weight:bold; z-index:1000; transition: top 0.5s;`;
+        loadingBanner.className = 'loading-banner';
         loadingBanner.innerText = "☕ Brewing R Engine...";
         document.body.appendChild(loadingBanner);
 
@@ -147,12 +147,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                 lizards <- data.frame(horn_length = c(10, 12, 11, 14, 9, 22, 24, 21, 25, 20), survival = c(rep("Died", 5), rep("Lived", 5)))
             `);
 
-            loadingBanner.style.backgroundColor = COLORS.success;
+            loadingBanner.classList.add('is-success');
             loadingBanner.innerText = "R is Ready! 🚀";
-            setTimeout(() => { loadingBanner.style.top = '-50px'; }, 2000);
+            setTimeout(() => { loadingBanner.classList.add('is-hidden'); }, 2000);
 
         } catch (e) {
-            loadingBanner.style.backgroundColor = COLORS.error;
+            loadingBanner.classList.add('is-error');
             loadingBanner.innerText = "Error loading packages. Refresh page.";
             console.error(e);
         }
@@ -181,8 +181,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                     invisible(NULL)
                 `;
 
-                consoleDiv.style.display = "block";
-                consoleDiv.innerHTML = `<span style="color: ${COLORS.muted};">> ${escapeHTML(userCode)}</span><br><span style="color: ${COLORS.lukeYellow};">Running...</span>`;
+                consoleDiv.classList.add('is-visible');
+                consoleDiv.innerHTML = `<span class="console-user-code">> ${escapeHTML(userCode)}</span><br><span class="console-status-running">Running...</span>`;
 
                 try {
                     const shelter = await new webR.Shelter();
@@ -206,32 +206,34 @@ document.addEventListener('DOMContentLoaded', async () => {
                             canvas.height = img.height;
                             const ctx = canvas.getContext('2d');
                             ctx.drawImage(img, 0, 0);
-                            outputHTML += '<br><img src="' + canvas.toDataURL() + '" style="max-width:100%; border:1px solid ' + COLORS.borderDark + ';">';
+                            outputHTML += '<br><img src="' + canvas.toDataURL() + '" class="console-img">';
                         }
                     }
 
                     shelter.purge();
 
                     if (!outputHTML && !result.images.length) {
-                        outputHTML = `<span style="color:${COLORS.subtle}; font-style:italic;">(Value saved)</span>`;
+                        outputHTML = `<span class="console-status-info">(Value saved)</span>`;
                     }
 
                     // Grading
+                    input.classList.remove('is-success', 'is-warning', 'is-error');
                     if (isCorrect) {
-                        consoleDiv.innerHTML = `<span style="color: ${COLORS.success};">> ${escapeHTML(userCode)}</span><br>${outputHTML}`;
-                        input.style.borderBottom = `2px solid ${COLORS.success}`;
+                        consoleDiv.innerHTML = `<span class="console-status-success">> ${escapeHTML(userCode)}</span><br>${outputHTML}`;
+                        input.classList.add('is-success');
                     } else {
-                        consoleDiv.innerHTML = `<span style="color: ${COLORS.warning};">> ${escapeHTML(userCode)}</span><br>${outputHTML}<br><br><span style="color: ${COLORS.warning}; font-weight:bold;">⚠️ Paris says: "The code works, but that's not what I asked for."</span>`;
-                        input.style.borderBottom = `2px solid ${COLORS.warning}`;
+                        consoleDiv.innerHTML = `<span class="console-status-warning">> ${escapeHTML(userCode)}</span><br>${outputHTML}<br><br><span class="console-status-warning console-bold">⚠️ Paris says: "The code works, but that's not what I asked for."</span>`;
+                        input.classList.add('is-warning');
                     }
 
                 } catch (e) {
+                    input.classList.remove('is-success', 'is-warning', 'is-error');
                     let errorMsg = escapeHTML(e.message);
                     if (errorMsg.includes("could not find function")) {
                         errorMsg += `<br><br><strong>Tip:</strong> Packages might still be loading. Wait for the green banner!`;
                     }
-                    consoleDiv.innerHTML = `<span style="color: ${COLORS.muted};">> ${escapeHTML(userCode)}</span><br><span style="color: ${COLORS.error};">${errorMsg}</span>`;
-                    input.style.borderBottom = `2px solid ${COLORS.error}`;
+                    consoleDiv.innerHTML = `<span class="console-user-code">> ${escapeHTML(userCode)}</span><br><span class="console-status-error">${errorMsg}</span>`;
+                    input.classList.add('is-error');
                 }
             });
         });

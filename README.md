@@ -21,6 +21,11 @@ A Gilmore Girls-themed interactive study guide for R programming, built with [We
     - **Skill A: The Secret Society**: Logic & Joining Data.
     - **Skill B: The Festival Calendar**: Dates & Time (`lubridate`).
     - **Skill C: The Rumor Mill**: Strings & Text (`stringr`).
+- **Pre-loaded Data**:
+    - `menu`, `orders`, `customers` (Luke's Diner datasets)
+    - `townies`, `kitchen`, `long_data`
+    - `pumpkins` (Generated dataset for stats)
+    - `students`, `penguins`, `lizards`
 - **Instant Feedback**: Visual cues (Success/Warning/Error) and console output.
 - **Cheat Menu**: Quick access to common R functions and package loading.
 - **Paris Geller's Master Reference**: A complete, searchable reference guide (`reference.html`) covering every function used in the course.
@@ -64,18 +69,32 @@ Since this project uses ES modules and WebAssembly, it must be served via a loca
     ```
 5.  Open your browser and go to `http://localhost:8000`.
 
-## Testing
+## Architecture & Developer Guide
 
-### Unit Tests
-The project uses the Node.js native test runner for verifying the logic in `logic.js`.
+The project is designed to be simple and maintainable.
+
+### Key Files
+
+- `index.html`: Main landing page.
+- `script.js`: Core application logic. Handles WebR initialization, UI interactions (Cheat Menu, Copy Buttons), and code execution using `webR.Shelter` and `captureR`.
+- `logic.js`: Pure utility functions for code verification and output processing.
+    - `normalizeCode(code)`: Standardizes user input (removes whitespace, lowers case) for fuzzy matching.
+    - `compareCode(user, expected)`: Checks if the user's answer matches the solution.
+    - `escapeHTML(str)`: Prevents XSS attacks by escaping special characters.
+    - `processWebROutput(output)`: Formats WebR output arrays into HTML.
+- `style.css`: Global styles using CSS Variables for theming.
+
+### Testing
+
+#### Unit Tests
+Verifies the logic in `logic.js` using Node.js native test runner.
 
 ```bash
 npm test
 ```
-(Runs `tests/logic.test.js`)
 
-### End-to-End Tests
-Playwright is used to verify WebR loading and page interactions.
+#### End-to-End Tests
+Verifies WebR loading and page interactions using Playwright.
 
 ```bash
 npx playwright test

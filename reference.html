@@ -3,23 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org;">
     <title>Paris Geller's Master Reference</title>
     <link rel="stylesheet" href="style.css">
-    <script type="module" src="script.js">
-        // SMART NAVIGATION SCRIPT
-        function openSection(id) {
-            // 1. Close all other sections
-            document.querySelectorAll('details').forEach((el) => {
-                el.removeAttribute('open');
-            });
-            // 2. Open target
-            const target = document.getElementById(id);
-            if (target) {
-                target.setAttribute('open', '');
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        }
-    </script>
+    <script type="module" src="script.js"></script>
+    <script type="module" src="reference.js"></script>
     <style>
         /* --- SPECIAL REFERENCE STYLING --- */
         body { max-width: 1100px; } /* Wider for all this knowledge */
@@ -123,13 +111,13 @@
         <p>Everything you need to survive <strong>BILD 5</strong>.</p>
     </div>
     <div class="toc-buttons">
-        <button class="toc-btn" onclick="openSection('setup')">1. Setup</button>
-        <button class="toc-btn" onclick="openSection('basics')">2. Basics</button>
-        <button class="toc-btn" onclick="openSection('math')">3. Math</button>
-        <button class="toc-btn" onclick="openSection('wrangling')">4. Wrangling</button>
-        <button class="toc-btn" onclick="openSection('tidying')">5. Tidying</button>
-        <button class="toc-btn" onclick="openSection('viz')">6. Viz</button>
-        <button class="toc-btn" onclick="openSection('testing')">7. Stats</button>
+        <button class="toc-btn" data-section="setup">1. Setup</button>
+        <button class="toc-btn" data-section="basics">2. Basics</button>
+        <button class="toc-btn" data-section="math">3. Math</button>
+        <button class="toc-btn" data-section="wrangling">4. Wrangling</button>
+        <button class="toc-btn" data-section="tidying">5. Tidying</button>
+        <button class="toc-btn" data-section="viz">6. Viz</button>
+        <button class="toc-btn" data-section="testing">7. Stats</button>
     </div>
 </div>
 
@@ -145,12 +133,12 @@
         <p><em>In Omnia Paratus.</em> (Ready for anything).</p>
     </div>
     <div class="toc-buttons">
-        <button class="toc-btn yale-btn" onclick="openSection('adv-wrangling')">8. Adv. Wrangling</button>
-        <button class="toc-btn yale-btn" onclick="openSection('adv-viz')">9. Adv. Viz</button>
-        <button class="toc-btn yale-btn" onclick="openSection('adv-tidy')">10. Deep Tidying</button>
-        <button class="toc-btn yale-btn" onclick="openSection('adv-strings')">11. String Theory</button>
-        <button class="toc-btn yale-btn" onclick="openSection('adv-time')">12. Time Travel</button>
-        <button class="toc-btn yale-btn" onclick="openSection('adv-stats')">13. The Model Shop</button>
+        <button class="toc-btn yale-btn" data-section="adv-wrangling">8. Adv. Wrangling</button>
+        <button class="toc-btn yale-btn" data-section="adv-viz">9. Adv. Viz</button>
+        <button class="toc-btn yale-btn" data-section="adv-tidy">10. Deep Tidying</button>
+        <button class="toc-btn yale-btn" data-section="adv-strings">11. String Theory</button>
+        <button class="toc-btn yale-btn" data-section="adv-time">12. Time Travel</button>
+        <button class="toc-btn yale-btn" data-section="adv-stats">13. The Model Shop</button>
     </div>
 </div>
 

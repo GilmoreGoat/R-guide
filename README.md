@@ -23,7 +23,23 @@ A Gilmore Girls-themed interactive study guide for R programming, built with [We
     - **Skill C: The Rumor Mill**: Strings & Text (`stringr`).
 - **Instant Feedback**: Visual cues (Success/Warning/Error) and console output.
 - **Cheat Menu**: Quick access to common R functions and package loading.
+- **Paris Geller's Master Reference**: A complete, searchable reference guide (`reference.html`) covering every function used in the course.
 - **Strict Linting**: Encourages best practices (e.g., using `<-` for assignment, proper naming conventions).
+
+## Available Data 📊
+
+The R environment comes pre-loaded with several datasets for you to practice with:
+
+- **`menu`**: Items, prices, and calories at Luke's Diner.
+- **`orders`**: Customer orders and tips.
+- **`customers`**: Customer names and VIP status.
+- **`townies`**: Roles of various Stars Hollow residents.
+- **`pumpkins`**: A generated dataset of 200 pumpkins with weights and types.
+- **`students`**: Data on students from Chilton, Yale, and Stars Hollow High.
+- **`penguins`**: Simplified penguin mass data.
+- **`lizards`**: Horn length and survival status.
+- **`kitchen`** & **`long_data`**: Used for tidying exercises.
+- **`data`**: Coffee consumption vs. Jitters.
 
 ## Getting Started
 
@@ -80,9 +96,9 @@ npx playwright test
 - `anova.html`: Module 6 (ANOVA).
 - `regression.html`: Module 7 (Regression).
 - `categorical.html`: Module 8 (Categorical).
-- `module6.html`: Skill A (Joining).
-- `skill_b.html`: Skill B (Dates).
-- `skill_c.html`: Skill C (Strings).
+- `module6.html`: Skill A (The Secret Society - Joining).
+- `skill_b.html`: Skill B (The Festival Calendar - Dates).
+- `skill_c.html`: Skill C (The Rumor Mill - Strings).
 - `syllabus.html`: Future Syllabus (Tier 3).
 - `reference.html`: Paris Geller's Master Reference.
 - `about.html`: About page.
@@ -93,6 +109,15 @@ npx playwright test
 - **Frontend**: HTML5, CSS3, JavaScript (ES Modules).
 - **R Engine**: [WebR](https://docs.r-wasm.org/webr/latest/) (WASM).
 - **Testing**: Node.js Test Runner, Playwright.
+
+## Troubleshooting 🔧
+
+- **R Engine Stuck Loading?**
+  - Ensure you are serving the file via a web server (http://localhost:8000), not opening it directly (`file://`).
+  - Check your browser console (F12) for errors.
+  - Refresh the page (sometimes the WASM fetch times out).
+- **Plots Not Showing?**
+  - Make sure you run code that produces a plot object (e.g., `print(plot)`).
 
 ## License & Credits
 

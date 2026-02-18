@@ -21,6 +21,11 @@ A Gilmore Girls-themed interactive study guide for R programming, built with [We
     - **Skill A: The Secret Society**: Logic & Joining Data.
     - **Skill B: The Festival Calendar**: Dates & Time (`lubridate`).
     - **Skill C: The Rumor Mill**: Strings & Text (`stringr`).
+- **Pre-loaded Data**:
+    - `menu`, `orders`, `customers` (Luke's Diner datasets)
+    - `townies`, `kitchen`, `long_data`
+    - `pumpkins` (Generated dataset for stats)
+    - `students`, `penguins`, `lizards`
 - **Instant Feedback**: Visual cues (Success/Warning/Error) and console output.
 - **Cheat Menu**: Quick access to common R functions and package loading.
 - **Strict Linting**: Encourages best practices (e.g., using `<-` for assignment, proper naming conventions).
@@ -48,51 +53,68 @@ Since this project uses ES modules and WebAssembly, it must be served via a loca
     ```
 5.  Open your browser and go to `http://localhost:8000`.
 
-## Testing
+## Architecture & Developer Guide
 
-### Unit Tests
-The project uses the Node.js native test runner for verifying the logic in `logic.js`.
+The project is designed to be simple and maintainable.
+
+### Key Files
+
+- `index.html`: Main landing page.
+- `script.js`: Core application logic. Handles WebR initialization, UI interactions (Cheat Menu, Copy Buttons), and code execution using `webR.Shelter` and `captureR`.
+- `logic.js`: Pure utility functions for code verification and output processing.
+    - `normalizeCode(code)`: Standardizes user input (removes whitespace, lowers case) for fuzzy matching.
+    - `compareCode(user, expected)`: Checks if the user's answer matches the solution.
+    - `escapeHTML(str)`: Prevents XSS attacks by escaping special characters.
+    - `processWebROutput(output)`: Formats WebR output arrays into HTML.
+- `style.css`: Global styles using CSS Variables for theming.
+
+### Testing
+
+#### Unit Tests
+Verifies the logic in `logic.js` using Node.js native test runner.
 
 ```bash
 npm test
 ```
-(Runs `tests/logic.test.js`)
 
-### End-to-End Tests
-Playwright is used to verify WebR loading and page interactions.
+#### End-to-End Tests
+Verifies WebR loading and page interactions using Playwright.
 
 ```bash
 npx playwright test
 ```
-(Runs tests in `tests/verify_webr_load.spec.js`)
 
-## Project Structure
+## Deployment
 
-- `index.html`: Main landing page / Table of Contents.
-- `script.js`: Core application logic, WebR initialization, and UI handling.
-- `logic.js`: Pure utility functions for code normalization and comparison (testable).
-- `style.css`: Global styles and theming (CSS Variables).
-- `basics.html`: Module 1 (Basics).
-- `wrangling.html`: Module 2 (Data Frames).
-- `tidying.html`: Module 3 (Tidying).
-- `visualization.html`: Module 4 (Graphing).
-- `statistics.html`: Module 5 (T-Tests).
-- `anova.html`: Module 6 (ANOVA).
-- `regression.html`: Module 7 (Regression).
-- `categorical.html`: Module 8 (Categorical).
-- `module6.html`: Skill A (Joining).
-- `skill_b.html`: Skill B (Dates).
-- `skill_c.html`: Skill C (Strings).
-- `syllabus.html`: Future Syllabus (Tier 3).
-- `reference.html`: Paris Geller's Master Reference.
-- `about.html`: About page.
-- `tests/`: Unit and E2E tests.
+Since this is a static site, it can be deployed easily to any static hosting provider.
 
-## Tech Stack
+### GitHub Pages
+1.  Go to your repository settings.
+2.  Navigate to "Pages".
+3.  Select the branch (e.g., `main`) and folder (`/` root).
+4.  Save.
 
-- **Frontend**: HTML5, CSS3, JavaScript (ES Modules).
-- **R Engine**: [WebR](https://docs.r-wasm.org/webr/latest/) (WASM).
-- **Testing**: Node.js Test Runner, Playwright.
+### Netlify / Vercel
+1.  Connect your GitHub repository.
+2.  Set the build command to empty (or `npm install` if needed for tests).
+3.  Set the publish directory to the root (`.`).
+
+## Troubleshooting
+
+- **"R Engine not loading"**:
+    - Ensure you are serving the file via a server (`http://localhost`), not opening it directly (`file://`).
+    - Check your internet connection (WebR downloads ~10MB of data).
+    - Check the browser console (F12) for CORS errors.
+- **"Code works but marked wrong"**:
+    - The answer checking is strict about the final value but flexible about whitespace. Ensure your code produces the exact expected output value.
+- **Blank Plots**:
+    - Ensure your code explicitly prints the plot (e.g., `print(ggplot(...))`) if it's inside a block, although the wrapper handles most cases.
+
+## Browser Compatibility
+
+This project relies on **WebAssembly** and **SharedArrayBuffer** (for WebR).
+- **Supported Browsers**: Chrome (89+), Firefox (79+), Safari (15.2+), Edge (89+).
+- **Mobile**: Recent iOS and Android devices should work, but performance may vary.
 
 ## License & Credits
 

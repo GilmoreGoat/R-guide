@@ -28,7 +28,23 @@ A Gilmore Girls-themed interactive study guide for R programming, built with [We
     - `students`, `penguins`, `lizards`
 - **Instant Feedback**: Visual cues (Success/Warning/Error) and console output.
 - **Cheat Menu**: Quick access to common R functions and package loading.
+- **Paris Geller's Master Reference**: A complete, searchable reference guide (`reference.html`) covering every function used in the course.
 - **Strict Linting**: Encourages best practices (e.g., using `<-` for assignment, proper naming conventions).
+
+## Available Data 📊
+
+The R environment comes pre-loaded with several datasets for you to practice with:
+
+- **`menu`**: Items, prices, and calories at Luke's Diner.
+- **`orders`**: Customer orders and tips.
+- **`customers`**: Customer names and VIP status.
+- **`townies`**: Roles of various Stars Hollow residents.
+- **`pumpkins`**: A generated dataset of 200 pumpkins with weights and types.
+- **`students`**: Data on students from Chilton, Yale, and Stars Hollow High.
+- **`penguins`**: Simplified penguin mass data.
+- **`lizards`**: Horn length and survival status.
+- **`kitchen`** & **`long_data`**: Used for tidying exercises.
+- **`data`**: Coffee consumption vs. Jitters.
 
 ## Getting Started
 
@@ -83,38 +99,44 @@ Verifies WebR loading and page interactions using Playwright.
 ```bash
 npx playwright test
 ```
+(Runs tests in `tests/verify_webr_load.spec.js`)
 
-## Deployment
+## Project Structure
 
-Since this is a static site, it can be deployed easily to any static hosting provider.
+- `index.html`: Main landing page / Table of Contents.
+- `script.js`: Core application logic, WebR initialization, and UI handling.
+- `logic.js`: Pure utility functions for code normalization and comparison (testable).
+- `style.css`: Global styles and theming (CSS Variables).
+- `basics.html`: Module 1 (Basics).
+- `wrangling.html`: Module 2 (Data Frames).
+- `tidying.html`: Module 3 (Tidying).
+- `visualization.html`: Module 4 (Graphing).
+- `statistics.html`: Module 5 (T-Tests).
+- `anova.html`: Module 6 (ANOVA).
+- `regression.html`: Module 7 (Regression).
+- `categorical.html`: Module 8 (Categorical).
+- `module6.html`: Skill A (The Secret Society - Joining).
+- `skill_b.html`: Skill B (The Festival Calendar - Dates).
+- `skill_c.html`: Skill C (The Rumor Mill - Strings).
+- `syllabus.html`: Future Syllabus (Tier 3).
+- `reference.html`: Paris Geller's Master Reference.
+- `about.html`: About page.
+- `tests/`: Unit and E2E tests.
 
-### GitHub Pages
-1.  Go to your repository settings.
-2.  Navigate to "Pages".
-3.  Select the branch (e.g., `main`) and folder (`/` root).
-4.  Save.
+## Tech Stack
 
-### Netlify / Vercel
-1.  Connect your GitHub repository.
-2.  Set the build command to empty (or `npm install` if needed for tests).
-3.  Set the publish directory to the root (`.`).
+- **Frontend**: HTML5, CSS3, JavaScript (ES Modules).
+- **R Engine**: [WebR](https://docs.r-wasm.org/webr/latest/) (WASM).
+- **Testing**: Node.js Test Runner, Playwright.
 
-## Troubleshooting
+## Troubleshooting 🔧
 
-- **"R Engine not loading"**:
-    - Ensure you are serving the file via a server (`http://localhost`), not opening it directly (`file://`).
-    - Check your internet connection (WebR downloads ~10MB of data).
-    - Check the browser console (F12) for CORS errors.
-- **"Code works but marked wrong"**:
-    - The answer checking is strict about the final value but flexible about whitespace. Ensure your code produces the exact expected output value.
-- **Blank Plots**:
-    - Ensure your code explicitly prints the plot (e.g., `print(ggplot(...))`) if it's inside a block, although the wrapper handles most cases.
-
-## Browser Compatibility
-
-This project relies on **WebAssembly** and **SharedArrayBuffer** (for WebR).
-- **Supported Browsers**: Chrome (89+), Firefox (79+), Safari (15.2+), Edge (89+).
-- **Mobile**: Recent iOS and Android devices should work, but performance may vary.
+- **R Engine Stuck Loading?**
+  - Ensure you are serving the file via a web server (http://localhost:8000), not opening it directly (`file://`).
+  - Check your browser console (F12) for errors.
+  - Refresh the page (sometimes the WASM fetch times out).
+- **Plots Not Showing?**
+  - Make sure you run code that produces a plot object (e.g., `print(plot)`).
 
 ## License & Credits
 

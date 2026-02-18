@@ -77,17 +77,49 @@ document.addEventListener('DOMContentLoaded', async () => {
         await webR.init();
 
         // --- 3. AUTO-LOAD PACKAGES & DATA ---
-        loadingBanner.innerText = "📦 Downloading Packages (ggplot2, dplyr)... This takes ~20s";
+        loadingBanner.innerText = "📦 Downloading Packages... This takes ~20s";
+
+        // Determine required packages based on the current page
+        const pagePath = window.location.pathname;
+        let requiredPackages = [];
+
+        if (pagePath.includes('basics.html')) {
+            requiredPackages = ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate'];
+        } else if (pagePath.includes('wrangling.html')) {
+            requiredPackages = ['dplyr'];
+        } else if (pagePath.includes('tidying.html')) {
+            requiredPackages = ['tidyr', 'dplyr'];
+        } else if (pagePath.includes('visualization.html')) {
+            requiredPackages = ['ggplot2', 'dplyr'];
+        } else if (pagePath.includes('statistics.html')) {
+            requiredPackages = ['dplyr'];
+        } else if (pagePath.includes('anova.html')) {
+            requiredPackages = ['ggplot2', 'dplyr'];
+        } else if (pagePath.includes('regression.html')) {
+            requiredPackages = ['ggplot2', 'dplyr'];
+        } else if (pagePath.includes('categorical.html')) {
+            requiredPackages = ['ggplot2', 'dplyr'];
+        } else if (pagePath.includes('module6.html')) {
+            requiredPackages = ['dplyr'];
+        } else if (pagePath.includes('skill_b.html')) {
+            requiredPackages = ['lubridate', 'dplyr'];
+        } else if (pagePath.includes('skill_c.html')) {
+            requiredPackages = ['stringr', 'tidyr', 'dplyr'];
+        } else {
+            // Fallback for unknown pages
+            requiredPackages = ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate'];
+        }
+
+        // Remove duplicates
+        requiredPackages = [...new Set(requiredPackages)];
 
         try {
-            await webR.installPackages(['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate']);
+            await webR.installPackages(requiredPackages);
+
+            const libraryCalls = requiredPackages.map(pkg => `library(${pkg})`).join('\n');
 
             await webR.evalR(`
-                library(dplyr)
-                library(ggplot2)
-                library(tidyr)
-                library(stringr)
-                library(lubridate)
+                ${libraryCalls}
 
                 # --- PRE-LOAD DATA ---
                 menu <- data.frame(

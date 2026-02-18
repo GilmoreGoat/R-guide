@@ -51,6 +51,8 @@ export function processWebROutput(output) {
         let text = '';
         if (typeof data === 'string') {
             text = data;
+        } else if (data === null || data === undefined) {
+            text = '';
         } else if (data && typeof data === 'object') {
             if (data.message) {
                 text = data.message;

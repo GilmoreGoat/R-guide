@@ -20,28 +20,32 @@ test.afterAll(() => {
     if (server) server.kill();
 });
 
-const pages = [
-    { name: 'basics.html', packages: ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate'] }, // Uses default
-    { name: 'wrangling.html', packages: ['dplyr'] },
-    { name: 'tidying.html', packages: ['tidyr', 'dplyr'] },
-    { name: 'visualization.html', packages: ['ggplot2', 'dplyr'] },
-    { name: 'statistics.html', packages: ['dplyr'] },
-    { name: 'anova.html', packages: ['ggplot2', 'dplyr'] },
-    { name: 'regression.html', packages: ['ggplot2', 'dplyr'] },
-    { name: 'categorical.html', packages: ['ggplot2', 'dplyr'] },
-    { name: 'module6.html', packages: ['dplyr'] },
-    { name: 'skill_b.html', packages: ['lubridate', 'dplyr'] },
-    { name: 'skill_c.html', packages: ['stringr', 'tidyr', 'dplyr'] },
+const rPages = [
+    { name: 'basics.html' },
+    { name: 'wrangling.html' },
+    { name: 'tidying.html' },
+    { name: 'visualization.html' },
+    { name: 'statistics.html' },
+    { name: 'anova.html' },
+    { name: 'regression.html' },
+    { name: 'categorical.html' },
+    { name: 'module6.html' },
+    { name: 'skill_b.html' },
+    { name: 'skill_c.html' },
 ];
 
-for (const { name, packages } of pages) {
-    test(`Verify ${name} loads correctly`, async ({ page }) => {
-        // Capture console errors
+const staticPages = [
+    'index.html',
+    'about.html',
+    'reference.html',
+    'syllabus.html'
+];
+
+for (const { name } of rPages) {
+    test(`Verify R page ${name} loads correctly`, async ({ page }) => {
         const errors = [];
         page.on('console', msg => {
-            if (msg.type() === 'error') {
-                errors.push(msg.text());
-            }
+            if (msg.type() === 'error') errors.push(msg.text());
         });
 
         await page.goto(`http://localhost:${PORT}/${name}`);
@@ -50,11 +54,42 @@ for (const { name, packages } of pages) {
         const banner = page.locator('text=R is Ready! 🚀');
         await expect(banner).toBeVisible({ timeout: 60000 });
 
-        // Check for no critical errors
         const criticalErrors = errors.filter(e =>
             (e.includes('TypeError') || e.includes('SyntaxError') || e.includes('404')) &&
-            !e.includes('favicon') // Ignore favicon errors
+            !e.includes('favicon')
         );
         expect(criticalErrors).toEqual([]);
     });
 }
+
+for (const name of staticPages) {
+    test(`Verify static page ${name} loads correctly`, async ({ page }) => {
+        const errors = [];
+        page.on('console', msg => {
+            if (msg.type() === 'error') errors.push(msg.text());
+        });
+
+        await page.goto(`http://localhost:${PORT}/${name}`);
+        await expect(page).toHaveTitle(/.+/);
+
+        const criticalErrors = errors.filter(e =>
+            (e.includes('TypeError') || e.includes('SyntaxError') || e.includes('404')) &&
+            !e.includes('favicon')
+        );
+        expect(criticalErrors).toEqual([]);
+    });
+}
+
+test('Verify reference.html navigation works', async ({ page }) => {
+    await page.goto(`http://localhost:${PORT}/reference.html`);
+    const setupBtn = page.locator('button[data-section="setup"]');
+    await setupBtn.click();
+    const setupSection = page.locator('details#setup');
+    await expect(setupSection).toHaveAttribute('open', '');
+
+    const basicsBtn = page.locator('button[data-section="basics"]');
+    await basicsBtn.click();
+    const basicsSection = page.locator('details#basics');
+    await expect(basicsSection).toHaveAttribute('open', '');
+    await expect(setupSection).not.toHaveAttribute('open');
+});

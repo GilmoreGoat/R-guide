@@ -8,7 +8,7 @@ export function normalizeCode(code) {
     if (code === undefined || code === null) {
         return "";
     }
-    return String(code).replace(/\s/g, '').replace(/['"]/g, '"').toLowerCase();
+    return String(code).toLowerCase().replace(/\s+/g, '').replace(/'/g, '"');
 }
 
 /**

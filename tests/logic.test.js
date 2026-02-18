@@ -163,6 +163,11 @@ describe('processWebROutput', () => {
         assert.strictEqual(processWebROutput(undefined), '');
     });
 
+    it('should handle null/undefined data in the output array gracefully', () => {
+        assert.strictEqual(processWebROutput([{ data: null }]), '');
+        assert.strictEqual(processWebROutput([{ data: undefined }]), '');
+    });
+
      it('should handle circular objects gracefully', () => {
         const circular = {};
         circular.self = circular;

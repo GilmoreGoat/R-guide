@@ -29,6 +29,8 @@ const HTML_ESCAPES = {
     "'": '&#39;',
 };
 
+const HTML_ESCAPE_REGEX = /[&<>"']/g;
+
 /**
  * Escapes special characters to prevent HTML injection (XSS).
  * @param {string} str - The string to escape.
@@ -36,7 +38,7 @@ const HTML_ESCAPES = {
  */
 export const escapeHTML = (str) => {
     if (str === null || str === undefined) return str;
-    return String(str).replace(/[&<>"']/g, (m) => HTML_ESCAPES[m]);
+    return String(str).replace(HTML_ESCAPE_REGEX, (m) => HTML_ESCAPES[m]);
 };
 
 /**

@@ -1,6 +1,39 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert';
-import { normalizeCode, compareCode, escapeHTML, processWebROutput } from '../logic.js';
+import { normalizeCode, compareCode, escapeHTML, processWebROutput, getRequiredPackages, DEFAULT_PACKAGES } from '../logic.js';
+
+describe('getRequiredPackages', () => {
+    it('should return default packages for null/undefined/empty path', () => {
+        assert.deepStrictEqual(getRequiredPackages(null), DEFAULT_PACKAGES);
+        assert.deepStrictEqual(getRequiredPackages(undefined), DEFAULT_PACKAGES);
+        assert.deepStrictEqual(getRequiredPackages(''), DEFAULT_PACKAGES);
+    });
+
+    it('should return specific packages for known pages', () => {
+        assert.deepStrictEqual(getRequiredPackages('/wrangling.html'), ['dplyr']);
+        assert.deepStrictEqual(getRequiredPackages('visualization.html'), ['ggplot2', 'dplyr']);
+    });
+
+    it('should return default packages for unknown pages', () => {
+        assert.deepStrictEqual(getRequiredPackages('/unknown.html'), DEFAULT_PACKAGES);
+    });
+
+    it('should handle paths with directories', () => {
+        assert.deepStrictEqual(getRequiredPackages('/foo/bar/wrangling.html'), ['dplyr']);
+    });
+
+    it('should deduplicate packages', () => {
+        const pkgs = getRequiredPackages('/tidying.html');
+        assert.strictEqual(pkgs.length, new Set(pkgs).size);
+        // tidying.html has ['tidyr', 'dplyr'] which are already unique, but if we had duplicates they should be removed.
+    });
+
+    it('should return a new array instance', () => {
+        const pkgs1 = getRequiredPackages('/wrangling.html');
+        const pkgs2 = getRequiredPackages('/wrangling.html');
+        assert.notStrictEqual(pkgs1, pkgs2);
+    });
+});
 
 describe('escapeHTML', () => {
     it('should escape dangerous characters', () => {

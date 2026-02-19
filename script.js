@@ -1,4 +1,4 @@
-import { compareCode, escapeHTML, processWebROutput } from './logic.js';
+import { compareCode, escapeHTML, processWebROutput, processWebRImages } from './logic.js';
 import { R_DATA_INIT } from './r_data.js';
 
 // Utility functions (escapeHTML, compareCode, processWebROutput) are consolidated in logic.js
@@ -164,17 +164,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     let outputHTML = processWebROutput(result.output);
 
                     // Process Plots (from result.images)
-                    if (result.images.length > 0) {
-                        const img = result.images[0];
-                        if (img instanceof ImageBitmap) {
-                            const canvas = document.createElement('canvas');
-                            canvas.width = img.width;
-                            canvas.height = img.height;
-                            const ctx = canvas.getContext('2d');
-                            ctx.drawImage(img, 0, 0);
-                            outputHTML += '<br><img src="' + canvas.toDataURL() + '" class="console-img">';
-                        }
-                    }
+                    outputHTML += processWebRImages(result.images);
 
                     shelter.purge();
 

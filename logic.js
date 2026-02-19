@@ -74,3 +74,23 @@ export function processWebROutput(output) {
         return escapeHTML(text);
     }).join('<br>');
 }
+
+/**
+ * Processes the images from WebR into an HTML string.
+ * @param {Array<ImageBitmap>} images - The images array from WebR.
+ * @returns {string} The processed HTML string with image tags.
+ */
+export function processWebRImages(images) {
+    if (!images || images.length === 0) return '';
+
+    const img = images[0];
+    if (typeof ImageBitmap !== 'undefined' && img instanceof ImageBitmap && typeof document !== 'undefined') {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        return '<br><img src="' + canvas.toDataURL() + '" class="console-img">';
+    }
+    return '';
+}

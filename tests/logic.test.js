@@ -1,6 +1,56 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert';
-import { normalizeCode, compareCode, escapeHTML, processWebROutput } from '../logic.js';
+import { normalizeCode, compareCode, escapeHTML, processWebROutput, processWebRImages } from '../logic.js';
+
+describe('processWebRImages', () => {
+    it('should return empty string if no images', () => {
+        assert.strictEqual(processWebRImages([]), '');
+        assert.strictEqual(processWebRImages(null), '');
+        assert.strictEqual(processWebRImages(undefined), '');
+    });
+
+    it('should process ImageBitmap when environment supports it', () => {
+        // Mock Globals
+        global.ImageBitmap = class { constructor(w, h) { this.width = w; this.height = h; } };
+        global.document = {
+            createElement: (tag) => {
+                if (tag === 'canvas') {
+                    return {
+                        width: 0,
+                        height: 0,
+                        getContext: () => ({ drawImage: () => {} }),
+                        toDataURL: () => 'data:image/png;base64,mock'
+                    };
+                }
+            }
+        };
+
+        const img = new global.ImageBitmap(100, 100);
+        const images = [img];
+        const result = processWebRImages(images);
+
+        assert.strictEqual(result, '<br><img src="data:image/png;base64,mock" class="console-img">');
+
+        // Cleanup
+        delete global.ImageBitmap;
+        delete global.document;
+    });
+
+    it('should return empty string if environment does not support ImageBitmap', () => {
+        // Ensure globals are missing
+        const originalImageBitmap = global.ImageBitmap;
+        const originalDocument = global.document;
+        delete global.ImageBitmap;
+        delete global.document;
+
+        const images = [{ width: 100, height: 100 }]; // Not an instance of ImageBitmap
+        assert.strictEqual(processWebRImages(images), '');
+
+        // Restore if they existed
+        if (originalImageBitmap) global.ImageBitmap = originalImageBitmap;
+        if (originalDocument) global.document = originalDocument;
+    });
+});
 
 describe('escapeHTML', () => {
     it('should escape dangerous characters', () => {

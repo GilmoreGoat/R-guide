@@ -20,6 +20,21 @@ const COLORS = {
     borderDark: 'var(--border-dark)'
 };
 
+const DEFAULT_PACKAGES = ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate'];
+
+const PAGE_PACKAGES = {
+    'basics.html': DEFAULT_PACKAGES,
+    'wrangling.html': ['dplyr'],
+    'tidying.html': ['tidyr', 'dplyr'],
+    'visualization.html': ['ggplot2', 'dplyr'],
+    'statistics.html': ['dplyr'],
+    'anova.html': ['ggplot2', 'dplyr'],
+    'regression.html': ['ggplot2', 'dplyr'],
+    'categorical.html': ['ggplot2', 'dplyr'],
+    'module6.html': ['dplyr'],
+    'skill_b.html': ['lubridate', 'dplyr'],
+    'skill_c.html': ['stringr', 'tidyr', 'dplyr']
+};
 
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -81,34 +96,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Determine required packages based on the current page
         const pagePath = window.location.pathname;
-        let requiredPackages = [];
-
-        if (pagePath.includes('basics.html')) {
-            requiredPackages = ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate'];
-        } else if (pagePath.includes('wrangling.html')) {
-            requiredPackages = ['dplyr'];
-        } else if (pagePath.includes('tidying.html')) {
-            requiredPackages = ['tidyr', 'dplyr'];
-        } else if (pagePath.includes('visualization.html')) {
-            requiredPackages = ['ggplot2', 'dplyr'];
-        } else if (pagePath.includes('statistics.html')) {
-            requiredPackages = ['dplyr'];
-        } else if (pagePath.includes('anova.html')) {
-            requiredPackages = ['ggplot2', 'dplyr'];
-        } else if (pagePath.includes('regression.html')) {
-            requiredPackages = ['ggplot2', 'dplyr'];
-        } else if (pagePath.includes('categorical.html')) {
-            requiredPackages = ['ggplot2', 'dplyr'];
-        } else if (pagePath.includes('module6.html')) {
-            requiredPackages = ['dplyr'];
-        } else if (pagePath.includes('skill_b.html')) {
-            requiredPackages = ['lubridate', 'dplyr'];
-        } else if (pagePath.includes('skill_c.html')) {
-            requiredPackages = ['stringr', 'tidyr', 'dplyr'];
-        } else {
-            // Fallback for unknown pages
-            requiredPackages = ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate'];
-        }
+        const pageName = pagePath.split('/').pop();
+        let requiredPackages = PAGE_PACKAGES[pageName] || DEFAULT_PACKAGES;
 
         // Remove duplicates
         requiredPackages = [...new Set(requiredPackages)];

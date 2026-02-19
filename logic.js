@@ -74,3 +74,31 @@ export function processWebROutput(output) {
         return escapeHTML(text);
     }).join('<br>');
 }
+
+const DEFAULT_PACKAGES = ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate'];
+
+const PAGE_PACKAGES = {
+    'basics.html': DEFAULT_PACKAGES,
+    'wrangling.html': ['dplyr'],
+    'tidying.html': ['tidyr', 'dplyr'],
+    'visualization.html': ['ggplot2', 'dplyr'],
+    'statistics.html': ['dplyr'],
+    'anova.html': ['ggplot2', 'dplyr'],
+    'regression.html': ['ggplot2', 'dplyr'],
+    'categorical.html': ['ggplot2', 'dplyr'],
+    'module6.html': ['dplyr'],
+    'skill_b.html': ['lubridate', 'dplyr'],
+    'skill_c.html': ['stringr', 'tidyr', 'dplyr']
+};
+
+/**
+ * Determines the required R packages based on the current page path.
+ * @param {string} pagePath - The window.location.pathname.
+ * @returns {Array<string>} An array of unique package names.
+ */
+export function getRequiredPackages(pagePath) {
+    const pageName = pagePath ? pagePath.split('/').pop() : '';
+    let requiredPackages = PAGE_PACKAGES[pageName] || DEFAULT_PACKAGES;
+    // Remove duplicates
+    return [...new Set(requiredPackages)];
+}

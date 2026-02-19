@@ -2,6 +2,8 @@
 
 > "Life's short. Talk fast. Code faster."
 
+![The R Gilmore Study Guide](IMG_9881.PNG)
+
 A Gilmore Girls-themed interactive study guide for R programming, built with [WebR](https://docs.r-wasm.org/webr/latest/). This project provides a static website where students can learn R concepts, run code directly in the browser, and receive immediate feedback.
 
 ## Features
@@ -21,6 +23,8 @@ A Gilmore Girls-themed interactive study guide for R programming, built with [We
     - **Skill A: The Secret Society**: Logic & Joining Data.
     - **Skill B: The Festival Calendar**: Dates & Time (`lubridate`).
     - **Skill C: The Rumor Mill**: Strings & Text (`stringr`).
+- **Professional Certification (Tier 3)**:
+    - **Future Syllabus**: A roadmap for advanced R skills (`syllabus.html`).
 - **Pre-loaded Data**:
     - `menu`, `orders`, `customers` (Luke's Diner datasets)
     - `townies`, `kitchen`, `long_data`
@@ -107,6 +111,7 @@ npx playwright test
 - `script.js`: Core application logic, WebR initialization, and UI handling.
 - `logic.js`: Pure utility functions for code normalization and comparison (testable).
 - `style.css`: Global styles and theming (CSS Variables).
+- `reference.js`: Handles navigation logic for the Reference Guide.
 - `basics.html`: Module 1 (Basics).
 - `wrangling.html`: Module 2 (Data Frames).
 - `tidying.html`: Module 3 (Tidying).
@@ -115,7 +120,7 @@ npx playwright test
 - `anova.html`: Module 6 (ANOVA).
 - `regression.html`: Module 7 (Regression).
 - `categorical.html`: Module 8 (Categorical).
-- `module6.html`: Skill A (The Secret Society - Joining).
+- `module6.html`: Skill A (The Secret Society - Joining) [Note: Filename is legacy, content is Skill A].
 - `skill_b.html`: Skill B (The Festival Calendar - Dates).
 - `skill_c.html`: Skill C (The Rumor Mill - Strings).
 - `syllabus.html`: Future Syllabus (Tier 3).

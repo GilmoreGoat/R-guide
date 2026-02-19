@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert';
-import { normalizeCode, compareCode, escapeHTML, processWebROutput } from '../logic.js';
+import { normalizeCode, compareCode, escapeHTML, processWebROutput, getRequiredPackages, DEFAULT_PACKAGES } from '../logic.js';
 
 describe('escapeHTML', () => {
     it('should escape dangerous characters', () => {
@@ -173,5 +173,42 @@ describe('processWebROutput', () => {
         circular.self = circular;
         const output = [{ data: circular }];
         assert.strictEqual(processWebROutput(output), '');
+    });
+});
+
+describe('getRequiredPackages', () => {
+    it('should return default packages for unknown page', () => {
+        const packages = getRequiredPackages('/unknown.html');
+        assert.deepStrictEqual(packages, DEFAULT_PACKAGES);
+    });
+
+    it('should return specific packages for known page', () => {
+        const packages = getRequiredPackages('/wrangling.html');
+        assert.deepStrictEqual(packages, ['dplyr']);
+    });
+
+    it('should return unique packages', () => {
+        const packages = getRequiredPackages('/tidying.html');
+        assert.deepStrictEqual(packages, ['tidyr', 'dplyr']);
+    });
+
+    it('should handle paths with directories', () => {
+        const packages = getRequiredPackages('/some/nested/path/visualization.html');
+        assert.deepStrictEqual(packages, ['ggplot2', 'dplyr']);
+    });
+
+    it('should handle empty path', () => {
+        const packages = getRequiredPackages('');
+        assert.deepStrictEqual(packages, DEFAULT_PACKAGES);
+    });
+
+    it('should handle undefined path', () => {
+        const packages = getRequiredPackages(undefined);
+        assert.deepStrictEqual(packages, DEFAULT_PACKAGES);
+    });
+
+     it('should handle null path', () => {
+        const packages = getRequiredPackages(null);
+        assert.deepStrictEqual(packages, DEFAULT_PACKAGES);
     });
 });

@@ -41,6 +41,34 @@ export const escapeHTML = (str) => {
     return String(str).replace(HTML_ESCAPE_REGEX, (m) => HTML_ESCAPES[m]);
 };
 
+export const DEFAULT_PACKAGES = ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate'];
+
+const PAGE_PACKAGES = {
+    'basics.html': DEFAULT_PACKAGES,
+    'wrangling.html': ['dplyr'],
+    'tidying.html': ['tidyr', 'dplyr'],
+    'visualization.html': ['ggplot2', 'dplyr'],
+    'statistics.html': ['dplyr'],
+    'anova.html': ['ggplot2', 'dplyr'],
+    'regression.html': ['ggplot2', 'dplyr'],
+    'categorical.html': ['ggplot2', 'dplyr'],
+    'module6.html': ['dplyr'],
+    'skill_b.html': ['lubridate', 'dplyr'],
+    'skill_c.html': ['stringr', 'tidyr', 'dplyr']
+};
+
+/**
+ * Determines the list of required R packages based on the page path.
+ * @param {string} pagePath - The current window location pathname.
+ * @returns {string[]} An array of unique package names.
+ */
+export function getRequiredPackages(pagePath) {
+    if (!pagePath) return DEFAULT_PACKAGES;
+    const pageName = pagePath.split('/').pop();
+    const packages = PAGE_PACKAGES[pageName] || DEFAULT_PACKAGES;
+    return [...new Set(packages)];
+}
+
 /**
  * Processes the output from WebR into an HTML string.
  * @param {Array<Object>} output - The output array from WebR.

@@ -213,3 +213,45 @@ describe('processWebROutput', () => {
         assert.strictEqual(processWebROutput(output), '');
     });
 });
+
+describe('processWebRImages', () => {
+    it('should return empty string if no images', () => {
+        assert.strictEqual(processWebRImages([]), '');
+        assert.strictEqual(processWebRImages(null), '');
+        assert.strictEqual(processWebRImages(undefined), '');
+    });
+
+    it('should return empty string if environment not supported (Node.js)', () => {
+        // In Node.js environment, document is undefined
+        assert.strictEqual(processWebRImages([{}]), '');
+    });
+
+    it('should process image if environment supports it', () => {
+        // Mock environment
+        const originalDocument = global.document;
+        const originalImageBitmap = global.ImageBitmap;
+
+        class MockImageBitmap {
+            constructor() { this.width = 100; this.height = 100; }
+        }
+        global.ImageBitmap = MockImageBitmap;
+
+        global.document = {
+            createElement: (tag) => {
+                if (tag === 'canvas') return {
+                    width: 0, height: 0,
+                    getContext: () => ({ drawImage: () => {} }),
+                    toDataURL: () => 'data:image/png;base64,fake'
+                };
+            }
+        };
+
+        const img = new MockImageBitmap();
+        const result = processWebRImages([img]);
+        assert.strictEqual(result, '<br><img src="data:image/png;base64,fake" class="console-img">');
+
+        // Restore
+        global.document = originalDocument;
+        global.ImageBitmap = originalImageBitmap;
+    });
+});

@@ -32,6 +32,7 @@ A Gilmore Girls-themed interactive study guide for R programming, built with [We
     - `students`, `penguins`, `lizards`
 - **Instant Feedback**: Visual cues (Success/Warning/Error) and console output.
 - **Cheat Menu**: Quick access to common R functions and package loading.
+- **"Sunday Night Panic" Starter Kit**: A handy copy-paste block for standard R setup (libraries, settings) to avoid common errors.
 - **Paris Geller's Master Reference**: A complete, searchable reference guide (`reference.html`) covering every function used in the course.
 - **Strict Linting**: Encourages best practices (e.g., using `<-` for assignment, proper naming conventions).
 
@@ -70,8 +71,10 @@ Since this project uses ES modules and WebAssembly, it must be served via a loca
 4.  Start a local server:
     ```bash
     python3 -m http.server
+    # OR
+    npx http-server
     ```
-5.  Open your browser and go to `http://localhost:8000`.
+5.  Open your browser and go to `http://localhost:8000` (or the port shown in your terminal).
 
 ## Architecture & Developer Guide
 
@@ -120,7 +123,7 @@ npx playwright test
 - `anova.html`: Module 6 (ANOVA).
 - `regression.html`: Module 7 (Regression).
 - `categorical.html`: Module 8 (Categorical).
-- `module6.html`: Skill A (The Secret Society - Joining) [Note: Filename is legacy, content is Skill A].
+- `module6.html`: Skill A (The Secret Society - Joining). *Note: `module6.html` corresponds to Skill A, while `anova.html` is Module 6.*
 - `skill_b.html`: Skill B (The Festival Calendar - Dates).
 - `skill_c.html`: Skill C (The Rumor Mill - Strings).
 - `syllabus.html`: Future Syllabus (Tier 3).

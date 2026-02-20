@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org; object-src 'none'; base-uri 'self'; frame-ancestors 'none';">
+    <title>Functional Programming: Michel's Concierge</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <script type="module" src="script.js"></script>
+</head>
+<body>
+<nav><a href="syllabus.html">&larr; Back to Syllabus</a></nav>
+<header>
+    <h1>Skill D: Functional Programming</h1>
+    <p>"People are particularly stupid today. I can't talk to any more of them." — Michel Gerard</p>
+</header>
+
+<div class="concept-card">
+    <h2>1. The Map (Delegation)</h2>
+    <div class="lesson-text">
+        <p><strong>The Concept:</strong> Michel Gerard does not do things one by one. He delegates. In R, loops (<code>for</code>) are slow and clumsy (like Kirk). The <code>purrr</code> package gives us <code>map()</code>.</p>
+        <div class="lesson-box">
+            <strong>Syntax:</strong> <code>map(list, function)</code>
+        </div>
+        <p>It takes a list (or vector/dataframe) and applies a function to <em>each element</em>. It always returns a <strong>list</strong>.</p>
+    </div>
+    <div class="instruction-box">
+        <h3>📝 Mission: Inspect the Menu</h3>
+        <ul class="instruction-list">
+            <li>We have the <code>menu</code> dataframe.</li>
+            <li>Use <code>map()</code> to apply the <code>class</code> function to every column.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="map(..., ...)">
+                <button class="check-btn" data-answer="map(menu, class)" data-output="$item
+[1] 'character'
+
+$price
+[1] 'numeric'
+
+$calories
+[1] 'numeric'">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>2. Type Safety (Strict Standards)</h2>
+    <div class="lesson-text">
+        <p><strong>The Concept:</strong> Michel hates ambiguity. If he asks for a number, he expects a number. <code>map()</code> returns a list, which can be messy.</p>
+        <div class="lesson-box">
+            <strong>Variants:</strong><br>
+            <code>map_dbl()</code> returns a numeric vector (Double).<br>
+            <code>map_chr()</code> returns a character vector (Text).<br>
+            <code>map_lgl()</code> returns a logical vector (TRUE/FALSE).
+        </div>
+        <p>Use these when you know exactly what you want back.</p>
+    </div>
+    <div class="instruction-box">
+        <h3>📝 Mission: Calculate Roots</h3>
+        <ul class="instruction-list">
+            <li>We have a vector: <code>nums <- c(1, 4, 9)</code>.</li>
+            <li>Use <code>map_dbl()</code> with the <code>sqrt</code> function to get a clean numeric vector.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn" data-answer="map_dbl(c(1, 4, 9), sqrt)" data-output="[1] 1 2 3">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>3. Anonymous Functions (The Secret Task)</h2>
+    <div class="lesson-text">
+        <p><strong>The Concept:</strong> Sometimes you need a function for just one specific job, and you don't want to name it (like a secret task for the night staff).</p>
+        <div class="lesson-box">
+            <strong>Syntax:</strong> <code>map(data, ~ .x + 10)</code>
+        </div>
+        <p>The <code>~</code> (tilde) signals a formula. The <code>.x</code> represents "the current item". It's a shorthand for writing a full function.</p>
+    </div>
+    <div class="instruction-box">
+        <h3>📝 Mission: Add a Tip</h3>
+        <ul class="instruction-list">
+            <li>We have bills: <code>bills <- c(10, 20, 30)</code>.</li>
+            <li>Use <code>map_dbl()</code> to add <code>5</code> to each bill using the <code>~ .x + 5</code> syntax.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn" data-answer="map_dbl(c(10, 20, 30), ~ .x + 5)" data-output="[1] 15 25 35">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+</body>
+</html>

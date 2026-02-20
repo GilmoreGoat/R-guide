@@ -12,6 +12,10 @@ test('script.js code health', (t) => {
     // Ensure escapeHTML is imported from logic.js
     assert.match(content, /import { .*escapeHTML.* } from '\.\/logic\.js'/, 'script.js should import escapeHTML from ./logic.js');
 
-    // Ensure COLORS constant is not present (removed as unused)
-    assert.ok(!content.includes('const COLORS ='), 'script.js should not contain unused COLORS constant');
+    // Ensure package configs are not redefined locally
+    assert.ok(!content.includes('const DEFAULT_PACKAGES ='), 'script.js should not redefine DEFAULT_PACKAGES locally');
+    assert.ok(!content.includes('const PAGE_PACKAGES ='), 'script.js should not redefine PAGE_PACKAGES locally');
+
+    // Ensure getRequiredPackages is imported from logic.js
+    assert.match(content, /import { .*getRequiredPackages.* } from '\.\/logic\.js'/, 'script.js should import getRequiredPackages from ./logic.js');
 });

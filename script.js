@@ -1,15 +1,75 @@
-import { compareCode, escapeHTML, processWebROutput, getRequiredPackages } from './logic.js';
+import { compareCode, escapeHTML, processWebROutput, processWebRImages, getRequiredPackages } from './logic.js';
 import { R_DATA_INIT } from './r_data.js';
 
 // Utility functions (escapeHTML, compareCode, processWebROutput, getRequiredPackages) are consolidated in logic.js
 // Note: Ensure utility functions are not redefined locally.
 
+// --- GILMORE-ISMS & ANIMATIONS ---
+const GILMORE_QUOTES = [
+    "☕ Pouring the first cup...",
+    "📖 Reading Rory's entire reading list...",
+    "🗣️ Talking faster than a speeding bullet...",
+    "❄️ I smell snow...",
+    "🍔 Ordering everything at Luke's...",
+    "🎬 Movie night at the Black-White-Read...",
+    "🏫 Late for Chilton...",
+    "📰 Printing the Gazette...",
+    "🚜 Kirk is doing something weird...",
+    "🕺 Miss Patty is leading warm-ups..."
+];
+
+function createFallingLeaves() {
+    const style = document.createElement('style');
+    style.innerHTML = `
+        .falling-leaf {
+            position: fixed;
+            top: -10%;
+            font-size: 20px;
+            user-select: none;
+            pointer-events: none;
+            z-index: 0; /* Behind content if possible, or very low z-index */
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+    `;
+    document.head.appendChild(style);
+
+    const leaves = ['🍂', '🍁', '🍃', '🌰'];
+
+    // Create a leaf every few seconds
+    setInterval(() => {
+        const leaf = document.createElement('div');
+        leaf.className = 'falling-leaf';
+        leaf.innerText = leaves[Math.floor(Math.random() * leaves.length)];
+
+        // Randomize position and speed
+        const startLeft = Math.random() * 100;
+        const duration = Math.random() * 5 + 5; // 5-10s
+        const size = Math.random() * 1.5 + 0.5; // 0.5x - 2x
+
+        leaf.style.left = `${startLeft}vw`;
+        leaf.style.animationDuration = `${duration}s`;
+        leaf.style.fontSize = `${size}em`;
+        leaf.style.opacity = Math.random() * 0.5 + 0.2; // Subtle opacity
+
+        document.body.appendChild(leaf);
+
+        // Cleanup
+        setTimeout(() => { leaf.remove(); }, duration * 1000);
+    }, 2000); // New leaf every 2s
+}
 
 document.addEventListener('DOMContentLoaded', async () => {
+    // Start the autumn vibes
+    createFallingLeaves();
+
     // --- 1. UI SETUP ---
     const fab = document.createElement('div');
     fab.className = 'cheat-fab';
-    fab.innerText = '?';
+    fab.innerText = '?'; // Or a coffee cup icon via CSS content
+    fab.setAttribute('title', 'Cheat Sheet');
     document.body.appendChild(fab);
 
     const menu = document.createElement('div');
@@ -54,14 +114,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         loadingBanner.innerText = "☕ Brewing R Engine...";
         document.body.appendChild(loadingBanner);
 
+        // Cycle quotes
+        let quoteInterval = setInterval(() => {
+            if (loadingBanner.classList.contains('is-success') || loadingBanner.classList.contains('is-error')) {
+                clearInterval(quoteInterval);
+            } else {
+                loadingBanner.innerText = GILMORE_QUOTES[Math.floor(Math.random() * GILMORE_QUOTES.length)];
+            }
+        }, 3000);
+
         // --- 2. INITIALIZE WEBR ---
         const { WebR } = await import('https://webr.r-wasm.org/v0.5.8/webr.mjs');
         const webR = new WebR();
         await webR.init();
 
         // --- 3. AUTO-LOAD PACKAGES & DATA ---
-        loadingBanner.innerText = "📦 Downloading Packages... This takes ~20s";
-
         // Determine required packages based on the current page
         const requiredPackages = getRequiredPackages(window.location.pathname);
 
@@ -76,12 +143,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             `);
 
             loadingBanner.classList.add('is-success');
-            loadingBanner.innerText = "R is Ready! 🚀";
-            setTimeout(() => { loadingBanner.classList.add('is-hidden'); }, 2000);
+            loadingBanner.innerText = "R is Ready! Oy with the poodles already! 🐩";
+            setTimeout(() => { loadingBanner.classList.add('is-hidden'); }, 3000);
 
         } catch (e) {
             loadingBanner.classList.add('is-error');
-            loadingBanner.innerText = "Error loading packages. Refresh page.";
+            loadingBanner.innerText = "Error loading packages. Paris is not pleased.";
             console.error(e);
         }
 
@@ -114,7 +181,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 `;
 
                 consoleDiv.classList.add('is-visible');
-                consoleDiv.innerHTML = `<span class="console-user-code">> ${escapeHTML(userCode)}</span><br><span class="console-status-running">Running...</span>`;
+                consoleDiv.innerHTML = `<span class="console-user-code">> ${escapeHTML(userCode)}</span><br><span class="console-status-running">Running... (Faster! Faster!)</span>`;
 
                 try {
                     const shelter = await new webR.Shelter();

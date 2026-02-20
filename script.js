@@ -1,7 +1,7 @@
 import { compareCode, escapeHTML, processWebROutput, getRequiredPackages } from './logic.js';
 import { R_DATA_INIT } from './r_data.js';
 
-// Utility functions (escapeHTML, compareCode, processWebROutput) are consolidated in logic.js
+// Utility functions (escapeHTML, compareCode, processWebROutput, getRequiredPackages) are consolidated in logic.js
 // Note: Ensure utility functions are not redefined locally.
 const COLORS = {
     // Theme Colors
@@ -80,8 +80,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         loadingBanner.innerText = "📦 Downloading Packages... This takes ~20s";
 
         // Determine required packages based on the current page
-        const pagePath = window.location.pathname;
-        let requiredPackages = getRequiredPackages(pagePath);
+        const requiredPackages = getRequiredPackages(window.location.pathname);
 
         try {
             await webR.installPackages(requiredPackages);
@@ -144,17 +143,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     let outputHTML = processWebROutput(result.output);
 
                     // Process Plots (from result.images)
-                    if (result.images.length > 0) {
-                        const img = result.images[0];
-                        if (img instanceof ImageBitmap) {
-                            const canvas = document.createElement('canvas');
-                            canvas.width = img.width;
-                            canvas.height = img.height;
-                            const ctx = canvas.getContext('2d');
-                            ctx.drawImage(img, 0, 0);
-                            outputHTML += '<br><img src="' + canvas.toDataURL() + '" class="console-img">';
-                        }
-                    }
+                    outputHTML += processWebRImages(result.images);
 
                     shelter.purge();
 

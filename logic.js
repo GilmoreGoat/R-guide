@@ -75,7 +75,7 @@ export function processWebROutput(output) {
     }).join('<br>');
 }
 
-export const DEFAULT_PACKAGES = ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate'];
+const DEFAULT_PACKAGES = ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate'];
 
 const PAGE_PACKAGES = {
     'basics.html': DEFAULT_PACKAGES,
@@ -97,8 +97,8 @@ const PAGE_PACKAGES = {
  * @returns {Array<string>} An array of unique package names.
  */
 export function getRequiredPackages(pagePath) {
-    if (!pagePath) return [...DEFAULT_PACKAGES];
-    const pageName = pagePath.split('/').pop();
-    const packages = PAGE_PACKAGES[pageName] || DEFAULT_PACKAGES;
-    return [...new Set(packages)];
+    const pageName = pagePath ? pagePath.split('/').pop() : '';
+    let requiredPackages = PAGE_PACKAGES[pageName] || DEFAULT_PACKAGES;
+    // Remove duplicates
+    return [...new Set(requiredPackages)];
 }

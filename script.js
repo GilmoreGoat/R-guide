@@ -1,7 +1,7 @@
 import { compareCode, escapeHTML, processWebROutput, getRequiredPackages } from './logic.js';
 import { R_DATA_INIT } from './r_data.js';
 
-// Utility functions are consolidated in logic.js
+// Utility functions (escapeHTML, compareCode, processWebROutput, getRequiredPackages) are consolidated in logic.js
 // Note: Ensure utility functions are not redefined locally.
 const COLORS = {
     // Theme Colors
@@ -20,7 +20,6 @@ const COLORS = {
     subtle: 'var(--subtle-color)',
     borderDark: 'var(--border-dark)'
 };
-
 
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -104,17 +103,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         // --- 4. EXECUTION LOGIC ---
-        checkBtns.forEach(btn => {
+        document.addEventListener('click', async (event) => {
+            const btn = event.target.closest('.check-btn');
+            if (!btn) return;
+
             const container = btn.closest('.editor-container') || btn.closest('.question-box');
+            if (!container) return;
+
             const input = container.querySelector('.input-code');
             const consoleDiv = container.querySelector('.console-output');
 
-            btn.addEventListener('click', async function() {
-                let userCode = input.value;
-                if (!userCode || userCode.trim() === "") return;
+            let userCode = input.value;
+            if (!userCode || userCode.trim() === "") return;
 
-                const expectedAnswer = this.dataset.answer;
-                const isCorrect = compareCode(userCode, expectedAnswer);
+            const expectedAnswer = btn.dataset.answer;
+            const isCorrect = compareCode(userCode, expectedAnswer);
 
                 // THE WRAPPER:
                 // 1. val <- { code } -> Runs user code in a block.
@@ -144,44 +147,33 @@ document.addEventListener('DOMContentLoaded', async () => {
                     let outputHTML = processWebROutput(result.output);
 
                     // Process Plots (from result.images)
-                    if (result.images.length > 0) {
-                        const img = result.images[0];
-                        if (img instanceof ImageBitmap) {
-                            const canvas = document.createElement('canvas');
-                            canvas.width = img.width;
-                            canvas.height = img.height;
-                            const ctx = canvas.getContext('2d');
-                            ctx.drawImage(img, 0, 0);
-                            outputHTML += '<br><img src="' + canvas.toDataURL() + '" class="console-img">';
-                        }
-                    }
+                    outputHTML += processWebRImages(result.images);
 
-                    shelter.purge();
+                shelter.purge();
 
-                    if (!outputHTML && !result.images.length) {
-                        outputHTML = `<span class="console-status-info">(Value saved)</span>`;
-                    }
-
-                    // Grading
-                    input.classList.remove('is-success', 'is-warning', 'is-error');
-                    if (isCorrect) {
-                        consoleDiv.innerHTML = `<span class="console-status-success">> ${escapeHTML(userCode)}</span><br>${outputHTML}`;
-                        input.classList.add('is-success');
-                    } else {
-                        consoleDiv.innerHTML = `<span class="console-status-warning">> ${escapeHTML(userCode)}</span><br>${outputHTML}<br><br><span class="console-status-warning console-bold">⚠️ Paris says: "The code works, but that's not what I asked for."</span>`;
-                        input.classList.add('is-warning');
-                    }
-
-                } catch (e) {
-                    input.classList.remove('is-success', 'is-warning', 'is-error');
-                    let errorMsg = escapeHTML(e.message);
-                    if (errorMsg.includes("could not find function")) {
-                        errorMsg += `<br><br><strong>Tip:</strong> Packages might still be loading. Wait for the green banner!`;
-                    }
-                    consoleDiv.innerHTML = `<span class="console-user-code">> ${escapeHTML(userCode)}</span><br><span class="console-status-error">${errorMsg}</span>`;
-                    input.classList.add('is-error');
+                if (!outputHTML && !result.images.length) {
+                    outputHTML = `<span class="console-status-info">(Value saved)</span>`;
                 }
-            });
+
+                // Grading
+                input.classList.remove('is-success', 'is-warning', 'is-error');
+                if (isCorrect) {
+                    consoleDiv.innerHTML = `<span class="console-status-success">> ${escapeHTML(userCode)}</span><br>${outputHTML}`;
+                    input.classList.add('is-success');
+                } else {
+                    consoleDiv.innerHTML = `<span class="console-status-warning">> ${escapeHTML(userCode)}</span><br>${outputHTML}<br><br><span class="console-status-warning console-bold">⚠️ Paris says: "The code works, but that's not what I asked for."</span>`;
+                    input.classList.add('is-warning');
+                }
+
+            } catch (e) {
+                input.classList.remove('is-success', 'is-warning', 'is-error');
+                let errorMsg = escapeHTML(e.message);
+                if (errorMsg.includes("could not find function")) {
+                    errorMsg += `<br><br><strong>Tip:</strong> Packages might still be loading. Wait for the green banner!`;
+                }
+                consoleDiv.innerHTML = `<span class="console-user-code">> ${escapeHTML(userCode)}</span><br><span class="console-status-error">${errorMsg}</span>`;
+                input.classList.add('is-error');
+            }
         });
     }
 

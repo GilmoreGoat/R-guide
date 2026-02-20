@@ -75,15 +75,9 @@ export function processWebROutput(output) {
     }).join('<br>');
 }
 
-/**
- * Default R packages loaded if no specific page configuration exists.
- */
-export const DEFAULT_PACKAGES = ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate'];
+const DEFAULT_PACKAGES = ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate'];
 
-/**
- * Mapping of HTML filenames to the R packages they require.
- */
-export const PAGE_PACKAGES = {
+const PAGE_PACKAGES = {
     'basics.html': DEFAULT_PACKAGES,
     'wrangling.html': ['dplyr'],
     'tidying.html': ['tidyr', 'dplyr'],
@@ -98,13 +92,13 @@ export const PAGE_PACKAGES = {
 };
 
 /**
- * Determines the required R packages for a given page path.
- * @param {string} pagePath - The URL path of the current page.
- * @returns {Array<string>} A unique array of required R package names.
+ * Determines the required R packages based on the current page path.
+ * @param {string} pagePath - The window.location.pathname.
+ * @returns {Array<string>} An array of unique package names.
  */
 export function getRequiredPackages(pagePath) {
-    if (!pagePath) return [...DEFAULT_PACKAGES];
-    const pageName = pagePath.split('/').pop();
-    const packages = PAGE_PACKAGES[pageName] || DEFAULT_PACKAGES;
-    return [...new Set(packages)];
+    const pageName = pagePath ? pagePath.split('/').pop() : '';
+    let requiredPackages = PAGE_PACKAGES[pageName] || DEFAULT_PACKAGES;
+    // Remove duplicates
+    return [...new Set(requiredPackages)];
 }

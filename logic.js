@@ -116,7 +116,8 @@ export const PAGE_PACKAGES = {
     'module6.html': ['dplyr'],
     'skill_b.html': ['lubridate', 'dplyr'],
     'skill_c.html': ['stringr', 'tidyr', 'dplyr'],
-    'functional.html': ['purrr', 'dplyr']
+    'functional.html': ['purrr', 'dplyr'],
+    'oop.html': ['R6', 'dplyr']
 };
 
 /**

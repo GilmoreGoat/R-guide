@@ -1,6 +1,44 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert';
-import { normalizeCode, compareCode, escapeHTML, processWebROutput } from '../logic.js';
+import { normalizeCode, compareCode, escapeHTML, processWebROutput, getRequiredPackages } from '../logic.js';
+
+describe('getRequiredPackages', () => {
+    it('should return default packages for unknown page', () => {
+        const result = getRequiredPackages('/unknown.html');
+        assert.deepStrictEqual(result, ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate']);
+    });
+
+    it('should return specific packages for known page', () => {
+        const result = getRequiredPackages('/wrangling.html');
+        assert.deepStrictEqual(result, ['dplyr']);
+    });
+
+    it('should return multiple packages for some pages', () => {
+        const result = getRequiredPackages('/tidying.html');
+        assert.deepStrictEqual(result, ['tidyr', 'dplyr']);
+    });
+
+    it('should handle paths with directories', () => {
+        const result = getRequiredPackages('/subdir/wrangling.html');
+        assert.deepStrictEqual(result, ['dplyr']);
+    });
+
+    it('should handle root path', () => {
+         const result = getRequiredPackages('/');
+         assert.deepStrictEqual(result, ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate']);
+    });
+
+    it('should handle empty path', () => {
+         const result = getRequiredPackages('');
+         assert.deepStrictEqual(result, ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate']);
+    });
+
+    it('should ensure uniqueness of returned packages', () => {
+        const result = getRequiredPackages('/visualization.html');
+        const unique = [...new Set(result)];
+        assert.strictEqual(result.length, unique.length);
+    });
+});
 
 describe('escapeHTML', () => {
     it('should escape dangerous characters', () => {
@@ -173,5 +211,47 @@ describe('processWebROutput', () => {
         circular.self = circular;
         const output = [{ data: circular }];
         assert.strictEqual(processWebROutput(output), '');
+    });
+});
+
+describe('processWebRImages', () => {
+    it('should return empty string if no images', () => {
+        assert.strictEqual(processWebRImages([]), '');
+        assert.strictEqual(processWebRImages(null), '');
+        assert.strictEqual(processWebRImages(undefined), '');
+    });
+
+    it('should return empty string if environment not supported (Node.js)', () => {
+        // In Node.js environment, document is undefined
+        assert.strictEqual(processWebRImages([{}]), '');
+    });
+
+    it('should process image if environment supports it', () => {
+        // Mock environment
+        const originalDocument = global.document;
+        const originalImageBitmap = global.ImageBitmap;
+
+        class MockImageBitmap {
+            constructor() { this.width = 100; this.height = 100; }
+        }
+        global.ImageBitmap = MockImageBitmap;
+
+        global.document = {
+            createElement: (tag) => {
+                if (tag === 'canvas') return {
+                    width: 0, height: 0,
+                    getContext: () => ({ drawImage: () => {} }),
+                    toDataURL: () => 'data:image/png;base64,fake'
+                };
+            }
+        };
+
+        const img = new MockImageBitmap();
+        const result = processWebRImages([img]);
+        assert.strictEqual(result, '<br><img src="data:image/png;base64,fake" class="console-img">');
+
+        // Restore
+        global.document = originalDocument;
+        global.ImageBitmap = originalImageBitmap;
     });
 });

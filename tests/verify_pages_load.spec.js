@@ -32,6 +32,7 @@ const rPages = [
     { name: 'module6.html' },
     { name: 'skill_b.html' },
     { name: 'skill_c.html' },
+    { name: 'oop.html' },
 ];
 
 const staticPages = [

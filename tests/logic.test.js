@@ -1,54 +1,42 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert';
-import { normalizeCode, compareCode, escapeHTML, processWebROutput, processWebRImages } from '../logic.js';
+import { normalizeCode, compareCode, escapeHTML, processWebROutput, getRequiredPackages } from '../logic.js';
 
-describe('processWebRImages', () => {
-    it('should return empty string if no images', () => {
-        assert.strictEqual(processWebRImages([]), '');
-        assert.strictEqual(processWebRImages(null), '');
-        assert.strictEqual(processWebRImages(undefined), '');
+describe('getRequiredPackages', () => {
+    it('should return default packages for unknown page', () => {
+        const result = getRequiredPackages('/unknown.html');
+        assert.deepStrictEqual(result, ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate']);
     });
 
-    it('should process ImageBitmap when environment supports it', () => {
-        // Mock Globals
-        global.ImageBitmap = class { constructor(w, h) { this.width = w; this.height = h; } };
-        global.document = {
-            createElement: (tag) => {
-                if (tag === 'canvas') {
-                    return {
-                        width: 0,
-                        height: 0,
-                        getContext: () => ({ drawImage: () => {} }),
-                        toDataURL: () => 'data:image/png;base64,mock'
-                    };
-                }
-            }
-        };
-
-        const img = new global.ImageBitmap(100, 100);
-        const images = [img];
-        const result = processWebRImages(images);
-
-        assert.strictEqual(result, '<br><img src="data:image/png;base64,mock" class="console-img">');
-
-        // Cleanup
-        delete global.ImageBitmap;
-        delete global.document;
+    it('should return specific packages for known page', () => {
+        const result = getRequiredPackages('/wrangling.html');
+        assert.deepStrictEqual(result, ['dplyr']);
     });
 
-    it('should return empty string if environment does not support ImageBitmap', () => {
-        // Ensure globals are missing
-        const originalImageBitmap = global.ImageBitmap;
-        const originalDocument = global.document;
-        delete global.ImageBitmap;
-        delete global.document;
+    it('should return multiple packages for some pages', () => {
+        const result = getRequiredPackages('/tidying.html');
+        assert.deepStrictEqual(result, ['tidyr', 'dplyr']);
+    });
 
-        const images = [{ width: 100, height: 100 }]; // Not an instance of ImageBitmap
-        assert.strictEqual(processWebRImages(images), '');
+    it('should handle paths with directories', () => {
+        const result = getRequiredPackages('/subdir/wrangling.html');
+        assert.deepStrictEqual(result, ['dplyr']);
+    });
 
-        // Restore if they existed
-        if (originalImageBitmap) global.ImageBitmap = originalImageBitmap;
-        if (originalDocument) global.document = originalDocument;
+    it('should handle root path', () => {
+         const result = getRequiredPackages('/');
+         assert.deepStrictEqual(result, ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate']);
+    });
+
+    it('should handle empty path', () => {
+         const result = getRequiredPackages('');
+         assert.deepStrictEqual(result, ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate']);
+    });
+
+    it('should ensure uniqueness of returned packages', () => {
+        const result = getRequiredPackages('/visualization.html');
+        const unique = [...new Set(result)];
+        assert.strictEqual(result.length, unique.length);
     });
 });
 
@@ -223,5 +211,47 @@ describe('processWebROutput', () => {
         circular.self = circular;
         const output = [{ data: circular }];
         assert.strictEqual(processWebROutput(output), '');
+    });
+});
+
+describe('processWebRImages', () => {
+    it('should return empty string if no images', () => {
+        assert.strictEqual(processWebRImages([]), '');
+        assert.strictEqual(processWebRImages(null), '');
+        assert.strictEqual(processWebRImages(undefined), '');
+    });
+
+    it('should return empty string if environment not supported (Node.js)', () => {
+        // In Node.js environment, document is undefined
+        assert.strictEqual(processWebRImages([{}]), '');
+    });
+
+    it('should process image if environment supports it', () => {
+        // Mock environment
+        const originalDocument = global.document;
+        const originalImageBitmap = global.ImageBitmap;
+
+        class MockImageBitmap {
+            constructor() { this.width = 100; this.height = 100; }
+        }
+        global.ImageBitmap = MockImageBitmap;
+
+        global.document = {
+            createElement: (tag) => {
+                if (tag === 'canvas') return {
+                    width: 0, height: 0,
+                    getContext: () => ({ drawImage: () => {} }),
+                    toDataURL: () => 'data:image/png;base64,fake'
+                };
+            }
+        };
+
+        const img = new MockImageBitmap();
+        const result = processWebRImages([img]);
+        assert.strictEqual(result, '<br><img src="data:image/png;base64,fake" class="console-img">');
+
+        // Restore
+        global.document = originalDocument;
+        global.ImageBitmap = originalImageBitmap;
     });
 });

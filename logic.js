@@ -75,22 +75,30 @@ export function processWebROutput(output) {
     }).join('<br>');
 }
 
-/**
- * Processes the images from WebR into an HTML string.
- * @param {Array<ImageBitmap>} images - The images array from WebR.
- * @returns {string} The processed HTML string with image tags.
- */
-export function processWebRImages(images) {
-    if (!images || images.length === 0) return '';
+const DEFAULT_PACKAGES = ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate'];
 
-    const img = images[0];
-    if (typeof ImageBitmap !== 'undefined' && img instanceof ImageBitmap && typeof document !== 'undefined') {
-        const canvas = document.createElement('canvas');
-        canvas.width = img.width;
-        canvas.height = img.height;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0);
-        return '<br><img src="' + canvas.toDataURL() + '" class="console-img">';
-    }
-    return '';
+const PAGE_PACKAGES = {
+    'basics.html': DEFAULT_PACKAGES,
+    'wrangling.html': ['dplyr'],
+    'tidying.html': ['tidyr', 'dplyr'],
+    'visualization.html': ['ggplot2', 'dplyr'],
+    'statistics.html': ['dplyr'],
+    'anova.html': ['ggplot2', 'dplyr'],
+    'regression.html': ['ggplot2', 'dplyr'],
+    'categorical.html': ['ggplot2', 'dplyr'],
+    'module6.html': ['dplyr'],
+    'skill_b.html': ['lubridate', 'dplyr'],
+    'skill_c.html': ['stringr', 'tidyr', 'dplyr']
+};
+
+/**
+ * Determines the required R packages based on the current page path.
+ * @param {string} pagePath - The window.location.pathname.
+ * @returns {Array<string>} An array of unique package names.
+ */
+export function getRequiredPackages(pagePath) {
+    const pageName = pagePath ? pagePath.split('/').pop() : '';
+    let requiredPackages = PAGE_PACKAGES[pageName] || DEFAULT_PACKAGES;
+    // Remove duplicates
+    return [...new Set(requiredPackages)];
 }

@@ -75,9 +75,36 @@ export function processWebROutput(output) {
     }).join('<br>');
 }
 
-const DEFAULT_PACKAGES = ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate'];
+/**
+ * Processes WebR images (ImageBitmap) into HTML img tags.
+ * @param {Array<ImageBitmap>} images - The images from WebR.
+ * @returns {string} The HTML string for the images.
+ */
+export function processWebRImages(images) {
+    if (!images || !Array.isArray(images) || images.length === 0) return '';
 
-const PAGE_PACKAGES = {
+    // Check if we are in a browser environment with canvas support
+    if (typeof document === 'undefined' || typeof ImageBitmap === 'undefined') {
+        return '';
+    }
+
+    let html = '';
+    images.forEach(img => {
+        if (img instanceof ImageBitmap) {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+            html += `<br><img src="${canvas.toDataURL()}" class="console-img">`;
+        }
+    });
+    return html;
+}
+
+export const DEFAULT_PACKAGES = ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate'];
+
+export const PAGE_PACKAGES = {
     'basics.html': DEFAULT_PACKAGES,
     'wrangling.html': ['dplyr'],
     'tidying.html': ['tidyr', 'dplyr'],

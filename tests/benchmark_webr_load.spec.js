@@ -30,7 +30,7 @@ test('Benchmark WebR load time on wrangling.html', async ({ page }) => {
 
     // The page initially shows "Brewing R Engine..."
     // Wait for "R is Ready!" banner
-    const banner = page.locator('text=R is Ready! 🚀');
+    const banner = page.locator('text=R is Ready!');
     await expect(banner).toBeVisible({ timeout: 60000 }); // Give it enough time
 
     const endTime = Date.now();

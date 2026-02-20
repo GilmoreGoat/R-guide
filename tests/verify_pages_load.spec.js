@@ -51,7 +51,7 @@ for (const { name } of rPages) {
         await page.goto(`http://localhost:${PORT}/${name}`);
 
         // Wait for R is Ready
-        const banner = page.locator('text=R is Ready! 🚀');
+        const banner = page.locator('text=R is Ready!');
         await expect(banner).toBeVisible({ timeout: 60000 });
 
         const criticalErrors = errors.filter(e =>

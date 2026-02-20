@@ -115,7 +115,8 @@ export const PAGE_PACKAGES = {
     'categorical.html': ['ggplot2', 'dplyr'],
     'module6.html': ['dplyr'],
     'skill_b.html': ['lubridate', 'dplyr'],
-    'skill_c.html': ['stringr', 'tidyr', 'dplyr']
+    'skill_c.html': ['stringr', 'tidyr', 'dplyr'],
+    'functional.html': ['purrr', 'dplyr']
 };
 
 /**

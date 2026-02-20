@@ -35,6 +35,8 @@ describe('getRequiredPackages', () => {
         // wrangling.html -> ['dplyr']
         assert.deepStrictEqual(getRequiredPackages('wrangling.html'), ['dplyr']);
         assert.deepStrictEqual(getRequiredPackages('/path/to/wrangling.html'), ['dplyr']);
+        // functional.html -> ['purrr', 'dplyr']
+        assert.deepStrictEqual(getRequiredPackages('functional.html'), ['purrr', 'dplyr']);
     });
 
     it('should return DEFAULT_PACKAGES for an unknown page', () => {

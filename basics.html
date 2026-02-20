@@ -19,7 +19,7 @@
     <h2>1. Objects (The Bucket)</h2>
     <div class="lesson-text">
         <p><strong>The Concept:</strong> R is an "Object-Oriented" language. Imagine your computer memory is a giant empty warehouse. To store data, we need to put it into a box and label it.</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong> <code>name <- value</code>
         </div>
         <p>We call these boxes <strong>Objects</strong>. To put data <em>into</em> an object, we use the <strong>Assignment Operator</strong>: <code>&lt;-</code>.</p>
@@ -49,7 +49,7 @@
     <h2>2. Naming Rules (The Strict Code)</h2>
     <div class="lesson-text">
         <p><strong>The Concept:</strong> Just like Chilton has a dress code, R has a naming code. If you break these rules, the code will error.</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Rules:</strong><br>
             1. No Spaces (<code>my grade</code> is bad).<br>
             2. No Numbers at start (<code>1st_place</code> is bad).<br>
@@ -82,7 +82,7 @@
     <h2>3. Math & PEMDAS</h2>
     <div class="lesson-text">
         <p><strong>The Concept:</strong> At its core, R is just a super-powered calculator.</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Operators:</strong> <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>^</code> (Exponent)
         </div>
         <p><strong>PEMDAS Applies:</strong> R follows the Order of Operations. <code>(4+6)*2</code> equals 20, but <code>4+6*2</code> equals 16. Parentheses are your best friends.</p>
@@ -111,7 +111,7 @@
     <h2>4. Logic (True/False)</h2>
     <div class="lesson-text">
         <p><strong>The Concept:</strong> Sometimes we don't want to do math; we want to ask a question. These are called <strong>Logical Operators</strong>.</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong><br>
             <code>==</code> (Exactly Equal?)<br>
             <code>!=</code> (Not Equal?)<br>
@@ -143,7 +143,7 @@
     <h2>5. Vectors (The Pro/Con List)</h2>
     <div class="lesson-text">
         <p><strong>The Concept:</strong> Rory loves a list. In R, a list of items is called a <strong>Vector</strong>.</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong> <code>c(value1, value2, value3)</code>
         </div>
         <p><code>c()</code> stands for <strong>Combine</strong>. <br><strong>Crucial Rule:</strong> A vector is atomic. Every item inside must be the SAME type.</p>
@@ -172,7 +172,7 @@
     <h2>6. Data Types (Identity Crisis)</h2>
     <div class="lesson-text">
         <p><strong>The Concept:</strong> R treats different data differently. You can't do math on text.</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Check Type:</strong> <code>class(object_name)</code>
         </div>
         <ul>
@@ -205,7 +205,7 @@
     <h2>7. Comments (The Post-It Note)</h2>
     <div class="lesson-text">
         <p><strong>The Concept:</strong> Sometimes you need to leave a note for your future self.</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong> <code># This is a comment</code>
         </div>
         <p>When R sees a <code>#</code>, it ignores everything after it on that line. It doesn't run it.</p>
@@ -234,7 +234,7 @@
     <h2>8. Packages (The Lightbulb)</h2>
     <div class="lesson-text">
         <p><strong>The Concept:</strong> R comes with basic tools, but for the cool stuff (like making graphs), you need extra toolkits called <strong>Packages</strong>.</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>1. Install:</strong> <code>install.packages("name")</code> (Once)<br>
             <strong>2. Load:</strong> <code>library(name)</code> (Every time)
         </div>
@@ -264,7 +264,7 @@
     <h2>9. The Summary (Skimr)</h2>
     <div class="lesson-text">
         <p><strong>The Concept:</strong> When you get a new dataset, you shouldn't just stare at the raw numbers. You need a summary.</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong> <code>skim(dataframe)</code>
         </div>
         <p>The <code>skimr</code> package provides a "Spark Notes" version: Mean, SD, and Missing counts.</p>

@@ -24,7 +24,7 @@
             <li><strong>r = -1:</strong> Perfect negative match (More heels = Less dancing).</li>
             <li><strong>r = 0:</strong> No relationship (Kirk's dancing = Random chaos).</li>
         </ul>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong> <code>cor.test(df$col1, df$col2)</code>
         </div>
     </div>
@@ -56,7 +56,7 @@
     <div class="lesson-text">
         <p><strong>The Concept:</strong> Correlation tells you <em>if</em> they are related. <strong>Regression</strong> gives you the math to <em>predict</em> one based on the other.</p>
         <p><strong>The Formula:</strong> $Y = mx + b$ (Slope and Intercept).</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong><br>
             1. <code>model <- lm(y ~ x, data = df)</code><br>
             2. <code>summary(model)</code>
@@ -91,7 +91,7 @@
     <h2>3. Visualizing the Trend</h2>
     <div class="lesson-text">
         <p>A scatterplot shows the dots. To show the Regression Model, we add a "Line of Best Fit".</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong> <code>+ geom_smooth(method = "lm")</code>
         </div>
         <p>The "lm" stands for Linear Model.</p>
@@ -129,13 +129,13 @@
     <h2>4. Reporting Results</h2>
     <div class="lesson-text">
         <p>For your BILD 5 lab report, report the $R^2$ (how much variation is explained) and the P-value.</p>
-        <blockquote style="background:#f9f9f9; padding:10px; border-left: 5px solid var(--yale-blue);">
+        <blockquote class="blockquote-box">
             "There was a significant positive relationship between caffeine intake and dance duration ($R^2$ = 0.72, F(1, 48) = 120.5, p < 0.001)."
         </blockquote>
     </div>
 </div>
 
-<footer style="text-align: center; margin-top: 50px; color: #8d6e63; font-style: italic;">
+<footer class="footer-text">
     <p>And the winner is... Kirk. Obviously. • Created for BILD 5</p>
 </footer>
 

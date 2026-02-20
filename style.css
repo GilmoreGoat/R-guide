@@ -461,3 +461,81 @@ pre code { background: transparent; color: inherit; padding: 0; font-weight: nor
     border-radius: 4px;
     background: white; /* Plots usually have white backgrounds */
 }
+
+/* --- HELPER CLASSES FOR SECURITY HARDENING (Removing inline styles) --- */
+.text-center { text-align: center; }
+.text-yale-blue { color: var(--yale-blue); }
+.text-muted { color: #7f8c8d; }
+.mt-60 { margin-top: 60px; }
+
+.lesson-box {
+    background: var(--light-blue-bg);
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.lesson-box-large {
+    background: var(--light-blue-bg);
+    padding: 15px;
+    border-radius: 6px;
+    border-left: 5px solid var(--yale-blue);
+    margin-bottom: 15px;
+}
+
+.blockquote-box {
+    background: #f9f9f9;
+    padding: 10px;
+    border-left: 5px solid var(--yale-blue);
+}
+
+.footer-text {
+    text-align: center;
+    margin-top: 50px;
+    color: var(--coffee-light);
+    font-style: italic;
+}
+
+.footer-alt {
+    text-align: center;
+    margin-top: 80px;
+    color: var(--coffee-light);
+    font-style: italic;
+    border-top: 2px dashed #ddd;
+    padding-top: 20px;
+}
+
+.header-icons {
+    margin-top: 10px;
+    font-size: 2em;
+}
+
+.panic-kit {
+    text-align: center;
+    background: #fff8e1;
+    border: 2px dashed var(--luke-yellow);
+}
+
+.divider-container {
+    margin: 40px auto;
+    max-width: 60%;
+    text-align: center;
+}
+
+.divider-text {
+    font-size: 0.9em;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #7f8c8d;
+}
+
+.pre-clean {
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    color: #333 !important;
+}
+
+.border-coffee-dark { border-color: var(--coffee-dark) !important; }
+.border-yale-blue { border-left: 5px solid var(--yale-blue) !important; }
+.border-autumn-orange { border-left: 5px solid var(--autumn-orange) !important; }

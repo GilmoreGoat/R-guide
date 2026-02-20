@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org; object-src 'none'; base-uri 'self'; frame-ancestors 'none';">
     <title>Module 4: The Gazette</title>
     <link rel="stylesheet" href="style.css">
     <script type="module" src="script.js"></script>
@@ -19,7 +19,7 @@
     <h2>1. The ggplot Recipe</h2>
     <div class="lesson-text">
         <p><strong>The Concept:</strong> Making a graph in R is like making a cake. You have to add layers one by one using the <code>+</code> sign.</p>
-        <div style="background: #e8f4f8; padding: 15px; border-radius: 6px; border-left: 5px solid var(--yale-blue); margin-bottom: 15px;">
+        <div class="lesson-box-large">
             <strong>The 3 Layers:</strong><br>
             1. <strong>Data:</strong> <code>ggplot(data)</code><br>
             2. <strong>Aesthetics (aes):</strong> <code>aes(x = col, y = col)</code><br>
@@ -33,7 +33,7 @@
     <h2>2. Histogram (1 Numeric Var)</h2>
     <div class="lesson-text">
         <p>Shows the distribution of a single number column (e.g., "How heavy are the pumpkins?").</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong> <code>ggplot(df, aes(x = numeric_col)) + geom_histogram()</code>
         </div>
     </div>
@@ -69,7 +69,7 @@
     <h2>3. Bar Plot (1 Categorical Var)</h2>
     <div class="lesson-text">
         <p>Shows counts of categories (e.g., "How many students in each House?"). R counts the rows for you.</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong> <code>ggplot(df, aes(x = category_col)) + geom_bar()</code>
         </div>
     </div>
@@ -97,7 +97,7 @@
     <h2>4. Boxplot (Num vs Cat)</h2>
     <div class="lesson-text">
         <p>Comparing a number across different groups (e.g., "Study Hours" by "School").</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong> <code>ggplot(df, aes(x = category, y = number)) + geom_boxplot()</code>
         </div>
     </div>
@@ -130,7 +130,7 @@
     <h2>5. Scatterplot (Num vs Num)</h2>
     <div class="lesson-text">
         <p>Shows the relationship between two numbers (e.g., "Coffee" vs "Jitters").</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong> <code>ggplot(df, aes(x = number1, y = number2)) + geom_point()</code>
         </div>
     </div>
@@ -167,7 +167,7 @@
             <li><strong>color:</strong> Changes the outline (dots, lines).</li>
             <li><strong>fill:</strong> Changes the inside (bars, boxplots).</li>
         </ul>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong> <code>aes(x = type, fill = type)</code>
         </div>
     </div>
@@ -213,11 +213,11 @@
     </div>
 </div>
 
-<div class="concept-card" style="border-left: 5px solid var(--autumn-orange);">
+<div class="concept-card border-autumn-orange">
     <h2>8. Faceting (Small Multiples)</h2>
     <div class="lesson-text">
         <p>Sometimes you have too much data for one chart. Faceting splits your chart into multiple panels, one for each group.</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong> <code>+ facet_wrap(~ grouping_variable)</code>
         </div>
         <p><strong>Note:</strong> You MUST use the tilde <code>~</code> (read as "by").</p>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org; object-src 'none'; base-uri 'self'; frame-ancestors 'none';">
     <title>Module 6: The Town Meeting</title>
     <link rel="stylesheet" href="style.css">
     <script type="module" src="script.js"></script>
@@ -20,7 +20,7 @@
     <div class="lesson-text">
         <p><strong>The Concept:</strong> The T-Test is great for <strong>2 groups</strong> (Luke vs. Lorelai). But what if you want to compare <strong>3+ groups</strong>?</p>
         <p><strong>Scenario:</strong> Comparing pies from <strong>Luke's</strong>, <strong>Weston's</strong>, and <strong>Sookie's</strong>.</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Why not 3 T-Tests?</strong><br>
             Because every test has a 5% error rate. If you run 3 tests, your risk of a False Positive jumps to ~15%.
         </div>
@@ -32,7 +32,7 @@
     <h2>2. Running the ANOVA (`aov`)</h2>
     <div class="lesson-text">
         <p><strong>The Concept:</strong> We check if the variance <em>between</em> groups is larger than the variance <em>within</em> groups.</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong><br>
             1. <code>model <- aov(Numeric ~ Group, data = df)</code><br>
             2. <code>summary(model)</code>
@@ -68,7 +68,7 @@
     <div class="lesson-text">
         <p><strong>The Concept:</strong> The ANOVA result was significant (P < 0.05). Hooray! But wait...</p>
         <p>ANOVA only tells you <strong>"At least one group is different."</strong> It doesn't tell you <em>which</em> one. Is Luke different from Sookie? Or is Weston different from Luke?</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong> <code>TukeyHSD(model)</code>
         </div>
         <p>This runs every possible pairwise comparison safely.</p>
@@ -100,7 +100,7 @@
     <h2>4. Visualizing ANOVA</h2>
     <div class="lesson-text">
         <p>The best way to show ANOVA results is with a <strong>Boxplot</strong>.</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong> <code>ggplot(df, aes(x=Group, y=Num, fill=Group)) + geom_boxplot()</code>
         </div>
         <p>If the "boxes" don't overlap much, the groups are likely different.</p>
@@ -133,13 +133,13 @@
     <h2>5. How to Report It</h2>
     <div class="lesson-text">
         <p>For your BILD 5 lab report, you need to write a sentence like this:</p>
-        <blockquote style="background:#f9f9f9; padding:10px; border-left: 5px solid var(--yale-blue);">
+        <blockquote class="blockquote-box">
             "There was a significant effect of Baker on Sugar Content (One-way ANOVA, F(2, 27) = 12.45, p < 0.001). Post-hoc Tukey tests revealed that Sookie's pies had significantly higher sugar than Luke's (p = 0.002) and Weston's (p = 0.041)."
         </blockquote>
     </div>
 </div>
 
-<footer style="text-align: center; margin-top: 50px; color: #8d6e63; font-style: italic;">
+<footer class="footer-text">
     <p>Meeting Adjourned. • Created for BILD 5</p>
 </footer>
 

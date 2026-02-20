@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org; object-src 'none'; base-uri 'self'; frame-ancestors 'none';">
     <title>Skill C: The Rumor Mill</title>
     <link rel="stylesheet" href="style.css">
     <script type="module" src="script.js"></script>
@@ -19,7 +19,7 @@
     <h2>1. Detecting Patterns (str_detect)</h2>
     <div class="lesson-text">
         <p><strong>The Concept:</strong> Filter for rows that contain a specific word (like "Wedding" or "Heist").</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong> <code>str_detect(column, "pattern")</code>
         </div>
         <p>Returns TRUE or FALSE.</p>
@@ -49,7 +49,7 @@
     <h2>2. Find and Replace (str_replace)</h2>
     <div class="lesson-text">
         <p><strong>The Concept:</strong> Fix typos or standardize names.</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong> <code>str_replace(column, "Old", "New")</code>
         </div>
     </div>
@@ -78,7 +78,7 @@
     <h2>3. Splitting Columns (separate)</h2>
     <div class="lesson-text">
         <p><strong>The Concept:</strong> Split "Lorelai_Gilmore" into "Lorelai" and "Gilmore".</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong> <code>separate(col, into = c("A", "B"), sep = "_")</code>
         </div>
     </div>
@@ -107,7 +107,7 @@
     <h2>4. Combining Text (str_glue)</h2>
     <div class="lesson-text">
         <p><strong>The Concept:</strong> Create sentences from data columns. This is great for plot labels.</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong> <code>str_glue("Name: {col_A}, Age: {col_B}")</code>
         </div>
         <p>It uses curly braces <code>{}</code> to insert column values.</p>
@@ -134,7 +134,7 @@
     </div>
 </div>
 
-<footer style="text-align: center; margin-top: 50px; color: #8d6e63; font-style: italic;">
+<footer class="footer-text">
     <p>That's what she said. • Created for Research</p>
 </footer>
 

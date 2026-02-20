@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org; object-src 'none'; base-uri 'self'; frame-ancestors 'none';">
   <title>Module 5: Yale Stats</title>
   <link rel="stylesheet" href="style.css">
   <script type="module" src="script.js"></script>
@@ -19,7 +19,7 @@
   <h2>1. Data Cleaning (The Kirk Penguin)</h2>
   <div class="lesson-text">
     <p><strong>The Concept:</strong> Before you run any stats, check for errors. If a penguin weighs 120kg, that is Kirk in a costume.</p>
-    <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+    <div class="lesson-box">
       <strong>Syntax:</strong> <code>data |> filter(column < 100)</code>
     </div>
   </div>
@@ -48,7 +48,7 @@
   <h2>2. Normality Check (The KS Test)</h2>
   <div class="lesson-text">
     <p><strong>The Concept:</strong> Most tests assume your data fits a <strong>Normal Distribution</strong> (Bell Curve). We use the <strong>Kolmogorov-Smirnov Test</strong> (`ks.test`).</p>
-    <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+    <div class="lesson-box">
       <strong>Syntax:</strong><br>
       <code>ks.test(x, "pnorm", mean(x), sd(x))</code>
     </div>
@@ -80,7 +80,7 @@
   <h2>3. The Makeover (Log Transform)</h2>
   <div class="lesson-text">
     <p><strong>The Concept:</strong> If your data is skewed, fix it. A <strong>Log Transformation</strong> squashes big numbers down.</p>
-    <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+    <div class="lesson-box">
       <strong>Syntax:</strong> <code>mutate(new_col = log10(old_col))</code>
     </div>
   </div>
@@ -109,7 +109,7 @@
   <h2>4. One-Sample T-Test (The Standard)</h2>
   <div class="lesson-text">
     <p><strong>The Concept:</strong> Compare <strong>ONE group</strong> against a known number.</p>
-    <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+    <div class="lesson-box">
       <strong>Syntax:</strong> <code>t.test(vector, mu = number)</code>
     </div>
   </div>
@@ -139,7 +139,7 @@
   <h2>5. Paired T-Test (Before & After)</h2>
   <div class="lesson-text">
     <p><strong>The Concept:</strong> Use this when you measure the <strong>SAME person</strong> twice.</p>
-    <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+    <div class="lesson-box">
       <strong>Syntax:</strong> <code>t.test(vecA, vecB, paired = TRUE)</code>
     </div>
   </div>
@@ -169,7 +169,7 @@
   <h2>6. Unpaired T-Test (Two Groups)</h2>
   <div class="lesson-text">
     <p><strong>The Concept:</strong> Compare two <strong>independent</strong> groups (e.g., Jess vs. Dean).</p>
-    <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+    <div class="lesson-box">
       <strong>Syntax:</strong> <code>t.test(Numeric ~ Group, data = df)</code>
     </div>
     <p><strong>Note:</strong> You must use the Tilde <code>~</code> (read as "by").</p>
@@ -199,7 +199,7 @@
   <h2>7. Power Analysis (The Prep)</h2>
   <div class="lesson-text">
     <p><strong>The Concept:</strong> Paris Geller doesn't guess. She calculates. <strong>Power Analysis</strong> tells you how many samples you need.</p>
-    <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+    <div class="lesson-box">
       <strong>Syntax:</strong> <code>power.t.test(delta=, sd=, power=, type=)</code>
     </div>
     <p><strong>Rule:</strong> Leave <code>n=NULL</code> so R solves for it.</p>

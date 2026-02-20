@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org; object-src 'none'; base-uri 'self'; frame-ancestors 'none';">
     <title>Skill B: The Festival Calendar</title>
     <link rel="stylesheet" href="style.css">
     <script type="module" src="script.js"></script>
@@ -19,7 +19,7 @@
     <h2>1. Parsing Dates (The Format Fix)</h2>
     <div class="lesson-text">
         <p><strong>The Problem:</strong> Excel ruins dates. R needs to know the format to understand it.</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong><br>
             <code>mdy("Jan 1, 2024")</code> -> Month-Day-Year<br>
             <code>ymd("2024-01-01")</code> -> Year-Month-Day
@@ -50,7 +50,7 @@
     <h2>2. Doing Math with Time</h2>
     <div class="lesson-text">
         <p><strong>The Concept:</strong> Once R knows it's a date, you can do math! Calculate duration by subtraction.</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong> <code>mutate(diff = end_date - start_date)</code>
         </div>
     </div>
@@ -79,7 +79,7 @@
     <h2>3. Extracting Details</h2>
     <div class="lesson-text">
         <p><strong>The Concept:</strong> Pull out specific parts of a date for grouping.</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong><br>
             <code>month(date, label = TRUE)</code> -> "Jan"<br>
             <code>wday(date, label = TRUE)</code> -> "Mon"
@@ -110,7 +110,7 @@
     <h2>4. Rounding Dates (Floor)</h2>
     <div class="lesson-text">
         <p><strong>The Concept:</strong> To group data by week or month, we "round down" the date.</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong> <code>floor_date(date, unit = "week")</code>
         </div>
         <p>This sets every date to the start of its week.</p>
@@ -136,7 +136,7 @@
     </div>
 </div>
 
-<footer style="text-align: center; margin-top: 50px; color: #8d6e63; font-style: italic;">
+<footer class="footer-text">
     <p>Time flies when you're caffeinated. • Created for Research</p>
 </footer>
 

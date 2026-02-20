@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org; object-src 'none'; base-uri 'self'; frame-ancestors 'none';">
   <title>Module 8: The DAR Tea</title>
   <link rel="stylesheet" href="style.css">
   <script type="module" src="script.js"></script>
@@ -20,7 +20,7 @@
   <div class="lesson-text">
     <p><strong>The Concept:</strong> When you have two Categorical variables (categories, not numbers), you can't calculate a Mean. You calculate <strong>Counts</strong>.</p>
     <p>We use a <strong>Contingency Table</strong> to cross-reference them.</p>
-    <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+    <div class="lesson-box">
       <strong>Syntax:</strong> <code>table(df$col1, df$col2)</code>
     </div>
   </div>
@@ -52,7 +52,7 @@
   <h2>2. The Chi-Squared Test</h2>
   <div class="lesson-text">
     <p><strong>The Concept:</strong> We need to know if the relationship is significant. We use the <strong>Chi-Squared Test of Independence</strong> ($\chi^2$).</p>
-    <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+    <div class="lesson-box">
       <strong>Syntax:</strong> <code>chisq.test(my_table)</code>
     </div>
     <ul>
@@ -86,7 +86,7 @@
   <h2>3. Visualizing Proportions</h2>
   <div class="lesson-text">
     <p>To show categorical data, we use a Bar Plot. To compare proportions, we want a <strong>100% Stacked Bar Chart</strong>.</p>
-    <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+    <div class="lesson-box">
       <strong>Syntax:</strong> <code>+ geom_bar(position = "fill")</code>
     </div>
   </div>
@@ -123,13 +123,13 @@
   <h2>4. Reporting Results</h2>
   <div class="lesson-text">
     <p>For your BILD 5 lab report, report the $\chi^2$ value, degrees of freedom (df), and P-value.</p>
-    <blockquote style="background:#f9f9f9; padding:10px; border-left: 5px solid var(--yale-blue);">
+    <blockquote class="blockquote-box">
       "There was a significant association between drink choice and mood ($\chi^2(1, N=52) = 28.4$, p < 0.001). Emily was right."
     </blockquote>
   </div>
 </div>
 
-<footer style="text-align: center; margin-top: 50px; color: #8d6e63; font-style: italic;">
+<footer class="footer-text">
   <p>Please pass the sugar. • Created for BILD 5</p>
 </footer>
 

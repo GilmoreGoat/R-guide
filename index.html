@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org; object-src 'none'; base-uri 'self'; frame-ancestors 'none';">
     <title>The R Gilmore Study Guide</title>
     <link rel="stylesheet" href="style.css">
     <script type="module" src="script.js"></script>
@@ -13,10 +13,10 @@
 <header>
     <h1>The R Gilmore Study Guide</h1>
     <div class="subtitle">"Life's short. Talk fast. Code faster."</div>
-    <div style="margin-top: 10px; font-size: 2em;">☕ 🍂 📚</div>
+    <div class="header-icons">☕ 🍂 📚</div>
 </header>
 
-<div class="concept-card" style="text-align: center; background: #fff8e1; border: 2px dashed var(--luke-yellow);">
+<div class="concept-card panic-kit">
     <h3>📋 The "Sunday Night Panic" Starter Kit</h3>
     <p>Copy this into every new R script to avoid errors.</p>
     <pre><code>library(tidyverse)
@@ -51,7 +51,7 @@ options(scipen = 999)</code></pre>
     </a>
 </div>
 
-<div class="toc-header" style="margin-top: 60px;">
+<div class="toc-header mt-60">
     <h3>🎓 Tier 1: The BILD 5 Syllabus</h3>
     <p>Required for Midterms & Finals. Follows the course calendar.</p>
 </div>
@@ -106,36 +106,36 @@ options(scipen = 999)</code></pre>
     </a>
 </div>
 
-<div class="town-divider" style="margin-top: 60px;">
+<div class="town-divider mt-60">
     <span>🌂</span>
 </div>
 
 <div class="toc-header">
-    <h3 style="color: var(--yale-blue);">🔬 Tier 2: Research Skills (The Life & Death Brigade)</h3>
+    <h3 class="text-yale-blue">🔬 Tier 2: Research Skills (The Life & Death Brigade)</h3>
     <p>Not on the syllabus, but essential for real-world lab work.</p>
 </div>
 
 <div class="module-grid">
-    <a href="module6.html" class="module-card" style="border-left: 5px solid var(--yale-blue);">
+    <a href="module6.html" class="module-card border-yale-blue">
         <h2>Skill A: The Secret Society</h2>
         <p><strong>Logic & Joining.</strong> Merging datasets with <code>left_join</code> and categorizing with <code>case_when</code>.</p>
         <span class="start-btn">Jump In &rarr;</span>
     </a>
 
-    <a href="skill_b.html" class="module-card" style="border-left: 5px solid var(--yale-blue);">
+    <a href="skill_b.html" class="module-card border-yale-blue">
         <h2>Skill B: The Festival Calendar</h2>
         <p><strong>Dates & Time.</strong> Using <code>lubridate</code> to parse dates and calculate experiment durations.</p>
         <span class="start-btn">Travel Time &rarr;</span>
     </a>
 
-    <a href="skill_c.html" class="module-card" style="border-left: 5px solid var(--yale-blue);">
+    <a href="skill_c.html" class="module-card border-yale-blue">
         <h2>Skill C: The Rumor Mill</h2>
         <p><strong>Strings & Text.</strong> Using <code>stringr</code> to find patterns, fix typos, and split messy columns.</p>
         <span class="start-btn">Hear the Gossip &rarr;</span>
     </a>
 </div>
 
-<div class="town-divider" style="margin-top: 60px;">
+<div class="town-divider mt-60">
     <span>🚧</span>
 </div>
 
@@ -145,7 +145,7 @@ options(scipen = 999)</code></pre>
 </div>
 
 <div class="town-square-menu">
-    <a href="syllabus.html" class="town-menu-item" style="border-color: var(--coffee-dark);">
+    <a href="syllabus.html" class="town-menu-item border-coffee-dark">
         <span class="menu-icon">🚧</span>
         <div class="menu-text">
             <h3>The Future Syllabus</h3>
@@ -154,7 +154,7 @@ options(scipen = 999)</code></pre>
     </a>
 </div>
 
-<footer style="text-align: center; margin-top: 50px; color: #8d6e63; font-style: italic;">
+<footer class="footer-text">
     <p>Oy with the poodles already! • Created for BILD 5</p>
 </footer>
 </body>

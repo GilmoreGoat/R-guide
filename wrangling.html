@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org; object-src 'none'; base-uri 'self'; frame-ancestors 'none';">
     <title>Module 2: Luke's Diner</title>
     <link rel="stylesheet" href="style.css">
     <script type="module" src="script.js"></script>
@@ -29,7 +29,7 @@
             <li><code>select()</code>: Returns a <strong>Table</strong> (Data Frame). Use this to create a smaller dataset.</li>
             <li><code>pull()</code>: Returns a <strong>Vector</strong> (List of numbers). Use this if you want to do math on it immediately.</li>
         </ul>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong> <code>data |> select(col1, col2)</code> OR <code>data |> pull(col1)</code>
         </div>
     </div>
@@ -56,7 +56,7 @@
     <h2>3. The Dollar Sign ($)</h2>
     <div class="lesson-text">
         <p>The <code>$</code> is a shortcut for <code>pull()</code>. It grabs a specific column from a dataframe.</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong> <code>dataframe$column_name</code>
         </div>
         <p><em>Think:</em> <code>Luke's_Wallet$Cash</code>.</p>
@@ -84,7 +84,7 @@
     <h2>4. Filter (Rows)</h2>
     <div class="lesson-text">
         <p>Luke wants to kick out annoying customers. <code>filter()</code> keeps rows where the condition is TRUE.</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong> <code>data |> filter(column == "Value")</code>
         </div>
         <p><strong>Note:</strong> Use <code>==</code> for "is equal to", and <code>!=</code> for "is NOT equal to".</p>
@@ -112,7 +112,7 @@
     <h2>5. Arrange (Sorting)</h2>
     <div class="lesson-text">
         <p>Sort the menu. Default is Ascending (Low to High).</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong> <code>data |> arrange(column)</code><br>
             <strong>Reverse:</strong> <code>data |> arrange(desc(column))</code>
         </div>
@@ -140,7 +140,7 @@
     <h2>6. Mutate (Special Orders)</h2>
     <div class="lesson-text">
         <p>Lorelai never orders off the menu; she changes it. <code>mutate()</code> creates new columns based on math from old ones.</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong> <code>data |> mutate(new_col = old_col * 2)</code>
         </div>
     </div>
@@ -187,11 +187,11 @@
     </div>
 </div>
 
-<div class="concept-card" style="border-left: 5px solid var(--autumn-orange);">
+<div class="concept-card border-autumn-orange">
     <h2>8. Group By & Summarise (The Power Move)</h2>
     <div class="lesson-text">
         <p>This splits your data into groups (like "Townie" vs. "Tourist"), calculates a stat for each, and gives you a summary table.</p>
-        <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <div class="lesson-box">
             <strong>Syntax:</strong><br>
             <code>data |> group_by(category) |> summarise(avg = mean(values))</code>
         </div>

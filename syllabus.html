@@ -3,80 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org; object-src 'none'; base-uri 'self'; frame-ancestors 'none';">
     <title>The Professional Roadmap</title>
     <link rel="stylesheet" href="style.css">
     <script type="module" src="script.js"></script>
-    <style>
-        /* Special "Blueprint" styling for this page */
-        .phase-card {
-            border-left: 6px solid var(--coffee-dark);
-            margin-bottom: 40px;
-        }
-        .phase-header {
-            background: var(--coffee-dark);
-            color: white;
-            padding: 10px 20px;
-            font-family: 'Segoe UI', sans-serif;
-            font-weight: bold;
-            border-radius: 4px 4px 0 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .phase-content {
-            padding: 20px;
-            background: white;
-            border: 1px solid #ddd;
-            border-top: none;
-            border-radius: 0 0 4px 4px;
-        }
-        .skill-list {
-            list-style: none;
-            padding: 0;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-        }
-        .skill-item {
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 6px;
-            border: 1px dashed #ccc;
-            transition: transform 0.2s;
-        }
-        .skill-item:hover {
-            transform: translateY(-2px);
-            border-color: var(--yale-blue);
-            background: #e8f4f8;
-        }
-        .skill-title {
-            font-weight: bold;
-            color: var(--yale-blue);
-            display: block;
-            margin-bottom: 5px;
-        }
-        .skill-desc {
-            font-size: 0.9em;
-            color: #666;
-        }
-        .construction-banner {
-            background: repeating-linear-gradient(
-                    45deg,
-                    #f1c40f,
-                    #f1c40f 10px,
-                    #333 10px,
-                    #333 20px
-            );
-            color: white;
-            text-align: center;
-            padding: 10px;
-            font-weight: bold;
-            text-shadow: 2px 2px 0 #000;
-            margin-bottom: 30px;
-            border-radius: 4px;
-        }
-    </style>
+    <link rel="stylesheet" href="syllabus.css">
 </head>
 <body>
 <nav><a href="index.html">&larr; Back to Town</a></nav>
@@ -90,7 +21,7 @@
     🚧 TAYLOR DOOSE PRESENTS: TOWN IMPROVEMENT PLAN (COMING SOON) 🚧
 </div>
 
-<div class="concept-card" style="text-align: center;">
+<div class="concept-card text-center">
     <h2>The Professional Syllabus</h2>
     <p>You have mastered the basics of BILD 5. But if you want to be a <strong>Certified R Developer</strong> (the kind companies hire), this is what lies ahead.</p>
 </div>
@@ -203,7 +134,7 @@
     </div>
 </div>
 
-<footer style="text-align: center; margin-top: 50px; color: #8d6e63; font-style: italic;">
+<footer class="footer-text">
     <p>"Where you lead, I will follow..." • <a href="index.html">Back to Stars Hollow</a></p>
 </footer>
 

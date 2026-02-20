@@ -3,100 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org; object-src 'none'; base-uri 'self'; frame-ancestors 'none';">
     <title>Paris Geller's Master Reference</title>
     <link rel="stylesheet" href="style.css">
     <script type="module" src="script.js"></script>
     <script type="module" src="reference.js"></script>
-    <style>
-        /* --- SPECIAL REFERENCE STYLING --- */
-        body { max-width: 1100px; } /* Wider for all this knowledge */
-
-        /* --- DROPDOWN MENUS (THEMED) --- */
-        details { margin-bottom: 20px; }
-
-        summary {
-            padding: 15px 20px;
-            border-radius: 8px;
-            font-family: 'Segoe UI', sans-serif;
-            font-weight: bold;
-            font-size: 1.2em;
-            cursor: pointer;
-            list-style: none;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            color: white;
-            position: relative;
-        }
-
-        /* Custom Arrow */
-        summary::after {
-            content: '+'; float: right; font-weight: 800; font-size: 1.1em; transition: transform 0.3s;
-        }
-        details[open] summary::after { content: '-'; transform: rotate(180deg); }
-
-        /* THEME 1: ESSENTIALS (Autumn Orange) */
-        .essentials-section summary { background: var(--autumn-orange); border-left: 10px solid var(--coffee-dark); }
-        .essentials-section summary:hover { background: #a04000; }
-
-        /* THEME 2: ADVANCED (Yale Blue) */
-        .advanced-section summary { background: var(--yale-blue); border-left: 10px solid #0a3d75; }
-        .advanced-section summary:hover { background: #1a5276; }
-
-        /* Content Animation */
-        .ref-content {
-            padding: 20px 10px; background: #fffdf9; border-radius: 0 0 8px 8px;
-            border: 1px solid #ddd; border-top: none; animation: slideDown 0.3s ease-out;
-        }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Reference Items */
-        .ref-item {
-            background: white; border: 1px solid #e0e0e0; border-left: 5px solid #ccc;
-            padding: 25px; margin-bottom: 30px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.03);
-        }
-        .ref-item h3 {
-            color: var(--coffee-dark); margin-top: 0; font-family: 'Consolas', monospace; font-size: 1.3em;
-            border-bottom: 2px dashed #eee; padding-bottom: 10px;
-        }
-        .advanced-section .ref-item h3 { color: var(--yale-blue); }
-
-        /* Syntax Highlighting */
-        .syntax-block {
-            background: #282c34; color: #abb2bf; padding: 15px; border-radius: 6px;
-            font-family: 'Consolas', monospace; margin: 15px 0; overflow-x: auto; border: 1px solid #444;
-        }
-        .arg-list { background: #f4f4f4; padding: 15px; border-radius: 6px; margin: 15px 0; font-size: 0.95em;}
-        .arg-list li { margin-bottom: 8px; }
-        .arg-name { font-family: monospace; font-weight: bold; color: #d35400; }
-
-        /* Warnings */
-        .warning-box {
-            background: #fff5f5; border-left: 5px solid #c0392b; padding: 15px;
-            color: #c0392b; font-style: italic; margin-top: 15px; font-size: 0.9em;
-        }
-        .warning-title { font-weight: bold; text-transform: uppercase; font-size: 0.8em; display: block; margin-bottom: 5px; color: #a93226;}
-
-        /* TOC Styling */
-        .toc-container { border-radius: 12px; padding: 25px; margin-bottom: 30px; text-align: center; }
-        .toc-container.stars-hollow-theme { background: #fff8e1; border: 2px dashed var(--luke-yellow); }
-        .toc-container.yale-theme { background: #e8f4f8; border: 2px dashed var(--yale-blue); }
-        .toc-title { margin-bottom: 20px; border-bottom: 1px dashed rgba(0,0,0,0.1); padding-bottom: 15px; }
-        .toc-title h3 { margin: 0; font-size: 1.4em; color: var(--coffee-dark); }
-        .toc-title p { margin: 5px 0 0 0; font-style: italic; color: #666; }
-
-        .toc-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
-
-        .toc-btn {
-            background: white; border: 1px solid var(--coffee-light); color: var(--coffee-dark);
-            padding: 10px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 0.9em;
-            transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.05); flex: 1 1 auto;
-            min-width: 130px; max-width: 250px;
-        }
-        .toc-btn:hover { background: var(--autumn-orange); color: white; transform: translateY(-2px); border-color: var(--autumn-orange); }
-        .toc-btn.yale-btn { border: 1px solid var(--yale-blue); color: var(--yale-blue); }
-        .toc-btn.yale-btn:hover { background: var(--yale-blue); color: white; }
-    </style>
+    <link rel="stylesheet" href="reference.css">
 </head>
 <body>
 <nav><a href="index.html">&larr; Back to Town</a></nav>
@@ -121,15 +33,15 @@
     </div>
 </div>
 
-<div class="town-divider" style="margin: 40px auto; max-width: 60%; text-align: center;">
-    <span style="font-size: 0.9em; font-weight: bold; letter-spacing: 1px; color: #7f8c8d;">
+<div class="town-divider divider-container">
+    <span class="divider-text">
         🌂 You Jump, I Jump, Jack 🌂
     </span>
 </div>
 
 <div class="toc-container yale-theme">
     <div class="toc-title">
-        <h3 style="color: var(--yale-blue);">The Life & Death Brigade (Advanced)</h3>
+        <h3 class="text-yale-blue">The Life & Death Brigade (Advanced)</h3>
         <p><em>In Omnia Paratus.</em> (Ready for anything).</p>
     </div>
     <div class="toc-buttons">
@@ -149,8 +61,8 @@
             <h3>install.packages() / library()</h3>
             <p><strong>Usage:</strong> The two-step process to get tools.</p>
             <div class="syntax-block">
-                install.packages("tidyverse") <span style="color:#7f8c8d"># Run ONCE per computer</span>
-                library(tidyverse)            <span style="color:#7f8c8d"># Run EVERY time you restart R</span>
+                install.packages("tidyverse") <span class="text-muted"># Run ONCE per computer</span>
+                library(tidyverse)            <span class="text-muted"># Run EVERY time you restart R</span>
             </div>
             <div class="warning-box">
                 <span class="warning-title">Paris's Warning:</span>
@@ -239,8 +151,8 @@
             <h3>arrange()</h3>
             <p><strong>Usage:</strong> Sorting rows.</p>
             <div class="syntax-block">
-                data |&gt; arrange(score)        <span style="color:#7f8c8d"># Low to High</span>
-                data |&gt; arrange(desc(score))  <span style="color:#7f8c8d"># High to Low</span>
+                data |&gt; arrange(score)        <span class="text-muted"># Low to High</span>
+                data |&gt; arrange(desc(score))  <span class="text-muted"># High to Low</span>
             </div>
         </div>
         <div class="ref-item">
@@ -530,7 +442,7 @@
     </div>
 </details>
 
-<footer style="text-align: center; margin-top: 80px; color: #8d6e63; font-style: italic; border-top: 2px dashed #ddd; padding-top: 20px;">
+<footer class="footer-alt">
     <p>Detailed Reference Guide • BILD 5</p>
 </footer>
 

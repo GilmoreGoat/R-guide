@@ -1,7 +1,7 @@
-import { compareCode, escapeHTML, processWebROutput, processWebRImages } from './logic.js';
+import { compareCode, escapeHTML, processWebROutput, getRequiredPackages } from './logic.js';
 import { R_DATA_INIT } from './r_data.js';
 
-// Utility functions (escapeHTML, compareCode, processWebROutput) are consolidated in logic.js
+// Utility functions (escapeHTML, compareCode, processWebROutput, getRequiredPackages) are consolidated in logic.js
 // Note: Ensure utility functions are not redefined locally.
 const COLORS = {
     // Theme Colors
@@ -19,22 +19,6 @@ const COLORS = {
     muted: 'var(--muted-color)',
     subtle: 'var(--subtle-color)',
     borderDark: 'var(--border-dark)'
-};
-
-const DEFAULT_PACKAGES = ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate'];
-
-const PAGE_PACKAGES = {
-    'basics.html': DEFAULT_PACKAGES,
-    'wrangling.html': ['dplyr'],
-    'tidying.html': ['tidyr', 'dplyr'],
-    'visualization.html': ['ggplot2', 'dplyr'],
-    'statistics.html': ['dplyr'],
-    'anova.html': ['ggplot2', 'dplyr'],
-    'regression.html': ['ggplot2', 'dplyr'],
-    'categorical.html': ['ggplot2', 'dplyr'],
-    'module6.html': ['dplyr'],
-    'skill_b.html': ['lubridate', 'dplyr'],
-    'skill_c.html': ['stringr', 'tidyr', 'dplyr']
 };
 
 
@@ -96,12 +80,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         loadingBanner.innerText = "📦 Downloading Packages... This takes ~20s";
 
         // Determine required packages based on the current page
-        const pagePath = window.location.pathname;
-        const pageName = pagePath.split('/').pop();
-        let requiredPackages = PAGE_PACKAGES[pageName] || DEFAULT_PACKAGES;
-
-        // Remove duplicates
-        requiredPackages = [...new Set(requiredPackages)];
+        const requiredPackages = getRequiredPackages(window.location.pathname);
 
         try {
             await webR.installPackages(requiredPackages);

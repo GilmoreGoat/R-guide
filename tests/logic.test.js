@@ -1,6 +1,44 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert';
-import { normalizeCode, compareCode, escapeHTML, processWebROutput, processWebRImages } from '../logic.js';
+import { normalizeCode, compareCode, escapeHTML, processWebROutput, getRequiredPackages } from '../logic.js';
+
+describe('getRequiredPackages', () => {
+    it('should return default packages for unknown page', () => {
+        const result = getRequiredPackages('/unknown.html');
+        assert.deepStrictEqual(result, ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate']);
+    });
+
+    it('should return specific packages for known page', () => {
+        const result = getRequiredPackages('/wrangling.html');
+        assert.deepStrictEqual(result, ['dplyr']);
+    });
+
+    it('should return multiple packages for some pages', () => {
+        const result = getRequiredPackages('/tidying.html');
+        assert.deepStrictEqual(result, ['tidyr', 'dplyr']);
+    });
+
+    it('should handle paths with directories', () => {
+        const result = getRequiredPackages('/subdir/wrangling.html');
+        assert.deepStrictEqual(result, ['dplyr']);
+    });
+
+    it('should handle root path', () => {
+         const result = getRequiredPackages('/');
+         assert.deepStrictEqual(result, ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate']);
+    });
+
+    it('should handle empty path', () => {
+         const result = getRequiredPackages('');
+         assert.deepStrictEqual(result, ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate']);
+    });
+
+    it('should ensure uniqueness of returned packages', () => {
+        const result = getRequiredPackages('/visualization.html');
+        const unique = [...new Set(result)];
+        assert.strictEqual(result.length, unique.length);
+    });
+});
 
 describe('escapeHTML', () => {
     it('should escape dangerous characters', () => {

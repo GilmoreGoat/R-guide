@@ -3,23 +3,6 @@ import { R_DATA_INIT } from './r_data.js';
 
 // Utility functions (escapeHTML, compareCode, processWebROutput) are consolidated in logic.js
 // Note: Ensure utility functions are not redefined locally.
-const COLORS = {
-    // Theme Colors
-    lukeYellow: 'var(--luke-yellow)',
-    coffeeDark: 'var(--coffee-dark)',
-    yaleBlue: 'var(--yale-blue)',
-
-    // Status Colors
-    success: 'var(--success-color)',
-    error: 'var(--error-color)',
-    warning: 'var(--warning-color)',
-
-    // UI Colors
-    lightBlueBg: 'var(--light-blue-bg)',
-    muted: 'var(--muted-color)',
-    subtle: 'var(--subtle-color)',
-    borderDark: 'var(--border-dark)'
-};
 
 const DEFAULT_PACKAGES = ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate'];
 

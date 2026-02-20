@@ -11,4 +11,7 @@ test('script.js code health', (t) => {
 
     // Ensure escapeHTML is imported from logic.js
     assert.match(content, /import { .*escapeHTML.* } from '\.\/logic\.js'/, 'script.js should import escapeHTML from ./logic.js');
+
+    // Ensure COLORS constant is not present (removed as unused)
+    assert.ok(!content.includes('const COLORS ='), 'script.js should not contain unused COLORS constant');
 });

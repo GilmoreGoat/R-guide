@@ -21,18 +21,19 @@ test.afterAll(() => {
 });
 
 const rPages = [
-    { name: 'basics.html' },
-    { name: 'wrangling.html' },
-    { name: 'tidying.html' },
-    { name: 'visualization.html' },
-    { name: 'statistics.html' },
-    { name: 'anova.html' },
-    { name: 'regression.html' },
-    { name: 'categorical.html' },
-    { name: 'module6.html' },
-    { name: 'skill_b.html' },
-    { name: 'skill_c.html' },
-    { name: 'oop.html' },
+    { name: 'modules/basics.html' },
+    { name: 'modules/wrangling.html' },
+    { name: 'modules/tidying.html' },
+    { name: 'modules/visualization.html' },
+    { name: 'modules/statistics.html' },
+    { name: 'modules/anova.html' },
+    { name: 'modules/regression.html' },
+    { name: 'modules/categorical.html' },
+    { name: 'modules/module6.html' },
+    { name: 'modules/skill_b.html' },
+    { name: 'modules/skill_c.html' },
+    { name: 'modules/functional.html' },
+    { name: 'modules/oop.html' },
 ];
 
 const staticPages = [
@@ -52,7 +53,7 @@ for (const { name } of rPages) {
         await page.goto(`http://localhost:${PORT}/${name}`);
 
         // Wait for R is Ready
-        const banner = page.locator('text=R is Ready!');
+        const banner = page.locator('text=R is Ready');
         await expect(banner).toBeVisible({ timeout: 60000 });
 
         const criticalErrors = errors.filter(e =>

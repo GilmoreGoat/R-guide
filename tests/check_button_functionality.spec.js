@@ -50,7 +50,7 @@ test('Check buttons work correctly with event delegation', async ({ page }) => {
         });
     });
 
-    await page.goto(`http://localhost:${PORT}/basics.html`);
+    await page.goto(`http://localhost:${PORT}/modules/basics.html`);
 
     // Wait for "R is Ready!"
     await expect(page.locator('.loading-banner.is-success')).toBeVisible({ timeout: 15000 });

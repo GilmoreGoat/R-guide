@@ -3,7 +3,7 @@ import assert from 'node:assert';
 import fs from 'node:fs';
 
 test('script.js code health', (t) => {
-    const content = fs.readFileSync('script.js', 'utf8');
+    const content = fs.readFileSync('js/script.js', 'utf8');
 
     // Ensure escapeHTML is not redefined locally
     assert.ok(!content.includes('const escapeHTML = (str) => {'), 'script.js should not redefine escapeHTML locally');

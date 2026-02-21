@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org; object-src 'none'; base-uri 'self'; frame-ancestors 'none';">
+    <title>Metaprogramming: The Life & Death Brigade</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
+    <script type="module" src="../js/script.js"></script>
+</head>
+<body>
+<nav><a href="../syllabus.html">&larr; Back to Syllabus</a></nav>
+<header>
+    <h1>Skill: Metaprogramming</h1>
+    <p>"You jump, I jump, Jack." — Logan Huntzberger</p>
+</header>
+
+<div class="concept-card">
+    <h2>1. Tidy Eval (Data Masking)</h2>
+    <div class="lesson-text">
+        <p><strong>The Concept:</strong> Like the Life & Death Brigade, standard R evaluation is too safe. Tidy Eval lets you pass column names into functions without quotes. But inside a function, R doesn't know if <code>var</code> is a column or an object. We use the "curly-curly" operator <code>{{ }}</code> to tunnel the variable through.</p>
+        <div class="lesson-box">
+            <strong>Syntax:</strong> <code>my_fun <- function(df, col) { df %>% summarize(mean({{ col }})) }</code>
+        </div>
+        <p>This "embraces" the variable, telling R to look for it inside the dataframe, not the global environment.</p>
+    </div>
+    <div class="instruction-box">
+        <h3>📝 Mission: The Event Stunt</h3>
+        <ul class="instruction-list">
+            <li>We have the <code>menu</code> dataframe.</li>
+            <li>Create a function <code>avg_col(df, col)</code> that calculates the mean of the column.</li>
+            <li>Use <code>{{ col }}</code> inside <code>summarize(avg = mean({{ col }}))</code>.</li>
+            <li>Call it on <code>price</code>.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn" data-answer="avg_col <- function(df, col) { df %>% summarize(avg = mean({{ col }})) }; avg_col(menu, price)" data-output="# A tibble: 1 × 1
+    avg
+  <dbl>
+1  3.75">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>2. The Walrus Operator (`:=`)</h2>
+    <div class="lesson-text">
+        <p><strong>The Concept:</strong> Sometimes you want to <em>create</em> a new column with a name the user provides. Standard assignment <code>=</code> doesn't work with variables on the left side. You need the Walrus Operator <code>:=</code> (looks like tusks, get it?).</p>
+        <div class="lesson-box">
+            <strong>Syntax:</strong> <code>mutate(df, {{ new_name }} := val * 2)</code>
+        </div>
+        <p>This allows you to set the name of the column dynamically.</p>
+    </div>
+    <div class="instruction-box">
+        <h3>📝 Mission: Name Your Price</h3>
+        <ul class="instruction-list">
+            <li>Create a function <code>add_tax(df, new_col)</code>.</li>
+            <li>Use <code>mutate()</code> to create a column with the name <code>{{ new_col }}</code>.</li>
+            <li>Set its value to <code>price * 1.08</code>.</li>
+            <li>Call it with <code>new_col = price_tax</code>.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn" data-answer="add_tax <- function(df, new_col) { df %>% mutate({{ new_col }} := price * 1.08) }; add_tax(menu, price_tax)" data-output="# A tibble: 4 × 4
+  item       price calories price_tax
+  <chr>      <dbl>    <dbl>     <dbl>
+1 Coffee       2.5        5      2.7
+2 Muffin       3.5      450      3.78
+3 Burger       6.5      800      7.02
+4 Salad        4         50      4.32">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>3. Quosures & Expressions</h2>
+    <div class="lesson-text">
+        <p><strong>The Concept:</strong> <code>{{ }}</code> is a shortcut. Under the hood, it captures the expression (what you typed) and the environment (where you typed it). This bundle is called a "Quosure". To capture it manually, use `enquo()`.</p>
+        <div class="lesson-box">
+            <strong>Syntax:</strong> <code>var <- enquo(arg)</code>
+        </div>
+        <p>This is advanced "In Omnia Paratus" stuff. It lets you inspect code before running it.</p>
+    </div>
+    <div class="instruction-box">
+        <h3>📝 Mission: Capture the Flag</h3>
+        <ul class="instruction-list">
+            <li>Create a function <code>capture_it(x)</code>.</li>
+            <li>Use <code>rlang::enquo(x)</code> to capture the input.</li>
+            <li>Return the captured quosure.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn" data-answer="capture_it <- function(x) { rlang::enquo(x) }; capture_it(some_variable)" data-output="<quosure>
+expr: ^some_variable
+env:  global">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+</body>
+</html>

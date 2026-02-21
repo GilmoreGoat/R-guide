@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org; object-src 'none'; base-uri 'self'; frame-ancestors 'none';">
+    <title>Debugging: The Gilmore Panic</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
+    <script type="module" src="../js/script.js"></script>
+</head>
+<body>
+<nav><a href="../syllabus.html">&larr; Back to Syllabus</a></nav>
+<header>
+    <h1>Skill: Debugging</h1>
+    <p>"Oy with the poodles already!" — Lorelai Gilmore</p>
+</header>
+
+<div class="concept-card">
+    <h2>1. The Traceback (The Scene of the Crime)</h2>
+    <div class="lesson-text">
+        <p><strong>The Concept:</strong> When R crashes, it yells an error message. But <em>where</em> did it happen? Was it in your function, or a function inside a function? <code>traceback()</code> shows you the stack of calls leading up to the disaster.</p>
+        <div class="lesson-box">
+            <strong>Syntax:</strong> <code>traceback()</code>
+        </div>
+        <p>Run this <em>immediately</em> after an error to see the "crime scene" (call stack) in reverse order.</p>
+    </div>
+    <div class="instruction-box">
+        <h3>📝 Mission: Find the Culprit</h3>
+        <ul class="instruction-list">
+            <li>We have a broken function chain: <code>f(x) -> g(x) -> h(x)</code>.</li>
+            <li><code>h(x)</code> throws an error if x is negative.</li>
+            <li>Call <code>f(-1)</code> and pretend to check the traceback.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn" data-answer="f <- function(x) g(x); g <- function(x) h(x); h <- function(x) if(x<0) stop('Oops'); try(f(-1)); traceback()" data-output="3: h(x) at <text>#1
+2: g(x) at <text>#1
+1: f(-1)">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>2. The Browser (The Pause Button)</h2>
+    <div class="lesson-text">
+        <p><strong>The Concept:</strong> Sometimes reading the error isn't enough. You need to be <em>in</em> the room when it happens. <code>browser()</code> pauses execution and lets you look around inside the function environment.</p>
+        <div class="lesson-box">
+            <strong>Syntax:</strong> <code>if (condition) browser()</code>
+        </div>
+        <p>It's like hitting pause on a movie to see if the boom mic is in the shot.</p>
+    </div>
+    <div class="instruction-box">
+        <h3>📝 Mission: Stop the Madness</h3>
+        <ul class="instruction-list">
+            <li>Create a function <code>check_val(x)</code>.</li>
+            <li>Add <code>if (x > 10) browser()</code>.</li>
+            <li>We can't really open the browser here, but R will stop and tell you it's paused.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn" data-answer="check_val <- function(x) { if(x > 10) browser(); x }; check_val(15)" data-output="Called from: check_val(15)
+Browse[1]> ">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>3. Handling Meltdowns (TryCatch)</h2>
+    <div class="lesson-text">
+        <p><strong>The Concept:</strong> Sometimes you <em>know</em> something might break (like a dinner with the Gilmores), and you want to handle it gracefully instead of crashing the whole program.</p>
+        <div class="lesson-box">
+            <strong>Syntax:</strong> <code>tryCatch(expr, error = function(e) { ... })</code>
+        </div>
+        <p>This catches the error object <code>e</code> and lets you return a default value (like <code>NA</code>) or print a nicer message.</p>
+    </div>
+    <div class="instruction-box">
+        <h3>📝 Mission: Soft Landing</h3>
+        <ul class="instruction-list">
+            <li>Use <code>tryCatch</code> to run <code>log("text")</code> (which is an error).</li>
+            <li>If an error occurs, return <code>0</code> instead of crashing.</li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-header">script.R</div>
+        <div class="editor-body">
+            <div class="code-input-line">
+                <span class="prompt">></span>
+                <input type="text" class="editor-input input-code" placeholder="...">
+                <button class="check-btn" data-answer="tryCatch(log('text'), error = function(e) 0)" data-output="[1] 0">Run</button>
+            </div>
+        </div>
+        <div class="console-output feedback"></div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -24,6 +24,8 @@ A Gilmore Girls-themed interactive study guide for R programming, built with [We
     - **Skill B: The Festival Calendar**: Dates & Time (`lubridate`).
     - **Skill C: The Rumor Mill**: Strings & Text (`stringr`).
 - **Professional Certification (Tier 3)**:
+    - **Skill D: Michel's Concierge**: Functional Programming (`purrr`).
+    - **Object-Oriented Programming (OOP)**: Classes & Methods (S3, S4, R6).
     - **Future Syllabus**: A roadmap for advanced R skills (`syllabus.html`).
 - **Pre-loaded Data**:
     - `menu`, `orders`, `customers` (Luke's Diner datasets)
@@ -126,6 +128,8 @@ npx playwright test
 - `module6.html`: Skill A (The Secret Society - Joining). *Note: `module6.html` corresponds to Skill A, while `anova.html` is Module 6.*
 - `skill_b.html`: Skill B (The Festival Calendar - Dates).
 - `skill_c.html`: Skill C (The Rumor Mill - Strings).
+- `functional.html`: Skill D (Michel's Concierge - Functional Programming).
+- `oop.html`: Object-Oriented Programming (OOP).
 - `syllabus.html`: Future Syllabus (Tier 3).
 - `reference.html`: Paris Geller's Master Reference.
 - `about.html`: About page.

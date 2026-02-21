@@ -43,7 +43,7 @@ test('WebR loads with pinned version', async ({ page }) => {
         }
     });
 
-    await page.goto(`http://localhost:${PORT}/basics.html`);
+    await page.goto(`http://localhost:${PORT}/modules/basics.html`);
 
     // The page initially shows "Brewing R Engine..."
     const banner = page.locator('text=Brewing R Engine...');

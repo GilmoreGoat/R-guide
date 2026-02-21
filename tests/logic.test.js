@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert';
-import { normalizeCode, compareCode, escapeHTML, processWebROutput, processWebRImages, getRequiredPackages } from '../logic.js';
+import { normalizeCode, compareCode, escapeHTML, processWebROutput, processWebRImages, getRequiredPackages } from '../js/logic.js';
 
 describe('getRequiredPackages', () => {
     it('should return default packages for unknown page', () => {

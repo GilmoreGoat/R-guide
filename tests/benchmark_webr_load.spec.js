@@ -26,11 +26,11 @@ test.afterAll(() => {
 test('Benchmark WebR load time on wrangling.html', async ({ page }) => {
     // Navigate to the page
     const startTime = Date.now();
-    await page.goto(`http://localhost:${PORT}/wrangling.html`);
+    await page.goto(`http://localhost:${PORT}/modules/wrangling.html`);
 
     // The page initially shows "Brewing R Engine..."
     // Wait for "R is Ready!" banner
-    const banner = page.locator('text=R is Ready!');
+    const banner = page.locator('text=R is Ready');
     await expect(banner).toBeVisible({ timeout: 60000 }); // Give it enough time
 
     const endTime = Date.now();

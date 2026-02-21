@@ -1,12 +1,16 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert';
 import fs from 'node:fs';
-import { PAGE_PACKAGES, getRequiredPackages, DEFAULT_PACKAGES } from '../logic.js';
+import { PAGE_PACKAGES, getRequiredPackages, DEFAULT_PACKAGES } from '../js/logic.js';
 
 describe('Package Configuration Validation', () => {
     it('should have all keys in PAGE_PACKAGES corresponding to existing HTML files', () => {
-        const files = fs.readdirSync('.');
-        const htmlFiles = files.filter(f => f.endsWith('.html'));
+        const rootFiles = fs.readdirSync('.');
+        const moduleFiles = fs.readdirSync('modules');
+        const htmlFiles = [
+            ...rootFiles.filter(f => f.endsWith('.html')),
+            ...moduleFiles.filter(f => f.endsWith('.html'))
+        ];
 
         for (const pageName in PAGE_PACKAGES) {
             assert.ok(htmlFiles.includes(pageName), `PAGE_PACKAGES key "${pageName}" should correspond to an existing HTML file in the repository.`);

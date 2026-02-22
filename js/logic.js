@@ -105,7 +105,7 @@ export function processWebRImages(images) {
 export const DEFAULT_PACKAGES = ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate'];
 
 export const PAGE_PACKAGES = {
-    'basics.html': DEFAULT_PACKAGES,
+    'basics.html': ['tidyverse', 'skimr', ...DEFAULT_PACKAGES],
     'wrangling.html': ['dplyr'],
     'tidying.html': ['tidyr', 'dplyr'],
     'visualization.html': ['ggplot2', 'dplyr'],

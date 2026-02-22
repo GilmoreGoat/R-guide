@@ -221,6 +221,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (errorMsg.includes("could not find function")) {
                     errorMsg += `<br><br><strong>Tip:</strong> Packages might still be loading. Wait for the green banner!`;
                 }
+                // Friendly Tip: Select vs Filter
+                if (userCode.toLowerCase().includes("select") && (userCode.includes("==") || userCode.includes("!=") || userCode.includes(">") || userCode.includes("<"))) {
+                    errorMsg += `<br><br><strong>Tip:</strong> Did you mean <code>filter()</code>? <code>select()</code> is for columns, <code>filter()</code> is for rows.`;
+                }
                 consoleDiv.innerHTML = `<span class="console-user-code">> ${escapeHTML(userCode)}</span><br><span class="console-status-error">${errorMsg}</span>`;
                 input.classList.add('is-error');
             }

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org; object-src 'none'; base-uri 'self'; frame-ancestors 'none';">
-    <title>Module 4: The Gazette</title>
+    <title>Module 4: Festival of Living Art</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
     <link rel="modulepreload" href="https://webr.r-wasm.org/v0.5.8/webr.mjs">
@@ -13,14 +13,14 @@
 <body>
 <nav><a href="../index.html">&larr; Back to Town</a></nav>
 <header>
-    <h1>Module 4: The Gazette</h1>
-    <p>Making charts pretty enough for Taylor Doose.</p>
+    <h1>Module 4: Festival of Living Art</h1>
+    <p>Making charts pretty enough for the Festival Director.</p>
 </header>
 
 <div class="concept-card">
     <h2>1. The ggplot Recipe</h2>
     <div class="lesson-text">
-        <p><strong>The Concept:</strong> Making a graph in R is like making a cake. You have to add layers one by one using the <code>+</code> sign.</p>
+        <p><strong>The Concept:</strong> Making a graph in R is like painting a masterpiece. You have to add layers one by one using the <code>+</code> sign.</p>
         <div class="lesson-box-large">
             <strong>The 3 Layers:</strong><br>
             1. <strong>Data:</strong> <code>ggplot(data)</code><br>
@@ -34,20 +34,17 @@
 <div class="concept-card">
     <h2>2. Histogram (1 Numeric Var)</h2>
     <div class="lesson-text">
-        <p>Shows the distribution of a single number column (e.g., "How heavy are the pumpkins?").</p>
+        <p>Shows the distribution of a single number column (e.g., "How much paint do we have?").</p>
         <div class="lesson-box">
             <strong>Syntax:</strong> <code>ggplot(df, aes(x = numeric_col)) + geom_histogram()</code>
         </div>
     </div>
 
-
-    [Image of histogram showing distribution]
-
     <div class="instruction-box">
-        <h3>📰 Mission: Pumpkin Stats</h3>
+        <h3>🎨 Mission: Paint Volume</h3>
         <ul class="instruction-list">
-            <li>Start a plot with <code>pumpkins</code>.</li>
-            <li>Set x-axis to <code>weight</code>.</li>
+            <li>Start a plot with <code>paint_tubes</code>.</li>
+            <li>Set x-axis to <code>volume</code>.</li>
             <li>Add <code>geom_histogram()</code>.</li>
         </ul>
     </div>
@@ -58,7 +55,7 @@
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
                 <button class="check-btn"
-                        data-answer="ggplot(pumpkins, aes(x = weight)) + geom_histogram()"
+                        data-answer="ggplot(paint_tubes, aes(x = volume)) + geom_histogram()"
                         data-output="[Plot created: Histogram]"
                         data-image="https://www.r-graph-gallery.com/img/graph/histogram_basic.png">Run</button>
             </div>
@@ -70,15 +67,15 @@
 <div class="concept-card">
     <h2>3. Bar Plot (1 Categorical Var)</h2>
     <div class="lesson-text">
-        <p>Shows counts of categories (e.g., "How many students in each House?"). R counts the rows for you.</p>
+        <p>Shows counts of categories (e.g., "How many contestants in each painting?"). R counts the rows for you.</p>
         <div class="lesson-box">
             <strong>Syntax:</strong> <code>ggplot(df, aes(x = category_col)) + geom_bar()</code>
         </div>
     </div>
     <div class="instruction-box">
-        <h3>📰 Mission: Student Counts</h3>
+        <h3>🎨 Mission: Contestant Counts</h3>
         <ul class="instruction-list">
-            <li>Plot <code>students</code> with x-axis <code>house</code>.</li>
+            <li>Plot <code>art_entries</code> with x-axis <code>painting</code>.</li>
             <li>Add <code>geom_bar()</code>.</li>
         </ul>
     </div>
@@ -88,7 +85,7 @@
             <div class="code-input-line">
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
-                <button class="check-btn" data-answer="ggplot(students, aes(x = house)) + geom_bar()" data-output="[Plot created: Bar Plot]">Run</button>
+                <button class="check-btn" data-answer="ggplot(art_entries, aes(x = painting)) + geom_bar()" data-output="[Plot created: Bar Plot]">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -98,20 +95,17 @@
 <div class="concept-card">
     <h2>4. Boxplot (Num vs Cat)</h2>
     <div class="lesson-text">
-        <p>Comparing a number across different groups (e.g., "Study Hours" by "School").</p>
+        <p>Comparing a number across different groups (e.g., "Pose Time" by "Painting").</p>
         <div class="lesson-box">
             <strong>Syntax:</strong> <code>ggplot(df, aes(x = category, y = number)) + geom_boxplot()</code>
         </div>
     </div>
 
-
-    [Image of boxplot comparison]
-
     <div class="instruction-box">
-        <h3>📰 Mission: Study Wars</h3>
+        <h3>🎨 Mission: Hold the Pose</h3>
         <ul class="instruction-list">
-            <li>Plot <code>students</code>.</li>
-            <li>Set x to <code>school</code> and y to <code>hours</code>.</li>
+            <li>Plot <code>art_entries</code>.</li>
+            <li>Set x to <code>painting</code> and y to <code>pose_time</code>.</li>
             <li>Add <code>geom_boxplot()</code>.</li>
         </ul>
     </div>
@@ -121,7 +115,7 @@
             <div class="code-input-line">
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
-                <button class="check-btn" data-answer="ggplot(students, aes(x = school, y = hours)) + geom_boxplot()" data-output="[Plot created: Boxplot]">Run</button>
+                <button class="check-btn" data-answer="ggplot(art_entries, aes(x = painting, y = pose_time)) + geom_boxplot()" data-output="[Plot created: Boxplot]">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -131,20 +125,17 @@
 <div class="concept-card">
     <h2>5. Scatterplot (Num vs Num)</h2>
     <div class="lesson-text">
-        <p>Shows the relationship between two numbers (e.g., "Coffee" vs "Jitters").</p>
+        <p>Shows the relationship between two numbers (e.g., "Paint Volume" vs "Price").</p>
         <div class="lesson-box">
             <strong>Syntax:</strong> <code>ggplot(df, aes(x = number1, y = number2)) + geom_point()</code>
         </div>
     </div>
 
-
-    [Image of scatterplot correlation]
-
     <div class="instruction-box">
-        <h3>📰 Mission: Coffee vs Jitters</h3>
+        <h3>🎨 Mission: Volume vs Price</h3>
         <ul class="instruction-list">
-            <li>Plot <code>data</code>.</li>
-            <li>Set x to <code>coffee</code> and y to <code>jitters</code>.</li>
+            <li>Plot <code>paint_tubes</code>.</li>
+            <li>Set x to <code>volume</code> and y to <code>volume</code> (Just for demo).</li>
             <li>Add <code>geom_point()</code>.</li>
         </ul>
     </div>
@@ -154,7 +145,7 @@
             <div class="code-input-line">
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
-                <button class="check-btn" data-answer="ggplot(data, aes(x = coffee, y = jitters)) + geom_point()" data-output="[Plot created: Scatterplot]">Run</button>
+                <button class="check-btn" data-answer="ggplot(paint_tubes, aes(x = volume, y = volume)) + geom_point()" data-output="[Plot created: Scatterplot]">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -164,7 +155,7 @@
 <div class="concept-card">
     <h2>6. Color vs Fill</h2>
     <div class="lesson-text">
-        <p>Taylor Doose is picky about colors. You need to know the difference:</p>
+        <p>The Director is picky about colors. You need to know the difference:</p>
         <ul>
             <li><strong>color:</strong> Changes the outline (dots, lines).</li>
             <li><strong>fill:</strong> Changes the inside (bars, boxplots).</li>
@@ -174,9 +165,9 @@
         </div>
     </div>
     <div class="instruction-box">
-        <h3>📰 Mission: Colorful Pumpkins</h3>
+        <h3>🎨 Mission: Colorful Brands</h3>
         <ul class="instruction-list">
-            <li>Plot <code>pumpkins</code> with x = <code>type</code> and fill = <code>type</code>.</li>
+            <li>Plot <code>paint_tubes</code> with x = <code>brand</code> and fill = <code>brand</code>.</li>
             <li>Add <code>geom_bar()</code>.</li>
         </ul>
     </div>
@@ -186,7 +177,7 @@
             <div class="code-input-line">
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
-                <button class="check-btn" data-answer="ggplot(pumpkins, aes(x = type, fill = type)) + geom_bar()" data-output="[Plot created: Colorful Bar Chart]">Run</button>
+                <button class="check-btn" data-answer="ggplot(paint_tubes, aes(x = brand, fill = brand)) + geom_bar()" data-output="[Plot created: Colorful Bar Chart]">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -197,7 +188,7 @@
     <h2>7. Labels & Themes</h2>
     <p>Don't turn in ugly graphs! Use <code>labs()</code> and <code>theme_classic()</code>.</p>
     <div class="instruction-box">
-        <h3>📰 Mission: Make it Pretty</h3>
+        <h3>🎨 Mission: Make it Masterpiece</h3>
         <ul class="instruction-list">
             <li>Take your scatterplot and add <code>+ theme_classic()</code>.</li>
         </ul>
@@ -208,7 +199,7 @@
             <div class="code-input-line">
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
-                <button class="check-btn" data-answer="ggplot(data, aes(x = coffee, y = jitters)) + geom_point() + theme_classic()" data-output="[Plot created: Pretty Scatterplot]">Run</button>
+                <button class="check-btn" data-answer="ggplot(paint_tubes, aes(x = volume, y = volume)) + geom_point() + theme_classic()" data-output="[Plot created: Pretty Scatterplot]">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -218,17 +209,17 @@
 <div class="concept-card border-autumn-orange">
     <h2>8. Faceting (Small Multiples)</h2>
     <div class="lesson-text">
-        <p>Sometimes you have too much data for one chart. Faceting splits your chart into multiple panels, one for each group.</p>
+        <p>Sometimes you have too much data for one chart. Faceting splits your chart into multiple panels.</p>
         <div class="lesson-box">
             <strong>Syntax:</strong> <code>+ facet_wrap(~ grouping_variable)</code>
         </div>
         <p><strong>Note:</strong> You MUST use the tilde <code>~</code> (read as "by").</p>
     </div>
     <div class="instruction-box">
-        <h3>📰 Mission: Split by Town</h3>
+        <h3>🎨 Mission: Split by Brand</h3>
         <ul class="instruction-list">
-            <li>Plot <code>sales</code> with x=<code>day</code>, y=<code>profit</code>. Add <code>geom_col()</code>.</li>
-            <li>Add <code>facet_wrap(~ town)</code> to see Stars Hollow vs. Woodbridge.</li>
+            <li>Plot <code>paint_tubes</code> with x=<code>volume</code>. Add <code>geom_histogram()</code>.</li>
+            <li>Add <code>facet_wrap(~ brand)</code> to see Winsor vs. Newton.</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -238,8 +229,8 @@
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
                 <button class="check-btn"
-                        data-answer="ggplot(sales, aes(x = day, y = profit)) + geom_col() + facet_wrap(~ town)"
-                        data-output="[Plot created: Two side-by-side bar charts]">Run</button>
+                        data-answer="ggplot(paint_tubes, aes(x = volume)) + geom_histogram() + facet_wrap(~ brand)"
+                        data-output="[Plot created: Two side-by-side histograms]">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>

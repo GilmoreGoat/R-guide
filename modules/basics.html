@@ -25,13 +25,13 @@
             <strong>Syntax:</strong> <code>name <- value</code>
         </div>
         <p>We call these boxes <strong>Objects</strong>. To put data <em>into</em> an object, we use the <strong>Assignment Operator</strong>: <code>&lt;-</code>.</p>
-        <p><em>Tip:</em> You can use <code>=</code>, but R purists (like Paris Geller) insist on <code>&lt;-</code>.</p>
+        <p><em>Tip:</em> You can use <code>=</code>, but R purists (like Headmaster Charleston) insist on <code>&lt;-</code>.</p>
     </div>
     <div class="instruction-box">
-        <h3>📝 Mission: The Caffeine Fix</h3>
+        <h3>📝 Mission: The Reading List</h3>
         <ul class="instruction-list">
-            <li>Create an object named <code>cups</code>.</li>
-            <li>Assign it the value <code>5</code> (Lorelai's morning minimum).</li>
+            <li>Create an object named <code>books</code>.</li>
+            <li>Assign it the value <code>5</code> (Required reading for the week).</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -39,8 +39,8 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="cups <- ...">
-                <button class="check-btn" data-answer="cups <- 5" data-output="[1] 5">Run</button>
+                <input type="text" class="editor-input input-code" placeholder="books <- ...">
+                <button class="check-btn" data-answer="books <- 5" data-output="[1] 5">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -60,11 +60,11 @@
         <p>Use <strong>snake_case</strong> (<code>my_grade</code>) or <strong>camelCase</strong> (<code>myGrade</code>).</p>
     </div>
     <div class="instruction-box">
-        <h3>📝 Mission: Fix the Band Name</h3>
+        <h3>📝 Mission: Fix the Name</h3>
         <ul class="instruction-list">
-            <li>Create an object for Lane's bandmate.</li>
-            <li>Name it <code>lane_kim</code> (using snake_case).</li>
-            <li>Assign it the value <code>"Drummer"</code> (Quotes are required for text!).</li>
+            <li>Create an object for a Puff member.</li>
+            <li>Name it <code>louise_grant</code> (using snake_case).</li>
+            <li>Assign it the value <code>"Vice_President"</code> (Quotes are required for text!).</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -73,7 +73,7 @@
             <div class="code-input-line">
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
-                <button class="check-btn" data-answer='lane_kim <- "Drummer"' data-output='[1] "Drummer"'>Run</button>
+                <button class="check-btn" data-answer='louise_grant <- "Vice_President"' data-output='[1] "Vice_President"'>Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -90,9 +90,9 @@
         <p><strong>PEMDAS Applies:</strong> R follows the Order of Operations. <code>(4+6)*2</code> equals 20, but <code>4+6*2</code> equals 16. Parentheses are your best friends.</p>
     </div>
     <div class="instruction-box">
-        <h3>📝 Mission: Calculate the Tip</h3>
+        <h3>📝 Mission: Calculate the Grade</h3>
         <ul class="instruction-list">
-            <li>Calculate <code>(10 + 2) / 4</code>.</li>
+            <li>Calculate <code>(90 + 95) / 2</code>.</li>
             <li>(Use spaces to keep your code clean).</li>
         </ul>
     </div>
@@ -102,7 +102,7 @@
             <div class="code-input-line">
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
-                <button class="check-btn" data-answer="(10 + 2) / 4" data-output="[1] 3">Run</button>
+                <button class="check-btn" data-answer="(90 + 95) / 2" data-output="[1] 92.5">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -124,8 +124,8 @@
     <div class="instruction-box">
         <h3>📝 Mission: The Logic Check</h3>
         <ul class="instruction-list">
-            <li>Ask R if <code>10</code> is NOT equal to <code>5</code>.</li>
-            <li>Use the <code>!=</code> operator.</li>
+            <li>Ask R if <code>4.0</code> is equal to <code>4.0</code>.</li>
+            <li>Use the <code>==</code> operator.</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -134,7 +134,7 @@
             <div class="code-input-line">
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
-                <button class="check-btn" data-answer="10 != 5" data-output="[1] TRUE">Run</button>
+                <button class="check-btn" data-answer="4.0 == 4.0" data-output="[1] TRUE">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -142,19 +142,19 @@
 </div>
 
 <div class="concept-card">
-    <h2>5. Vectors (The Pro/Con List)</h2>
+    <h2>5. Vectors (The List)</h2>
     <div class="lesson-text">
-        <p><strong>The Concept:</strong> Rory loves a list. In R, a list of items is called a <strong>Vector</strong>.</p>
+        <p><strong>The Concept:</strong> Paris loves a list. In R, a list of items is called a <strong>Vector</strong>.</p>
         <div class="lesson-box">
             <strong>Syntax:</strong> <code>c(value1, value2, value3)</code>
         </div>
         <p><code>c()</code> stands for <strong>Combine</strong>. <br><strong>Crucial Rule:</strong> A vector is atomic. Every item inside must be the SAME type.</p>
     </div>
     <div class="instruction-box">
-        <h3>📝 Mission: The Book List</h3>
+        <h3>📝 Mission: The Debate Team</h3>
         <ul class="instruction-list">
-            <li>Create a vector named <code>books</code>.</li>
-            <li>Add the values <code>1</code>, <code>2</code>, and <code>3</code>.</li>
+            <li>Create a vector named <code>team</code>.</li>
+            <li>Add the values <code>1</code>, <code>2</code>, and <code>3</code> (Rankings).</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -163,7 +163,7 @@
             <div class="code-input-line">
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
-                <button class="check-btn" data-answer="books <- c(1, 2, 3)" data-output="[1] 1 2 3">Run</button>
+                <button class="check-btn" data-answer="team <- c(1, 2, 3)" data-output="[1] 1 2 3">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -184,10 +184,10 @@
         </ul>
     </div>
     <div class="instruction-box">
-        <h3>📝 Mission: Identify Kirk</h3>
+        <h3>📝 Mission: Identify Brad</h3>
         <ul class="instruction-list">
-            <li>Kirk has had 15,000 jobs. What is he today?</li>
-            <li>Check the <code>class()</code> of the text <code>"Kirk"</code>.</li>
+            <li>Brad has been in 10 plays. What is he today?</li>
+            <li>Check the <code>class()</code> of the text <code>"Brad"</code>.</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -196,7 +196,7 @@
             <div class="code-input-line">
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
-                <button class="check-btn" data-answer='class("Kirk")' data-output='[1] "character"'>Run</button>
+                <button class="check-btn" data-answer='class("Brad")' data-output='[1] "character"'>Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -204,7 +204,7 @@
 </div>
 
 <div class="concept-card">
-    <h2>7. Comments (The Post-It Note)</h2>
+    <h2>7. Comments (The Note)</h2>
     <div class="lesson-text">
         <p><strong>The Concept:</strong> Sometimes you need to leave a note for your future self.</p>
         <div class="lesson-box">
@@ -215,7 +215,7 @@
     <div class="instruction-box">
         <h3>📝 Mission: Leave a Note</h3>
         <ul class="instruction-list">
-            <li>Type <code># My first code</code> in the box.</li>
+            <li>Type <code># Study for finals</code> in the box.</li>
             <li>Click run. (Nothing will happen, which means it worked!)</li>
         </ul>
     </div>
@@ -225,7 +225,7 @@
             <div class="code-input-line">
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
-                <button class="check-btn" data-answer="# My first code" data-output="">Run</button>
+                <button class="check-btn" data-answer="# Study for finals" data-output="">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -233,14 +233,14 @@
 </div>
 
 <div class="concept-card">
-    <h2>8. Packages (The Lightbulb)</h2>
+    <h2>8. Packages (The Toolkit)</h2>
     <div class="lesson-text">
         <p><strong>The Concept:</strong> R comes with basic tools, but for the cool stuff (like making graphs), you need extra toolkits called <strong>Packages</strong>.</p>
         <div class="lesson-box">
             <strong>1. Install:</strong> <code>install.packages("name")</code> (Once)<br>
             <strong>2. Load:</strong> <code>library(name)</code> (Every time)
         </div>
-        <p>Think of installing as buying the bulb, and loading as flipping the switch.</p>
+        <p>Think of installing as buying the book, and loading as opening it.</p>
     </div>
     <div class="instruction-box">
         <h3>📝 Mission: Load Tidyverse</h3>
@@ -272,10 +272,10 @@
         <p>The <code>skimr</code> package provides a "Spark Notes" version: Mean, SD, and Missing counts.</p>
     </div>
     <div class="instruction-box">
-        <h3>📝 Mission: Skim the Grades</h3>
+        <h3>📝 Mission: Skim the Students</h3>
         <ul class="instruction-list">
-            <li>We have a dataset called <code>grades</code>.</li>
-            <li>Run <code>skim(grades)</code> to see the report.</li>
+            <li>We have a dataset called <code>students</code>.</li>
+            <li>Run <code>skim(students)</code> to see the report.</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -285,11 +285,11 @@
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
                 <button class="check-btn"
-                        data-answer="skim(grades)"
+                        data-answer="skim(students)"
                         data-output="── Data Summary ────────────────────────
-                            Name: grades
-                            Rows: 100
-                            Mean: 88.5">Run</button>
+                            Name: students
+                            Rows: 5
+                            Mean GPA: 3.5">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>

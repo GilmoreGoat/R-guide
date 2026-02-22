@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org; object-src 'none'; base-uri 'self'; frame-ancestors 'none';">
-    <title>Module 7: The Dance Marathon</title>
+    <title>Module 7: Richard's Investments</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
     <link rel="modulepreload" href="https://webr.r-wasm.org/v0.5.8/webr.mjs">
@@ -13,8 +13,8 @@
 <body>
 <nav><a href="../index.html">&larr; Back to Town</a></nav>
 <header>
-    <h1>Module 7: The Dance Marathon</h1>
-    <p>"I've been dancing for 23 hours. I need to know if the coffee is actually helping."</p>
+    <h1>Module 7: Richard's Investments</h1>
+    <p>"I've been analyzing the markets for 23 hours. I need to know if the risk is worth it."</p>
 </header>
 
 <div class="concept-card">
@@ -22,9 +22,9 @@
     <div class="lesson-text">
         <p><strong>The Concept:</strong> Correlation measures the strength of the relationship between two numeric variables.</p>
         <ul>
-            <li><strong>r = 1:</strong> Perfect positive match (More coffee = More dancing).</li>
-            <li><strong>r = -1:</strong> Perfect negative match (More heels = Less dancing).</li>
-            <li><strong>r = 0:</strong> No relationship (Kirk's dancing = Random chaos).</li>
+            <li><strong>r = 1:</strong> Perfect positive match (More Risk = More Reward).</li>
+            <li><strong>r = -1:</strong> Perfect negative match (More Risk = Less Reward).</li>
+            <li><strong>r = 0:</strong> No relationship (Market Volatility = Random chaos).</li>
         </ul>
         <div class="lesson-box">
             <strong>Syntax:</strong> <code>cor.test(df$col1, df$col2)</code>
@@ -32,10 +32,10 @@
     </div>
 
     <div class="instruction-box">
-        <h3>💃 Mission: Check the Vibe</h3>
+        <h3>📈 Mission: Risk Analysis</h3>
         <ul class="instruction-list">
-            <li>We have a dataset <code>marathon</code>.</li>
-            <li>Test if <code>caffeine</code> correlates with <code>hours</code>.</li>
+            <li>We have a dataset <code>investments</code>.</li>
+            <li>Test if <code>risk</code> correlates with <code>roi</code> (Return on Investment).</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -45,8 +45,8 @@
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
                 <button class="check-btn"
-                        data-answer="cor.test(marathon$caffeine, marathon$hours)"
-                        data-output="Pearson's product-moment correlation<br>cor = 0.85, p-value < 0.001<br>(Strong positive relationship)">Run</button>
+                        data-answer="cor.test(investments$risk, investments$roi)"
+                        data-output="Pearson's product-moment correlation<br>cor = -0.85, p-value = 0.04<br>(Strong negative relationship. Ouch.)">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -67,10 +67,10 @@
     </div>
 
     <div class="instruction-box">
-        <h3>💃 Mission: Build the Model</h3>
+        <h3>📈 Mission: Predict Returns</h3>
         <ul class="instruction-list">
-            <li>Create a model named <code>dance_model</code>.</li>
-            <li>Predict <code>hours</code> (Y) based on <code>caffeine</code> (X).</li>
+            <li>Create a model named <code>market_model</code>.</li>
+            <li>Predict <code>roi</code> (Y) based on <code>risk</code> (X).</li>
             <li>Run <code>summary()</code> on it.</li>
         </ul>
     </div>
@@ -81,8 +81,8 @@
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
                 <button class="check-btn"
-                        data-answer='dance_model <- lm(hours ~ caffeine, data = marathon); summary(dance_model)'
-                        data-output="Coefficients:<br>(Intercept)  2.5<br>caffeine     1.5<br><br>Multiple R-squared: 0.72">Run</button>
+                        data-answer='market_model <- lm(roi ~ risk, data = investments); summary(market_model)'
+                        data-output="Coefficients:<br>(Intercept)  15.5<br>risk     -2.5<br><br>Multiple R-squared: 0.72">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -99,15 +99,10 @@
         <p>The "lm" stands for Linear Model.</p>
     </div>
 
-
-
-    [Image of linear regression plot]
-
-
     <div class="instruction-box">
-        <h3>💃 Mission: Draw the Line</h3>
+        <h3>📈 Mission: Visualizing Growth</h3>
         <ul class="instruction-list">
-            <li>Plot <code>marathon</code> with x=caffeine, y=hours.</li>
+            <li>Plot <code>investments</code> with x=risk, y=roi.</li>
             <li>Add <code>geom_point()</code>.</li>
             <li>Add <code>geom_smooth(method = "lm")</code>.</li>
         </ul>
@@ -119,8 +114,8 @@
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
                 <button class="check-btn"
-                        data-answer='ggplot(marathon, aes(x = caffeine, y = hours)) + geom_point() + geom_smooth(method = "lm")'
-                        data-output="[Plot Created: Scatterplot with a blue regression line]">Run</button>
+                        data-answer='ggplot(investments, aes(x = risk, y = roi)) + geom_point() + geom_smooth(method = "lm")'
+                        data-output="[Plot Created: Scatterplot with a regression line]">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -132,13 +127,13 @@
     <div class="lesson-text">
         <p>For your BILD 5 lab report, report the $R^2$ (how much variation is explained) and the P-value.</p>
         <blockquote class="blockquote-box">
-            "There was a significant positive relationship between caffeine intake and dance duration ($R^2$ = 0.72, F(1, 48) = 120.5, p < 0.001)."
+            "There was a significant negative relationship between risk and ROI ($R^2$ = 0.72, F(1, 48) = 120.5, p < 0.05)."
         </blockquote>
     </div>
 </div>
 
 <footer class="footer-text">
-    <p>And the winner is... Kirk. Obviously. • Created for BILD 5</p>
+    <p>Buy low, sell high. • Created for BILD 5</p>
 </footer>
 
 </body>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org; object-src 'none'; base-uri 'self'; frame-ancestors 'none';">
-    <title>Skill A: The Secret Society</title>
+    <title>Skill A: The Life & Death Brigade</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
     <link rel="modulepreload" href="https://webr.r-wasm.org/v0.5.8/webr.mjs">
@@ -13,7 +13,7 @@
 <body>
 <nav><a href="../index.html">&larr; Back to Town</a></nav>
 <header>
-    <h1>Skill A: The Secret Society</h1>
+    <h1>Skill A: The Life & Death Brigade</h1>
     <p>"In Omnia Paratus. (Ready for anything.)"</p>
 </header>
 
@@ -32,10 +32,10 @@
         <p>It reads like a list of requirements. If the first one is true, it assigns that value and stops.</p>
     </div>
     <div class="instruction-box">
-        <h3>☂️ Mission: Sort the Guests</h3>
+        <h3>🦍 Mission: Sort the Members</h3>
         <ul class="instruction-list">
-            <li>We have a `guests` table with an `age` column.</li>
-            <li>Create `status`: < 21 is "Minor", > 65 is "Elder", else "Adult".</li>
+            <li>We have a `guests` table with a `costume` column.</li>
+            <li>Create `dress_code`: "Tux" is "Formal", "Gown" is "Formal", else "Casual".</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -45,8 +45,8 @@
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
                 <button class="check-btn"
-                        data-answer='guests |> mutate(status = case_when(age < 21 ~ "Minor", age > 65 ~ "Elder", TRUE ~ "Adult"))'
-                        data-output="  age status<br>1  20  Minor<br>2  30  Adult<br>3  70  Elder">Run</button>
+                        data-answer='guests |> mutate(dress_code = case_when(costume == "Tux" ~ "Formal", costume == "Gown" ~ "Formal", TRUE ~ "Casual"))'
+                        data-output="  name   costume  dress_code<br>1 Rory   Gown     Formal<br>2 Paris  Suit     Casual">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -66,10 +66,10 @@
         </ul>
     </div>
     <div class="instruction-box">
-        <h3>☂️ Mission: Find the Members</h3>
+        <h3>🦍 Mission: Find the Initiates</h3>
         <ul class="instruction-list">
-            <li>Use `left_join()` to add `society_list` to `students`.</li>
-            <li>Join by the column `"id"`.</li>
+            <li>Use `left_join()` to merge `guests` (X) with `yale_students` (Y).</li>
+            <li>Join by the column `"name"`.</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -79,8 +79,8 @@
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
                 <button class="check-btn"
-                        data-answer='students |> left_join(society_list, by = "id")'
-                        data-output="  id  name    society<br>1 01  Rory    LDB<br>2 02  Paris   <NA>">Run</button>
+                        data-answer='left_join(guests, yale_students, by = "name")'
+                        data-output="  name    status    major<br>1 Logan   Member    Economics<br>2 Rory    Guest     Newspaper">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -88,18 +88,18 @@
 </div>
 
 <div class="concept-card">
-    <h2>3. The Anti-Join (The Bouncer)</h2>
+    <h2>3. The Anti-Join (The Gatekeeper)</h2>
     <div class="lesson-text">
         <p><strong>The Concept:</strong> Sometimes you don't want to match data; you want to find <strong>who is missing</strong>.</p>
         <div class="lesson-box">
             <strong>Syntax:</strong> <code>anti_join(x, y, by = "id")</code>
         </div>
-        <p>This keeps rows in X that are <strong>NOT</strong> in Y. Great for finding students who forgot to turn in an assignment.</p>
+        <p>This keeps rows in X that are <strong>NOT</strong> in Y.</p>
     </div>
     <div class="instruction-box">
-        <h3>☂️ Mission: Who is Missing?</h3>
+        <h3>🦍 Mission: Who is Missing?</h3>
         <ul class="instruction-list">
-            <li>Find students in `class_roster` who are NOT in `turned_in`.</li>
+            <li>Find students in `yale_students` who are NOT in `guests`.</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -109,8 +109,8 @@
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
                 <button class="check-btn"
-                        data-answer='anti_join(class_roster, turned_in, by = "id")'
-                        data-output="  id  name<br>1 05  Logan">Run</button>
+                        data-answer='anti_join(yale_students, guests, by = "name")'
+                        data-output="  name    major<br>1 Marty   History<br>2 Doyle   Journalism">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -126,9 +126,9 @@
         </div>
     </div>
     <div class="instruction-box">
-        <h3>☂️ Mission: Clean the Guest List</h3>
+        <h3>🦍 Mission: Clean the Roster</h3>
         <ul class="instruction-list">
-            <li>Run `distinct()` on `invites` to keep unique names only.</li>
+            <li>Run `distinct()` on `guests` to keep unique names only.</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -138,8 +138,8 @@
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
                 <button class="check-btn"
-                        data-answer="invites |> distinct()"
-                        data-output="[Duplicates removed. 50 unique guests remain.]">Run</button>
+                        data-answer="guests |> distinct()"
+                        data-output="[Duplicates removed. Unique guests remain.]">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>

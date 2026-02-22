@@ -20,7 +20,7 @@
 <div class="concept-card">
     <h2>1. The Data Frame (The Menu)</h2>
     <p>A Data Frame is a table. Rows are observations, columns are variables.</p>
-    <p>Use <code>glimpse(diner_data)</code> to peek at it.</p>
+    <p>Use <code>glimpse(menu)</code> to peek at it.</p>
 </div>
 
 <div class="concept-card">
@@ -61,7 +61,7 @@
         <div class="lesson-box">
             <strong>Syntax:</strong> <code>dataframe$column_name</code>
         </div>
-        <p><em>Think:</em> <code>Luke's_Wallet$Cash</code>.</p>
+        <p><em>Think:</em> <code>Register$Cash</code>.</p>
     </div>
     <div class="instruction-box">
         <h3>🍔 Mission: Grab the Tips</h3>
@@ -92,9 +92,9 @@
         <p><strong>Note:</strong> Use <code>==</code> for "is equal to", and <code>!=</code> for "is NOT equal to".</p>
     </div>
     <div class="instruction-box">
-        <h3>🍔 Mission: Ban Taylor</h3>
+        <h3>🍔 Mission: Ban Trouble</h3>
         <ul class="instruction-list">
-            <li>Filter <code>customers</code> where <code>name</code> is NOT equal to <code>"Taylor"</code>.</li>
+            <li>Filter <code>customers</code> where <code>name</code> is NOT equal to <code>"Jess"</code>.</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -103,7 +103,7 @@
             <div class="code-input-line">
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
-                <button class="check-btn" data-answer='customers |> filter(name != "Taylor")' data-output="  name      status<br>1 Lorelai   VIP<br>2 Rory      VIP">Run</button>
+                <button class="check-btn" data-answer='customers |> filter(name != "Jess")' data-output="  name      status<br>1 Lorelai   VIP<br>2 Rory      VIP">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -131,7 +131,7 @@
             <div class="code-input-line">
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
-                <button class="check-btn" data-answer="menu |> arrange(desc(price))" data-output="  item           price<br>1 Lobster_Roll   25.00">Run</button>
+                <button class="check-btn" data-answer="menu |> arrange(desc(price))" data-output="  item           price<br>1 Burger         12.00">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -141,7 +141,7 @@
 <div class="concept-card">
     <h2>6. Mutate (Special Orders)</h2>
     <div class="lesson-text">
-        <p>Lorelai never orders off the menu; she changes it. <code>mutate()</code> creates new columns based on math from old ones.</p>
+        <p>Kirk requests special modifications. <code>mutate()</code> creates new columns based on math from old ones.</p>
         <div class="lesson-box">
             <strong>Syntax:</strong> <code>data |> mutate(new_col = old_col * 2)</code>
         </div>
@@ -170,9 +170,9 @@
     <h2>7. Inspecting the Crowd</h2>
     <p>Who is actually here? Use <code>unique()</code> for a list, or <code>table()</code> for counts.</p>
     <div class="instruction-box">
-        <h3>🍔 Mission: Count the Townies</h3>
+        <h3>🍔 Mission: Count the Regulars</h3>
         <ul class="instruction-list">
-            <li>Run <code>table()</code> on the <code>role</code> column inside <code>townies</code>.</li>
+            <li>Run <code>table()</code> on the <code>status</code> column inside <code>customers</code>.</li>
             <li>Remember to use <code>$</code> to grab the column!</li>
         </ul>
     </div>
@@ -182,7 +182,7 @@
             <div class="code-input-line">
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
-                <button class="check-btn" data-answer="table(townies$role)" data-output="Owner: 1  Mechanic: 1  Selectman: 1">Run</button>
+                <button class="check-btn" data-answer="table(customers$status)" data-output="VIP: 2  Regular: 1  Owner: 1">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -192,18 +192,18 @@
 <div class="concept-card border-autumn-orange">
     <h2>8. Group By & Summarise (The Power Move)</h2>
     <div class="lesson-text">
-        <p>This splits your data into groups (like "Townie" vs. "Tourist"), calculates a stat for each, and gives you a summary table.</p>
+        <p>This splits your data into groups (like "VIP" vs. "Regular"), calculates a stat for each, and gives you a summary table.</p>
         <div class="lesson-box">
             <strong>Syntax:</strong><br>
-            <code>data |> group_by(category) |> summarise(avg = mean(values))</code>
+            <code>data |> group_by(category) |> summarise(count = n())</code>
         </div>
     </div>
     <div class="instruction-box">
-        <h3>🍔 Mission: Average Tips by Server</h3>
+        <h3>🍔 Mission: Count Customers by Status</h3>
         <ul class="instruction-list">
-            <li>Take <code>orders</code>.</li>
-            <li>Group by <code>server</code>.</li>
-            <li>Summarise to create <code>avg_tip</code> which is the <code>mean(tip)</code>.</li>
+            <li>Take <code>customers</code>.</li>
+            <li>Group by <code>status</code>.</li>
+            <li>Summarise to create <code>count</code> which is <code>n()</code>.</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -213,8 +213,8 @@
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
                 <button class="check-btn"
-                        data-answer="orders |> group_by(server) |> summarise(avg_tip = mean(tip))"
-                        data-output="  server  avg_tip<br>1 Luke    0.50<br>2 Lane    5.00">Run</button>
+                        data-answer="customers |> group_by(status) |> summarise(count = n())"
+                        data-output="  status  count<br>1 VIP     2<br>2 Regular 1">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>

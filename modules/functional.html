@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org; object-src 'none'; base-uri 'self'; frame-ancestors 'none';">
-    <title>Functional Programming: Michel's Concierge</title>
+    <title>Functional Programming: Mrs. Kim's Antiques</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
     <link rel="modulepreload" href="https://webr.r-wasm.org/v0.5.8/webr.mjs">
@@ -14,22 +14,22 @@
 <nav><a href="../syllabus.html">&larr; Back to Syllabus</a></nav>
 <header>
     <h1>Skill D: Functional Programming</h1>
-    <p>"People are particularly stupid today. I can't talk to any more of them." — Michel Gerard</p>
+    <p>"You break it, you buy it. I have a system for everything." — Mrs. Kim</p>
 </header>
 
 <div class="concept-card">
-    <h2>1. The Map (Delegation)</h2>
+    <h2>1. The Map (Inventory Management)</h2>
     <div class="lesson-text">
-        <p><strong>The Concept:</strong> Michel Gerard does not do things one by one. He delegates. In R, loops (<code>for</code>) are slow and clumsy (like Kirk). The <code>purrr</code> package gives us <code>map()</code>.</p>
+        <p><strong>The Concept:</strong> Mrs. Kim does not do things one by one. She delegates. In R, loops (<code>for</code>) are slow and clumsy. The <code>purrr</code> package gives us <code>map()</code>.</p>
         <div class="lesson-box">
             <strong>Syntax:</strong> <code>map(list, function)</code>
         </div>
         <p>It takes a list (or vector/dataframe) and applies a function to <em>each element</em>. It always returns a <strong>list</strong>.</p>
     </div>
     <div class="instruction-box">
-        <h3>📝 Mission: Inspect the Menu</h3>
+        <h3>🛋️ Mission: Inspect the Inventory</h3>
         <ul class="instruction-list">
-            <li>We have the <code>menu</code> dataframe.</li>
+            <li>We have the <code>antiques</code> dataframe.</li>
             <li>Use <code>map()</code> to apply the <code>class</code> function to every column.</li>
         </ul>
     </div>
@@ -39,13 +39,10 @@
             <div class="code-input-line">
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="map(..., ...)">
-                <button class="check-btn" data-answer="map(menu, class)" data-output="$item
+                <button class="check-btn" data-answer="map(antiques, class)" data-output="$item
 [1] 'character'
 
 $price
-[1] 'numeric'
-
-$calories
 [1] 'numeric'">Run</button>
             </div>
         </div>
@@ -56,7 +53,7 @@ $calories
 <div class="concept-card">
     <h2>2. Type Safety (Strict Standards)</h2>
     <div class="lesson-text">
-        <p><strong>The Concept:</strong> Michel hates ambiguity. If he asks for a number, he expects a number. <code>map()</code> returns a list, which can be messy.</p>
+        <p><strong>The Concept:</strong> Mrs. Kim hates ambiguity. If she asks for a number, she expects a number. <code>map()</code> returns a list, which can be messy.</p>
         <div class="lesson-box">
             <strong>Variants:</strong><br>
             <code>map_dbl()</code> returns a numeric vector (Double).<br>
@@ -66,10 +63,10 @@ $calories
         <p>Use these when you know exactly what you want back.</p>
     </div>
     <div class="instruction-box">
-        <h3>📝 Mission: Sookie's Recipe Scaling</h3>
+        <h3>🛋️ Mission: Price Adjustment</h3>
         <ul class="instruction-list">
-            <li>Sookie needs to scale down recipes. We have a vector: <code>portions <- c(1, 4, 9)</code>.</li>
-            <li>Use <code>map_dbl()</code> with the <code>sqrt</code> function to find the root scaling factor.</li>
+            <li>We need to calculate the base value. We have prices: <code>prices <- c(100, 400, 900)</code>.</li>
+            <li>Use <code>map_dbl()</code> with the <code>sqrt</code> function to find the base factor.</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -78,7 +75,7 @@ $calories
             <div class="code-input-line">
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
-                <button class="check-btn" data-answer="map_dbl(c(1, 4, 9), sqrt)" data-output="[1] 1 2 3">Run</button>
+                <button class="check-btn" data-answer="map_dbl(c(100, 400, 900), sqrt)" data-output="[1] 10 20 30">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -88,17 +85,17 @@ $calories
 <div class="concept-card">
     <h2>3. Anonymous Functions (The Secret Task)</h2>
     <div class="lesson-text">
-        <p><strong>The Concept:</strong> Sometimes you need a function for just one specific job, and you don't want to name it (like a secret task for the night staff).</p>
+        <p><strong>The Concept:</strong> Sometimes you need a function for just one specific job, and you don't want to name it (like a secret transaction).</p>
         <div class="lesson-box">
             <strong>Syntax:</strong> <code>map(data, ~ .x + 10)</code>
         </div>
         <p>The <code>~</code> (tilde) signals a formula. The <code>.x</code> represents "the current item". It's a shorthand for writing a full function.</p>
     </div>
     <div class="instruction-box">
-        <h3>📝 Mission: The Taylor Surcharge</h3>
+        <h3>🛋️ Mission: The 'You Break It' Fee</h3>
         <ul class="instruction-list">
-            <li>Taylor added a town fee. We have bills: <code>bills <- c(10, 20, 30)</code>.</li>
-            <li>Use <code>map_dbl()</code> to add <code>5</code> to each bill using the <code>~ .x + 5</code> syntax.</li>
+            <li>A clumsy customer entered. We have fees: <code>breakage_fee <- c(10, 20, 30)</code>.</li>
+            <li>Use <code>map_dbl()</code> to double (<code>* 2</code>) each fee using the <code>~ .x * 2</code> syntax.</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -107,7 +104,7 @@ $calories
             <div class="code-input-line">
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
-                <button class="check-btn" data-answer="map_dbl(c(10, 20, 30), ~ .x + 5)" data-output="[1] 15 25 35">Run</button>
+                <button class="check-btn" data-answer="map_dbl(c(10, 20, 30), ~ .x * 2)" data-output="[1] 20 40 60">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org; object-src 'none'; base-uri 'self'; frame-ancestors 'none';">
-  <title>Module 8: The DAR Tea</title>
+  <title>Module 8: Miss Patty's Studio</title>
   <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
   <link rel="modulepreload" href="https://webr.r-wasm.org/v0.5.8/webr.mjs">
@@ -13,8 +13,8 @@
 <body>
 <nav><a href="../index.html">&larr; Back to Town</a></nav>
 <header>
-  <h1>Module 8: The DAR Tea Party</h1>
-  <p>"We are not gossiping, Rory. We are sharing vital demographic information."</p>
+  <h1>Module 8: Miss Patty's Studio</h1>
+  <p>"We are not casting, Rory. We are analyzing vital performance demographics."</p>
 </header>
 
 <div class="concept-card">
@@ -28,10 +28,10 @@
   </div>
 
   <div class="instruction-box">
-    <h3>🫖 Mission: Count the Guests</h3>
+    <h3>💃 Mission: Count the Dancers</h3>
     <ul class="instruction-list">
-      <li>We have a dataset <code>party</code>.</li>
-      <li>Create a table comparing <code>drink</code> and <code>mood</code>.</li>
+      <li>We have a dataset <code>dancers</code>.</li>
+      <li>Create a table comparing <code>style</code> and <code>age_group</code>.</li>
       <li>Save it as <code>my_table</code>.</li>
     </ul>
   </div>
@@ -42,8 +42,8 @@
         <span class="prompt">></span>
         <input type="text" class="editor-input input-code" placeholder="...">
         <button class="check-btn"
-                data-answer="my_table <- table(party$drink, party$mood); my_table"
-                data-output="        Calm  Feisty<br>Sherry     5      20<br>Tea       25       2">Run</button>
+                data-answer="my_table <- table(dancers$style, dancers$age_group); my_table"
+                data-output="          Kid   Teen<br>Ballet     1      0<br>Tap        0      1">Run</button>
       </div>
     </div>
     <div class="console-output feedback"></div>
@@ -58,13 +58,13 @@
       <strong>Syntax:</strong> <code>chisq.test(my_table)</code>
     </div>
     <ul>
-      <li><strong>Null ($H_0$):</strong> Variables are Independent (Sherry does NOT affect Mood).</li>
+      <li><strong>Null ($H_0$):</strong> Variables are Independent (Style does NOT affect Age).</li>
       <li><strong>Alternative ($H_1$):</strong> Variables are Related.</li>
     </ul>
   </div>
 
   <div class="instruction-box">
-    <h3>🫖 Mission: Run the Test</h3>
+    <h3>💃 Mission: Run the Test</h3>
     <ul class="instruction-list">
       <li>Run <code>chisq.test()</code> on <code>my_table</code>.</li>
     </ul>
@@ -77,7 +77,7 @@
         <input type="text" class="editor-input input-code" placeholder="...">
         <button class="check-btn"
                 data-answer="chisq.test(my_table)"
-                data-output="Pearson's Chi-squared test<br>X-squared = 28.4, df = 1, p-value < 0.001">Run</button>
+                data-output="Pearson's Chi-squared test<br>X-squared = 4.0, df = 3, p-value = 0.2<br>(Warning: Approximation may be incorrect)">Run</button>
       </div>
     </div>
     <div class="console-output feedback"></div>
@@ -93,15 +93,10 @@
     </div>
   </div>
 
-
-
-  [Image of stacked bar chart]
-
-
   <div class="instruction-box">
-    <h3>🫖 Mission: Stack the Bars</h3>
+    <h3>💃 Mission: Visualize the Cast</h3>
     <ul class="instruction-list">
-      <li>Plot <code>party</code> with x=drink, fill=mood.</li>
+      <li>Plot <code>dancers</code> with x=style, fill=age_group.</li>
       <li>Add <code>geom_bar(position = "fill")</code>.</li>
       <li>Add <code>labs(y = "Proportion")</code> to fix the label.</li>
     </ul>
@@ -113,8 +108,8 @@
         <span class="prompt">></span>
         <input type="text" class="editor-input input-code" placeholder="...">
         <button class="check-btn"
-                data-answer='ggplot(party, aes(x = drink, fill = mood)) + geom_bar(position = "fill") + labs(y = "Proportion")'
-                data-output="[Plot Created: Stacked bars showing Sherry drinkers are 80% Feisty]">Run</button>
+                data-answer='ggplot(dancers, aes(x = style, fill = age_group)) + geom_bar(position = "fill") + labs(y = "Proportion")'
+                data-output="[Plot Created: Stacked bars showing Age distribution]">Run</button>
       </div>
     </div>
     <div class="console-output feedback"></div>
@@ -126,13 +121,13 @@
   <div class="lesson-text">
     <p>For your BILD 5 lab report, report the $\chi^2$ value, degrees of freedom (df), and P-value.</p>
     <blockquote class="blockquote-box">
-      "There was a significant association between drink choice and mood ($\chi^2(1, N=52) = 28.4$, p < 0.001). Emily was right."
+      "There was a significant association between dance style and age group ($\chi^2(3, N=4) = 4.0, p > 0.05). Miss Patty needs more students."
     </blockquote>
   </div>
 </div>
 
 <footer class="footer-text">
-  <p>Please pass the sugar. • Created for BILD 5</p>
+  <p>5, 6, 7, 8! • Created for BILD 5</p>
 </footer>
 
 </body>

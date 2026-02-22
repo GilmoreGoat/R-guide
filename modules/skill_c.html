@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org; object-src 'none'; base-uri 'self'; frame-ancestors 'none';">
-    <title>Skill C: The Rumor Mill</title>
+    <title>Skill C: Stars Hollow Gazette</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
     <link rel="modulepreload" href="https://webr.r-wasm.org/v0.5.8/webr.mjs">
@@ -13,21 +13,21 @@
 <body>
 <nav><a href="../index.html">&larr; Back to Town</a></nav>
 <header>
-    <h1>Skill C: The Rumor Mill (Strings)</h1>
-    <p>"Gossip travels faster than light in this town. You need to parse it."</p>
+    <h1>Skill C: Stars Hollow Gazette (Strings)</h1>
+    <p>"The news cycle is brutal. You need to parse it fast."</p>
 </header>
 
 <div class="concept-card">
     <h2>1. Detecting Patterns (str_detect)</h2>
     <div class="lesson-text">
-        <p><strong>The Concept:</strong> Filter for rows that contain a specific word (like "Wedding" or "Heist").</p>
+        <p><strong>The Concept:</strong> Filter for rows that contain a specific word (like "Wedding" or "Permits").</p>
         <div class="lesson-box">
             <strong>Syntax:</strong> <code>str_detect(column, "pattern")</code>
         </div>
         <p>Returns TRUE or FALSE.</p>
     </div>
     <div class="instruction-box">
-        <h3>🗞️ Mission: Filter the Gossip</h3>
+        <h3>🗞️ Mission: Fact Check</h3>
         <ul class="instruction-list">
             <li>Filter <code>rumors</code> where <code>text</code> contains <code>"wedding"</code>.</li>
         </ul>
@@ -50,15 +50,16 @@
 <div class="concept-card">
     <h2>2. Find and Replace (str_replace)</h2>
     <div class="lesson-text">
-        <p><strong>The Concept:</strong> Fix typos or standardize names.</p>
+        <p><strong>The Concept:</strong> Fix typos or standardize titles.</p>
         <div class="lesson-box">
             <strong>Syntax:</strong> <code>str_replace(column, "Old", "New")</code>
         </div>
     </div>
     <div class="instruction-box">
-        <h3>🗞️ Mission: Correct the Names</h3>
+        <h3>🗞️ Mission: Correct the Titles</h3>
         <ul class="instruction-list">
-            <li>Replace <code>"Assistant"</code> with <code>"Kirk"</code> in the <code>name</code> column.</li>
+            <li>We have a `staff` dataframe.</li>
+            <li>Replace <code>"Assistant"</code> with <code>"Intern"</code> in the <code>role</code> column.</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -68,8 +69,8 @@
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
                 <button class="check-btn"
-                        data-answer='staff |> mutate(name = str_replace(name, "Assistant", "Kirk"))'
-                        data-output="  id   name<br>1 01   Kirk">Run</button>
+                        data-answer='staff <- data.frame(name="Doyle", role="Editor"); staff |> mutate(role = str_replace(role, "Editor", "Chief"))'
+                        data-output="  name   role<br>1 Doyle  Chief">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -79,7 +80,7 @@
 <div class="concept-card">
     <h2>3. Splitting Columns (separate)</h2>
     <div class="lesson-text">
-        <p><strong>The Concept:</strong> Split "Lorelai_Gilmore" into "Lorelai" and "Gilmore".</p>
+        <p><strong>The Concept:</strong> Split "Rory_Gilmore" into "Rory" and "Gilmore".</p>
         <div class="lesson-box">
             <strong>Syntax:</strong> <code>separate(col, into = c("A", "B"), sep = "_")</code>
         </div>
@@ -87,6 +88,7 @@
     <div class="instruction-box">
         <h3>🗞️ Mission: Split the Names</h3>
         <ul class="instruction-list">
+            <li>We have a `people` list.</li>
             <li>Split <code>full_name</code> into <code>c("First", "Last")</code> using <code>sep = "_"</code>.</li>
         </ul>
     </div>
@@ -97,7 +99,7 @@
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
                 <button class="check-btn"
-                        data-answer='people |> separate(full_name, into = c("First", "Last"), sep = "_")'
+                        data-answer='people <- data.frame(full_name="Rory_Gilmore"); people |> separate(full_name, into = c("First", "Last"), sep = "_")'
                         data-output="  First    Last<br>1 Rory     Gilmore">Run</button>
             </div>
         </div>
@@ -115,10 +117,11 @@
         <p>It uses curly braces <code>{}</code> to insert column values.</p>
     </div>
     <div class="instruction-box">
-        <h3>🗞️ Mission: Create Labels</h3>
+        <h3>🗞️ Mission: Create Bylines</h3>
         <ul class="instruction-list">
+            <li>Using `gazette_bylines`.</li>
             <li>Create a new column <code>label</code>.</li>
-            <li>Use <code>str_glue()</code> to say: "Student: {name}".</li>
+            <li>Use <code>str_glue()</code> to say: "Writer: {writer}".</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -128,8 +131,8 @@
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
                 <button class="check-btn"
-                        data-answer='roster |> mutate(label = str_glue("Student: {name}"))'
-                        data-output="  name   label<br>1 Rory   Student: Rory">Run</button>
+                        data-answer='gazette_bylines |> mutate(label = str_glue("Writer: {writer}"))'
+                        data-output="  writer   label<br>1 Rory     Writer: Rory">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>

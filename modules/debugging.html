@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org; object-src 'none'; base-uri 'self'; frame-ancestors 'none';">
-    <title>Debugging: The Gilmore Panic</title>
+    <title>Debugging: Paris Geller's Bunker</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
     <link rel="modulepreload" href="https://webr.r-wasm.org/v0.5.8/webr.mjs">
@@ -13,8 +13,8 @@
 <body>
 <nav><a href="../syllabus.html">&larr; Back to Syllabus</a></nav>
 <header>
-    <h1>Skill: Debugging</h1>
-    <p>"Oy with the poodles already!" — Lorelai Gilmore</p>
+    <h1>Skill G: Debugging</h1>
+    <p>"I am not crazy. I am efficient. And this code is wrong." — Paris Geller</p>
 </header>
 
 <div class="concept-card">
@@ -27,11 +27,11 @@
         <p>Run this <em>immediately</em> after an error to see the "crime scene" (call stack) in reverse order.</p>
     </div>
     <div class="instruction-box">
-        <h3>📝 Mission: Friday Night Dinner</h3>
+        <h3>🐩 Mission: The Printing Press</h3>
         <ul class="instruction-list">
-            <li>We have a broken function chain: <code>dinner() -> course() -> cook()</code>.</li>
-            <li><code>cook()</code> throws an error if temperature is negative.</li>
-            <li>Call <code>dinner(-1)</code> and check the traceback.</li>
+            <li>We have a broken function chain: <code>print_paper() -> check_ink() -> load_paper()</code>.</li>
+            <li><code>load_paper()</code> throws an error if pages are negative.</li>
+            <li>Call <code>print_paper(-1)</code> and check the traceback.</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -40,9 +40,9 @@
             <div class="code-input-line">
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
-                <button class="check-btn" data-answer="dinner <- function(x) course(x); course <- function(x) cook(x); cook <- function(x) if(x<0) stop('Burnt!'); try(dinner(-1)); traceback()" data-output="3: cook(x) at <text>#1
-2: course(x) at <text>#1
-1: dinner(-1)">Run</button>
+                <button class="check-btn" data-answer="print_paper <- function(x) check_ink(x); check_ink <- function(x) load_paper(x); load_paper <- function(x) if(x<0) stop('Jam!'); try(print_paper(-1)); traceback()" data-output="3: load_paper(x) at <text>#1
+2: check_ink(x) at <text>#1
+1: print_paper(-1)">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -59,10 +59,10 @@
         <p>It's like hitting pause on a movie to see if the boom mic is in the shot.</p>
     </div>
     <div class="instruction-box">
-        <h3>📝 Mission: Caffeine Overload</h3>
+        <h3>🐩 Mission: Anxiety Overload</h3>
         <ul class="instruction-list">
-            <li>Create a function <code>check_coffee(cups)</code>.</li>
-            <li>Add <code>if (cups > 10) browser()</code> to intervene.</li>
+            <li>Create a function <code>check_stress(level)</code>.</li>
+            <li>Add <code>if (level > 10) browser()</code> to intervene.</li>
             <li>We can't really open the browser here, but R will stop and tell you it's paused.</li>
         </ul>
     </div>
@@ -72,7 +72,7 @@
             <div class="code-input-line">
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
-                <button class="check-btn" data-answer="check_coffee <- function(cups) { if(cups > 10) browser(); cups }; check_coffee(15)" data-output="Called from: check_coffee(15)
+                <button class="check-btn" data-answer="check_stress <- function(level) { if(level > 10) browser(); level }; check_stress(15)" data-output="Called from: check_stress(15)
 Browse[1]> ">Run</button>
             </div>
         </div>
@@ -83,16 +83,16 @@ Browse[1]> ">Run</button>
 <div class="concept-card">
     <h2>3. Handling Meltdowns (TryCatch)</h2>
     <div class="lesson-text">
-        <p><strong>The Concept:</strong> Sometimes you <em>know</em> something might break (like a dinner with the Gilmores), and you want to handle it gracefully instead of crashing the whole program.</p>
+        <p><strong>The Concept:</strong> Sometimes you <em>know</em> something might break (like a rejection letter), and you want to handle it gracefully instead of crashing the whole program.</p>
         <div class="lesson-box">
             <strong>Syntax:</strong> <code>tryCatch(expr, error = function(e) { ... })</code>
         </div>
         <p>This catches the error object <code>e</code> and lets you return a default value (like <code>NA</code>) or print a nicer message.</p>
     </div>
     <div class="instruction-box">
-        <h3>📝 Mission: Escape Through the Window</h3>
+        <h3>🐩 Mission: Handle Rejection</h3>
         <ul class="instruction-list">
-            <li>Use <code>tryCatch</code> to run <code>log("Luke's Patience")</code> (which is an error).</li>
+            <li>Use <code>tryCatch</code> to run <code>log("Harvard Acceptance")</code> (which is an error).</li>
             <li>If an error occurs, return <code>0</code> (Safe Escape) instead of crashing.</li>
         </ul>
     </div>
@@ -102,7 +102,7 @@ Browse[1]> ">Run</button>
             <div class="code-input-line">
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
-                <button class="check-btn" data-answer="tryCatch(log('Luke\'s Patience'), error = function(e) 0)" data-output="[1] 0">Run</button>
+                <button class="check-btn" data-answer="tryCatch(log('Harvard Acceptance'), error = function(e) 0)" data-output="[1] 0">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org; object-src 'none'; base-uri 'self'; frame-ancestors 'none';">
-    <title>Module 6: The Town Meeting</title>
+    <title>Module 6: Friday Night Dinner</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
     <link rel="modulepreload" href="https://webr.r-wasm.org/v0.5.8/webr.mjs">
@@ -13,15 +13,15 @@
 <body>
 <nav><a href="../index.html">&larr; Back to Town</a></nav>
 <header>
-    <h1>Module 6: The Town Meeting (ANOVA)</h1>
-    <p>"I have the floor! We have three distinct groups yelling, and I need to know if the difference is significant." — Taylor Doose</p>
+    <h1>Module 6: Friday Night Dinner (ANOVA)</h1>
+    <p>"I have the floor! We have three courses, and I need to know if the difference in quality is significant." — Emily Gilmore</p>
 </header>
 
 <div class="concept-card">
     <h2>1. The Problem: Too Many Groups</h2>
     <div class="lesson-text">
-        <p><strong>The Concept:</strong> The T-Test is great for <strong>2 groups</strong> (Luke vs. Lorelai). But what if you want to compare <strong>3+ groups</strong>?</p>
-        <p><strong>Scenario:</strong> Comparing pies from <strong>Luke's</strong>, <strong>Weston's</strong>, and <strong>Sookie's</strong>.</p>
+        <p><strong>The Concept:</strong> The T-Test is great for <strong>2 groups</strong> (Soup vs Salad). But what if you want to compare <strong>3+ groups</strong>?</p>
+        <p><strong>Scenario:</strong> Comparing ratings for <strong>Soup</strong>, <strong>Salad</strong>, and <strong>Main</strong>.</p>
         <div class="lesson-box">
             <strong>Why not 3 T-Tests?</strong><br>
             Because every test has a 5% error rate. If you run 3 tests, your risk of a False Positive jumps to ~15%.
@@ -43,9 +43,9 @@
     </div>
 
     <div class="instruction-box">
-        <h3>🥧 Mission: The Pie Contest</h3>
+        <h3>🍽️ Mission: The Course Rating</h3>
         <ul class="instruction-list">
-            <li>Run an ANOVA on <code>sugar</code> by <code>baker</code> using the <code>pies</code> data.</li>
+            <li>Run an ANOVA on <code>rating</code> by <code>course</code> using the <code>dinner_ratings</code> data.</li>
             <li>Save it as <code>my_model</code>.</li>
             <li>Run <code>summary(my_model)</code> to see the P-value.</li>
         </ul>
@@ -57,8 +57,8 @@
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
                 <button class="check-btn"
-                        data-answer='my_model <- aov(sugar ~ baker, data = pies); summary(my_model)'
-                        data-output="            Df Sum Sq Mean Sq F value   Pr(>F)    <br>baker        2  150.2   75.10   12.45 0.00012 ***<br>Residuals   27  162.8    6.03                     ">Run</button>
+                        data-answer='my_model <- aov(rating ~ course, data = dinner_ratings); summary(my_model)'
+                        data-output="            Df Sum Sq Mean Sq F value   Pr(>F)    <br>course       2  150.2   75.10   12.45 0.00012 ***<br>Residuals   27  162.8    6.03                     ">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -69,7 +69,7 @@
     <h2>3. The Post-Hoc Test (Tukey's HSD)</h2>
     <div class="lesson-text">
         <p><strong>The Concept:</strong> The ANOVA result was significant (P < 0.05). Hooray! But wait...</p>
-        <p>ANOVA only tells you <strong>"At least one group is different."</strong> It doesn't tell you <em>which</em> one. Is Luke different from Sookie? Or is Weston different from Luke?</p>
+        <p>ANOVA only tells you <strong>"At least one group is different."</strong> It doesn't tell you <em>which</em> one. Is Soup better than Salad? Or is Main better than Soup?</p>
         <div class="lesson-box">
             <strong>Syntax:</strong> <code>TukeyHSD(model)</code>
         </div>
@@ -77,7 +77,7 @@
     </div>
 
     <div class="instruction-box">
-        <h3>🥧 Mission: Who Added the Sugar?</h3>
+        <h3>🍽️ Mission: Which Course Was Best?</h3>
         <ul class="instruction-list">
             <li>Run <code>TukeyHSD()</code> on your saved <code>my_model</code>.</li>
             <li>Look for P-values (p adj) less than 0.05.</li>
@@ -91,7 +91,7 @@
                 <input type="text" class="editor-input input-code" placeholder="...">
                 <button class="check-btn"
                         data-answer="TukeyHSD(my_model)"
-                        data-output="  diff    lwr    upr    p adj<br>Sookie-Luke    5.2   1.1   9.3   0.002<br>Weston-Luke    0.4  -3.2   4.0   0.921<br>Weston-Sookie -4.8  -8.9  -0.7   0.041">Run</button>
+                        data-output="  diff    lwr    upr    p adj<br>Soup-Main    -2.2   -3.1   -1.3   0.002<br>Salad-Main   -3.4   -4.5   -2.2   0.001<br>Salad-Soup   -1.2   -2.0    0.1   0.091">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -109,9 +109,9 @@
     </div>
 
     <div class="instruction-box">
-        <h3>🥧 Mission: Plot the Evidence</h3>
+        <h3>🍽️ Mission: Plot the Evidence</h3>
         <ul class="instruction-list">
-            <li>Plot <code>pies</code> with x=<code>baker</code>, y=<code>sugar</code>, fill=<code>baker</code>.</li>
+            <li>Plot <code>dinner_ratings</code> with x=<code>course</code>, y=<code>rating</code>, fill=<code>course</code>.</li>
             <li>Add <code>geom_boxplot()</code>.</li>
             <li>Add <code>theme_classic()</code>.</li>
         </ul>
@@ -123,8 +123,8 @@
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
                 <button class="check-btn"
-                        data-answer="ggplot(pies, aes(x = baker, y = sugar, fill = baker)) + geom_boxplot() + theme_classic()"
-                        data-output="[Plot Created: Three colorful boxplots showing Sookie's sugar is way higher]">Run</button>
+                        data-answer="ggplot(dinner_ratings, aes(x = course, y = rating, fill = course)) + geom_boxplot() + theme_classic()"
+                        data-output="[Plot Created: Three colorful boxplots showing Main Course rated highest]">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -136,7 +136,7 @@
     <div class="lesson-text">
         <p>For your BILD 5 lab report, you need to write a sentence like this:</p>
         <blockquote class="blockquote-box">
-            "There was a significant effect of Baker on Sugar Content (One-way ANOVA, F(2, 27) = 12.45, p < 0.001). Post-hoc Tukey tests revealed that Sookie's pies had significantly higher sugar than Luke's (p = 0.002) and Weston's (p = 0.041)."
+            "There was a significant effect of Course on Rating (One-way ANOVA, F(2, 27) = 12.45, p < 0.001). Post-hoc Tukey tests revealed that the Main Course was rated significantly higher than the Soup (p = 0.002) and Salad (p = 0.001)."
         </blockquote>
     </div>
 </div>

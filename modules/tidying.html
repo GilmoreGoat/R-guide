@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org; object-src 'none'; base-uri 'self'; frame-ancestors 'none';">
-    <title>Module 3: The Dragonfly</title>
+    <title>Module 3: The Dragonfly Inn</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
     <link rel="modulepreload" href="https://webr.r-wasm.org/v0.5.8/webr.mjs">
@@ -32,7 +32,7 @@
 <div class="concept-card">
     <h2>2. Pivot Longer (Wide to Long)</h2>
     <div class="lesson-text">
-        <p>Michel's reservation spreadsheet is "Wide" (Dates are columns like "Mon", "Tue"). We need to melt it down so R can read it.</p>
+        <p>Sookie's Prep List is "Wide" (Dates are columns like "Monday", "Tuesday"). We need to melt it down so R can read it.</p>
 
         <div class="lesson-box-large">
             <strong>The Syntax:</strong>
@@ -44,11 +44,11 @@
     </div>
 
     <div class="instruction-box">
-        <h3>🍳 Mission: Tidy the Pantry</h3>
+        <h3>🏨 Mission: Tidy the Prep List</h3>
         <ul class="instruction-list">
             <li>Use <code>pivot_longer()</code> on <code>kitchen</code>.</li>
             <li>We want to combine columns <code>Monday</code> and <code>Tuesday</code>.</li>
-            <li>Call the new name column <code>"Day"</code> and the value column <code>"Eggs"</code>.</li>
+            <li>Call the new name column <code>"Day"</code> and the value column <code>"Eggs"</code> (Sookie tracks egg usage).</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -59,7 +59,7 @@
                 <input type="text" class="editor-input input-code" placeholder="kitchen |> ...">
                 <button class="check-btn"
                         data-answer='kitchen |> pivot_longer(cols = c(Monday, Tuesday), names_to = "Day", values_to = "Eggs")'
-                        data-output="  Dish      Day        Eggs<br>1 Omelette  Monday     50<br>2 Omelette  Tuesday    40">Run</button>
+                        data-output="  Dish      Day        Eggs<br>1 Risotto   Monday     50<br>2 Risotto   Tuesday    40">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -78,7 +78,7 @@
     </div>
 
     <div class="instruction-box">
-        <h3>🍳 Mission: Set the Tables</h3>
+        <h3>🏨 Mission: Set the Tables</h3>
         <ul class="instruction-list">
             <li>Take <code>long_data</code>.</li>
             <li>Use <code>pivot_wider()</code>.</li>
@@ -94,7 +94,7 @@
                 <input type="text" class="editor-input input-code" placeholder="...">
                 <button class="check-btn"
                         data-answer='long_data |> pivot_wider(names_from = "Day", values_from = "Eggs")'
-                        data-output="  Dish      Monday  Tuesday<br>1 Omelette  50      45">Run</button>
+                        data-output="  Dish      Monday  Tuesday<br>1 Risotto   50      45">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>

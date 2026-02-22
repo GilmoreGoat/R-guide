@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org; object-src 'none'; base-uri 'self'; frame-ancestors 'none';">
-    <title>Skill B: The Festival Calendar</title>
+    <title>Skill B: Town Festivals</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
     <link rel="modulepreload" href="https://webr.r-wasm.org/v0.5.8/webr.mjs">
@@ -13,7 +13,7 @@
 <body>
 <nav><a href="../index.html">&larr; Back to Town</a></nav>
 <header>
-    <h1>Skill B: The Festival Calendar</h1>
+    <h1>Skill B: Town Festivals</h1>
     <p>"If you can't track the timeline, you can't track the drama."</p>
 </header>
 
@@ -28,8 +28,9 @@
         </div>
     </div>
     <div class="instruction-box">
-        <h3>🍂 Mission: Fix the Festival</h3>
+        <h3>🍂 Mission: Fix the Schedule</h3>
         <ul class="instruction-list">
+            <li>We have `festivals` data with a messy `date_str` column.</li>
             <li>Convert the <code>date_str</code> column using <code>mdy()</code>.</li>
         </ul>
     </div>
@@ -59,7 +60,8 @@
     <div class="instruction-box">
         <h3>🍂 Mission: Calculate Duration</h3>
         <ul class="instruction-list">
-            <li>Calculate <code>hours</code> by subtracting <code>start</code> from <code>end</code> in `marathon`.</li>
+            <li>We have `marathon` data (Dance Marathon times).</li>
+            <li>Calculate <code>hours</code> by subtracting <code>start</code> from <code>end</code>.</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -90,7 +92,7 @@
     <div class="instruction-box">
         <h3>🍂 Mission: Analyze Seasonality</h3>
         <ul class="instruction-list">
-            <li>Create a <code>season</code> column using <code>month()</code> with labels.</li>
+            <li>Using the fixed `festivals` (assume `date` exists now), create a <code>season</code> column using <code>month()</code> with labels.</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -100,8 +102,8 @@
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
                 <button class="check-btn"
-                        data-answer="data |> mutate(season = month(date, label = TRUE))"
-                        data-output="  date        season<br>1 2024-10-31  Oct">Run</button>
+                        data-answer="festivals |> mutate(date = mdy(date_str)) |> mutate(season = month(date, label = TRUE))"
+                        data-output="  date        season<br>1 2024-02-14  Feb">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -118,9 +120,9 @@
         <p>This sets every date to the start of its week.</p>
     </div>
     <div class="instruction-box">
-        <h3>🍂 Mission: Weekly Sales</h3>
+        <h3>🍂 Mission: Weekly Planning</h3>
         <ul class="instruction-list">
-            <li>Round the <code>date</code> down to the <code>"week"</code>.</li>
+            <li>Round the festival <code>date</code> down to the <code>"week"</code>.</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -130,8 +132,8 @@
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
                 <button class="check-btn"
-                        data-answer='sales |> mutate(week_start = floor_date(date, "week"))'
-                        data-output="  date        week_start<br>1 2024-01-05  2024-01-01">Run</button>
+                        data-answer='festivals |> mutate(date = mdy(date_str)) |> mutate(week_start = floor_date(date, "week"))'
+                        data-output="  date        week_start<br>1 2024-02-14  2024-02-11">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>

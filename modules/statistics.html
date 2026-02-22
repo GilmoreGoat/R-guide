@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' https://webr.r-wasm.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://webr.r-wasm.org https://repo.r-wasm.org; worker-src 'self' blob: https://webr.r-wasm.org; object-src 'none'; base-uri 'self'; frame-ancestors 'none';">
-  <title>Module 5: Yale Stats</title>
+  <title>Module 5: Yale Statistics</title>
   <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
   <link rel="modulepreload" href="https://webr.r-wasm.org/v0.5.8/webr.mjs">
@@ -13,22 +13,22 @@
 <body>
 <nav><a href="../index.html">&larr; Back to Town</a></nav>
 <header>
-  <h1>Module 5: Yale Daily News</h1>
-  <p>"I don't care what you 'feel', Doyle. Show me the P-value."</p>
+  <h1>Module 5: Yale Statistics</h1>
+  <p>"Facts, Logan. Not feelings. Show me the P-value."</p>
 </header>
 
 <div class="concept-card">
-  <h2>1. Data Cleaning (The Kirk Penguin)</h2>
+  <h2>1. Data Cleaning (The Stunt Height)</h2>
   <div class="lesson-text">
-    <p><strong>The Concept:</strong> Before you run any stats, check for errors. If a penguin weighs 120kg, that is Kirk in a costume.</p>
+    <p><strong>The Concept:</strong> Before you run any stats, check for errors. If a jump height is 150m, that is a scaffold error.</p>
     <div class="lesson-box">
       <strong>Syntax:</strong> <code>data |> filter(column < 100)</code>
     </div>
   </div>
   <div class="instruction-box">
-    <h3>📰 Mission: Remove the Giant</h3>
+    <h3>🎓 Mission: Remove the Error</h3>
     <ul class="instruction-list">
-      <li>Filter <code>penguins</code> to keep mass less than <code>120</code>.</li>
+      <li>Filter <code>stunt_heights</code> to keep height less than <code>100</code>.</li>
     </ul>
   </div>
   <div class="editor-container">
@@ -38,8 +38,8 @@
         <span class="prompt">></span>
         <input type="text" class="editor-input input-code" placeholder="...">
         <button class="check-btn"
-                data-answer="penguins |> filter(mass_kg < 120)"
-                data-output="[Filtered: 1 row removed. Kirk has been ejected.]">Run</button>
+                data-answer="stunt_heights |> filter(height_m < 100)"
+                data-output="[Filtered: 1 row removed. Error corrected.]">Run</button>
       </div>
     </div>
     <div class="console-output feedback"></div>
@@ -57,10 +57,10 @@
     <p><strong>Rule:</strong> If P < 0.05, the data is NOT Normal (Weird).</p>
   </div>
   <div class="instruction-box">
-    <h3>📰 Mission: Run the Test</h3>
+    <h3>🎓 Mission: Run the Test</h3>
     <ul class="instruction-list">
-      <li>Run <code>ks.test</code> on the <code>mass</code> vector.</li>
-      <li>Use arguments: <code>y="pnorm"</code>, <code>mean=mean(mass)</code>, <code>sd=sd(mass)</code>.</li>
+      <li>Run <code>ks.test</code> on the <code>stunt_heights$height_m</code> vector.</li>
+      <li>Use arguments: <code>y="pnorm"</code>, <code>mean=mean(...)</code>, <code>sd=sd(...)</code>.</li>
     </ul>
   </div>
   <div class="editor-container">
@@ -70,8 +70,8 @@
         <span class="prompt">></span>
         <input type="text" class="editor-input input-code" placeholder="...">
         <button class="check-btn"
-                data-answer='ks.test(x = mass, y = "pnorm", mean = mean(mass), sd = sd(mass))'
-                data-output="One-sample Kolmogorov-Smirnov test<br>D = 0.12, p-value = 0.003<br>(Not Normal. Data is weird.)">Run</button>
+                data-answer='ks.test(x = stunt_heights$height_m, y = "pnorm", mean = mean(stunt_heights$height_m), sd = sd(stunt_heights$height_m))'
+                data-output="One-sample Kolmogorov-Smirnov test<br>D = 0.2, p-value = 0.01<br>(Not Normal. Data is skewed.)">Run</button>
       </div>
     </div>
     <div class="console-output feedback"></div>
@@ -87,9 +87,9 @@
     </div>
   </div>
   <div class="instruction-box">
-    <h3>📰 Mission: Log It</h3>
+    <h3>🎓 Mission: Log It</h3>
     <ul class="instruction-list">
-      <li>Create column <code>log_mass</code> using <code>log10(mass_kg)</code>.</li>
+      <li>Create column <code>log_height</code> using <code>log10(height_m)</code>.</li>
     </ul>
   </div>
   <div class="editor-container">
@@ -99,8 +99,8 @@
         <span class="prompt">></span>
         <input type="text" class="editor-input input-code" placeholder="...">
         <button class="check-btn"
-                data-answer="penguins |> mutate(log_mass = log10(mass_kg))"
-                data-output="  mass_kg  log_mass<br>1 4500     3.65">Run</button>
+                data-answer="stunt_heights |> mutate(log_height = log10(height_m))"
+                data-output="  height_m  log_height<br>1 10        1.0">Run</button>
       </div>
     </div>
     <div class="console-output feedback"></div>
@@ -116,10 +116,10 @@
     </div>
   </div>
   <div class="instruction-box">
-    <h3>📰 Mission: Caffeine Check</h3>
+    <h3>🎓 Mission: Study Hours Check</h3>
     <ul class="instruction-list">
-      <li>Run a t-test on <code>coffee_vector</code>.</li>
-      <li>Compare it to the limit <code>mu = 4</code>.</li>
+      <li>Run a t-test on <code>yale_students$hours_studied</code>.</li>
+      <li>Compare it to the expectation <code>mu = 20</code> (Yale Standard).</li>
     </ul>
   </div>
   <div class="editor-container">
@@ -129,8 +129,8 @@
         <span class="prompt">></span>
         <input type="text" class="editor-input input-code" placeholder="...">
         <button class="check-btn"
-                data-answer="t.test(coffee_vector, mu = 4)"
-                data-output="One Sample t-test<br>t = 3.5, p-value = 0.002<br>(Significant. They drink way too much.)">Run</button>
+                data-answer="t.test(yale_students$hours_studied, mu = 20)"
+                data-output="One Sample t-test<br>t = -5.5, p-value = 0.001<br>(Significant. They study way less than expected.)">Run</button>
       </div>
     </div>
     <div class="console-output feedback"></div>
@@ -146,9 +146,9 @@
     </div>
   </div>
   <div class="instruction-box">
-    <h3>📰 Mission: The Dinner Effect</h3>
+    <h3>🎓 Mission: Midterm vs Final</h3>
     <ul class="instruction-list">
-      <li>Compare <code>Stress_Pre</code> and <code>Stress_Post</code>.</li>
+      <li>Compare <code>Cream_A</code> (Midterm) and <code>Cream_B</code> (Final).</li>
       <li>Set <code>paired = TRUE</code>.</li>
     </ul>
   </div>
@@ -159,8 +159,8 @@
         <span class="prompt">></span>
         <input type="text" class="editor-input input-code" placeholder="...">
         <button class="check-btn"
-                data-answer="t.test(Stress_Pre, Stress_Post, paired = TRUE)"
-                data-output="Paired t-test<br>t = -5.1, p-value = 0.0001<br>(Significant increase in stress.)">Run</button>
+                data-answer="t.test(Cream_A, Cream_B, paired = TRUE)"
+                data-output="Paired t-test<br>t = -5.1, p-value = 0.0001<br>(Significant improvement.)">Run</button>
       </div>
     </div>
     <div class="console-output feedback"></div>
@@ -170,16 +170,16 @@
 <div class="concept-card">
   <h2>6. Unpaired T-Test (Two Groups)</h2>
   <div class="lesson-text">
-    <p><strong>The Concept:</strong> Compare two <strong>independent</strong> groups (e.g., Jess vs. Dean).</p>
+    <p><strong>The Concept:</strong> Compare two <strong>independent</strong> groups.</p>
     <div class="lesson-box">
       <strong>Syntax:</strong> <code>t.test(Numeric ~ Group, data = df)</code>
     </div>
     <p><strong>Note:</strong> You must use the Tilde <code>~</code> (read as "by").</p>
   </div>
   <div class="instruction-box">
-    <h3>📰 Mission: The Swan Incident</h3>
+    <h3>🎓 Mission: Lizard Survival</h3>
     <ul class="instruction-list">
-      <li>Compare <code>beak_marks</code> by <code>victim</code> using the <code>swans</code> data.</li>
+      <li>Compare <code>horn_length</code> by <code>survival</code> using the <code>lizards</code> data.</li>
     </ul>
   </div>
   <div class="editor-container">
@@ -189,8 +189,8 @@
         <span class="prompt">></span>
         <input type="text" class="editor-input input-code" placeholder="...">
         <button class="check-btn"
-                data-answer="t.test(beak_marks ~ victim, data = swans)"
-                data-output="Two Sample t-test<br>t = 4.2, p-value = 0.01<br>(Jess has significantly more beak marks.)">Run</button>
+                data-answer="t.test(horn_length ~ survival, data = lizards)"
+                data-output="Two Sample t-test<br>t = 4.2, p-value = 0.01<br>(Survivors had significantly longer horns.)">Run</button>
       </div>
     </div>
     <div class="console-output feedback"></div>
@@ -200,18 +200,18 @@
 <div class="concept-card">
   <h2>7. Power Analysis (The Prep)</h2>
   <div class="lesson-text">
-    <p><strong>The Concept:</strong> Paris Geller doesn't guess. She calculates. <strong>Power Analysis</strong> tells you how many samples you need.</p>
+    <p><strong>The Concept:</strong> Professor Fleming doesn't guess. He calculates. <strong>Power Analysis</strong> tells you how many samples you need.</p>
     <div class="lesson-box">
       <strong>Syntax:</strong> <code>power.t.test(delta=, sd=, power=, type=)</code>
     </div>
     <p><strong>Rule:</strong> Leave <code>n=NULL</code> so R solves for it.</p>
   </div>
   <div class="instruction-box">
-    <h3>📰 Mission: How Many Pies?</h3>
+    <h3>🎓 Mission: How Many Lizards?</h3>
     <ul class="instruction-list">
       <li>You expect a difference of <strong>10</strong> (<code>delta=10</code>).</li>
       <li>Standard Deviation is <strong>15</strong>. Power is <strong>0.8</strong>.</li>
-      <li>Calculate <code>n</code> for a <code>"paired"</code> test.</li>
+      <li>Calculate <code>n</code> for a <code>"two.sample"</code> test.</li>
     </ul>
   </div>
   <div class="editor-container">
@@ -221,8 +221,8 @@
         <span class="prompt">></span>
         <input type="text" class="editor-input input-code" placeholder="...">
         <button class="check-btn"
-                data-answer='power.t.test(delta = 10, sd = 15, power = 0.8, type = "paired")'
-                data-output="Paired t test power calculation<br>n = 19.9 (Round up to 20 pies!)">Run</button>
+                data-answer='power.t.test(delta = 10, sd = 15, power = 0.8, type = "two.sample")'
+                data-output="Two-sample t test power calculation<br>n = 36.3 (Round up to 37 lizards!)">Run</button>
       </div>
     </div>
     <div class="console-output feedback"></div>

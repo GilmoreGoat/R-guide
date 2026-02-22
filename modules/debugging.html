@@ -27,11 +27,11 @@
         <p>Run this <em>immediately</em> after an error to see the "crime scene" (call stack) in reverse order.</p>
     </div>
     <div class="instruction-box">
-        <h3>📝 Mission: Find the Culprit</h3>
+        <h3>📝 Mission: Friday Night Dinner</h3>
         <ul class="instruction-list">
-            <li>We have a broken function chain: <code>f(x) -> g(x) -> h(x)</code>.</li>
-            <li><code>h(x)</code> throws an error if x is negative.</li>
-            <li>Call <code>f(-1)</code> and pretend to check the traceback.</li>
+            <li>We have a broken function chain: <code>dinner() -> course() -> cook()</code>.</li>
+            <li><code>cook()</code> throws an error if temperature is negative.</li>
+            <li>Call <code>dinner(-1)</code> and check the traceback.</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -40,9 +40,9 @@
             <div class="code-input-line">
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
-                <button class="check-btn" data-answer="f <- function(x) g(x); g <- function(x) h(x); h <- function(x) if(x<0) stop('Oops'); try(f(-1)); traceback()" data-output="3: h(x) at <text>#1
-2: g(x) at <text>#1
-1: f(-1)">Run</button>
+                <button class="check-btn" data-answer="dinner <- function(x) course(x); course <- function(x) cook(x); cook <- function(x) if(x<0) stop('Burnt!'); try(dinner(-1)); traceback()" data-output="3: cook(x) at <text>#1
+2: course(x) at <text>#1
+1: dinner(-1)">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>
@@ -59,10 +59,10 @@
         <p>It's like hitting pause on a movie to see if the boom mic is in the shot.</p>
     </div>
     <div class="instruction-box">
-        <h3>📝 Mission: Stop the Madness</h3>
+        <h3>📝 Mission: Caffeine Overload</h3>
         <ul class="instruction-list">
-            <li>Create a function <code>check_val(x)</code>.</li>
-            <li>Add <code>if (x > 10) browser()</code>.</li>
+            <li>Create a function <code>check_coffee(cups)</code>.</li>
+            <li>Add <code>if (cups > 10) browser()</code> to intervene.</li>
             <li>We can't really open the browser here, but R will stop and tell you it's paused.</li>
         </ul>
     </div>
@@ -72,7 +72,7 @@
             <div class="code-input-line">
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
-                <button class="check-btn" data-answer="check_val <- function(x) { if(x > 10) browser(); x }; check_val(15)" data-output="Called from: check_val(15)
+                <button class="check-btn" data-answer="check_coffee <- function(cups) { if(cups > 10) browser(); cups }; check_coffee(15)" data-output="Called from: check_coffee(15)
 Browse[1]> ">Run</button>
             </div>
         </div>
@@ -90,10 +90,10 @@ Browse[1]> ">Run</button>
         <p>This catches the error object <code>e</code> and lets you return a default value (like <code>NA</code>) or print a nicer message.</p>
     </div>
     <div class="instruction-box">
-        <h3>📝 Mission: Soft Landing</h3>
+        <h3>📝 Mission: Escape Through the Window</h3>
         <ul class="instruction-list">
-            <li>Use <code>tryCatch</code> to run <code>log("text")</code> (which is an error).</li>
-            <li>If an error occurs, return <code>0</code> instead of crashing.</li>
+            <li>Use <code>tryCatch</code> to run <code>log("Luke's Patience")</code> (which is an error).</li>
+            <li>If an error occurs, return <code>0</code> (Safe Escape) instead of crashing.</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -102,7 +102,7 @@ Browse[1]> ">Run</button>
             <div class="code-input-line">
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
-                <button class="check-btn" data-answer="tryCatch(log('text'), error = function(e) 0)" data-output="[1] 0">Run</button>
+                <button class="check-btn" data-answer="tryCatch(log('Luke\'s Patience'), error = function(e) 0)" data-output="[1] 0">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>

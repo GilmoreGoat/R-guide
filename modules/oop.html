@@ -93,11 +93,11 @@ Slot 'gpa':
         <p>This is how most other languages (Python, Java) do OOP. It uses the <code>R6</code> package.</p>
     </div>
     <div class="instruction-box">
-        <h3>📝 Mission: The Bank Account</h3>
+        <h3>📝 Mission: The Dragonfly Ledger</h3>
         <ul class="instruction-list">
             <li>We've loaded the <code>R6</code> package.</li>
-            <li>Define an <code>Account</code> class with a public <code>balance</code> and a <code>deposit</code> method.</li>
-            <li>Create an account and deposit $100.</li>
+            <li>Define a <code>Ledger</code> class with public <code>funds</code> and an <code>add_booking</code> method.</li>
+            <li>Create a ledger (<code>my_inn</code>) and add a $100 booking.</li>
         </ul>
     </div>
     <div class="editor-container">
@@ -106,7 +106,7 @@ Slot 'gpa':
             <div class="code-input-line">
                 <span class="prompt">></span>
                 <input type="text" class="editor-input input-code" placeholder="...">
-                <button class="check-btn" data-answer="Account <- R6Class('Account', public = list(balance = 0, deposit = function(x) { self$balance <- self$balance + x })); my_acc <- Account$new(); my_acc$deposit(100); my_acc$balance" data-output="[1] 100">Run</button>
+                <button class="check-btn" data-answer="Ledger <- R6Class('Ledger', public = list(funds = 0, add_booking = function(x) { self$funds <- self$funds + x })); my_inn <- Ledger$new(); my_inn$add_booking(100); my_inn$funds" data-output="[1] 100">Run</button>
             </div>
         </div>
         <div class="console-output feedback"></div>

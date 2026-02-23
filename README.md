@@ -25,13 +25,11 @@ A Gilmore Girls-themed interactive study guide for R programming, built with [We
     - **Skill C: The Rumor Mill**: Strings & Text (`stringr`).
 - **Professional Certification (Tier 3)**:
     - **Skill D: Michel's Concierge**: Functional Programming (`purrr`).
-    - **Object-Oriented Programming (OOP)**: Classes & Methods (S3, S4, R6).
+    - **Skill E: The DAR & Hep Alien**: Object-Oriented Programming (OOP) - S3, S4, R6.
+    - **Skill F: The Troubadour**: Metaprogramming (Tidy Eval & `rlang`).
+    - **Skill G: Paris Geller's Bunker**: Debugging (`browser()`, `traceback()`).
     - **Future Syllabus**: A roadmap for advanced R skills (`syllabus.html`).
-- **Pre-loaded Data**:
-    - `menu`, `orders`, `customers` (Luke's Diner datasets)
-    - `townies`, `kitchen`, `long_data`
-    - `pumpkins` (Generated dataset for stats)
-    - `students`, `penguins`, `lizards`
+- **Pre-loaded Data**: extensive datasets available for practice (see "Available Data" below).
 - **Instant Feedback**: Visual cues (Success/Warning/Error) and console output.
 - **Cheat Menu**: Quick access to common R functions and package loading.
 - **"Sunday Night Panic" Starter Kit**: A handy copy-paste block for standard R setup (libraries, settings) to avoid common errors.
@@ -40,18 +38,52 @@ A Gilmore Girls-themed interactive study guide for R programming, built with [We
 
 ## Available Data 📊
 
-The R environment comes pre-loaded with several datasets for you to practice with:
+The R environment comes pre-loaded with several datasets for you to practice with, grouped by module:
 
+### Module 1: Chilton Basics
+- **`students`**: Data on students from Chilton, Yale, and Stars Hollow High (Name, GPA, Club).
+
+### Module 2: Luke's Diner (Wrangling)
 - **`menu`**: Items, prices, and calories at Luke's Diner.
-- **`orders`**: Customer orders and tips.
 - **`customers`**: Customer names and VIP status.
-- **`townies`**: Roles of various Stars Hollow residents.
-- **`pumpkins`**: A generated dataset of 200 pumpkins with weights and types.
-- **`students`**: Data on students from Chilton, Yale, and Stars Hollow High.
-- **`penguins`**: Simplified penguin mass data.
+- **`orders`**: Customer orders and tips.
+
+### Module 3: The Dragonfly Inn (Tidying)
+- **`kitchen`**: Weekly dish counts (Wide format).
+- **`long_data`**: Dish counts by day (Long format).
+
+### Module 4: Festival of Living Art (Visualization)
+- **`art_entries`**: Contestants, paintings, and pose times.
+- **`paint_tubes`**: Volume and brand of paint tubes (Generated dataset).
+
+### Module 5: Yale Statistics
+- **`yale_students`**: Students, majors, and hours studied.
+- **`stunt_heights`**: Height data for outlier detection.
+
+### Module 6: Town Meeting (ANOVA)
+- **`dinner_courses`**: Ratings for different courses by Emily and Lorelai.
+- **`maids`**: Tenure of various maids at the Gilmore residence.
+- **`dinner_ratings`**: Generated ratings for soup, salad, and main courses.
+
+### Module 7: Richard's Investments (Regression)
+- **`investments`**: Company risk and ROI data.
+- **`market_data`**: Simulated market index data over 100 days.
+
+### Module 8: Miss Patty's Studio (Categorical)
+- **`dancers`**: Dancers, age groups, and styles.
+
+### Research Skills (Tier 2)
+- **Skill A (Joining)**: `guests` (Party guests), `society_list` (LDB members).
+- **Skill B (Dates)**: `festivals` (Town events), `marathon` (Dance marathon times).
+- **Skill C (Strings)**: `gazette_bylines` (Article counts/typos), `rumors` (Gossip text).
+
+### Professional Certification (Tier 3)
+- **Skill D (Functional)**: `antiques` (Items/Periods/Prices), `bills`.
+- **Skill E (OOP)**: `dar_members` (Rank/Name), `band_gigs` (Venue/Pay).
+
+### Global / Misc
+- **`townies`**: Roles of residents.
 - **`lizards`**: Horn length and survival status.
-- **`kitchen`** & **`long_data`**: Used for tidying exercises.
-- **`data`**: Coffee consumption vs. Jitters.
 
 ## Getting Started
 
@@ -129,7 +161,9 @@ npx playwright test
 - `skill_b.html`: Skill B (The Festival Calendar - Dates).
 - `skill_c.html`: Skill C (The Rumor Mill - Strings).
 - `functional.html`: Skill D (Michel's Concierge - Functional Programming).
-- `oop.html`: Object-Oriented Programming (OOP).
+- `oop.html`: Skill E (The DAR & Hep Alien - OOP).
+- `metaprogramming.html`: Skill F (The Troubadour - Metaprogramming).
+- `debugging.html`: Skill G (Paris Geller's Bunker - Debugging).
 - `syllabus.html`: Future Syllabus (Tier 3).
 - `reference.html`: Paris Geller's Master Reference.
 - `about.html`: About page.
@@ -139,6 +173,7 @@ npx playwright test
 
 - **Frontend**: HTML5, CSS3, JavaScript (ES Modules).
 - **R Engine**: [WebR](https://docs.r-wasm.org/webr/latest/) (WASM).
+- **R Packages**: `tidyverse`, `skimr`, `rstatix`, `lubridate`, `stringr`, `purrr`, `rlang`.
 - **Testing**: Node.js Test Runner, Playwright.
 
 ## Troubleshooting 🔧

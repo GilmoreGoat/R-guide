@@ -135,12 +135,47 @@ npm test
 ```
 
 #### End-to-End Tests
-Verifies WebR loading and page interactions using Playwright.
+Verifies WebR loading, page interactions, and performance benchmarks using Playwright.
 
+**Prerequisites:**
+```bash
+npx playwright install
+```
+
+**Run Tests:**
 ```bash
 npx playwright test
 ```
-(Runs tests in `tests/verify_webr_load.spec.js`)
+This runs the full suite of E2E tests, including:
+- WebR loading verification (`verify_webr_load.spec.js`)
+- Navigation checks (`verify_navigation.spec.js`)
+- Code execution integration (`verify_code_execution_integration.spec.js`)
+- Performance benchmarks (`perf_benchmark.spec.js`, `benchmark_webr_load.spec.js`)
+
+### Manual Verification
+
+For visual verification of key modules, you can use the `verify_frontend.py` script, which takes full-page screenshots.
+
+**Prerequisites:**
+- Python 3
+- Playwright for Python
+
+```bash
+pip install playwright
+playwright install
+```
+
+**Usage:**
+
+1. Start the local server on **port 8080** (required by the script):
+   ```bash
+   python3 -m http.server 8080
+   ```
+2. In a new terminal, run the verification script:
+   ```bash
+   python3 verify_frontend.py
+   ```
+   Screenshots will be saved to `verification_screenshots/`.
 
 ## Project Structure
 
@@ -167,7 +202,8 @@ npx playwright test
 - `syllabus.html`: Future Syllabus (Tier 3).
 - `reference.html`: Paris Geller's Master Reference.
 - `about.html`: About page.
-- `tests/`: Unit and E2E tests.
+- `verify_frontend.py`: Python script for taking automated screenshots of modules.
+- `tests/`: Directory containing Unit, Integration, and Benchmark tests.
 
 ## Tech Stack
 

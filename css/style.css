@@ -699,3 +699,41 @@ pre code { background: transparent; color: inherit; padding: 0; font-weight: nor
     pointer-events: none;
 }
 .cheat-fab:hover::after { opacity: 1; }
+/* --- TIER NAVIGATION (Sticky) --- */
+.tier-nav {
+    position: sticky;
+    top: 0;
+    z-index: 99;
+    background: var(--paper-texture);
+    border-bottom: 2px solid var(--coffee-dark);
+    border-top: 2px solid var(--coffee-dark);
+    padding: 15px 0;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.tier-nav a {
+    color: var(--coffee-dark);
+    font-family: 'Playfair Display', serif;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: all 0.2s;
+    font-size: 1.1em;
+    border: 1px solid transparent;
+}
+
+.tier-nav a:hover {
+    background: var(--autumn-orange);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Scroll Offset for Tiers */
+#tier-1, #tier-2, #tier-3 {
+    scroll-margin-top: 100px;
+}

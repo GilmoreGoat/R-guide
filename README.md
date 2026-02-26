@@ -101,6 +101,8 @@ Since this project uses ES modules and WebAssembly, it must be served via a loca
 3.  Install dependencies (optional, for testing):
     ```bash
     npm install
+    # Optional: Install Playwright browsers for E2E tests
+    npx playwright install
     ```
 4.  Start a local server:
     ```bash
@@ -123,6 +125,7 @@ The project is designed to be simple and maintainable.
     - `compareCode(user, expected)`: Checks if the user's answer matches the solution.
     - `escapeHTML(str)`: Prevents XSS attacks by escaping special characters.
     - `processWebROutput(output)`: Formats WebR output arrays into HTML.
+- `verify_frontend.py`: Python script using Playwright for visual verification of frontend changes (Tier 3 modules).
 - `style.css`: Global styles using CSS Variables for theming.
 
 ### Testing
@@ -135,35 +138,60 @@ npm test
 ```
 
 #### End-to-End Tests
-Verifies WebR loading and page interactions using Playwright.
+Verifies WebR loading, page interactions, code execution, and performance using Playwright. This runs all spec files in the `tests/` directory.
 
 ```bash
 npx playwright test
 ```
-(Runs tests in `tests/verify_webr_load.spec.js`)
+
+Key tests include:
+- `verify_webr_load.spec.js`: Verifies WebR loads correctly on module pages.
+- `verify_code_execution_integration.spec.js`: Iterates through all modules to ensure check buttons execute R code.
+- `perf_benchmark.spec.js`: Benchmarks WebR load times.
+
+### Visual Verification
+For visual inspection of the frontend (e.g., checking if Tier 3 modules render correctly), use the provided Python script.
+
+1.  **Prerequisites**:
+    ```bash
+    pip install playwright
+    playwright install
+    ```
+2.  **Run the Server**: Ensure the project is running on **port 8080**:
+    ```bash
+    python3 -m http.server 8080
+    ```
+3.  **Run the Script**:
+    ```bash
+    python3 verify_frontend.py
+    ```
+    This will generate screenshots in a `verification_screenshots/` folder.
 
 ## Project Structure
 
 - `index.html`: Main landing page / Table of Contents.
 - `script.js`: Core application logic, WebR initialization, and UI handling.
 - `logic.js`: Pure utility functions for code normalization and comparison (testable).
+- `r_data.js`: Pre-loaded R datasets (`students`, `menu`, `lizards`, etc.).
 - `style.css`: Global styles and theming (CSS Variables).
 - `reference.js`: Handles navigation logic for the Reference Guide.
-- `basics.html`: Module 1 (Basics).
-- `wrangling.html`: Module 2 (Data Frames).
-- `tidying.html`: Module 3 (Tidying).
-- `visualization.html`: Module 4 (Graphing).
-- `statistics.html`: Module 5 (T-Tests).
-- `anova.html`: Module 6 (ANOVA).
-- `regression.html`: Module 7 (Regression).
-- `categorical.html`: Module 8 (Categorical).
-- `module6.html`: Skill A (The Secret Society - Joining). *Note: `module6.html` corresponds to Skill A, while `anova.html` is Module 6.*
-- `skill_b.html`: Skill B (The Festival Calendar - Dates).
-- `skill_c.html`: Skill C (The Rumor Mill - Strings).
-- `functional.html`: Skill D (Michel's Concierge - Functional Programming).
-- `oop.html`: Skill E (The DAR & Hep Alien - OOP).
-- `metaprogramming.html`: Skill F (The Troubadour - Metaprogramming).
-- `debugging.html`: Skill G (Paris Geller's Bunker - Debugging).
+- `verify_frontend.py`: Script for visual verification of frontend changes.
+- `modules/`: Directory containing all interactive learning modules.
+    - `basics.html`: Module 1 (Basics).
+    - `wrangling.html`: Module 2 (Data Frames).
+    - `tidying.html`: Module 3 (Tidying).
+    - `visualization.html`: Module 4 (Graphing).
+    - `statistics.html`: Module 5 (T-Tests).
+    - `anova.html`: Module 6 (ANOVA).
+    - `regression.html`: Module 7 (Regression).
+    - `categorical.html`: Module 8 (Categorical).
+    - `module6.html`: Skill A (The Secret Society - Joining). *Note: `module6.html` corresponds to Skill A, while `anova.html` is Module 6.*
+    - `skill_b.html`: Skill B (The Festival Calendar - Dates).
+    - `skill_c.html`: Skill C (The Rumor Mill - Strings).
+    - `functional.html`: Skill D (Michel's Concierge - Functional Programming).
+    - `oop.html`: Skill E (The DAR & Hep Alien - OOP).
+    - `metaprogramming.html`: Skill F (The Troubadour - Metaprogramming).
+    - `debugging.html`: Skill G (Paris Geller's Bunker - Debugging).
 - `syllabus.html`: Future Syllabus (Tier 3).
 - `reference.html`: Paris Geller's Master Reference.
 - `about.html`: About page.

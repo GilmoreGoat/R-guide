@@ -117,56 +117,67 @@ The project is designed to be simple and maintainable.
 ### Key Files
 
 - `index.html`: Main landing page.
-- `script.js`: Core application logic. Handles WebR initialization, UI interactions (Cheat Menu, Copy Buttons), and code execution using `webR.Shelter` and `captureR`.
-- `logic.js`: Pure utility functions for code verification and output processing.
+- `js/script.js`: Core application logic. Handles WebR initialization, UI interactions (Cheat Menu, Copy Buttons), and code execution using `webR.Shelter` and `captureR`.
+- `js/logic.js`: Pure utility functions for code verification and output processing.
     - `normalizeCode(code)`: Standardizes user input (removes whitespace, lowers case) for fuzzy matching.
     - `compareCode(user, expected)`: Checks if the user's answer matches the solution.
     - `escapeHTML(str)`: Prevents XSS attacks by escaping special characters.
     - `processWebROutput(output)`: Formats WebR output arrays into HTML.
-- `style.css`: Global styles using CSS Variables for theming.
+- `js/r_data.js`: Pre-loaded R datasets (`students`, `menu`, etc.) for all modules.
+- `css/style.css`: Global styles using CSS Variables for theming.
 
 ### Testing
 
 #### Unit Tests
-Verifies the logic in `logic.js` using Node.js native test runner.
+Verifies the logic in `js/logic.js` and other helper functions using Node.js native test runner.
 
 ```bash
 npm test
 ```
 
 #### End-to-End Tests
-Verifies WebR loading and page interactions using Playwright.
+Verifies WebR loading, page interactions, and code execution using Playwright.
 
 ```bash
 npx playwright test
 ```
-(Runs tests in `tests/verify_webr_load.spec.js`)
+(Runs all test specs in `tests/`, including `verify_webr_load.spec.js`, `verify_code_execution_integration.spec.js`, and others.)
+
+#### Visual Verification
+For manual visual verification of specific modules (Tier 3), use the Python script:
+
+```bash
+python3 verify_frontend.py
+```
+(Requires `playwright` python package and a running server on port 8080).
 
 ## Project Structure
 
 - `index.html`: Main landing page / Table of Contents.
-- `script.js`: Core application logic, WebR initialization, and UI handling.
-- `logic.js`: Pure utility functions for code normalization and comparison (testable).
-- `style.css`: Global styles and theming (CSS Variables).
-- `reference.js`: Handles navigation logic for the Reference Guide.
-- `basics.html`: Module 1 (Basics).
-- `wrangling.html`: Module 2 (Data Frames).
-- `tidying.html`: Module 3 (Tidying).
-- `visualization.html`: Module 4 (Graphing).
-- `statistics.html`: Module 5 (T-Tests).
-- `anova.html`: Module 6 (ANOVA).
-- `regression.html`: Module 7 (Regression).
-- `categorical.html`: Module 8 (Categorical).
-- `module6.html`: Skill A (The Secret Society - Joining). *Note: `module6.html` corresponds to Skill A, while `anova.html` is Module 6.*
-- `skill_b.html`: Skill B (The Festival Calendar - Dates).
-- `skill_c.html`: Skill C (The Rumor Mill - Strings).
-- `functional.html`: Skill D (Michel's Concierge - Functional Programming).
-- `oop.html`: Skill E (The DAR & Hep Alien - OOP).
-- `metaprogramming.html`: Skill F (The Troubadour - Metaprogramming).
-- `debugging.html`: Skill G (Paris Geller's Bunker - Debugging).
+- `js/script.js`: Core application logic, WebR initialization, and UI handling.
+- `js/logic.js`: Pure utility functions for code normalization and comparison (testable).
+- `js/r_data.js`: Definitions for all pre-loaded R datasets.
+- `css/style.css`: Global styles and theming (CSS Variables).
+- `js/reference.js`: Handles navigation logic for the Reference Guide.
+- `modules/basics.html`: Module 1 (Basics).
+- `modules/wrangling.html`: Module 2 (Data Frames).
+- `modules/tidying.html`: Module 3 (Tidying).
+- `modules/visualization.html`: Module 4 (Graphing).
+- `modules/statistics.html`: Module 5 (T-Tests).
+- `modules/anova.html`: Module 6 (ANOVA).
+- `modules/regression.html`: Module 7 (Regression).
+- `modules/categorical.html`: Module 8 (Categorical).
+- `modules/module6.html`: Skill A (The Secret Society - Joining). *Note: `module6.html` corresponds to Skill A, while `anova.html` is Module 6.*
+- `modules/skill_b.html`: Skill B (The Festival Calendar - Dates).
+- `modules/skill_c.html`: Skill C (The Rumor Mill - Strings).
+- `modules/functional.html`: Skill D (Michel's Concierge - Functional Programming).
+- `modules/oop.html`: Skill E (The DAR & Hep Alien - OOP).
+- `modules/metaprogramming.html`: Skill F (The Troubadour - Metaprogramming).
+- `modules/debugging.html`: Skill G (Paris Geller's Bunker - Debugging).
 - `syllabus.html`: Future Syllabus (Tier 3).
 - `reference.html`: Paris Geller's Master Reference.
 - `about.html`: About page.
+- `verify_frontend.py`: Python script for manual visual verification using Playwright.
 - `tests/`: Unit and E2E tests.
 
 ## Tech Stack

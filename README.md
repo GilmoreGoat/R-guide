@@ -20,14 +20,14 @@ A Gilmore Girls-themed interactive study guide for R programming, built with [We
     - **Module 7: Dance Marathon**: Correlation & Linear Regression.
     - **Module 8: The DAR Tea**: Categorical Data (`chisq.test`).
 - **Research Skills (Tier 2)**:
-    - **Skill A: The Secret Society**: Logic & Joining Data.
-    - **Skill B: The Festival Calendar**: Dates & Time (`lubridate`).
-    - **Skill C: The Rumor Mill**: Strings & Text (`stringr`).
+    - **Skill A: The Life & Death Brigade**: Logic & Joining Data.
+    - **Skill B: Town Meetings**: Dates & Time (`lubridate`).
+    - **Skill C: Stars Hollow Gazette**: Strings & Text (`stringr`).
 - **Professional Certification (Tier 3)**:
-    - **Skill D: Michel's Concierge**: Functional Programming (`purrr`).
-    - **Skill E: The DAR & Hep Alien**: Object-Oriented Programming (OOP) - S3, S4, R6.
-    - **Skill F: The Troubadour**: Metaprogramming (Tidy Eval & `rlang`).
-    - **Skill G: Paris Geller's Bunker**: Debugging (`browser()`, `traceback()`).
+    - **Skill D: Mrs. Kim's Antiques**: Functional Programming (`purrr`).
+    - **Skill E: Emily's Standards**: Object-Oriented Programming (OOP) - S3, S4, R6.
+    - **Skill F: The Secret Society**: Metaprogramming (Tidy Eval & `rlang`).
+    - **Skill G: The Gilmore Panic**: Debugging (`browser()`, `traceback()`).
     - **Future Syllabus**: A roadmap for advanced R skills (`syllabus.html`).
 - **Pre-loaded Data**: extensive datasets available for practice (see "Available Data" below).
 - **Instant Feedback**: Visual cues (Success/Warning/Error) and console output.
@@ -157,13 +157,13 @@ npx playwright test
 - `anova.html`: Module 6 (ANOVA).
 - `regression.html`: Module 7 (Regression).
 - `categorical.html`: Module 8 (Categorical).
-- `module6.html`: Skill A (The Secret Society - Joining). *Note: `module6.html` corresponds to Skill A, while `anova.html` is Module 6.*
-- `skill_b.html`: Skill B (The Festival Calendar - Dates).
-- `skill_c.html`: Skill C (The Rumor Mill - Strings).
-- `functional.html`: Skill D (Michel's Concierge - Functional Programming).
-- `oop.html`: Skill E (The DAR & Hep Alien - OOP).
-- `metaprogramming.html`: Skill F (The Troubadour - Metaprogramming).
-- `debugging.html`: Skill G (Paris Geller's Bunker - Debugging).
+- `module6.html`: Skill A (The Life & Death Brigade - Joining). *Note: `module6.html` corresponds to Skill A, while `anova.html` is Module 6.*
+- `skill_b.html`: Skill B (Town Meetings - Dates).
+- `skill_c.html`: Skill C (Stars Hollow Gazette - Strings).
+- `functional.html`: Skill D (Mrs. Kim's Antiques - Functional Programming).
+- `oop.html`: Skill E (Emily's Standards - OOP).
+- `metaprogramming.html`: Skill F (The Secret Society - Metaprogramming).
+- `debugging.html`: Skill G (The Gilmore Panic - Debugging).
 - `syllabus.html`: Future Syllabus (Tier 3).
 - `reference.html`: Paris Geller's Master Reference.
 - `about.html`: About page.

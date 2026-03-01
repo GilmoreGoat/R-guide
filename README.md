@@ -14,17 +14,17 @@ A Gilmore Girls-themed interactive study guide for R programming, built with [We
     - **Module 1: Chilton Basics**: Objects, Vectors, and Types.
     - **Module 2: Luke's Diner**: Data Frames & Wrangling (`dplyr`).
     - **Module 3: The Dragonfly Inn**: Tidying Data (`tidyr`).
-    - **Module 4: The Gazette**: Visualization (`ggplot2`).
-    - **Module 5: Yale Daily News**: Statistics (T-Tests, Normality, Power Analysis).
-    - **Module 6: Town Meeting**: ANOVA & Tukey's HSD.
-    - **Module 7: Dance Marathon**: Correlation & Linear Regression.
-    - **Module 8: The DAR Tea**: Categorical Data (`chisq.test`).
+    - **Module 4: Festival of Living Art**: Visualization (`ggplot2`).
+    - **Module 5: Yale Statistics**: Statistics (T-Tests, Normality, Power Analysis).
+    - **Module 6: Friday Night Dinner**: ANOVA & Tukey's HSD.
+    - **Module 7: Richard's Investments**: Correlation & Linear Regression.
+    - **Module 8: Miss Patty's Studio**: Categorical Data (`chisq.test`).
 - **Research Skills (Tier 2)**:
-    - **Skill A: The Secret Society**: Logic & Joining Data.
-    - **Skill B: The Festival Calendar**: Dates & Time (`lubridate`).
-    - **Skill C: The Rumor Mill**: Strings & Text (`stringr`).
+    - **Skill A: The Life & Death Brigade**: Logic & Joining Data.
+    - **Skill B: Town Festivals**: Dates & Time (`lubridate`).
+    - **Skill C: Stars Hollow Gazette**: Strings & Text (`stringr`).
 - **Professional Certification (Tier 3)**:
-    - **Skill D: Michel's Concierge**: Functional Programming (`purrr`).
+    - **Skill D: Mrs. Kim's Antiques**: Functional Programming (`purrr`).
     - **Skill E: The DAR & Hep Alien**: Object-Oriented Programming (OOP) - S3, S4, R6.
     - **Skill F: The Troubadour**: Metaprogramming (Tidy Eval & `rlang`).
     - **Skill G: Paris Geller's Bunker**: Debugging (`browser()`, `traceback()`).
@@ -140,7 +140,6 @@ Verifies WebR loading and page interactions using Playwright.
 ```bash
 npx playwright test
 ```
-(Runs tests in `tests/verify_webr_load.spec.js`)
 
 ## Project Structure
 
@@ -157,10 +156,10 @@ npx playwright test
 - `anova.html`: Module 6 (ANOVA).
 - `regression.html`: Module 7 (Regression).
 - `categorical.html`: Module 8 (Categorical).
-- `module6.html`: Skill A (The Secret Society - Joining). *Note: `module6.html` corresponds to Skill A, while `anova.html` is Module 6.*
-- `skill_b.html`: Skill B (The Festival Calendar - Dates).
-- `skill_c.html`: Skill C (The Rumor Mill - Strings).
-- `functional.html`: Skill D (Michel's Concierge - Functional Programming).
+- `module6.html`: Skill A (The Life & Death Brigade - Joining). *Note: `module6.html` corresponds to Skill A, while `anova.html` is Module 6.*
+- `skill_b.html`: Skill B (Town Festivals - Dates).
+- `skill_c.html`: Skill C (Stars Hollow Gazette - Strings).
+- `functional.html`: Skill D (Mrs. Kim's Antiques - Functional Programming).
 - `oop.html`: Skill E (The DAR & Hep Alien - OOP).
 - `metaprogramming.html`: Skill F (The Troubadour - Metaprogramming).
 - `debugging.html`: Skill G (Paris Geller's Bunker - Debugging).

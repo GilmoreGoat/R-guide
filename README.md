@@ -184,7 +184,36 @@ npx playwright test
 - **Plots Not Showing?**
   - Make sure you run code that produces a plot object (e.g., `print(plot)`).
 
-## License & Credits
+## The Mission
+
+**Welcome to Stars Hollow.**
+
+This is not your standard, boring statistics textbook. This is a survival guide. I built this because learning R should be as fast-paced as a town meeting and as comforting as a warm cup of coffee.
+
+Whether you are a prep school student striving for Valedictorian or a university editor trying to impress the press, this guide covers everything from basic vectors to complex power analysis.
+
+## House Rules
+
+- **Rule 1:** No cell phones. (The Diner Rules apply).
+- **Rule 2:** Coffee is mandatory while coding.
+- **Rule 3:** If your code errors, do not panic. Channel your inner intensity and force the data to submit to your will.
+- **Rule 4:** Always check your assumptions. (Trouble might be hiding in your data).
+
+## About the Author
+
+Hi, I'm **Parthiv (Pav) Nair** and I'm a pre-med student at UCSD. I created this site to learn and survive **BILD 5**. However, after someone close recently professed immense fear in learning R, I built this to help out maybe a little bit.
+
+My goal is to take the "scary" out of statistics and replace it with references to 2000s pop culture. If I can learn to use `pivot_longer()` without crying, so can you.
+
+*Note from the Editor:*
+- This site was built with 100% organic, shade-grown code.
+- No actual penguins were harmed in the making of the T-Tests.
+
+## Credits & License
+
+- **Professor:** Yang Mingyu
+- **Inspiration:** The Gilmore Girls (Amy Sherman-Palladino).
+- **Caffeine:** The fuel for this entire project.
 
 Created for **BILD 5**.
 

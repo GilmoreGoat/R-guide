@@ -35,6 +35,7 @@ A Gilmore Girls-themed interactive study guide for R programming, built with [We
 - **"Sunday Night Panic" Starter Kit**: A handy copy-paste block for standard R setup (libraries, settings) to avoid common errors.
 - **Paris Geller's Master Reference**: A complete, searchable reference guide (`reference.html`) covering every function used in the course.
 - **Strict Linting**: Encourages best practices (e.g., using `<-` for assignment, proper naming conventions).
+- **Security**: Hardened Content Security Policy (CSP) enforcing strict `self` and specific `webr` domains, and disallowing `unsafe-inline` styles.
 
 ## Available Data 📊
 
@@ -91,82 +92,103 @@ Since this project uses ES modules and WebAssembly, it must be served via a loca
 
 ### Prerequisites
 
-- Python 3 (for the simple HTTP server) or any other static site server (e.g., `http-server`, `Live Server` in VS Code).
-- Node.js (for running tests).
+- Node.js (for running tests, Playwright, and `http-server`).
+- Python 3 (Alternative for running a simple HTTP server).
 
 ### Running the Project
 
 1.  Clone the repository.
 2.  Navigate to the project root.
-3.  Install dependencies (optional, for testing):
+3.  Install dependencies for testing and local server:
     ```bash
     npm install
+    npx playwright install
     ```
 4.  Start a local server:
     ```bash
-    python3 -m http.server
-    # OR
     npx http-server
+    # OR using Python
+    python3 -m http.server 8000
     ```
-5.  Open your browser and go to `http://localhost:8000` (or the port shown in your terminal).
+5.  Open your browser and go to `http://localhost:8080` (or the port shown in your terminal).
 
 ## Architecture & Developer Guide
 
-The project is designed to be simple and maintainable.
+The project is designed to be simple, maintainable, and secure.
 
 ### Key Files
 
-- `index.html`: Main landing page.
-- `script.js`: Core application logic. Handles WebR initialization, UI interactions (Cheat Menu, Copy Buttons), and code execution using `webR.Shelter` and `captureR`.
-- `logic.js`: Pure utility functions for code verification and output processing.
+- `index.html`: Main landing page with Tier navigation.
+- `js/script.js`: Core application logic. Handles WebR initialization, UI interactions (Cheat Menu, Copy Buttons), and code execution using `webR.Shelter` and `captureR`.
+- `js/logic.js`: Pure utility functions for code verification, output processing, and package resolution.
     - `normalizeCode(code)`: Standardizes user input (removes whitespace, lowers case) for fuzzy matching.
     - `compareCode(user, expected)`: Checks if the user's answer matches the solution.
     - `escapeHTML(str)`: Prevents XSS attacks by escaping special characters.
     - `processWebROutput(output)`: Formats WebR output arrays into HTML.
-- `style.css`: Global styles using CSS Variables for theming.
+    - `processWebRImages(...)`: Safely handles rendering R plot outputs.
+    - `getRequiredPackages(...)`: Dynamically determines the required R packages based on the loaded module.
+- `js/r_data.js`: Definitions of pre-loaded mock datasets provided to the WebR environment.
+- `css/style.css`: Global styles using CSS Variables for theming (Gilmore Girls aesthetic).
 
 ### Testing
 
+The project uses a mix of unit tests via the native Node.js test runner and integration/e2e tests using Playwright.
+
 #### Unit Tests
-Verifies the logic in `logic.js` using Node.js native test runner.
+Verifies the logic in `js/logic.js` and other pure functions. Also checks code health (like static analysis rules).
 
 ```bash
 npm test
 ```
+*Runs tests in `tests/*.test.js` using Node.js `--test` runner.*
 
-#### End-to-End Tests
-Verifies WebR loading and page interactions using Playwright.
+#### End-to-End & Integration Tests
+Verifies WebR loading, page interactions, code execution, and navigation using Playwright.
 
 ```bash
+# First, ensure Playwright browsers are installed
+npx playwright install
+
+# Run the Playwright test suite
 npx playwright test
+```
+*Playwright tests are defined in `tests/*.spec.js`.*
+
+#### Manual Visual Verification
+A separate python script is provided for taking screenshots of specific interactions, primarily used to manually verify UI changes.
+
+```bash
+# Ensure local server is running on port 8080
+pip install playwright
+python3 verify_frontend.py
 ```
 
 ## Project Structure
 
 - `index.html`: Main landing page / Table of Contents.
-- `script.js`: Core application logic, WebR initialization, and UI handling.
-- `logic.js`: Pure utility functions for code normalization and comparison (testable).
-- `style.css`: Global styles and theming (CSS Variables).
-- `reference.js`: Handles navigation logic for the Reference Guide.
-- `basics.html`: Module 1 (Basics).
-- `wrangling.html`: Module 2 (Data Frames).
-- `tidying.html`: Module 3 (Tidying).
-- `visualization.html`: Module 4 (Graphing).
-- `statistics.html`: Module 5 (T-Tests).
-- `anova.html`: Module 6 (ANOVA).
-- `regression.html`: Module 7 (Regression).
-- `categorical.html`: Module 8 (Categorical).
-- `module6.html`: Skill A (The Life & Death Brigade - Joining). *Note: `module6.html` corresponds to Skill A, while `anova.html` is Module 6.*
-- `skill_b.html`: Skill B (Town Festivals - Dates).
-- `skill_c.html`: Skill C (Stars Hollow Gazette - Strings).
-- `functional.html`: Skill D (Mrs. Kim's Antiques - Functional Programming).
-- `oop.html`: Skill E (The DAR & Hep Alien - OOP).
-- `metaprogramming.html`: Skill F (The Troubadour - Metaprogramming).
-- `debugging.html`: Skill G (Paris Geller's Bunker - Debugging).
-- `syllabus.html`: Future Syllabus (Tier 3).
+- `js/`: Core JavaScript files (`script.js`, `logic.js`, `r_data.js`).
+- `css/`: Stylesheets (`style.css`).
+- `modules/`: HTML content files for each module/skill.
+    - `basics.html`: Module 1 (Basics).
+    - `wrangling.html`: Module 2 (Data Frames).
+    - `tidying.html`: Module 3 (Tidying).
+    - `visualization.html`: Module 4 (Graphing).
+    - `statistics.html`: Module 5 (T-Tests).
+    - `anova.html`: Module 6 (ANOVA).
+    - `regression.html`: Module 7 (Regression).
+    - `categorical.html`: Module 8 (Categorical).
+    - `module6.html`: Skill A (The Life & Death Brigade - Joining).
+    - `skill_b.html`: Skill B (Town Festivals - Dates).
+    - `skill_c.html`: Skill C (Stars Hollow Gazette - Strings).
+    - `functional.html`: Skill D (Mrs. Kim's Antiques - Functional Programming).
+    - `oop.html`: Skill E (The DAR & Hep Alien - OOP).
+    - `metaprogramming.html`: Skill F (The Troubadour - Metaprogramming).
+    - `debugging.html`: Skill G (Paris Geller's Bunker - Debugging).
 - `reference.html`: Paris Geller's Master Reference.
+- `syllabus.html`: Future Syllabus (Tier 3).
 - `about.html`: About page.
-- `tests/`: Unit and E2E tests.
+- `tests/`: Automated test specifications (Playwright & Node.js test runner).
+- `images/`: Asset images.
 
 ## Tech Stack
 
@@ -178,7 +200,7 @@ npx playwright test
 ## Troubleshooting 🔧
 
 - **R Engine Stuck Loading?**
-  - Ensure you are serving the file via a web server (http://localhost:8000), not opening it directly (`file://`).
+  - Ensure you are serving the file via a web server (http://localhost:8080), not opening it directly (`file://`).
   - Check your browser console (F12) for errors.
   - Refresh the page (sometimes the WASM fetch times out).
 - **Plots Not Showing?**
@@ -198,6 +220,7 @@ Whether you are a prep school student striving for Valedictorian or a university
 - **Rule 2:** Coffee is mandatory while coding.
 - **Rule 3:** If your code errors, do not panic. Channel your inner intensity and force the data to submit to your will.
 - **Rule 4:** Always check your assumptions. (Trouble might be hiding in your data).
+- **Rule 5:** Code cleanly. Refrain from inline styling and respect Content Security Policies.
 
 ## About the Author
 

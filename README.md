@@ -117,13 +117,13 @@ The project is designed to be simple and maintainable.
 ### Key Files
 
 - `index.html`: Main landing page.
-- `script.js`: Core application logic. Handles WebR initialization, UI interactions (Cheat Menu, Copy Buttons), and code execution using `webR.Shelter` and `captureR`.
-- `logic.js`: Pure utility functions for code verification and output processing.
+- `js/script.js`: Core application logic. Handles WebR initialization, UI interactions (Cheat Menu, Copy Buttons), and code execution using `webR.Shelter` and `captureR`.
+- `js/logic.js`: Pure utility functions for code verification and output processing.
     - `normalizeCode(code)`: Standardizes user input (removes whitespace, lowers case) for fuzzy matching.
     - `compareCode(user, expected)`: Checks if the user's answer matches the solution.
     - `escapeHTML(str)`: Prevents XSS attacks by escaping special characters.
     - `processWebROutput(output)`: Formats WebR output arrays into HTML.
-- `style.css`: Global styles using CSS Variables for theming.
+- `css/style.css`: Global styles using CSS Variables for theming.
 
 ### Testing
 
@@ -137,6 +137,12 @@ npm test
 #### End-to-End Tests
 Verifies WebR loading and page interactions using Playwright.
 
+Note: You must install the Playwright browser binaries before running the E2E tests for the first time:
+```bash
+npx playwright install
+```
+
+To run the tests:
 ```bash
 npx playwright test
 ```
@@ -144,29 +150,31 @@ npx playwright test
 ## Project Structure
 
 - `index.html`: Main landing page / Table of Contents.
-- `script.js`: Core application logic, WebR initialization, and UI handling.
-- `logic.js`: Pure utility functions for code normalization and comparison (testable).
-- `style.css`: Global styles and theming (CSS Variables).
-- `reference.js`: Handles navigation logic for the Reference Guide.
-- `basics.html`: Module 1 (Basics).
-- `wrangling.html`: Module 2 (Data Frames).
-- `tidying.html`: Module 3 (Tidying).
-- `visualization.html`: Module 4 (Graphing).
-- `statistics.html`: Module 5 (T-Tests).
-- `anova.html`: Module 6 (ANOVA).
-- `regression.html`: Module 7 (Regression).
-- `categorical.html`: Module 8 (Categorical).
-- `module6.html`: Skill A (The Life & Death Brigade - Joining). *Note: `module6.html` corresponds to Skill A, while `anova.html` is Module 6.*
-- `skill_b.html`: Skill B (Town Festivals - Dates).
-- `skill_c.html`: Skill C (Stars Hollow Gazette - Strings).
-- `functional.html`: Skill D (Mrs. Kim's Antiques - Functional Programming).
-- `oop.html`: Skill E (The DAR & Hep Alien - OOP).
-- `metaprogramming.html`: Skill F (The Troubadour - Metaprogramming).
-- `debugging.html`: Skill G (Paris Geller's Bunker - Debugging).
+- `js/script.js`: Core application logic, WebR initialization, and UI handling.
+- `js/logic.js`: Pure utility functions for code normalization and comparison (testable).
+- `js/r_data.js`: Pre-loaded R datasets mapped for usage in modules.
+- `js/reference.js`: Handles navigation logic for the Reference Guide.
+- `css/style.css`: Global styles and theming (CSS Variables).
+- `modules/basics.html`: Module 1 (Basics).
+- `modules/wrangling.html`: Module 2 (Data Frames).
+- `modules/tidying.html`: Module 3 (Tidying).
+- `modules/visualization.html`: Module 4 (Graphing).
+- `modules/statistics.html`: Module 5 (T-Tests).
+- `modules/anova.html`: Module 6 (ANOVA).
+- `modules/regression.html`: Module 7 (Regression).
+- `modules/categorical.html`: Module 8 (Categorical).
+- `modules/module6.html`: Skill A (The Life & Death Brigade - Joining). *Note: `module6.html` corresponds to Skill A, while `anova.html` is Module 6.*
+- `modules/skill_b.html`: Skill B (Town Festivals - Dates).
+- `modules/skill_c.html`: Skill C (Stars Hollow Gazette - Strings).
+- `modules/functional.html`: Skill D (Mrs. Kim's Antiques - Functional Programming).
+- `modules/oop.html`: Skill E (The DAR & Hep Alien - OOP).
+- `modules/metaprogramming.html`: Skill F (The Troubadour - Metaprogramming).
+- `modules/debugging.html`: Skill G (Paris Geller's Bunker - Debugging).
 - `syllabus.html`: Future Syllabus (Tier 3).
 - `reference.html`: Paris Geller's Master Reference.
 - `about.html`: About page.
 - `tests/`: Unit and E2E tests.
+- `images/`: Static images and assets used throughout the site.
 
 ## Tech Stack
 

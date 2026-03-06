@@ -221,6 +221,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (errorMsg.includes("could not find function")) {
                     errorMsg += `<br><br><strong>Tip:</strong> Packages might still be loading. Wait for the green banner!`;
                 }
+                if (errorMsg.includes("object") && errorMsg.includes("not found")) {
+                    errorMsg += `<br><br><strong>Tip:</strong> In R, the assignment operator <code>&lt;-</code> takes the value on the right and puts it into the object on the left. Remember: <code>name &lt;- value</code>.`;
+                }
                 consoleDiv.innerHTML = `<span class="console-user-code">> ${escapeHTML(userCode)}</span><br><span class="console-status-error">${errorMsg}</span>`;
                 input.classList.add('is-error');
             }

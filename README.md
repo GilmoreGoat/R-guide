@@ -4,217 +4,178 @@
 
 ![The R Gilmore Study Guide](IMG_9881.PNG)
 
-A Gilmore Girls-themed interactive study guide for R programming, built with [WebR](https://docs.r-wasm.org/webr/latest/). This project provides a static website where students can learn R concepts, run code directly in the browser, and receive immediate feedback.
+[![Tests](https://img.shields.io/badge/Tests-Passing-brightgreen.svg)](#testing)
+[![WebR](https://img.shields.io/badge/Powered_by-WebR-blue.svg)](https://docs.r-wasm.org/webr/latest/)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-## Features
+A Gilmore Girls-themed interactive study guide for R programming, built with [WebR](https://docs.r-wasm.org/webr/latest/). This project provides a completely static website where students can learn R concepts, run code directly in the browser, and receive immediate feedback without needing an R backend server.
 
-- **WebR Integration**: Runs R code entirely in the browser using WebAssembly—no server-side R required.
-- **Interactive Exercises**: "Missions" with code editors that check student answers against expected solutions.
-- **Themed Modules**:
-    - **Module 1: Chilton Basics**: Objects, Vectors, and Types.
-    - **Module 2: Luke's Diner**: Data Frames & Wrangling (`dplyr`).
-    - **Module 3: The Dragonfly Inn**: Tidying Data (`tidyr`).
-    - **Module 4: Festival of Living Art**: Visualization (`ggplot2`).
-    - **Module 5: Yale Statistics**: Statistics (T-Tests, Normality, Power Analysis).
-    - **Module 6: Friday Night Dinner**: ANOVA & Tukey's HSD.
-    - **Module 7: Richard's Investments**: Correlation & Linear Regression.
-    - **Module 8: Miss Patty's Studio**: Categorical Data (`chisq.test`).
-- **Research Skills (Tier 2)**:
-    - **Skill A: The Life & Death Brigade**: Logic & Joining Data.
-    - **Skill B: Town Festivals**: Dates & Time (`lubridate`).
-    - **Skill C: Stars Hollow Gazette**: Strings & Text (`stringr`).
-- **Professional Certification (Tier 3)**:
-    - **Skill D: Mrs. Kim's Antiques**: Functional Programming (`purrr`).
-    - **Skill E: The DAR & Hep Alien**: Object-Oriented Programming (OOP) - S3, S4, R6.
-    - **Skill F: The Troubadour**: Metaprogramming (Tidy Eval & `rlang`).
-    - **Skill G: Paris Geller's Bunker**: Debugging (`browser()`, `traceback()`).
-    - **Future Syllabus**: A roadmap for advanced R skills (`syllabus.html`).
-- **Pre-loaded Data**: extensive datasets available for practice (see "Available Data" below).
-- **Instant Feedback**: Visual cues (Success/Warning/Error) and console output.
-- **Cheat Menu**: Quick access to common R functions and package loading.
-- **"Sunday Night Panic" Starter Kit**: A handy copy-paste block for standard R setup (libraries, settings) to avoid common errors.
+---
+
+## 🌟 Features in Depth
+
+- **Browser-Based Execution (WebR)**: Runs real R code entirely in your browser using WebAssembly.
+- **Interactive Missions**: Built-in code editors and "check answer" validations, comparing user logic against expected solutions via fuzzy matching.
+- **Pre-loaded Stars Hollow Data**: extensive themed datasets available instantly in the R environment.
+- **Instant Feedback Loop**: Visual cues (Success/Warning/Error) combined with a robust R console output capture.
+- **The "Sunday Night Panic" Starter Kit**: A handy copy-paste block of standard R library and setting setups to save students from debugging environment issues.
 - **Paris Geller's Master Reference**: A complete, searchable reference guide (`reference.html`) covering every function used in the course.
-- **Strict Linting**: Encourages best practices (e.g., using `<-` for assignment, proper naming conventions).
 
-## Available Data 📊
+## 🎓 The Syllabus (Themed Modules)
 
-The R environment comes pre-loaded with several datasets for you to practice with, grouped by module:
+Follows the BILD 5 course calendar.
 
-### Module 1: Chilton Basics
-- **`students`**: Data on students from Chilton, Yale, and Stars Hollow High (Name, GPA, Club).
+### Tier 1: Core Fundamentals
+- **Module 1: Chilton Basics** - Objects, Vectors, and Types.
+- **Module 2: Luke's Diner** - Data Frames & Wrangling (`dplyr`).
+- **Module 3: The Dragonfly Inn** - Tidying Data (`tidyr`).
+- **Module 4: Festival of Living Art** - Visualization (`ggplot2`).
+- **Module 5: Yale Statistics** - Statistics (T-Tests, Normality, Power Analysis).
+- **Module 6: Friday Night Dinner** - ANOVA & Tukey's HSD.
+- **Module 7: Richard's Investments** - Correlation & Linear Regression (`cor.test`, `lm`).
+- **Module 8: Miss Patty's Studio** - Categorical Data (`chisq.test`).
 
-### Module 2: Luke's Diner (Wrangling)
-- **`menu`**: Items, prices, and calories at Luke's Diner.
-- **`customers`**: Customer names and VIP status.
-- **`orders`**: Customer orders and tips.
+### Tier 2: Research Skills (The Life & Death Brigade)
+- **Skill A**: Logic & Joining Data (`left_join`, `case_when`).
+- **Skill B**: Dates & Time (`lubridate`).
+- **Skill C**: Strings & Text (`stringr`).
 
-### Module 3: The Dragonfly Inn (Tidying)
-- **`kitchen`**: Weekly dish counts (Wide format).
-- **`long_data`**: Dish counts by day (Long format).
+### Tier 3: Professional Certification
+- **Skill D**: Functional Programming (`purrr`).
+- **Skill E**: Object-Oriented Programming (OOP) - S3, S4, R6.
+- **Skill F**: Metaprogramming (Tidy Eval & `rlang`).
+- **Skill G**: Debugging (`browser()`, `traceback()`).
 
-### Module 4: Festival of Living Art (Visualization)
-- **`art_entries`**: Contestants, paintings, and pose times.
-- **`paint_tubes`**: Volume and brand of paint tubes (Generated dataset).
+---
 
-### Module 5: Yale Statistics
-- **`yale_students`**: Students, majors, and hours studied.
-- **`stunt_heights`**: Height data for outlier detection.
+## 📊 Available Data Dictionaries
 
-### Module 6: Town Meeting (ANOVA)
-- **`dinner_courses`**: Ratings for different courses by Emily and Lorelai.
-- **`maids`**: Tenure of various maids at the Gilmore residence.
-- **`dinner_ratings`**: Generated ratings for soup, salad, and main courses.
+The R environment comes pre-loaded with several datasets for practice. The data is instantiated in `js/r_data.js`.
 
-### Module 7: Richard's Investments (Regression)
-- **`investments`**: Company risk and ROI data.
-- **`market_data`**: Simulated market index data over 100 days.
+**Tier 1 Data**
+- **Module 1**: `students` (Name, GPA, Club).
+- **Module 2**: `menu`, `customers`, `orders` (Luke's Diner pricing and VIP status).
+- **Module 3**: `kitchen`, `long_data` (Wide and long format dish counts).
+- **Module 4**: `art_entries`, `paint_tubes` (Contestants, pose times, paint volume).
+- **Module 5**: `yale_students`, `stunt_heights` (Outlier detection).
+- **Module 6 (ANOVA)**: `dinner_courses`, `maids`, `dinner_ratings` (Gilmore residence courses).
+- **Module 7**: `investments`, `market_data` (Company risk and simulated ROI).
+- **Module 8**: `dancers` (Age groups and styles).
 
-### Module 8: Miss Patty's Studio (Categorical)
-- **`dancers`**: Dancers, age groups, and styles.
+**Tier 2 & 3 Data**
+- **Skill A (Joining)**: `guests`, `society_list`.
+- **Skill B (Dates)**: `festivals`, `marathon`.
+- **Skill C (Strings)**: `gazette_bylines`, `rumors`.
+- **Skill D (Functional)**: `antiques`, `bills`.
+- **Skill E (OOP)**: `dar_members`, `band_gigs`.
 
-### Research Skills (Tier 2)
-- **Skill A (Joining)**: `guests` (Party guests), `society_list` (LDB members).
-- **Skill B (Dates)**: `festivals` (Town events), `marathon` (Dance marathon times).
-- **Skill C (Strings)**: `gazette_bylines` (Article counts/typos), `rumors` (Gossip text).
+**Global/Misc**
+- `townies`, `lizards`
 
-### Professional Certification (Tier 3)
-- **Skill D (Functional)**: `antiques` (Items/Periods/Prices), `bills`.
-- **Skill E (OOP)**: `dar_members` (Rank/Name), `band_gigs` (Venue/Pay).
+---
 
-### Global / Misc
-- **`townies`**: Roles of residents.
-- **`lizards`**: Horn length and survival status.
+## 🚀 Quick Start Guide
 
-## Getting Started
-
-Since this project uses ES modules and WebAssembly, it must be served via a local web server (opening `index.html` directly as a file won't work due to CORS policies).
+Since this project uses ES modules and WebAssembly to run R, it **must** be served via a local web server to bypass CORS and worker restrictions.
 
 ### Prerequisites
 
-- Python 3 (for the simple HTTP server) or any other static site server (e.g., `http-server`, `Live Server` in VS Code).
-- Node.js (for running tests).
+- **Python 3** (or any static site server like `http-server`)
+- **Node.js 18+** (for running the automated test suite)
 
-### Running the Project
+### Installation & Running
 
-1.  Clone the repository.
-2.  Navigate to the project root.
-3.  Install dependencies (optional, for testing):
-    ```bash
-    npm install
-    ```
-4.  Start a local server:
-    ```bash
-    python3 -m http.server
-    # OR
-    npx http-server
-    ```
-5.  Open your browser and go to `http://localhost:8000` (or the port shown in your terminal).
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url> r-gilmore-study-guide
+   cd r-gilmore-study-guide
+   ```
 
-## Architecture & Developer Guide
+2. **Install Node dependencies (required for tests and Playwright):**
+   ```bash
+   npm install
+   npx playwright install # Needed for visual E2E verification
+   ```
 
-The project is designed to be simple and maintainable.
+3. **Start the local development server:**
+   ```bash
+   # Using Python
+   python3 -m http.server 8000
 
-### Key Files
+   # Or using Node
+   npx http-server -p 8000
+   ```
 
-- `index.html`: Main landing page.
-- `script.js`: Core application logic. Handles WebR initialization, UI interactions (Cheat Menu, Copy Buttons), and code execution using `webR.Shelter` and `captureR`.
-- `logic.js`: Pure utility functions for code verification and output processing.
-    - `normalizeCode(code)`: Standardizes user input (removes whitespace, lowers case) for fuzzy matching.
-    - `compareCode(user, expected)`: Checks if the user's answer matches the solution.
-    - `escapeHTML(str)`: Prevents XSS attacks by escaping special characters.
-    - `processWebROutput(output)`: Formats WebR output arrays into HTML.
-- `style.css`: Global styles using CSS Variables for theming.
+4. **Launch the app:**
+   Open your browser and navigate to `http://localhost:8000`
 
-### Testing
+---
 
-#### Unit Tests
-Verifies the logic in `logic.js` using Node.js native test runner.
+## 🛠 Architecture & Tech Stack
+
+This project is purposefully designed as a simple static frontend that heavily utilizes modern Web APIs.
+
+- **Frontend**: HTML5, CSS3 (using CSS Variables for theming), Vanilla JavaScript (ES Modules). No heavy frameworks like React or Vue are needed.
+- **Execution Engine**: [WebR](https://docs.r-wasm.org/webr/latest/) (Compiled R to WebAssembly).
+- **Security**: Strict Content Security Policy (CSP) blocking inline styles and limiting executable scripts to prevent XSS.
+- **R Packages Pre-configured**: `tidyverse`, `skimr`, `rstatix`, `lubridate`, `stringr`, `purrr`, `rlang`.
+
+### Core Files
+
+- `script.js`: Handles WebR initialization, the R Shelter execution environment, and DOM manipulation (loading spinners, run buttons).
+- `logic.js`: Pure functions isolated for unit testing. Handles fuzzy code matching (`normalizeCode`, `compareCode`), escaping output (`escapeHTML`), and processing WebR output arrays/plots.
+- `js/r_data.js`: The R script string injected into WebR upon initialization to pre-load all the datasets.
+
+---
+
+## 📝 How to Add a New Module
+
+1. **Create the HTML File:** Copy an existing module (e.g., `modules/basics.html`) to maintain the CSS layout and "index card" styling.
+2. **Add Content:** Write the lesson in standard HTML. Use `<pre><code>` tags for static code examples.
+3. **Add Interactive Elements:**
+   Create an `.editor-container` with a `<textarea class="code-editor">` and a `<button class="check-btn">`.
+4. **Set the Solution:** Add a `data-answer="expected logic"` attribute to the check button. The fuzzy matcher will validate user input against this.
+5. **Update Navigation:** Link your new module on the `index.html` grid.
+
+---
+
+## 🧪 Testing
+
+We employ a dual-testing strategy to ensure both the JavaScript utilities and the WebR engine behave correctly.
+
+### 1. Unit Tests (Node.js Native Test Runner)
+Tests the pure functions in `logic.js` (like string normalizers, security escape functions, and output formatters).
 
 ```bash
 npm test
 ```
 
-#### End-to-End Tests
-Verifies WebR loading and page interactions using Playwright.
+### 2. End-to-End & Integration Tests (Playwright)
+Spins up a headless browser, starts a local server, and fully tests the WebR lifecycle, navigating modules and asserting actual R execution works correctly.
 
 ```bash
+# Run all Playwright tests
 npx playwright test
+
+# Verify specific frontend visuals
+python3 verify_frontend.py
 ```
 
-## Project Structure
+---
 
-- `index.html`: Main landing page / Table of Contents.
-- `script.js`: Core application logic, WebR initialization, and UI handling.
-- `logic.js`: Pure utility functions for code normalization and comparison (testable).
-- `style.css`: Global styles and theming (CSS Variables).
-- `reference.js`: Handles navigation logic for the Reference Guide.
-- `basics.html`: Module 1 (Basics).
-- `wrangling.html`: Module 2 (Data Frames).
-- `tidying.html`: Module 3 (Tidying).
-- `visualization.html`: Module 4 (Graphing).
-- `statistics.html`: Module 5 (T-Tests).
-- `anova.html`: Module 6 (ANOVA).
-- `regression.html`: Module 7 (Regression).
-- `categorical.html`: Module 8 (Categorical).
-- `module6.html`: Skill A (The Life & Death Brigade - Joining). *Note: `module6.html` corresponds to Skill A, while `anova.html` is Module 6.*
-- `skill_b.html`: Skill B (Town Festivals - Dates).
-- `skill_c.html`: Skill C (Stars Hollow Gazette - Strings).
-- `functional.html`: Skill D (Mrs. Kim's Antiques - Functional Programming).
-- `oop.html`: Skill E (The DAR & Hep Alien - OOP).
-- `metaprogramming.html`: Skill F (The Troubadour - Metaprogramming).
-- `debugging.html`: Skill G (Paris Geller's Bunker - Debugging).
-- `syllabus.html`: Future Syllabus (Tier 3).
-- `reference.html`: Paris Geller's Master Reference.
-- `about.html`: About page.
-- `tests/`: Unit and E2E tests.
+## 🔧 Troubleshooting
 
-## Tech Stack
-
-- **Frontend**: HTML5, CSS3, JavaScript (ES Modules).
-- **R Engine**: [WebR](https://docs.r-wasm.org/webr/latest/) (WASM).
-- **R Packages**: `tidyverse`, `skimr`, `rstatix`, `lubridate`, `stringr`, `purrr`, `rlang`.
-- **Testing**: Node.js Test Runner, Playwright.
-
-## Troubleshooting 🔧
-
-- **R Engine Stuck Loading?**
-  - Ensure you are serving the file via a web server (http://localhost:8000), not opening it directly (`file://`).
-  - Check your browser console (F12) for errors.
-  - Refresh the page (sometimes the WASM fetch times out).
-- **Plots Not Showing?**
-  - Make sure you run code that produces a plot object (e.g., `print(plot)`).
-
-## The Mission
-
-**Welcome to Stars Hollow.**
-
-This is not your standard, boring statistics textbook. This is a survival guide. I built this because learning R should be as fast-paced as a town meeting and as comforting as a warm cup of coffee.
-
-Whether you are a prep school student striving for Valedictorian or a university editor trying to impress the press, this guide covers everything from basic vectors to complex power analysis.
+- **R Engine Stuck on "Loading R Environment..."?**
+  - Ensure you are not opening the file via `file://`. It must be served over `http://`.
+  - Check the browser Console (F12) for missing file errors.
+- **"Object not found" when typing a column name?**
+  - Remember to refer to the dataframes listed above, or ensure you aren't capitalizing where you shouldn't.
 
 ## House Rules
 
 - **Rule 1:** No cell phones. (The Diner Rules apply).
 - **Rule 2:** Coffee is mandatory while coding.
 - **Rule 3:** If your code errors, do not panic. Channel your inner intensity and force the data to submit to your will.
-- **Rule 4:** Always check your assumptions. (Trouble might be hiding in your data).
+- **Rule 4:** Always check your assumptions.
 
-## About the Author
-
-Hi, I'm **Parthiv (Pav) Nair** and I'm a pre-med student at UCSD. I created this site to learn and survive **BILD 5**. However, after someone close recently professed immense fear in learning R, I built this to help out maybe a little bit.
-
-My goal is to take the "scary" out of statistics and replace it with references to 2000s pop culture. If I can learn to use `pivot_longer()` without crying, so can you.
-
-*Note from the Editor:*
-- This site was built with 100% organic, shade-grown code.
-- No actual penguins were harmed in the making of the T-Tests.
-
-## Credits & License
-
-- **Professor:** Yang Mingyu
-- **Inspiration:** The Gilmore Girls (Amy Sherman-Palladino).
-- **Caffeine:** The fuel for this entire project.
-
-Created for **BILD 5**.
-
-> Oy with the poodles already!
+> "Oy with the poodles already!"

@@ -107,6 +107,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     const checkBtns = document.querySelectorAll('.check-btn');
+    checkBtns.forEach(btn => btn.disabled = true);
 
     if (checkBtns.length > 0) {
         const loadingBanner = document.createElement('div');
@@ -145,6 +146,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             loadingBanner.classList.add('is-success');
             loadingBanner.innerText = "R is Ready! Oy with the poodles already! 🐩";
             setTimeout(() => { loadingBanner.classList.add('is-hidden'); }, 3000);
+
+            checkBtns.forEach(btn => btn.disabled = false);
 
         } catch (e) {
             loadingBanner.classList.add('is-error');
@@ -219,10 +222,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                 input.classList.remove('is-success', 'is-warning', 'is-error');
                 let errorMsg = escapeHTML(e.message);
                 if (errorMsg.includes("could not find function")) {
-                    errorMsg += `<br><br><strong>Tip:</strong> Packages might still be loading. Wait for the green banner!`;
+                    errorMsg += `<br><br><strong>Tip:</strong> Packages might still be loading. Wait for the green banner! Also check your spelling!`;
                 }
                 if (errorMsg.includes("object") && errorMsg.includes("not found")) {
-                    errorMsg += `<br><br><strong>Tip:</strong> In R, the assignment operator <code>&lt;-</code> takes the value on the right and puts it into the object on the left. Remember: <code>name &lt;- value</code>.`;
+                    errorMsg += `<br><br><strong>Tip:</strong> Check your spelling and capitalization! R is case-sensitive, so <code>Data</code> is different from <code>data</code>. Also, make sure you didn't forget quotes if it's text.`;
+                }
+                if (userCode.includes("select") && (userCode.includes("==") || userCode.includes("!=") || userCode.includes("<") || userCode.includes(">"))) {
+                    errorMsg += `<br><br><strong>Tip:</strong> Are you trying to pick rows based on a condition? Use <code>filter()</code> instead of <code>select()</code>.`;
                 }
                 consoleDiv.innerHTML = `<span class="console-user-code">> ${escapeHTML(userCode)}</span><br><span class="console-status-error">${errorMsg}</span>`;
                 input.classList.add('is-error');

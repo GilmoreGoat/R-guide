@@ -5,7 +5,7 @@ challenges = {
     'basics': {
         'name': 'module_1_basics',
         'files': {
-            'module_1_challenge.R': """# ------------------------------------------------------------------------------
+            'module_1_challenge.Rmd': """# ------------------------------------------------------------------------------
 # 🏆 THE R GILMORE STUDY GUIDE: MODULE 1 CHALLENGE
 # 🏫 THEME: CHILTON BASICS
 # ------------------------------------------------------------------------------
@@ -84,7 +84,7 @@ challenges = {
     'wrangling': {
         'name': 'module_2_wrangling',
         'files': {
-            'module_2_challenge.R': """# ------------------------------------------------------------------------------
+            'module_2_challenge.Rmd': """# ------------------------------------------------------------------------------
 # 🏆 THE R GILMORE STUDY GUIDE: MODULE 2 CHALLENGE
 # 🍔 THEME: LUKE'S DINER
 # ------------------------------------------------------------------------------
@@ -154,7 +154,7 @@ orders <- read.csv("orders.csv")
     'tidying': {
         'name': 'module_3_tidying',
         'files': {
-            'module_3_challenge.R': """# ------------------------------------------------------------------------------
+            'module_3_challenge.Rmd': """# ------------------------------------------------------------------------------
 # 🏆 THE R GILMORE STUDY GUIDE: MODULE 3 CHALLENGE
 # 🏨 THEME: THE DRAGONFLY INN
 # ------------------------------------------------------------------------------
@@ -188,7 +188,7 @@ supplies <- read.csv("supplies.csv")
     'visualization': {
         'name': 'module_4_visualization',
         'files': {
-            'module_4_challenge.R': """# ------------------------------------------------------------------------------
+            'module_4_challenge.Rmd': """# ------------------------------------------------------------------------------
 # 🏆 THE R GILMORE STUDY GUIDE: MODULE 4 CHALLENGE
 # 🎨 THEME: FESTIVAL OF LIVING ART
 # ------------------------------------------------------------------------------
@@ -245,7 +245,7 @@ paint_tubes <- read.csv("paint_tubes.csv")
     'statistics': {
         'name': 'module_5_statistics',
         'files': {
-            'module_5_challenge.R': """# ------------------------------------------------------------------------------
+            'module_5_challenge.Rmd': """# ------------------------------------------------------------------------------
 # 🏆 THE R GILMORE STUDY GUIDE: MODULE 5 CHALLENGE
 # 🎓 THEME: YALE STATISTICS
 # ------------------------------------------------------------------------------
@@ -300,7 +300,7 @@ creams <- read.csv("creams.csv")
     'anova': {
         'name': 'module_6_anova',
         'files': {
-            'module_6_challenge.R': """# ------------------------------------------------------------------------------
+            'module_6_challenge.Rmd': """# ------------------------------------------------------------------------------
 # 🏆 THE R GILMORE STUDY GUIDE: MODULE 6 CHALLENGE
 # 🍽️ THEME: FRIDAY NIGHT DINNER (ANOVA)
 # ------------------------------------------------------------------------------
@@ -333,7 +333,7 @@ maids <- read.csv("maids.csv")
     'regression': {
         'name': 'module_7_regression',
         'files': {
-            'module_7_challenge.R': """# ------------------------------------------------------------------------------
+            'module_7_challenge.Rmd': """# ------------------------------------------------------------------------------
 # 🏆 THE R GILMORE STUDY GUIDE: MODULE 7 CHALLENGE
 # 📈 THEME: RICHARD'S INVESTMENTS (REGRESSION)
 # ------------------------------------------------------------------------------
@@ -365,7 +365,7 @@ market_data <- read.csv("market_data.csv")
     'categorical': {
         'name': 'module_8_categorical',
         'files': {
-            'module_8_challenge.R': """# ------------------------------------------------------------------------------
+            'module_8_challenge.Rmd': """# ------------------------------------------------------------------------------
 # 🏆 THE R GILMORE STUDY GUIDE: MODULE 8 CHALLENGE
 # 💃 THEME: MISS PATTY'S STUDIO (CATEGORICAL)
 # ------------------------------------------------------------------------------
@@ -393,7 +393,7 @@ dancers <- read.csv("dancers.csv")
     'module6': {
         'name': 'skill_a_module6',
         'files': {
-            'skill_a_challenge.R': """# ------------------------------------------------------------------------------
+            'skill_a_challenge.Rmd': """# ------------------------------------------------------------------------------
 # 🏆 THE R GILMORE STUDY GUIDE: SKILL A CHALLENGE
 # 🦍 THEME: LIFE & DEATH BRIGADE (JOINING)
 # ------------------------------------------------------------------------------
@@ -424,7 +424,7 @@ society_list <- read.csv("society_list.csv")
     'skill_b': {
         'name': 'skill_b_dates',
         'files': {
-            'skill_b_challenge.R': """# ------------------------------------------------------------------------------
+            'skill_b_challenge.Rmd': """# ------------------------------------------------------------------------------
 # 🏆 THE R GILMORE STUDY GUIDE: SKILL B CHALLENGE
 # 📆 THEME: TOWN FESTIVALS (DATES)
 # ------------------------------------------------------------------------------
@@ -454,7 +454,7 @@ marathon <- read.csv("marathon.csv")
     'skill_c': {
         'name': 'skill_c_strings',
         'files': {
-            'skill_c_challenge.R': """# ------------------------------------------------------------------------------
+            'skill_c_challenge.Rmd': """# ------------------------------------------------------------------------------
 # 🏆 THE R GILMORE STUDY GUIDE: SKILL C CHALLENGE
 # 🗞️ THEME: STARS HOLLOW GAZETTE (STRINGS)
 # ------------------------------------------------------------------------------
@@ -487,7 +487,7 @@ rumors <- read.csv("rumors.csv")
     'functional': {
         'name': 'skill_d_functional',
         'files': {
-            'skill_d_challenge.R': """# ------------------------------------------------------------------------------
+            'skill_d_challenge.Rmd': """# ------------------------------------------------------------------------------
 # 🏆 THE R GILMORE STUDY GUIDE: SKILL D CHALLENGE
 # 🛋️ THEME: MRS. KIM'S ANTIQUES (FUNCTIONAL PROGRAMMING)
 # ------------------------------------------------------------------------------
@@ -515,7 +515,7 @@ antiques <- read.csv("antiques.csv")
     'oop': {
         'name': 'skill_e_oop',
         'files': {
-            'skill_e_challenge.R': """# ------------------------------------------------------------------------------
+            'skill_e_challenge.Rmd': """# ------------------------------------------------------------------------------
 # 🏆 THE R GILMORE STUDY GUIDE: SKILL E CHALLENGE
 # 🎸 THEME: THE DAR & HEP ALIEN (OOP)
 # ------------------------------------------------------------------------------
@@ -536,7 +536,7 @@ antiques <- read.csv("antiques.csv")
     'metaprogramming': {
         'name': 'skill_f_metaprogramming',
         'files': {
-            'skill_f_challenge.R': """# ------------------------------------------------------------------------------
+            'skill_f_challenge.Rmd': """# ------------------------------------------------------------------------------
 # 🏆 THE R GILMORE STUDY GUIDE: SKILL F CHALLENGE
 # 🎶 THEME: THE TROUBADOUR (METAPROGRAMMING)
 # ------------------------------------------------------------------------------
@@ -561,7 +561,7 @@ library(tidyverse)
     'debugging': {
         'name': 'skill_g_debugging',
         'files': {
-            'skill_g_challenge.R': """# ------------------------------------------------------------------------------
+            'skill_g_challenge.Rmd': """# ------------------------------------------------------------------------------
 # 🏆 THE R GILMORE STUDY GUIDE: SKILL G CHALLENGE
 # 🛡️ THEME: PARIS GELLER'S BUNKER (DEBUGGING)
 # ------------------------------------------------------------------------------

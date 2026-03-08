@@ -74,6 +74,13 @@ challenges = {
 # 8b. Use the skim() function from the skimr package to get a summary of the 'students' dataset.
 
 
+
+# TASK 9: THE FINAL CHALLENGE 🏆
+# 9a. Create a vector `final_grades` containing: 85, 92, 78, 90.
+# 9b. Check if the mean of `final_grades` is greater than 85.
+# 9c. Create an object `passed` and assign it the result of that check.
+
+
 # ------------------------------------------------------------------------------
 # 🎉 GREAT JOB! If your code runs without errors, you survive another day at Chilton!
 # ------------------------------------------------------------------------------
@@ -145,6 +152,10 @@ orders <- read.csv("orders.csv")
 
 # 7b. Using 'orders', summarise the total tips (sum(tips)) and average tip (mean(tips)).
 
+# TASK 8: THE FINAL CHALLENGE 🏆
+# 8a. Take 'menu', filter for items with price < 10, mutate a 'half_portion' column (calories / 2),
+# arrange by descending calories, and assign the final dataframe to 'healthy_options'.
+
 """,
             'menu.csv': """item,price,calories\nBurger,12.00,800\nFries,6.50,400\nCoffee,3.00,5\nPie,5.00,450\nSalad,9.00,300""",
             'customers.csv': """name,status\nLorelai,VIP\nRory,VIP\nJess,Employee\nKirk,Regular\nLuke,Owner""",
@@ -178,6 +189,10 @@ supplies <- read.csv("supplies.csv")
 # Take column names from "Day" and values from "Eggs". Assign to 'kitchen_wide'.
 
 # 2b. Use pivot_wider() on 'supplies_long' (from 1b) to turn it back to wide format.
+
+# TASK 3: THE FINAL CHALLENGE 🏆
+# 3a. Take 'kitchen', pivot it longer (names to "Day", values to "Eggs"),
+# and then immediately filter for rows where Eggs > 40. Assign to 'busy_days'.
 
 """,
             'kitchen.csv': """Dish,Monday,Tuesday\nRisotto,50,40\nPancakes,30,35""",
@@ -237,6 +252,10 @@ paint_tubes <- read.csv("paint_tubes.csv")
 
 # 7b. Plot 'art_entries' with x='pose_time', add a histogram, and facet_wrap(~ painting).
 
+# TASK 8: THE FINAL CHALLENGE 🏆
+# 8a. Plot 'paint_tubes' with x='brand', y='volume', fill='brand'.
+# Add a boxplot. Add theme_classic(). Add a title "Paint Volumes by Brand".
+
 """,
             'art_entries.csv': """contestant,painting,pose_time\nKirk,Jesus,15\nRory,Portrait,20\nLorelai,Renoir,18\nTaylor,Washington,12\nBabette,Degas,10\nMissPatty,Renoir,16""",
             'paint_tubes.csv': """volume,brand\n50.2,Winsor\n48.1,Newton\n55.3,Winsor\n45.0,Newton\n51.2,Winsor\n60.1,Newton\n49.8,Winsor\n52.1,Winsor\n47.5,Newton"""
@@ -290,6 +309,10 @@ creams <- read.csv("creams.csv")
 
 # 7b. Calculate power.t.test with delta = 5, sd = 10, power = 0.9, type = "one.sample".
 
+# TASK 8: THE FINAL CHALLENGE 🏆
+# 8a. Run a two-sample t-test comparing 'Cream_A' and 'Cream_B' from 'creams' (unpaired).
+# Save the result to 'cream_test'. Then extract the p-value using 'cream_test$p.value'.
+
 """,
             'stunt_heights.csv': """height_m\n10\n12\n15\n8\n150\n11\n9""",
             'yale_students.csv': """name,major,hours_studied\nLogan,Economics,2\nColin,Philosophy,1\nFinn,Drama,0\nMarty,History,10\nDoyle,Journalism,12\nRory,English,-5""",
@@ -325,6 +348,11 @@ maids <- read.csv("maids.csv")
 # 3a. Run an ANOVA (aov) to see if 'tenure_days' depends on 'name' in 'maids'.
 # Save as 'maids_aov' and summarize it.
 
+# TASK 4: THE FINAL CHALLENGE 🏆
+# 4a. Run an ANOVA on 'dinner_ratings' (rating ~ course). Save as 'final_aov'.
+# Run TukeyHSD on 'final_aov' and save as 'final_tukey'.
+# Print 'final_tukey' to see the adjusted p-values.
+
 """,
             'dinner_ratings.csv': """course,rating\nSoup,7.5\nSoup,6.8\nSoup,7.2\nSalad,5.5\nSalad,6.1\nSalad,5.9\nMain,9.2\nMain,8.8\nMain,9.5""",
             'maids.csv': """name,tenure_days\nSarah,5\nSarah,4\nGerta,2\nGerta,3\nMaria,1\nMaria,2"""
@@ -357,6 +385,11 @@ market_data <- read.csv("market_data.csv")
 # 3a. Build a linear model predicting 'index' from 'day' using 'market_data'.
 # Save as 'market_model' and summarize it.
 
+# TASK 4: THE FINAL CHALLENGE 🏆
+# 4a. Build a linear model predicting 'roi' from 'risk' in 'investments'.
+# Save it as 'final_model'.
+# Use summary() and extract the r.squared value: summary(final_model)$r.squared.
+
 """,
             'investments.csv': """company,risk,roi\nApple,2,15\nEnron,10,-100\nGoogle,3,12\nBlockbuster,9,-50\nStartupA,8,-20\nSafeBet,1,5""",
             'market_data.csv': """day,index\n1,1001\n2,1005\n3,1012\n4,1010\n5,1020"""
@@ -385,6 +418,11 @@ dancers <- read.csv("dancers.csv")
 # TASK 3: ANOTHER TEST
 # 3a. Test if there's an equal number of dancers in each 'age_group'.
 # Use chisq.test(table(dancers$age_group)).
+
+# TASK 4: THE FINAL CHALLENGE 🏆
+# 4a. Create a table of 'age_group' and 'style', save it as 'final_table'.
+# Run a chi-squared test on 'final_table', save it as 'final_test'.
+# Extract the expected counts using 'final_test$expected'.
 
 """,
             'dancers.csv': """name,age_group,style\nClara,Kid,Ballet\nPaul,Teen,Tap\nGeneva,Adult,Ballroom\nKyle,Teen,HipHop\nAmy,Kid,Ballet\nBob,Adult,Tap\nSue,Teen,HipHop\nDan,Adult,Ballroom"""
@@ -416,6 +454,12 @@ society_list <- read.csv("society_list.csv")
 # If status == "Gatecrasher", then "Bouncer Alert".
 # TRUE ~ "Regular"
 
+# TASK 4: THE FINAL CHALLENGE 🏆
+# 4a. Inner join 'guests' with 'society_list'.
+# Then mutate a new column 'access_level' using case_when():
+# if society == "LDB" & status == "Member", then "Full Access"
+# TRUE ~ "Restricted". Assign to 'final_roster'.
+
 """,
             'guests.csv': """id,name,status\n01,Logan,Member\n02,Rory,Guest\n03,Colin,Member\n06,Paris,Gatecrasher""",
             'society_list.csv': """id,society\n01,LDB\n03,LDB\n04,LDB\n05,LDB"""
@@ -445,6 +489,10 @@ marathon <- read.csv("marathon.csv")
 
 # TASK 3: EXTRACTING COMPONENTS
 # 3a. Extract the month() from your 'real_date' column in 'festivals'.
+
+# TASK 4: THE FINAL CHALLENGE 🏆
+# 4a. Take 'festivals', mutate 'date_str' into 'real_date' using mdy(),
+# then filter for events where month(real_date) == 4 (April).
 
 """,
             'festivals.csv': """event,date_str\nFirelight,Feb 14, 2024\nBid-a-Basket,Mar 10, 2024\nDance Marathon,Apr 01, 2024""",
@@ -479,6 +527,10 @@ rumors <- read.csv("rumors.csv")
 # TASK 4: TO UPPER / TO LOWER
 # 4a. Mutate 'gazette' to make the 'writer' names ALL CAPS using str_to_upper().
 
+# TASK 5: THE FINAL CHALLENGE 🏆
+# 5a. Filter 'rumors' for text containing "wedding" (str_detect),
+# then mutate the 'text' to replace "wedding" with "PARTY" (str_replace).
+
 """,
             'gazette.csv': """writer,articles\nRory,5\nDoyle,10\nEsther,2""",
             'rumors.csv': """source,text\nMissPatty,I heard a wedding is coming!\nBabette,He's definitely proposing.\nKirk,I saw a cat.\nTaylor,Permits are required."""
@@ -508,6 +560,11 @@ antiques <- read.csv("antiques.csv")
 # 3a. Use map_dbl() on the 'price' column to multiply each price by 1.10 (add 10% tax).
 # Hint: map_dbl(antiques$price, ~ .x * 1.10)
 
+# TASK 4: THE FINAL CHALLENGE 🏆
+# 4a. Write a function called 'discount' that takes a price and returns price * 0.8.
+# Use map_dbl() to apply 'discount' to the 'price' column of 'antiques'.
+# Assign the result back to 'antiques' as a new column called 'sale_price' using mutate().
+
 """,
             'antiques.csv': """item,price\nTable,500\nChair,150\nLamp,200\nVase,1000"""
         }
@@ -528,6 +585,11 @@ antiques <- read.csv("antiques.csv")
 
 # TASK 2: R6 CLASSES (Bonus)
 # 2a. (Optional) Define an R6 class "Band" with a public method "gig".
+
+# TASK 3: THE FINAL CHALLENGE 🏆
+# 3a. Create an S3 object (a list) for a 'town_meeting' with topic = "Festival".
+# Assign it the class "meeting". Write a 'start' generic, and a 'start.meeting' method
+# that prints "Order, order!". Run start(your_object).
 
 """,
             'instructions.txt': "Review your notes on S3 and R6 classes to complete the OOP tasks!"

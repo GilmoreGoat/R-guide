@@ -168,6 +168,15 @@ npx playwright test
 - `about.html`: About page.
 - `tests/`: Unit and E2E tests.
 
+## How to Add a New Module
+
+Adding a new module to the educational platform involves a few simple steps to ensure it is integrated into the site's navigation, logic, and testing.
+
+1.  **Create the Module File**: Create a new `.html` file inside the `modules/` directory (e.g., `modules/my_new_module.html`). You can use an existing module like `basics.html` as a template for the layout and WebR editor integration.
+2.  **Configure R Packages**: Open `js/logic.js` and add your new module's filename to the `PAGE_PACKAGES` object. Specify any required R packages (e.g., `'my_new_module.html': ['ggplot2', 'dplyr']`).
+3.  **Update the Index Page**: Open `index.html` and add a new module card (a link to your new page) inside the appropriate tier's `<div class="module-grid">`.
+4.  **Add Datasets (Optional)**: If your module requires custom datasets, define them in `js/r_data.js` so they are pre-loaded in the WebR environment.
+
 ## Tech Stack
 
 - **Frontend**: HTML5, CSS3, JavaScript (ES Modules).

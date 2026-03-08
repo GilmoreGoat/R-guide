@@ -117,7 +117,8 @@ export const PAGE_PACKAGES = {
     'skill_b.html': ['lubridate', 'dplyr'],
     'skill_c.html': ['stringr', 'tidyr', 'dplyr'],
     'functional.html': ['purrr', 'dplyr'],
-    'oop.html': ['R6', 'dplyr']
+    'oop.html': ['R6', 'dplyr'],
+    'projects.html': ['tidyverse']
 };
 
 /**

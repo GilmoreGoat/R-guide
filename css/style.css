@@ -734,6 +734,6 @@ pre code { background: transparent; color: inherit; padding: 0; font-weight: nor
 }
 
 /* Scroll Offset for Tiers */
-#tier-1, #tier-2, #tier-3 {
+#tier-1, #tier-2, #tier-3, #tier-4 {
     scroll-margin-top: 100px;
 }

@@ -111,11 +111,33 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Restore user progress from localStorage
     const codeInputs = document.querySelectorAll('.input-code');
+    const pageName = window.location.pathname.split('/').pop() || 'index.html';
     codeInputs.forEach((input, index) => {
-        const storageKey = `r_gilmore_${window.location.pathname}_input_${index}`;
+        const storageKey = `r_gilmore_${pageName}_input_${index}`;
         const savedValue = localStorage.getItem(storageKey);
+        
+        // Also find associated console and check for saved output
+        const container = input.closest('.editor-container') || input.closest('.question-box');
+        let consoleDiv = null;
+        if (container) {
+            consoleDiv = container.querySelector('.console-output');
+        }
+
         if (savedValue !== null) {
             input.value = savedValue;
+        }
+        
+        if (consoleDiv) {
+            const savedOutput = localStorage.getItem(`r_gilmore_${pageName}_output_${index}`);
+            const savedInputClass = localStorage.getItem(`r_gilmore_${pageName}_inputClass_${index}`);
+            
+            if (savedOutput) {
+                consoleDiv.innerHTML = savedOutput;
+                consoleDiv.classList.add('is-visible');
+            }
+            if (savedInputClass) {
+                input.className = savedInputClass; // Restore success/warning/error classes
+            }
         }
 
         // Save progress on input
@@ -243,6 +265,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                     input.classList.add('is-warning');
                 }
 
+                // Save grading progress
+                const allCodeInputs = Array.from(document.querySelectorAll('.input-code'));
+                const inputIndex = allCodeInputs.indexOf(input);
+                if (inputIndex !== -1) {
+                    const pageName = window.location.pathname.split('/').pop() || 'index.html';
+                    localStorage.setItem(`r_gilmore_${pageName}_output_${inputIndex}`, consoleDiv.innerHTML);
+                    localStorage.setItem(`r_gilmore_${pageName}_inputClass_${inputIndex}`, input.className);
+                }
+
             } catch (e) {
                 input.classList.remove('is-success', 'is-warning', 'is-error');
                 let errorMsg = escapeHTML(e.message);
@@ -257,6 +288,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
                 consoleDiv.innerHTML = `<span class="console-user-code">> ${escapeHTML(userCode).replace(/\n/g, '<br>> ')}</span><br><span class="console-status-error">${errorMsg}</span>`;
                 input.classList.add('is-error');
+
+                // Save grading progress (error state)
+                const allCodeInputs = Array.from(document.querySelectorAll('.input-code'));
+                const inputIndex = allCodeInputs.indexOf(input);
+                if (inputIndex !== -1) {
+                    const pageName = window.location.pathname.split('/').pop() || 'index.html';
+                    localStorage.setItem(`r_gilmore_${pageName}_output_${inputIndex}`, consoleDiv.innerHTML);
+                    localStorage.setItem(`r_gilmore_${pageName}_inputClass_${inputIndex}`, input.className);
+                }
             }
         });
     }

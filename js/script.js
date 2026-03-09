@@ -156,6 +156,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             logoutBtn.addEventListener('click', () => {
                 localStorage.removeItem('r_gilmore_currentUser');
+                localStorage.removeItem('r_gilmore_token');
                 window.location.reload();
             });
 
@@ -164,41 +165,117 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // Restore user progress from localStorage
+    // Restore user progress from Server Database (fallback to localStorage if network fails)
     const codeInputs = document.querySelectorAll('.input-code');
     const pageName = window.location.pathname.split('/').pop() || 'index.html';
-    codeInputs.forEach((input, index) => {
-        const storageKey = `r_gilmore_${currentUser}_${pageName}_input_${index}`;
-        const savedValue = localStorage.getItem(storageKey);
-        
-        // Also find associated console and check for saved output
-        const container = input.closest('.editor-container') || input.closest('.question-box');
-        let consoleDiv = null;
-        if (container) {
-            consoleDiv = container.querySelector('.console-output');
-        }
 
-        if (savedValue !== null) {
-            input.value = savedValue;
+    // Function to load progress from API
+    async function loadProgress() {
+        const token = localStorage.getItem('r_gilmore_token');
+        if (currentUser !== 'default' && token) {
+            try {
+                const response = await fetch(`/api/progress/${currentUser}/${pageName}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (response.ok) {
+                    const data = await response.json();
+
+                    data.progress.forEach(prog => {
+                        const input = codeInputs[prog.input_index];
+                        if (input) {
+                            if (prog.input_value) input.value = prog.input_value;
+
+                            const container = input.closest('.editor-container') || input.closest('.question-box');
+                            if (container) {
+                                const consoleDiv = container.querySelector('.console-output');
+                                if (consoleDiv && prog.output_value) {
+                                    consoleDiv.innerHTML = prog.output_value;
+                                    consoleDiv.classList.add('is-visible');
+                                }
+                                if (prog.input_class) {
+                                    input.className = prog.input_class;
+                                }
+                            }
+                        }
+                    });
+                    return true; // Successfully loaded from DB
+                }
+            } catch (e) {
+                console.error('Failed to load progress from server, falling back to local storage', e);
+            }
         }
-        
-        if (consoleDiv) {
-            const savedOutput = localStorage.getItem(`r_gilmore_${currentUser}_${pageName}_output_${index}`);
-            const savedInputClass = localStorage.getItem(`r_gilmore_${currentUser}_${pageName}_inputClass_${index}`);
+        return false;
+    }
+
+    const dbLoaded = await loadProgress();
+
+    if (!dbLoaded) {
+        // Fallback to localStorage if DB load fails or user is not logged in
+        codeInputs.forEach((input, index) => {
+            const storageKey = `r_gilmore_${currentUser}_${pageName}_input_${index}`;
+            const savedValue = localStorage.getItem(storageKey);
             
-            if (savedOutput) {
-                consoleDiv.innerHTML = savedOutput;
-                consoleDiv.classList.add('is-visible');
+            // Also find associated console and check for saved output
+            const container = input.closest('.editor-container') || input.closest('.question-box');
+            let consoleDiv = null;
+            if (container) {
+                consoleDiv = container.querySelector('.console-output');
             }
-            if (savedInputClass) {
-                input.className = savedInputClass; // Restore success/warning/error classes
-            }
-        }
 
-        // Save progress on input
+            if (savedValue !== null) {
+                input.value = savedValue;
+            }
+
+            if (consoleDiv) {
+                const savedOutput = localStorage.getItem(`r_gilmore_${currentUser}_${pageName}_output_${index}`);
+                const savedInputClass = localStorage.getItem(`r_gilmore_${currentUser}_${pageName}_inputClass_${index}`);
+
+                if (savedOutput) {
+                    consoleDiv.innerHTML = savedOutput;
+                    consoleDiv.classList.add('is-visible');
+                }
+                if (savedInputClass) {
+                    input.className = savedInputClass; // Restore success/warning/error classes
+                }
+            }
+        });
+    }
+
+    // Save progress on input (with debouncing)
+    codeInputs.forEach((input, index) => {
+        let timeoutId;
         input.addEventListener('input', () => {
             const currentLocalUser = localStorage.getItem('r_gilmore_currentUser') || 'default';
+
+            // Save to localStorage immediately
             localStorage.setItem(`r_gilmore_${currentLocalUser}_${pageName}_input_${index}`, input.value);
+
+            // Save to Database with 1-second debounce
+            const token = localStorage.getItem('r_gilmore_token');
+            if (currentLocalUser !== 'default' && token) {
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(async () => {
+                    try {
+                        await fetch('/api/progress', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`
+                            },
+                            body: JSON.stringify({
+                                username: currentLocalUser,
+                                pageName: pageName,
+                                inputIndex: index,
+                                inputValue: input.value,
+                                outputValue: null,
+                                inputClass: input.className
+                            })
+                        });
+                    } catch (e) {
+                        console.error('Failed to save input progress to server', e);
+                    }
+                }, 1000);
+            }
         });
     });
 
@@ -327,8 +404,34 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (inputIndex !== -1) {
                     const pageName = window.location.pathname.split('/').pop() || 'index.html';
                     const currentUser = localStorage.getItem('r_gilmore_currentUser') || 'default';
+
+                    // Save to localStorage
                     localStorage.setItem(`r_gilmore_${currentUser}_${pageName}_output_${inputIndex}`, consoleDiv.innerHTML);
                     localStorage.setItem(`r_gilmore_${currentUser}_${pageName}_inputClass_${inputIndex}`, input.className);
+
+                    // Save to Database
+                    const token = localStorage.getItem('r_gilmore_token');
+                    if (currentUser !== 'default' && token) {
+                        try {
+                            await fetch('/api/progress', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${token}`
+                                },
+                                body: JSON.stringify({
+                                    username: currentUser,
+                                    pageName: pageName,
+                                    inputIndex: inputIndex,
+                                    inputValue: input.value,
+                                    outputValue: consoleDiv.innerHTML,
+                                    inputClass: input.className
+                                })
+                            });
+                        } catch (err) {
+                            console.error('Failed to save execution progress to server', err);
+                        }
+                    }
                 }
 
             } catch (e) {
@@ -352,8 +455,34 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (inputIndex !== -1) {
                     const pageName = window.location.pathname.split('/').pop() || 'index.html';
                     const currentUser = localStorage.getItem('r_gilmore_currentUser') || 'default';
+
+                    // Save to localStorage
                     localStorage.setItem(`r_gilmore_${currentUser}_${pageName}_output_${inputIndex}`, consoleDiv.innerHTML);
                     localStorage.setItem(`r_gilmore_${currentUser}_${pageName}_inputClass_${inputIndex}`, input.className);
+
+                    // Save to Database
+                    const token = localStorage.getItem('r_gilmore_token');
+                    if (currentUser !== 'default' && token) {
+                        try {
+                            await fetch('/api/progress', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${token}`
+                                },
+                                body: JSON.stringify({
+                                    username: currentUser,
+                                    pageName: pageName,
+                                    inputIndex: inputIndex,
+                                    inputValue: input.value,
+                                    outputValue: consoleDiv.innerHTML,
+                                    inputClass: input.className
+                                })
+                            });
+                        } catch (err) {
+                            console.error('Failed to save error progress to server', err);
+                        }
+                    }
                 }
             }
         });

@@ -81,6 +81,9 @@ The R environment comes pre-loaded with several datasets for you to practice wit
 - **Skill D (Functional)**: `antiques` (Items/Periods/Prices), `bills`.
 - **Skill E (OOP)**: `dar_members` (Rank/Name), `band_gigs` (Venue/Pay).
 
+### Master Projects (Tier 4)
+- **20 Downloadable Projects**: Generated `.zip` files containing `.Rmd` and `.csv` files for advanced practice, available in `modules/projects.html` (Module 20 is the Capstone).
+
 ### Global / Misc
 - **`townies`**: Roles of residents.
 - **`lizards`**: Horn length and survival status.
@@ -141,6 +144,11 @@ Verifies WebR loading and page interactions using Playwright.
 npx playwright test
 ```
 
+#### Visual Verification
+An independent Python script (`verify_frontend.py`) is used for manual visual verification. It captures screenshots of specific modules (saving them to `verification_screenshots/`).
+- Requires `pip install playwright`.
+- Expects the project to be served locally on port 8080.
+
 ## Project Structure
 
 - `index.html`: Main landing page / Table of Contents.
@@ -167,6 +175,10 @@ npx playwright test
 - `reference.html`: Paris Geller's Master Reference.
 - `about.html`: About page.
 - `tests/`: Unit and E2E tests.
+- `create_challenges.py`: Python script that generates `.Rmd` challenge files inside `.zip` archives.
+- `create_tier4_projects.py`: Python script that generates Tier 4 master projects (`.zip` files containing `.Rmd` and `.csv` files).
+- `add_download_buttons.py`: Python script used to add download buttons to HTML files.
+- `verify_frontend.py`: Python script for manual visual verification of frontend changes using Playwright.
 
 ## Tech Stack
 

@@ -18,7 +18,17 @@ export function normalizeCode(code) {
  * @returns {boolean} True if the codes match after normalization.
  */
 export function compareCode(userCode, expectedAnswer) {
-    return normalizeCode(userCode) === normalizeCode(expectedAnswer);
+    if (!expectedAnswer || userCode === undefined || userCode === null) return false;
+    const normalizedExpected = normalizeCode(expectedAnswer);
+    const userStatements = String(userCode).split(/[\n;]/);
+
+    for (let statement of userStatements) {
+        if (normalizeCode(statement) === normalizedExpected) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 const HTML_ESCAPES = {

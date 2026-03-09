@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 `;
 
                 consoleDiv.classList.add('is-visible');
-                consoleDiv.innerHTML = `<span class="console-user-code">> ${escapeHTML(userCode)}</span><br><span class="console-status-running">Running... (Faster! Faster!)</span>`;
+                consoleDiv.innerHTML = `<span class="console-user-code">> ${escapeHTML(userCode).replace(/\n/g, '<br>> ')}</span><br><span class="console-status-running">Running... (Faster! Faster!)</span>`;
 
                 try {
                     const shelter = await new webR.Shelter();
@@ -211,10 +211,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 // Grading
                 input.classList.remove('is-success', 'is-warning', 'is-error');
                 if (isCorrect) {
-                    consoleDiv.innerHTML = `<span class="console-status-success">> ${escapeHTML(userCode)}</span><br>${outputHTML}`;
+                    consoleDiv.innerHTML = `<span class="console-status-success">> ${escapeHTML(userCode).replace(/\n/g, '<br>> ')}</span><br>${outputHTML}`;
                     input.classList.add('is-success');
                 } else {
-                    consoleDiv.innerHTML = `<span class="console-status-warning">> ${escapeHTML(userCode)}</span><br>${outputHTML}<br><br><span class="console-status-warning console-bold">⚠️ Paris says: "The code works, but that's not what I asked for."</span>`;
+                    consoleDiv.innerHTML = `<span class="console-status-warning">> ${escapeHTML(userCode).replace(/\n/g, '<br>> ')}</span><br>${outputHTML}<br><br><span class="console-status-warning console-bold">⚠️ Paris says: "The code works, but that's not what I asked for."</span>`;
                     input.classList.add('is-warning');
                 }
 
@@ -230,7 +230,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (userCode.includes("select") && (userCode.includes("==") || userCode.includes("!=") || userCode.includes("<") || userCode.includes(">"))) {
                     errorMsg += `<br><br><strong>Tip:</strong> Are you trying to pick rows based on a condition? Use <code>filter()</code> instead of <code>select()</code>.`;
                 }
-                consoleDiv.innerHTML = `<span class="console-user-code">> ${escapeHTML(userCode)}</span><br><span class="console-status-error">${errorMsg}</span>`;
+                consoleDiv.innerHTML = `<span class="console-user-code">> ${escapeHTML(userCode).replace(/\n/g, '<br>> ')}</span><br><span class="console-status-error">${errorMsg}</span>`;
                 input.classList.add('is-error');
             }
         });

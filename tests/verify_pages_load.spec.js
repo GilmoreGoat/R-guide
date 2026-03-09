@@ -40,7 +40,8 @@ const staticPages = [
     'index.html',
     'about.html',
     'reference.html',
-    'syllabus.html'
+    'syllabus.html',
+    'login.html'
 ];
 
 for (const { name } of rPages) {

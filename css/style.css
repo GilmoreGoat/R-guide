@@ -731,3 +731,96 @@ pre code { background: transparent; color: inherit; padding: 0; font-weight: nor
 #tier-1, #tier-2, #tier-3, #tier-4 {
     scroll-margin-top: 100px;
 }
+
+/* --- LOGIN PAGE STYLES --- */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0 60px 0;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+    /* Extra thick coffee border for emphasis */
+    border: 3px solid var(--coffee-dark);
+    border-left: 8px solid var(--yale-blue);
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-label {
+    font-family: 'Playfair Display', serif;
+    color: var(--coffee-dark);
+    font-size: 1.1em;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.login-input {
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--paper-texture);
+    color: var(--coffee-dark);
+    border: 2px solid var(--coffee-light);
+    border-radius: 4px;
+    padding: 12px 15px;
+    font-family: 'Lora', serif;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+}
+
+.login-input:focus {
+    outline: none;
+    border-color: var(--autumn-orange);
+    box-shadow: 0 0 8px rgba(211, 84, 0, 0.2);
+}
+
+.login-input::placeholder {
+    color: #a0a0a0;
+    font-style: italic;
+}
+
+.login-btn {
+    width: 100%;
+    margin-left: 0;
+    font-size: 1.2em;
+    padding: 15px;
+}
+
+.login-divider {
+    margin: 30px auto;
+    max-width: 80%;
+}
+
+.create-account-text {
+    font-family: 'Lora', serif;
+    color: #666;
+    margin-top: 10px;
+    line-height: 1.6;
+}
+
+.create-account-text a {
+    text-decoration: none;
+    border-bottom: 2px dashed var(--yale-blue);
+    transition: all 0.3s;
+}
+
+.create-account-text a:hover {
+    color: var(--autumn-orange);
+    border-bottom-color: var(--autumn-orange);
+}
+
+.fw-bold { font-weight: bold; }
+.mt-20 { margin-top: 20px; }
+.mt-30 { margin-top: 30px; }

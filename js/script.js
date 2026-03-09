@@ -109,44 +109,59 @@ document.addEventListener('DOMContentLoaded', async () => {
     const checkBtns = document.querySelectorAll('.check-btn');
     checkBtns.forEach(btn => btn.disabled = true);
 
-    // --- 1.5 USER SWITCHING UI ---
+    // --- 1.5 USER UI ---
     const currentUser = localStorage.getItem('r_gilmore_currentUser') || 'default';
     const navElements = document.querySelectorAll('nav');
     if (navElements.length > 0) {
         const nav = navElements[0];
         nav.style.position = 'relative'; // Ensure absolute positioning is relative to nav
-        const userContainer = document.createElement('div');
-        userContainer.className = 'user-switcher';
-        userContainer.style.display = 'inline-block';
-        userContainer.style.position = 'absolute';
-        userContainer.style.right = '20px';
-        userContainer.style.top = '15px';
-        userContainer.style.fontSize = '0.9em';
 
-        const userSpan = document.createElement('span');
-        userSpan.textContent = `👤 ${currentUser} `;
-        userContainer.appendChild(userSpan);
-
-        const switchBtn = document.createElement('button');
-        switchBtn.innerText = 'Switch User';
-        switchBtn.style.marginLeft = '10px';
-        switchBtn.style.padding = '2px 8px';
-        switchBtn.style.fontSize = '0.8em';
-        switchBtn.style.cursor = 'pointer';
-        switchBtn.style.borderRadius = '5px';
-        switchBtn.style.border = '1px solid var(--coffee-dark)';
-        switchBtn.style.background = 'var(--paper-texture)';
-
-        switchBtn.addEventListener('click', () => {
-            const newUser = prompt('Enter username:', currentUser);
-            if (newUser && newUser.trim() !== '') {
-                localStorage.setItem('r_gilmore_currentUser', newUser.trim());
-                window.location.reload();
+        // Hide static Login link if user is logged in
+        if (currentUser !== 'default') {
+            const loginLink = nav.querySelector('a[href="login.html"]');
+            if (loginLink) {
+                loginLink.style.display = 'none';
             }
-        });
 
-        userContainer.appendChild(switchBtn);
-        nav.appendChild(userContainer);
+            const userContainer = document.createElement('div');
+            userContainer.className = 'user-switcher';
+            userContainer.style.display = 'inline-flex';
+            userContainer.style.alignItems = 'center';
+            userContainer.style.position = 'absolute';
+            userContainer.style.right = '20px';
+            userContainer.style.top = '50%';
+            userContainer.style.transform = 'translateY(-50%)';
+            userContainer.style.fontSize = '0.9em';
+            userContainer.style.background = 'var(--paper-texture)';
+            userContainer.style.padding = '5px 10px';
+            userContainer.style.borderRadius = '5px';
+            userContainer.style.border = '1px dashed var(--coffee-dark)';
+
+            const userSpan = document.createElement('span');
+            userSpan.textContent = `👤 ${currentUser} `;
+            userSpan.style.marginRight = '10px';
+            userSpan.style.fontWeight = 'bold';
+            userSpan.style.color = 'var(--yale-blue)';
+            userContainer.appendChild(userSpan);
+
+            const logoutBtn = document.createElement('button');
+            logoutBtn.innerText = 'Logout';
+            logoutBtn.style.marginLeft = '10px';
+            logoutBtn.style.padding = '2px 8px';
+            logoutBtn.style.fontSize = '0.8em';
+            logoutBtn.style.cursor = 'pointer';
+            logoutBtn.style.borderRadius = '5px';
+            logoutBtn.style.border = '1px solid var(--coffee-dark)';
+            logoutBtn.style.background = 'var(--paper-texture)';
+
+            logoutBtn.addEventListener('click', () => {
+                localStorage.removeItem('r_gilmore_currentUser');
+                window.location.reload();
+            });
+
+            userContainer.appendChild(logoutBtn);
+            nav.appendChild(userContainer);
+        }
     }
 
     // Restore user progress from localStorage

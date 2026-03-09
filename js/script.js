@@ -109,11 +109,51 @@ document.addEventListener('DOMContentLoaded', async () => {
     const checkBtns = document.querySelectorAll('.check-btn');
     checkBtns.forEach(btn => btn.disabled = true);
 
+    // --- 1.5 USER SWITCHING UI ---
+    const currentUser = localStorage.getItem('r_gilmore_currentUser') || 'default';
+    const navElements = document.querySelectorAll('nav');
+    if (navElements.length > 0) {
+        const nav = navElements[0];
+        nav.style.position = 'relative'; // Ensure absolute positioning is relative to nav
+        const userContainer = document.createElement('div');
+        userContainer.className = 'user-switcher';
+        userContainer.style.display = 'inline-block';
+        userContainer.style.position = 'absolute';
+        userContainer.style.right = '20px';
+        userContainer.style.top = '15px';
+        userContainer.style.fontSize = '0.9em';
+
+        const userSpan = document.createElement('span');
+        userSpan.textContent = `👤 ${currentUser} `;
+        userContainer.appendChild(userSpan);
+
+        const switchBtn = document.createElement('button');
+        switchBtn.innerText = 'Switch User';
+        switchBtn.style.marginLeft = '10px';
+        switchBtn.style.padding = '2px 8px';
+        switchBtn.style.fontSize = '0.8em';
+        switchBtn.style.cursor = 'pointer';
+        switchBtn.style.borderRadius = '5px';
+        switchBtn.style.border = '1px solid var(--coffee-dark)';
+        switchBtn.style.background = 'var(--paper-texture)';
+
+        switchBtn.addEventListener('click', () => {
+            const newUser = prompt('Enter username:', currentUser);
+            if (newUser && newUser.trim() !== '') {
+                localStorage.setItem('r_gilmore_currentUser', newUser.trim());
+                window.location.reload();
+            }
+        });
+
+        userContainer.appendChild(switchBtn);
+        nav.appendChild(userContainer);
+    }
+
     // Restore user progress from localStorage
     const codeInputs = document.querySelectorAll('.input-code');
     const pageName = window.location.pathname.split('/').pop() || 'index.html';
     codeInputs.forEach((input, index) => {
-        const storageKey = `r_gilmore_${pageName}_input_${index}`;
+        const storageKey = `r_gilmore_${currentUser}_${pageName}_input_${index}`;
         const savedValue = localStorage.getItem(storageKey);
         
         // Also find associated console and check for saved output
@@ -128,8 +168,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         
         if (consoleDiv) {
-            const savedOutput = localStorage.getItem(`r_gilmore_${pageName}_output_${index}`);
-            const savedInputClass = localStorage.getItem(`r_gilmore_${pageName}_inputClass_${index}`);
+            const savedOutput = localStorage.getItem(`r_gilmore_${currentUser}_${pageName}_output_${index}`);
+            const savedInputClass = localStorage.getItem(`r_gilmore_${currentUser}_${pageName}_inputClass_${index}`);
             
             if (savedOutput) {
                 consoleDiv.innerHTML = savedOutput;
@@ -142,7 +182,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Save progress on input
         input.addEventListener('input', () => {
-            localStorage.setItem(storageKey, input.value);
+            const currentLocalUser = localStorage.getItem('r_gilmore_currentUser') || 'default';
+            localStorage.setItem(`r_gilmore_${currentLocalUser}_${pageName}_input_${index}`, input.value);
         });
     });
 
@@ -270,8 +311,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const inputIndex = allCodeInputs.indexOf(input);
                 if (inputIndex !== -1) {
                     const pageName = window.location.pathname.split('/').pop() || 'index.html';
-                    localStorage.setItem(`r_gilmore_${pageName}_output_${inputIndex}`, consoleDiv.innerHTML);
-                    localStorage.setItem(`r_gilmore_${pageName}_inputClass_${inputIndex}`, input.className);
+                    const currentUser = localStorage.getItem('r_gilmore_currentUser') || 'default';
+                    localStorage.setItem(`r_gilmore_${currentUser}_${pageName}_output_${inputIndex}`, consoleDiv.innerHTML);
+                    localStorage.setItem(`r_gilmore_${currentUser}_${pageName}_inputClass_${inputIndex}`, input.className);
                 }
 
             } catch (e) {
@@ -294,8 +336,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const inputIndex = allCodeInputs.indexOf(input);
                 if (inputIndex !== -1) {
                     const pageName = window.location.pathname.split('/').pop() || 'index.html';
-                    localStorage.setItem(`r_gilmore_${pageName}_output_${inputIndex}`, consoleDiv.innerHTML);
-                    localStorage.setItem(`r_gilmore_${pageName}_inputClass_${inputIndex}`, input.className);
+                    const currentUser = localStorage.getItem('r_gilmore_currentUser') || 'default';
+                    localStorage.setItem(`r_gilmore_${currentUser}_${pageName}_output_${inputIndex}`, consoleDiv.innerHTML);
+                    localStorage.setItem(`r_gilmore_${currentUser}_${pageName}_inputClass_${inputIndex}`, input.className);
                 }
             }
         });

@@ -1,4 +1,4 @@
-import { compareCode, escapeHTML, processWebROutput, processWebRImages, getRequiredPackages } from './logic.js';
+import { compareCode, checkAlternativeCorrectness, escapeHTML, processWebROutput, processWebRImages, getRequiredPackages } from './logic.js';
 import { R_DATA_INIT } from './r_data.js';
 
 // Utility functions (escapeHTML, compareCode, processWebROutput, getRequiredPackages) are consolidated in logic.js
@@ -170,18 +170,19 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (!userCode || userCode.trim() === "") return;
 
             const expectedAnswer = btn.dataset.answer;
-            const isCorrect = compareCode(userCode, expectedAnswer);
+            let isCorrect = compareCode(userCode, expectedAnswer);
+            const expectedOutput = btn.dataset.output;
 
-                // THE WRAPPER:
-                // 1. val <- { code } -> Runs user code in a block.
-                // 2. print(val) -> Prints the result. If it's a plot, webR captures it.
-                const wrappedCode = `
-                    val <- {
-                        ${userCode}
-                    }
-                    print(val)
-                    invisible(NULL)
-                `;
+            // THE WRAPPER:
+            // 1. val <- { code } -> Runs user code in a block.
+            // 2. print(val) -> Prints the result. If it's a plot, webR captures it.
+            const wrappedCode = `
+                val <- {
+                    ${userCode}
+                }
+                print(val)
+                invisible(NULL)
+            `;
 
                 consoleDiv.classList.add('is-visible');
                 consoleDiv.innerHTML = `<span class="console-user-code">> ${escapeHTML(userCode).replace(/\n/g, '<br>> ')}</span><br><span class="console-status-running">Running... (Faster! Faster!)</span>`;
@@ -206,6 +207,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 if (!outputHTML && !result.images.length) {
                     outputHTML = `<span class="console-status-info">(Value saved)</span>`;
+                }
+
+                if (!isCorrect && expectedOutput) {
+                    const rawOutputText = result.output.map(line => {
+                         if (typeof line.data === 'string') return line.data;
+                         if (line.data && line.data.message) return line.data.message;
+                         return String(line.data);
+                    }).join(' ');
+                    isCorrect = checkAlternativeCorrectness(userCode, expectedAnswer, rawOutputText, expectedOutput);
                 }
 
                 // Grading

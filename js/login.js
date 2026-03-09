@@ -41,11 +41,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (usernameInput && passwordInput) {
                 try {
+                    if (window.location.protocol === 'file:') {
+                        throw new Error('You are running the app via file://. Please use a local server (e.g., npm start).');
+                    }
+
                     const response = await fetch('/api/login', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ username: usernameInput, password: passwordInput })
                     });
+
+                    const contentType = response.headers.get("content-type");
+                    if (!contentType || !contentType.includes("application/json")) {
+                         throw new Error('Server returned an invalid response. Make sure you are running the Node.js backend (npm start) and not a static file server.');
+                    }
 
                     const data = await response.json();
 
@@ -58,7 +67,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         loginMessage.style.display = 'block';
                     }
                 } catch (error) {
-                    loginMessage.innerText = 'Network error. Please try again.';
+                    loginMessage.innerText = error.message.includes('Failed to fetch') || error.message.includes('NetworkError')
+                        ? 'Network error. Ensure the server is running on port 8000.'
+                        : error.message;
                     loginMessage.style.display = 'block';
                 }
             }
@@ -73,11 +84,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (usernameInput && passwordInput) {
                 try {
+                    if (window.location.protocol === 'file:') {
+                        throw new Error('You are running the app via file://. Please use a local server (e.g., npm start).');
+                    }
+
                     const response = await fetch('/api/register', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ username: usernameInput, password: passwordInput })
                     });
+
+                    const contentType = response.headers.get("content-type");
+                    if (!contentType || !contentType.includes("application/json")) {
+                         throw new Error('Server returned an invalid response. Make sure you are running the Node.js backend (npm start) and not a static file server.');
+                    }
 
                     const data = await response.json();
 
@@ -90,7 +110,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         loginMessage.style.display = 'block';
                     }
                 } catch (error) {
-                    loginMessage.innerText = 'Network error. Please try again.';
+                    loginMessage.innerText = error.message.includes('Failed to fetch') || error.message.includes('NetworkError')
+                        ? 'Network error. Ensure the server is running on port 8000.'
+                        : error.message;
                     loginMessage.style.display = 'block';
                 }
             }

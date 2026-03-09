@@ -608,16 +608,9 @@ pre code { background: transparent; color: inherit; padding: 0; font-weight: nor
     font-size: 1.1em;
 }
 
-.footer-text {
-    text-align: center;
-    margin-top: 60px;
-    color: var(--coffee-light);
-    font-style: italic;
-    font-family: 'Patrick Hand', cursive;
-    font-size: 1.2em;
-}
 
-.footer-alt {
+
+.footer-alt, .footer-text {
     text-align: center;
     margin-top: 90px;
     color: var(--coffee-light);

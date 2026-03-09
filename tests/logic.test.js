@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert';
-import { normalizeCode, compareCode, escapeHTML, processWebROutput, processWebRImages, getRequiredPackages } from '../js/logic.js';
+import { normalizeCode, compareCode, checkAlternativeCorrectness, escapeHTML, processWebROutput, processWebRImages, getRequiredPackages } from '../js/logic.js';
 
 describe('getRequiredPackages', () => {
     it('should return default packages for unknown page', () => {
@@ -149,6 +149,55 @@ describe('compareCode', () => {
         assert.strictEqual(compareCode('y <- 10; x <- 5; print(x)', 'x <- 5'), true);
         assert.strictEqual(compareCode('x <- 50', 'x <- 5'), false);
         assert.strictEqual(compareCode('vector <- c(80, 90, 100)\nmean_score <- sum(vector) / 3\nmean_score', 'mean_score <- sum(vector) / 3'), true);
+    });
+});
+
+describe('checkAlternativeCorrectness', () => {
+    it('should return true when outputs match and variable is assigned', () => {
+        const userCode = 'v <- c(80, 90, 100)\ns <- sum(v)\nmean_score <- s/3';
+        const expectedAnswer = 'mean_score <- sum(c(80, 90, 100)) / 3';
+        const actualOutput = '[1] 90';
+        const expectedOutput = '[1] 90';
+        assert.strictEqual(checkAlternativeCorrectness(userCode, expectedAnswer, actualOutput, expectedOutput), true);
+    });
+
+    it('should return true when outputs match and no variable is required', () => {
+        const userCode = '1 + 1';
+        const expectedAnswer = '2';
+        const actualOutput = '[1] 2';
+        const expectedOutput = '[1] 2';
+        assert.strictEqual(checkAlternativeCorrectness(userCode, expectedAnswer, actualOutput, expectedOutput), true);
+    });
+
+    it('should return false when outputs match but variable is NOT assigned', () => {
+        const userCode = 'v <- c(80, 90, 100)\ns <- sum(v)\nwrong_name <- s/3';
+        const expectedAnswer = 'mean_score <- sum(c(80, 90, 100)) / 3';
+        const actualOutput = '[1] 90';
+        const expectedOutput = '[1] 90';
+        assert.strictEqual(checkAlternativeCorrectness(userCode, expectedAnswer, actualOutput, expectedOutput), false);
+    });
+
+    it('should return false when outputs do not match', () => {
+        const userCode = 'mean_score <- 100';
+        const expectedAnswer = 'mean_score <- sum(c(80, 90, 100)) / 3';
+        const actualOutput = '[1] 100';
+        const expectedOutput = '[1] 90';
+        assert.strictEqual(checkAlternativeCorrectness(userCode, expectedAnswer, actualOutput, expectedOutput), false);
+    });
+
+    it('should handle HTML elements and <br> tags in output', () => {
+        const userCode = 'mean_score <- sum(c(80, 90, 100)) / 3';
+        const expectedAnswer = 'mean_score <- sum(c(80, 90, 100)) / 3';
+        const actualOutput = 'Line 1<br>Line 2<br>[1] 90';
+        const expectedOutput = 'Line 1\nLine 2\n[1] 90';
+        assert.strictEqual(checkAlternativeCorrectness(userCode, expectedAnswer, actualOutput, expectedOutput), true);
+    });
+
+    it('should return false when inputs are missing', () => {
+        assert.strictEqual(checkAlternativeCorrectness(undefined, 'ans', 'out', 'out'), false);
+        assert.strictEqual(checkAlternativeCorrectness('code', undefined, 'out', 'out'), false);
+        assert.strictEqual(checkAlternativeCorrectness('code', 'ans', undefined, 'out'), false);
+        assert.strictEqual(checkAlternativeCorrectness('code', 'ans', 'out', undefined), false);
     });
 });
 

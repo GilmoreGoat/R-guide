@@ -31,6 +31,42 @@ export function compareCode(userCode, expectedAnswer) {
     return false;
 }
 
+/**
+ * Provides a fallback check for multi-line user inputs by comparing actual vs expected output.
+ * Ensures the user assigned the correct variable name if one is expected.
+ * @param {string} userCode - The user's provided code.
+ * @param {string} expectedAnswer - The expected code/answer.
+ * @param {string} actualOutputText - The raw string output of the evaluated user code.
+ * @param {string} expectedOutput - The expected output provided in the HTML data attribute.
+ * @returns {boolean} True if the outputs match and the required variable was assigned.
+ */
+export function checkAlternativeCorrectness(userCode, expectedAnswer, actualOutputText, expectedOutput) {
+    if (!expectedAnswer || userCode === undefined || userCode === null) return false;
+    if (actualOutputText === undefined || actualOutputText === null) return false;
+    if (expectedOutput === undefined || expectedOutput === null) return false;
+
+    // Remove <br> and HTML tags to compare pure text
+    const cleanActual = normalizeCode(actualOutputText.replace(/<br>/g, '\n').replace(/<[^>]+>/g, ''));
+    const cleanExpected = normalizeCode(expectedOutput.replace(/<br>/g, '\n').replace(/<[^>]+>/g, ''));
+
+    if (cleanActual === cleanExpected && cleanExpected !== "") {
+        const assignmentMatch = expectedAnswer.match(/^([a-zA-Z0-9_.]+)\s*(<-|=)/);
+        if (assignmentMatch) {
+            const varName = assignmentMatch[1];
+            // Check if user assigns to varName somewhere
+            const escapedVarName = varName.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+            const regex = new RegExp(`\\b${escapedVarName}\\s*(<-|=)`);
+            if (regex.test(userCode)) {
+                return true;
+            }
+        } else {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 const HTML_ESCAPES = {
     '&': '&amp;',
     '<': '&lt;',

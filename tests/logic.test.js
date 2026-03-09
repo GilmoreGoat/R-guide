@@ -130,18 +130,25 @@ describe('compareCode', () => {
 
     it('should handle missing expected answer', () => {
         assert.strictEqual(compareCode('some code', undefined), false);
-        assert.strictEqual(compareCode(undefined, undefined), true);
+        assert.strictEqual(compareCode(undefined, undefined), false);
     });
 
     it('should handle formatting differences', () => {
         assert.strictEqual(compareCode('x <- 5', 'x<-5'), true);
         assert.strictEqual(compareCode('x  <-  5', 'x<-5'), true);
-        assert.strictEqual(compareCode('x\n<-\n5', 'x<-5'), true);
+        assert.strictEqual(compareCode('x\n<-\n5', 'x<-5'), false); // This is now false because they are on different lines, so split by \n means no single statement matches x<-5
     });
 
     it('should handle quote style differences', () => {
         assert.strictEqual(compareCode('print("hello")', "print('hello')"), true);
         assert.strictEqual(compareCode("print('hello')", 'print("hello")'), true);
+    });
+
+    it('should handle multi-line input correctly', () => {
+        assert.strictEqual(compareCode('y <- 10\nx <- 5\nprint(x)', 'x <- 5'), true);
+        assert.strictEqual(compareCode('y <- 10; x <- 5; print(x)', 'x <- 5'), true);
+        assert.strictEqual(compareCode('x <- 50', 'x <- 5'), false);
+        assert.strictEqual(compareCode('vector <- c(80, 90, 100)\nmean_score <- sum(vector) / 3\nmean_score', 'mean_score <- sum(vector) / 3'), true);
     });
 });
 

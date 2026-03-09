@@ -109,6 +109,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     const checkBtns = document.querySelectorAll('.check-btn');
     checkBtns.forEach(btn => btn.disabled = true);
 
+    // Restore user progress from localStorage
+    const codeInputs = document.querySelectorAll('.input-code');
+    codeInputs.forEach((input, index) => {
+        const storageKey = `r_gilmore_${window.location.pathname}_input_${index}`;
+        const savedValue = localStorage.getItem(storageKey);
+        if (savedValue !== null) {
+            input.value = savedValue;
+        }
+
+        // Save progress on input
+        input.addEventListener('input', () => {
+            localStorage.setItem(storageKey, input.value);
+        });
+    });
+
     if (checkBtns.length > 0) {
         const loadingBanner = document.createElement('div');
         loadingBanner.className = 'loading-banner';

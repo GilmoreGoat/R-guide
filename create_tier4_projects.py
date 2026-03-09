@@ -371,6 +371,204 @@ events <- read.csv("events.csv")      # Has event_name and attendance
             'biz_raw.csv': "owner_name,revenue\nLuke,Rev: $85000\nTaylor,Rev: $120000\nLorelai,Rev: $95000\nKirk,Rev: $1500\n",
             'events.csv': "event_name,attendance\nFirelight,500\nDance Marathon,300\n"
         }
+    },
+    'project_11': {
+        'name': 'tier4_project_11_rorys_books',
+        'files': {
+            'rorys_books.Rmd': """# ------------------------------------------------------------------------------
+# 🏆 THE R GILMORE STUDY GUIDE: TIER 4 - PROJECT 11
+# 📚 THEME: RORY'S BOOK CLUB (STRINGS)
+# ------------------------------------------------------------------------------
+# Rory needs to organize her massive reading list.
+
+library(tidyverse)
+library(stringr)
+
+books <- data.frame(
+  title = c("The Bell Jar", "Moby Dick", "Leaves of Grass", "The Iliad"),
+  author = c("Sylvia Plath", "Herman Melville", "Walt Whitman", "Homer")
+)
+
+# TASK 1: FIND AND REPLACE
+# Replace "The " with "" in the title column.
+""",
+            'books.csv': "title,author\nThe Bell Jar,Sylvia Plath\nMoby Dick,Herman Melville\nLeaves of Grass,Walt Whitman\nThe Iliad,Homer\n"
+        }
+    },
+    'project_12': {
+        'name': 'tier4_project_12_lukes_diner',
+        'files': {
+            'lukes_diner.Rmd': """# ------------------------------------------------------------------------------
+# 🏆 THE R GILMORE STUDY GUIDE: TIER 4 - PROJECT 12
+# 🍔 THEME: LUKE'S DINER ORDERS (WRANGLING & JOINS)
+# ------------------------------------------------------------------------------
+# Luke wants to see which customers are tipping best.
+
+library(tidyverse)
+
+orders <- data.frame(order_id = 1:3, customer_id = c(101, 102, 101), total = c(15, 20, 10))
+customers <- data.frame(customer_id = c(101, 102), name = c("Lorelai", "Rory"))
+
+# TASK 1: JOIN ORDERS
+# Join orders and customers.
+""",
+            'orders.csv': "order_id,customer_id,total\n1,101,15\n2,102,20\n3,101,10\n",
+            'customers.csv': "customer_id,name\n101,Lorelai\n102,Rory\n"
+        }
+    },
+    'project_13': {
+        'name': 'tier4_project_13_richards_insurance',
+        'files': {
+            'richards_insurance.Rmd': """# ------------------------------------------------------------------------------
+# 🏆 THE R GILMORE STUDY GUIDE: TIER 4 - PROJECT 13
+# 💼 THEME: RICHARD'S INSURANCE DATA (REGRESSION)
+# ------------------------------------------------------------------------------
+# Analyze insurance claims.
+
+library(tidyverse)
+
+claims <- data.frame(age = c(25, 45, 65, 35), claim_amount = c(1000, 2500, 5000, 1500))
+
+# TASK 1: REGRESSION
+# Model claim_amount based on age.
+""",
+            'claims.csv': "age,claim_amount\n25,1000\n45,2500\n65,5000\n35,1500\n"
+        }
+    },
+    'project_14': {
+        'name': 'tier4_project_14_sookies_kitchen',
+        'files': {
+            'sookies_kitchen.Rmd': """# ------------------------------------------------------------------------------
+# 🏆 THE R GILMORE STUDY GUIDE: TIER 4 - PROJECT 14
+# 🥘 THEME: SOOKIE'S KITCHEN RECIPES (TIDYING)
+# ------------------------------------------------------------------------------
+# Sookie is standardizing her recipes.
+
+library(tidyverse)
+
+recipes <- data.frame(recipe = c("Risotto", "Cake"), ing_1 = c("Rice", "Flour"), ing_2 = c("Broth", "Sugar"))
+
+# TASK 1: PIVOT LONGER
+# Pivot ingredients to be tidy.
+""",
+            'recipes.csv': "recipe,ing_1,ing_2\nRisotto,Rice,Broth\nCake,Flour,Sugar\n"
+        }
+    },
+    'project_15': {
+        'name': 'tier4_project_15_emilys_dar',
+        'files': {
+            'emilys_dar.Rmd': """# ------------------------------------------------------------------------------
+# 🏆 THE R GILMORE STUDY GUIDE: TIER 4 - PROJECT 15
+# 🏛️ THEME: EMILY'S DAR EVENTS (DATES)
+# ------------------------------------------------------------------------------
+# Organizing the DAR calendar.
+
+library(tidyverse)
+library(lubridate)
+
+events <- data.frame(event = c("Tea", "Gala"), date = c("2024-05-10", "2024-11-20"))
+
+# TASK 1: PARSE DATES
+# Convert dates to lubridate objects.
+""",
+            'events.csv': "event,date\nTea,2024-05-10\nGala,2024-11-20\n"
+        }
+    },
+    'project_16': {
+        'name': 'tier4_project_16_miss_pattys',
+        'files': {
+            'miss_pattys.Rmd': """# ------------------------------------------------------------------------------
+# 🏆 THE R GILMORE STUDY GUIDE: TIER 4 - PROJECT 16
+# 🩰 THEME: MISS PATTY'S DANCE STUDIO (ANOVA)
+# ------------------------------------------------------------------------------
+# Analyzing dance class attendance.
+
+library(tidyverse)
+
+attendance <- data.frame(class = c("Ballet", "Tap", "Jazz"), students = c(15, 12, 18))
+
+# TASK 1: ANOVA
+# Analyze variance in attendance.
+""",
+            'attendance.csv': "class,students\nBallet,15\nTap,12\nJazz,18\n"
+        }
+    },
+    'project_17': {
+        'name': 'tier4_project_17_gazette',
+        'files': {
+            'gazette.Rmd': """# ------------------------------------------------------------------------------
+# 🏆 THE R GILMORE STUDY GUIDE: TIER 4 - PROJECT 17
+# 📰 THEME: STARS HOLLOW GAZETTE (REGEX)
+# ------------------------------------------------------------------------------
+# Formatting newspaper articles.
+
+library(tidyverse)
+library(stringr)
+
+articles <- data.frame(id = 1:2, text = c("Contact: 555-1234", "Call 555-9876"))
+
+# TASK 1: EXTRACT PHONE NUMBERS
+# Use regex to extract phone numbers.
+""",
+            'articles.csv': "id,text\n1,Contact: 555-1234\n2,Call 555-9876\n"
+        }
+    },
+    'project_18': {
+        'name': 'tier4_project_18_lanes_music',
+        'files': {
+            'lanes_music.Rmd': """# ------------------------------------------------------------------------------
+# 🏆 THE R GILMORE STUDY GUIDE: TIER 4 - PROJECT 18
+# 🎸 THEME: LANE'S MUSIC COLLECTION (VISUALIZATION)
+# ------------------------------------------------------------------------------
+# Visualizing record sales.
+
+library(tidyverse)
+
+sales <- data.frame(genre = c("Rock", "Pop", "Jazz"), units = c(500, 300, 100))
+
+# TASK 1: BAR CHART
+# Create a bar chart of sales by genre.
+""",
+            'sales.csv': "genre,units\nRock,500\nPop,300\nJazz,100\n"
+        }
+    },
+    'project_19': {
+        'name': 'tier4_project_19_dragonfly_inn',
+        'files': {
+            'dragonfly_inn.Rmd': """# ------------------------------------------------------------------------------
+# 🏆 THE R GILMORE STUDY GUIDE: TIER 4 - PROJECT 19
+# 🐴 THEME: THE DRAGONFLY INN BOOKINGS (TIME SERIES)
+# ------------------------------------------------------------------------------
+# Forecasting inn occupancy.
+
+library(tidyverse)
+
+bookings <- data.frame(month = 1:4, guests = c(120, 150, 130, 180))
+
+# TASK 1: TREND PLOT
+# Plot guests over time.
+""",
+            'bookings.csv': "month,guests\n1,120\n2,150\n3,130\n4,180\n"
+        }
+    },
+    'project_20': {
+        'name': 'tier4_project_20_yale_graduation',
+        'files': {
+            'yale_graduation.Rmd': """# ------------------------------------------------------------------------------
+# 🏆 THE R GILMORE STUDY GUIDE: TIER 4 - PROJECT 20 (CAPSTONE 2)
+# 🎓 THEME: THE ULTIMATE YALE GRADUATION
+# ------------------------------------------------------------------------------
+# Rory's final project requires combining everything.
+
+library(tidyverse)
+
+students <- data.frame(id = 1:3, major = c("Journalism", "Economics", "History"))
+
+# TASK 1: FINAL ANALYSIS
+# Complete the graduation analysis.
+""",
+            'students.csv': "id,major\n1,Journalism\n2,Economics\n3,History\n"
+        }
     }
 }
 

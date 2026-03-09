@@ -21,7 +21,7 @@
         <h2 class="text-center">Welcome Back</h2>
         <p class="text-center text-muted" style="margin-top: -10px; margin-bottom: 25px;">Please enter your credentials to continue your studies.</p>
 
-        <form class="login-form">
+        <form id="login-form" class="login-form">
             <div class="input-group">
                 <label for="username" class="login-label">Username</label>
                 <input type="text" id="username" class="editor-input login-input" placeholder="e.g. ParisGeller101" required>
@@ -35,13 +35,29 @@
             <button type="submit" class="check-btn login-btn mt-30">Login</button>
         </form>
 
+        <form id="register-form" class="login-form" style="display: none;">
+            <div class="input-group">
+                <label for="reg-username" class="login-label">New Username</label>
+                <input type="text" id="reg-username" class="editor-input login-input" placeholder="e.g. RoryG" required>
+            </div>
+
+            <div class="input-group mt-20">
+                <label for="reg-password" class="login-label">New Password</label>
+                <input type="password" id="reg-password" class="editor-input login-input" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="check-btn login-btn mt-30" style="background-color: var(--yale-blue);">Create Account</button>
+        </form>
+
+        <div id="login-message" class="text-center mt-20" style="color: red; display: none;"></div>
+
         <div class="town-divider login-divider">
             <span>🍂</span>
         </div>
 
-        <p class="text-center create-account-text">
+        <p id="toggle-text" class="text-center create-account-text">
             Don't have an account? <br>
-            <a href="#" class="text-yale-blue fw-bold">Create one at the town meeting</a>
+            <a href="#" id="toggle-form" class="text-yale-blue fw-bold">Create one at the town meeting</a>
         </p>
     </div>
 </div>

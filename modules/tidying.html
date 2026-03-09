@@ -57,7 +57,7 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="kitchen |> ...">
+                <textarea rows="3" class="editor-input input-code" placeholder="kitchen |> ..."></textarea>
                 <button class="check-btn"
                         data-answer='kitchen |> pivot_longer(cols = c(Monday, Tuesday), names_to = "Day", values_to = "Eggs")'
                         data-output="  Dish      Day        Eggs<br>1 Risotto   Monday     50<br>2 Risotto   Tuesday    40">Run</button>
@@ -92,7 +92,7 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
                 <button class="check-btn"
                         data-answer='long_data |> pivot_wider(names_from = "Day", values_from = "Eggs")'
                         data-output="  Dish      Monday  Tuesday<br>1 Risotto   50      45">Run</button>

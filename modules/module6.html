@@ -44,7 +44,7 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
                 <button class="check-btn"
                         data-answer='guests |> mutate(dress_code = case_when(costume == "Tux" ~ "Formal", costume == "Gown" ~ "Formal", TRUE ~ "Casual"))'
                         data-output="  name   costume  dress_code<br>1 Rory   Gown     Formal<br>2 Paris  Suit     Casual">Run</button>
@@ -78,7 +78,7 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
                 <button class="check-btn"
                         data-answer='left_join(guests, yale_students, by = "name")'
                         data-output="  name    status    major<br>1 Logan   Member    Economics<br>2 Rory    Guest     Newspaper">Run</button>
@@ -108,7 +108,7 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
                 <button class="check-btn"
                         data-answer='anti_join(yale_students, guests, by = "name")'
                         data-output="  name    major<br>1 Marty   History<br>2 Doyle   Journalism">Run</button>
@@ -137,7 +137,7 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
                 <button class="check-btn"
                         data-answer="guests |> distinct()"
                         data-output="[Duplicates removed. Unique guests remain.]">Run</button>

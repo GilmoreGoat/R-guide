@@ -37,7 +37,7 @@
     <div class="editor-body">
       <div class="code-input-line">
         <span class="prompt">></span>
-        <input type="text" class="editor-input input-code" placeholder="...">
+        <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
         <button class="check-btn"
                 data-answer="stunt_heights |> filter(height_m < 100)"
                 data-output="[Filtered: 1 row removed. Error corrected.]">Run</button>
@@ -69,7 +69,7 @@
     <div class="editor-body">
       <div class="code-input-line">
         <span class="prompt">></span>
-        <input type="text" class="editor-input input-code" placeholder="...">
+        <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
         <button class="check-btn"
                 data-answer='ks.test(x = stunt_heights$height_m, y = "pnorm", mean = mean(stunt_heights$height_m), sd = sd(stunt_heights$height_m))'
                 data-output="One-sample Kolmogorov-Smirnov test<br>D = 0.2, p-value = 0.01<br>(Not Normal. Data is skewed.)">Run</button>
@@ -98,7 +98,7 @@
     <div class="editor-body">
       <div class="code-input-line">
         <span class="prompt">></span>
-        <input type="text" class="editor-input input-code" placeholder="...">
+        <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
         <button class="check-btn"
                 data-answer="stunt_heights |> mutate(log_height = log10(height_m))"
                 data-output="  height_m  log_height<br>1 10        1.0">Run</button>
@@ -128,7 +128,7 @@
     <div class="editor-body">
       <div class="code-input-line">
         <span class="prompt">></span>
-        <input type="text" class="editor-input input-code" placeholder="...">
+        <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
         <button class="check-btn"
                 data-answer="t.test(yale_students$hours_studied, mu = 20)"
                 data-output="One Sample t-test<br>t = -5.5, p-value = 0.001<br>(Significant. They study way less than expected.)">Run</button>
@@ -158,7 +158,7 @@
     <div class="editor-body">
       <div class="code-input-line">
         <span class="prompt">></span>
-        <input type="text" class="editor-input input-code" placeholder="...">
+        <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
         <button class="check-btn"
                 data-answer="t.test(Cream_A, Cream_B, paired = TRUE)"
                 data-output="Paired t-test<br>t = -5.1, p-value = 0.0001<br>(Significant improvement.)">Run</button>
@@ -188,7 +188,7 @@
     <div class="editor-body">
       <div class="code-input-line">
         <span class="prompt">></span>
-        <input type="text" class="editor-input input-code" placeholder="...">
+        <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
         <button class="check-btn"
                 data-answer="t.test(horn_length ~ survival, data = lizards)"
                 data-output="Two Sample t-test<br>t = 4.2, p-value = 0.01<br>(Survivors had significantly longer horns.)">Run</button>
@@ -220,7 +220,7 @@
     <div class="editor-body">
       <div class="code-input-line">
         <span class="prompt">></span>
-        <input type="text" class="editor-input input-code" placeholder="...">
+        <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
         <button class="check-btn"
                 data-answer='power.t.test(delta = 10, sd = 15, power = 0.8, type = "two.sample")'
                 data-output="Two-sample t test power calculation<br>n = 36.3 (Round up to 37 lizards!)">Run</button>

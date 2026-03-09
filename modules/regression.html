@@ -44,7 +44,7 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
                 <button class="check-btn"
                         data-answer="cor.test(investments$risk, investments$roi)"
                         data-output="Pearson's product-moment correlation<br>cor = -0.85, p-value = 0.04<br>(Strong negative relationship. Ouch.)">Run</button>
@@ -80,7 +80,7 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
                 <button class="check-btn"
                         data-answer='market_model <- lm(roi ~ risk, data = investments); summary(market_model)'
                         data-output="Coefficients:<br>(Intercept)  15.5<br>risk     -2.5<br><br>Multiple R-squared: 0.72">Run</button>
@@ -113,7 +113,7 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
                 <button class="check-btn"
                         data-answer='ggplot(investments, aes(x = risk, y = roi)) + geom_point() + geom_smooth(method = "lm")'
                         data-output="[Plot Created: Scatterplot with a regression line]">Run</button>

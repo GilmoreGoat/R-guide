@@ -47,7 +47,7 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
                 <button class="check-btn" data-answer="menu |> pull(price)" data-output="[1] 12.00  6.50  3.00">Run</button>
             </div>
         </div>
@@ -75,7 +75,7 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
                 <button class="check-btn" data-answer="orders$tips" data-output="[1] 2.00 5.00 0.00">Run</button>
             </div>
         </div>
@@ -103,7 +103,7 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
                 <button class="check-btn" data-answer='customers |> filter(name != "Jess")' data-output="  name      status<br>1 Lorelai   VIP<br>2 Rory      VIP">Run</button>
             </div>
         </div>
@@ -131,7 +131,7 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
                 <button class="check-btn" data-answer="menu |> arrange(desc(price))" data-output="  item           price<br>1 Burger         12.00">Run</button>
             </div>
         </div>
@@ -159,7 +159,7 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
                 <button class="check-btn" data-answer="menu |> mutate(new_price = price * 1.10)" data-output="  item    price  new_price<br>1 Burger  12.00  13.20">Run</button>
             </div>
         </div>
@@ -182,7 +182,7 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
                 <button class="check-btn" data-answer="table(customers$status)" data-output="VIP: 2  Regular: 1  Owner: 1">Run</button>
             </div>
         </div>
@@ -212,7 +212,7 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
                 <button class="check-btn"
                         data-answer="customers |> group_by(status) |> summarise(count = n())"
                         data-output="  status  count<br>1 VIP     2<br>2 Regular 1">Run</button>

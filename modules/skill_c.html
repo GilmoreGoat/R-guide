@@ -38,7 +38,7 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
                 <button class="check-btn"
                         data-answer='rumors |> filter(str_detect(text, "wedding"))'
                         data-output="  source   text<br>1 MissPatty  I heard a wedding is coming!">Run</button>
@@ -68,7 +68,7 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
                 <button class="check-btn"
                         data-answer='staff <- data.frame(name="Doyle", role="Editor"); staff |> mutate(role = str_replace(role, "Editor", "Chief"))'
                         data-output="  name   role<br>1 Doyle  Chief">Run</button>
@@ -98,7 +98,7 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
                 <button class="check-btn"
                         data-answer='people <- data.frame(full_name="Rory_Gilmore"); people |> separate(full_name, into = c("First", "Last"), sep = "_")'
                         data-output="  First    Last<br>1 Rory     Gilmore">Run</button>
@@ -130,7 +130,7 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
                 <button class="check-btn"
                         data-answer='gazette_bylines |> mutate(label = str_glue("Writer: {writer}"))'
                         data-output="  writer   label<br>1 Rory     Writer: Rory">Run</button>

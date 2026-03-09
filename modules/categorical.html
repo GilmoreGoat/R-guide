@@ -41,7 +41,7 @@
     <div class="editor-body">
       <div class="code-input-line">
         <span class="prompt">></span>
-        <input type="text" class="editor-input input-code" placeholder="...">
+        <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
         <button class="check-btn"
                 data-answer="my_table <- table(dancers$style, dancers$age_group); my_table"
                 data-output="          Kid   Teen<br>Ballet     1      0<br>Tap        0      1">Run</button>
@@ -75,7 +75,7 @@
     <div class="editor-body">
       <div class="code-input-line">
         <span class="prompt">></span>
-        <input type="text" class="editor-input input-code" placeholder="...">
+        <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
         <button class="check-btn"
                 data-answer="chisq.test(my_table)"
                 data-output="Pearson's Chi-squared test<br>X-squared = 4.0, df = 3, p-value = 0.2<br>(Warning: Approximation may be incorrect)">Run</button>
@@ -107,7 +107,7 @@
     <div class="editor-body">
       <div class="code-input-line">
         <span class="prompt">></span>
-        <input type="text" class="editor-input input-code" placeholder="...">
+        <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
         <button class="check-btn"
                 data-answer='ggplot(dancers, aes(x = style, fill = age_group)) + geom_bar(position = "fill") + labs(y = "Proportion")'
                 data-output="[Plot Created: Stacked bars showing Age distribution]">Run</button>

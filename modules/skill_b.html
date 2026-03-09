@@ -40,7 +40,7 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
                 <button class="check-btn"
                         data-answer="festivals |> mutate(date = mdy(date_str))"
                         data-output="  event          date<br>1 Firelight      2024-02-14">Run</button>
@@ -70,7 +70,7 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
                 <button class="check-btn"
                         data-answer="marathon |> mutate(hours = end - start)"
                         data-output="  contestant  hours<br>1 Kirk        24.0 hours">Run</button>
@@ -101,7 +101,7 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
                 <button class="check-btn"
                         data-answer="festivals |> mutate(date = mdy(date_str)) |> mutate(season = month(date, label = TRUE))"
                         data-output="  date        season<br>1 2024-02-14  Feb">Run</button>
@@ -131,7 +131,7 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
                 <button class="check-btn"
                         data-answer='festivals |> mutate(date = mdy(date_str)) |> mutate(week_start = floor_date(date, "week"))'
                         data-output="  date        week_start<br>1 2024-02-14  2024-02-11">Run</button>

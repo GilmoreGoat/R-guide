@@ -403,12 +403,12 @@ pre code { background: transparent; color: inherit; padding: 0; font-weight: nor
 /* The Input Line (Where they type) */
 .code-input-line {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 15px;
 }
 
 .line-number { color: #555; margin-right: 15px; user-select: none; }
-.prompt { color: #27ae60; margin-right: 10px; font-weight: bold; } /* The > arrow */
+.prompt { color: #27ae60; margin-right: 10px; font-weight: bold; margin-top: 5px; } /* The > arrow */
 
 .editor-input {
     background: transparent;
@@ -419,6 +419,7 @@ pre code { background: transparent; color: inherit; padding: 0; font-weight: nor
     font-size: 1.1em;
     width: 100%;
     padding: 5px;
+    resize: vertical;
 }
 .editor-input:focus { outline: none; border-bottom: 2px solid var(--yale-blue); }
 

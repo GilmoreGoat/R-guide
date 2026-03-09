@@ -41,7 +41,7 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
                 <button class="check-btn" data-answer="avg_col <- function(df, col) { df %>% summarize(avg = mean({{ col }})) }; avg_col(menu, price)" data-output="# A tibble: 1 × 1
     avg
   <dbl>
@@ -75,7 +75,7 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
                 <button class="check-btn" data-answer="add_tax <- function(df, new_col) { df %>% mutate({{ new_col }} := price * 1.08) }; add_tax(menu, price_tax)" data-output="# A tibble: 4 × 4
   item       price calories price_tax
   <chr>      <dbl>    <dbl>     <dbl>
@@ -111,7 +111,7 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
                 <button class="check-btn" data-answer="capture_it <- function(x) { rlang::enquo(x) }; capture_it(some_variable)" data-output="<quosure>
 expr: ^some_variable
 env:  global">Run</button>

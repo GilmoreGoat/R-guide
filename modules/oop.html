@@ -41,7 +41,7 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
                 <button class="check-btn" data-answer="my_song <- structure(list(title='Believe it or Not', genre='Rock'), class='song'); print.song <- function(x) cat('Now playing:', x$title); print(my_song)" data-output="Now playing: Believe it or Not">Run</button>
             </div>
         </div>
@@ -71,7 +71,7 @@
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
                 <button class="check-btn" data-answer="setClass('Member', slots = list(name='character', rank='character')); emily <- new('Member', name='Emily', rank='President'); print(emily)" data-output="An object of class 'Member'
 Slot 'name':
 [1] 'Emily'
@@ -106,7 +106,7 @@ Slot 'rank':
         <div class="editor-body">
             <div class="code-input-line">
                 <span class="prompt">></span>
-                <input type="text" class="editor-input input-code" placeholder="...">
+                <textarea rows="3" class="editor-input input-code" placeholder="..."></textarea>
                 <button class="check-btn" data-answer="BandFund <- R6Class('BandFund', public = list(cash = 0, add_gig_pay = function(x) { self$cash <- self$cash + x })); hep_alien <- BandFund$new(); hep_alien$add_gig_pay(100); hep_alien$cash" data-output="[1] 100">Run</button>
             </div>
         </div>

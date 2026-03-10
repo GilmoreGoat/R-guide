@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import sqlite3 from 'sqlite3';
+import pg from 'pg';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { dirname, join } from 'path';
@@ -28,32 +28,45 @@ app.use((req, res, next) => {
 // Serve static files from the root directory
 app.use(express.static(__dirname));
 
-// Initialize SQLite database
-const db = new sqlite3.Database(join(__dirname, 'database.sqlite'), (err) => {
+// Initialize PostgreSQL database
+const { Pool } = pg;
+const db = new Pool({
+    connectionString: process.env.DATABASE_URL || 'postgresql://localhost/gilmore_db',
+    ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false
+});
+
+db.connect((err, client, release) => {
     if (err) {
-        console.error('Error opening database', err.message);
-    } else {
-        console.log('Connected to the SQLite database.');
-
-        // Create tables
-        db.run(`CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT UNIQUE NOT NULL,
-            password TEXT NOT NULL
-        )`);
-
-        db.run(`CREATE TABLE IF NOT EXISTS progress (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_id INTEGER,
-            page_name TEXT NOT NULL,
-            input_index INTEGER NOT NULL,
-            input_value TEXT,
-            output_value TEXT,
-            input_class TEXT,
-            FOREIGN KEY (user_id) REFERENCES users (id),
-            UNIQUE(user_id, page_name, input_index)
-        )`);
+        return console.error('Error acquiring client', err.stack);
     }
+    console.log('Connected to the PostgreSQL database.');
+
+    // Create tables
+    client.query(`CREATE TABLE IF NOT EXISTS users (
+        id SERIAL PRIMARY KEY,
+        username VARCHAR(255) UNIQUE NOT NULL,
+        password VARCHAR(255) NOT NULL
+    )`, (err, result) => {
+        if (err) {
+            console.error('Error creating users table', err);
+        }
+    });
+
+    client.query(`CREATE TABLE IF NOT EXISTS progress (
+        id SERIAL PRIMARY KEY,
+        user_id INTEGER REFERENCES users (id) ON DELETE CASCADE,
+        page_name VARCHAR(255) NOT NULL,
+        input_index INTEGER NOT NULL,
+        input_value TEXT,
+        output_value TEXT,
+        input_class VARCHAR(255),
+        UNIQUE(user_id, page_name, input_index)
+    )`, (err, result) => {
+        release();
+        if (err) {
+            console.error('Error creating progress table', err);
+        }
+    });
 });
 
 // --- API Routes ---
@@ -84,15 +97,17 @@ app.post('/api/register', async (req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        db.run(`INSERT INTO users (username, password) VALUES (?, ?)`, [username, hashedPassword], function(err) {
+        db.query(`INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id`, [username, hashedPassword], (err, result) => {
             if (err) {
-                if (err.message.includes('UNIQUE constraint failed')) {
+                if (err.code === '23505') { // UNIQUE constraint violation in PostgreSQL
                     return res.status(409).json({ error: 'Username already exists' });
                 }
+                console.error(err);
                 return res.status(500).json({ error: 'Database error' });
             }
 
-            const token = jwt.sign({ id: this.lastID, username }, JWT_SECRET, { expiresIn: '7d' });
+            const newUserId = result.rows[0].id;
+            const token = jwt.sign({ id: newUserId, username }, JWT_SECRET, { expiresIn: '7d' });
             res.status(201).json({ message: 'User created successfully', token, username });
         });
     } catch (err) {
@@ -107,10 +122,13 @@ app.post('/api/login', (req, res) => {
         return res.status(400).json({ error: 'Username and password are required' });
     }
 
-    db.get(`SELECT * FROM users WHERE username = ?`, [username], async (err, row) => {
+    db.query(`SELECT * FROM users WHERE username = $1`, [username], async (err, result) => {
         if (err) {
+            console.error(err);
             return res.status(500).json({ error: 'Database error' });
         }
+
+        const row = result.rows[0];
         if (!row) {
             return res.status(401).json({ error: 'Invalid credentials' });
         }
@@ -143,22 +161,24 @@ app.post('/api/progress', authenticateToken, (req, res) => {
     }
 
     // First get the user ID
-    db.get(`SELECT id FROM users WHERE username = ?`, [username], (err, user) => {
+    db.query(`SELECT id FROM users WHERE username = $1`, [username], (err, result) => {
         if (err) return res.status(500).json({ error: 'Database error' });
+        const user = result.rows[0];
         if (!user) return res.status(404).json({ error: 'User not found' });
 
         const userId = user.id;
 
         // Upsert progress
-        db.run(`
+        db.query(`
             INSERT INTO progress (user_id, page_name, input_index, input_value, output_value, input_class)
-            VALUES (?, ?, ?, ?, ?, ?)
+            VALUES ($1, $2, $3, $4, $5, $6)
             ON CONFLICT(user_id, page_name, input_index) DO UPDATE SET
-                input_value = excluded.input_value,
-                output_value = excluded.output_value,
-                input_class = excluded.input_class
-        `, [userId, pageName, inputIndex, inputValue, outputValue, inputClass], function(err) {
+                input_value = EXCLUDED.input_value,
+                output_value = EXCLUDED.output_value,
+                input_class = EXCLUDED.input_class
+        `, [userId, pageName, inputIndex, inputValue, outputValue, inputClass], (err, result) => {
             if (err) {
+                console.error(err);
                 return res.status(500).json({ error: 'Database error while saving progress' });
             }
             res.status(200).json({ message: 'Progress saved' });
@@ -174,14 +194,15 @@ app.get('/api/progress/:username/:pageName', authenticateToken, (req, res) => {
         return res.status(403).json({ error: 'Cannot fetch progress for another user' });
     }
 
-    db.get(`SELECT id FROM users WHERE username = ?`, [username], (err, user) => {
+    db.query(`SELECT id FROM users WHERE username = $1`, [username], (err, result) => {
         if (err) return res.status(500).json({ error: 'Database error' });
+        const user = result.rows[0];
         if (!user) return res.status(404).json({ error: 'User not found' });
 
-        db.all(`SELECT input_index, input_value, output_value, input_class FROM progress WHERE user_id = ? AND page_name = ?`,
-            [user.id, pageName], (err, rows) => {
+        db.query(`SELECT input_index, input_value, output_value, input_class FROM progress WHERE user_id = $1 AND page_name = $2`,
+            [user.id, pageName], (err, result) => {
             if (err) return res.status(500).json({ error: 'Database error fetching progress' });
-            res.status(200).json({ progress: rows });
+            res.status(200).json({ progress: result.rows });
         });
     });
 });

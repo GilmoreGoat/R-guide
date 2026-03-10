@@ -30,7 +30,7 @@ A Gilmore Girls-themed interactive study guide for R programming, built with [We
     - **Skill G: Paris Geller's Bunker**: Debugging (`browser()`, `traceback()`).
     - **Future Syllabus**: A roadmap for advanced R skills (`syllabus.html`).
 - **Master Projects (Tier 4)**: 20 downloadable Capstone projects (`.zip` files containing `.Rmd` and `.csv` files) for comprehensive real-world scenarios.
-- **User Authentication & Progress Sync**: Login system using JWT and bcrypt, with code progress synced to a SQLite database and cached in `localStorage`.
+- **User Authentication & Progress Sync**: Login system using JWT and bcrypt, with code progress synced to a PostgreSQL database and cached in `localStorage`.
 - **Pre-loaded Data**: extensive datasets available for practice (see "Available Data" below).
 - **Instant Feedback**: Visual cues (Success/Warning/Error) and console output.
 - **Cheat Menu**: Quick access to common R functions and package loading.
@@ -89,106 +89,96 @@ The R environment comes pre-loaded with several datasets for you to practice wit
 
 ## Getting Started
 
-Since this project uses ES modules and WebAssembly, it must be served via a local web server (opening `index.html` directly as a file won't work due to CORS policies).
+Since this project uses ES modules and WebAssembly, it must be served via a local web server (opening `index.html` directly as a file won't work due to CORS policies). The application relies on a Node.js Express server to serve files and provide a backend API with PostgreSQL for user progress.
 
 ### Prerequisites
 
-- Node.js (required for running the server and running tests).
+- Node.js (required for running the server and tests).
+- PostgreSQL database (for local development and storing user progress).
 
-### Running the Project
+### Installation & Running the Project
 
-1.  Clone the repository.
-2.  Navigate to the project root.
-3.  Install dependencies:
+1.  Clone the repository and navigate to the project root.
+2.  Install all dependencies:
     ```bash
     npm install
+    ```
+3.  Set up your local environment. You need to configure the `DATABASE_URL` for PostgreSQL:
+    ```bash
+    export DATABASE_URL=postgresql://localhost/gilmore_db
     ```
 4.  Start the Node.js Express server:
     ```bash
     npm start
     ```
-5.  Open your browser and go to `http://localhost:8000`.
+5.  Open your browser and navigate to `http://localhost:8000`.
 
-## Architecture & Developer Guide
+*Note for Deployment: The application is configured for deployment to PaaS platforms like Render or Railway, utilizing PostgreSQL via the `pg` package.*
 
-The project is designed to be simple and maintainable.
+## Testing
 
-### Key Files
+Project testing is split into Unit Tests and End-to-End (E2E) Tests.
 
-- `index.html`: Main landing page.
-- `script.js`: Core application logic. Handles WebR initialization, UI interactions (Cheat Menu, Copy Buttons), and code execution using `webR.Shelter` and `captureR`.
-- `logic.js`: Pure utility functions for code verification and output processing.
-    - `normalizeCode(code)`: Standardizes user input (removes whitespace, lowers case) for fuzzy matching.
-    - `compareCode(user, expected)`: Checks if the user's answer matches the solution.
-    - `escapeHTML(str)`: Prevents XSS attacks by escaping special characters.
-    - `processWebROutput(output)`: Formats WebR output arrays into HTML.
-- `style.css`: Global styles using CSS Variables for theming.
-- `server.js`: Node.js Express server that serves static frontend files and provides API routes for user authentication and saving/loading code progress to/from SQLite.
-
-### Testing
-
-#### Unit Tests
-Verifies the logic in `logic.js` using Node.js native test runner.
-
+### Unit Tests
+Verifies utility functions (e.g., `js/logic.js`) using the native Node.js test runner.
 ```bash
 npm test
 ```
+*(Executes `node --test tests/*.test.js` under the hood).*
 
-#### End-to-End Tests
-Verifies WebR loading and page interactions using Playwright.
+### End-to-End Tests
+Verifies WebR loading, page interactions, and functional UI elements using Playwright.
 
+Before running E2E tests for the first time, you must install the Playwright browser binaries:
+```bash
+npx playwright install
+```
+
+Then you can run the tests:
 ```bash
 npx playwright test
 ```
 
-## Project Structure
+*Note: Visual frontend verification can also be run independently using the Python script `verify_frontend.py` (requires `pip install playwright` and the app running locally on port 8000).*
 
-- `index.html`: Main landing page / Table of Contents.
-- `script.js`: Core application logic, WebR initialization, and UI handling.
-- `logic.js`: Pure utility functions for code normalization and comparison (testable).
-- `style.css`: Global styles and theming (CSS Variables).
-- `reference.js`: Handles navigation logic for the Reference Guide.
-- `basics.html`: Module 1 (Basics).
-- `wrangling.html`: Module 2 (Data Frames).
-- `tidying.html`: Module 3 (Tidying).
-- `visualization.html`: Module 4 (Graphing).
-- `statistics.html`: Module 5 (T-Tests).
-- `anova.html`: Module 6 (ANOVA).
-- `regression.html`: Module 7 (Regression).
-- `categorical.html`: Module 8 (Categorical).
-- `module6.html`: Skill A (The Life & Death Brigade - Joining). *Note: `module6.html` corresponds to Skill A, while `anova.html` is Module 6.*
-- `skill_b.html`: Skill B (Town Festivals - Dates).
-- `skill_c.html`: Skill C (Stars Hollow Gazette - Strings).
-- `functional.html`: Skill D (Mrs. Kim's Antiques - Functional Programming).
-- `oop.html`: Skill E (The DAR & Hep Alien - OOP).
-- `metaprogramming.html`: Skill F (The Troubadour - Metaprogramming).
-- `debugging.html`: Skill G (Paris Geller's Bunker - Debugging).
-- `projects.html`: Master Projects (Tier 4).
-- `syllabus.html`: Future Syllabus (Tier 3).
-- `reference.html`: Paris Geller's Master Reference.
-- `about.html`: About page.
-- `login.html`: User login and registration.
-- `server.js`: Node.js Express server to handle API routes and static files.
-- `create_tier4_projects.py`: Python script to dynamically generate zip file challenges.
-- `verify_frontend.py`: Python Playwright script to verify UI visually and take screenshots.
-- `tests/`: Unit and E2E tests.
+## Adding a New Module
 
-## Tech Stack
+To add a new learning module to the educational platform, follow these steps to ensure it integrates correctly with the WebR environment, checking system, and test suites:
 
-- **Frontend**: HTML5, CSS3, JavaScript (ES Modules).
-- **Backend**: Node.js, Express, SQLite3, JWT, bcrypt.
-- **R Engine**: [WebR](https://docs.r-wasm.org/webr/latest/) (WASM).
-- **R Packages**: `tidyverse`, `skimr`, `rstatix`, `lubridate`, `stringr`, `purrr`, `rlang`.
-- **Testing**: Node.js Test Runner, Node Playwright (E2E), Python Playwright (Visual Verification).
+1. **Create the HTML File:** Create a new HTML file in the `modules/` directory. Use an existing module as a template.
+2. **Add WebR Preload Tags:** Ensure the WebR module is preloaded for performance by including `<link rel="modulepreload">` tags in the `<head>` of your new HTML file.
+3. **Configure Interactive Elements:** Use `<textarea rows="3" class="editor-input input-code">` for user input and `.check-btn` for the Run buttons. Set the expected literal R vector/value in the `data-answer` attribute of the button (e.g., `data-answer="c(1, 4, 9)"`) for validation.
+4. **Register Required Packages:** Add your new HTML file and its required R packages to the `PAGE_PACKAGES` mapping in `js/logic.js`.
+5. **Update Test Coverage:** Add the filename to the `staticPages` array inside `tests/verify_pages_load.spec.js` so Playwright will automatically verify it loads correctly.
+6. **Link from Navigation:** Add a new `.concept-card` in `index.html` pointing to your new module.
+
+## Architecture & Developer Guide
+
+The project is designed to be simple and maintainable, following a defined directory structure:
+- `js/` for scripts (`script.js`, `logic.js`, `r_data.js`, `login.js`, `reference.js`).
+- `css/` for styles (`style.css`).
+- `modules/` for HTML content files representing individual lessons.
+- `tests/` for automated unit and end-to-end tests.
+- `images/` for assets.
+
+### Key Files
+
+- `index.html`: Main landing page with a sticky navigation bar and anchor links to different tiers.
+- `js/script.js`: Core application logic. Handles WebR initialization, UI interactions, error handling, and code execution using `webR.Shelter` and `captureR`. Multi-line input formatting is done safely to simulate an R terminal.
+- `js/logic.js`: Pure utility functions for code verification, R package resolution (`getRequiredPackages`), and output processing.
+- `css/style.css`: Global styles using a thematic color palette (Coffee, Autumn Orange, Yale Blue) and Google Fonts.
+- `server.js`: Node.js Express server that serves static frontend files and handles API routes (including security middleware blocking public access to sensitive files).
 
 ## Troubleshooting 🔧
 
 - **R Engine Stuck Loading?**
-  - Ensure you are serving the file via a web server (http://localhost:8000), not opening it directly (`file://`).
+  - Ensure you are serving the file via a web server (`http://localhost:8000`), not opening it directly (`file://`). The frontend checks against the `file://` protocol to prevent generic network errors.
   - Check your browser console (F12) for errors.
   - Refresh the page (sometimes the WASM fetch times out).
 - **Plots Not Showing?**
   - Make sure you run code that produces a plot object (e.g., `print(plot)`).
+- **Login/Network Errors?**
+  - If you encounter errors logging in, ensure `npm start` is running to launch the Express backend, not just a static server.
 
 ## The Mission
 

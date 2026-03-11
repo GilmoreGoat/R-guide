@@ -30,6 +30,16 @@
     --border-dark: #333;
 }
 
+[data-theme="dark"] {
+    --coffee-dark: #fdf6e3;   /* Old Book Pages as text */
+    --coffee-light: #d7ccc8;  /* Lighter Latte Accents */
+    --paper-white: #2c2c2c;   /* Dark background */
+    --bg-texture: radial-gradient(#3e3e3e 1px, transparent 1px), radial-gradient(#3e3e3e 1px, transparent 1px);
+    --paper-texture: #333333; /* Darker paper for headers/boxes */
+    --light-blue-bg: #1e2a38; /* Darker version of yale-blue-ish background */
+    --gazette-ink: #8da3b9; /* Lighter blue-grey for headers */
+}
+
 body {
     font-family: 'Lora', serif; /* Bookish font */
     line-height: 1.8;
@@ -676,6 +686,31 @@ pre code { background: transparent; color: inherit; padding: 0; font-weight: nor
 .border-coffee-dark { border-color: var(--coffee-dark) !important; }
 .border-yale-blue { border-left: 6px solid var(--yale-blue) !important; }
 .border-autumn-orange { border-left: 6px solid var(--autumn-orange) !important; }
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    width: 50px;
+    height: 50px;
+    background: var(--autumn-orange);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    cursor: pointer;
+    box-shadow: 2px 4px 10px rgba(0,0,0,0.3);
+    z-index: 1000;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.theme-toggle-btn:hover {
+    transform: scale(1.1);
+    background: var(--coffee-dark);
+}
 
 /* Sticky footer for Cheat Sheet */
 .cheat-fab::after {

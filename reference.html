@@ -10,6 +10,11 @@
     <script type="module" src="js/script.js"></script>
     <script type="module" src="js/reference.js"></script>
     <link rel="stylesheet" href="css/reference.css">
+    <script>
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
 </head>
 <body>
 <nav><a href="index.html">&larr; Back to Town</a></nav>

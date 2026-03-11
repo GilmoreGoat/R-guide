@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head><title>Perf Test Opt</title></head>
+<body>
+<div id="container"></div>
+<script>
+    const container = document.getElementById('container');
+    let html = '';
+    for (let i = 0; i < 10000; i++) {
+        html += '<pre><code>const a = ' + i + ';</code></pre>';
+    }
+    container.innerHTML = html;
+</script>
+<script>
+    const startTime = performance.now();
+
+    // --- 5. COPY BUTTONS ---
+    const codeBlocks = document.querySelectorAll('pre');
+    codeBlocks.forEach(block => {
+        const codeElement = block.querySelector('code');
+        if (!codeElement) return;
+
+        const button = document.createElement('button');
+        button.innerText = 'Copy';
+        button.className = 'copy-btn';
+        block.appendChild(button);
+    });
+
+    document.addEventListener('click', (event) => {
+        if (event.target && event.target.classList.contains('copy-btn')) {
+            const button = event.target;
+            const block = button.closest('pre');
+            if (!block) return;
+            const codeElement = block.querySelector('code');
+            if (!codeElement) return;
+
+            const codeText = codeElement.innerText;
+            navigator.clipboard.writeText(codeText).then(() => {
+                const originalText = button.innerText;
+                button.innerText = 'Copied!';
+                setTimeout(() => { button.innerText = originalText; }, 2000);
+            });
+        }
+    });
+
+    const endTime = performance.now();
+    console.log("Optimized Time: " + (endTime - startTime) + " ms");
+</script>
+</body>
+</html>

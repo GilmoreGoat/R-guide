@@ -95,15 +95,27 @@ document.addEventListener('DOMContentLoaded', async () => {
         const button = document.createElement('button');
         button.innerText = 'Copy';
         button.className = 'copy-btn';
-        button.addEventListener('click', () => {
-            const codeText = codeElement.innerText;
-            navigator.clipboard.writeText(codeText).then(() => {
-                const originalText = button.innerText;
-                button.innerText = 'Copied!';
-                setTimeout(() => { button.innerText = originalText; }, 2000);
-            });
-        });
         block.appendChild(button);
+    });
+
+    document.addEventListener('click', (event) => {
+        const button = event.target.closest('.copy-btn');
+        if (!button) return;
+
+        const block = button.closest('pre');
+        if (!block) return;
+
+        const codeElement = block.querySelector('code');
+        if (!codeElement) return;
+
+        const codeText = codeElement.innerText;
+        navigator.clipboard.writeText(codeText).then(() => {
+            const originalText = button.innerText;
+            button.innerText = 'Copied!';
+            setTimeout(() => { button.innerText = originalText; }, 2000);
+        }).catch(err => {
+            console.error('Failed to copy text: ', err);
+        });
     });
 
     const checkBtns = document.querySelectorAll('.check-btn');

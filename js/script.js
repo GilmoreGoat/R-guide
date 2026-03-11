@@ -66,6 +66,36 @@ document.addEventListener('DOMContentLoaded', async () => {
     createFallingLeaves();
 
     // --- 1. UI SETUP ---
+
+    // Theme Toggle Button
+    const themeToggle = document.createElement('div');
+    themeToggle.className = 'theme-toggle-btn';
+
+    // Check local storage for theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeToggle.innerHTML = '☀️';
+    } else {
+        themeToggle.innerHTML = '🌙';
+    }
+
+    themeToggle.setAttribute('title', 'Toggle Light/Dark Mode');
+    document.body.appendChild(themeToggle);
+
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        if (currentTheme === 'dark') {
+            document.documentElement.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'light');
+            themeToggle.innerHTML = '🌙';
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+            themeToggle.innerHTML = '☀️';
+        }
+    });
+
     const fab = document.createElement('div');
     fab.className = 'cheat-fab';
     fab.innerText = '?'; // Or a coffee cup icon via CSS content

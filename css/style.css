@@ -859,3 +859,112 @@ pre code { background: transparent; color: inherit; padding: 0; font-weight: nor
 .fw-bold { font-weight: bold; }
 .mt-20 { margin-top: 20px; }
 .mt-30 { margin-top: 30px; }
+
+/* --- DARK MODE OVERRIDES (Readability Fixes) --- */
+[data-theme="dark"] .quiz-section {
+    background: var(--paper-texture);
+}
+
+[data-theme="dark"] .btn-opt {
+    background: var(--paper-texture);
+    border-color: var(--coffee-dark);
+    color: var(--coffee-dark);
+}
+
+[data-theme="dark"] .btn-opt:hover {
+    background: var(--light-blue-bg);
+}
+
+[data-theme="dark"] .btn-opt.correct {
+    background: #1e4620;
+    border-color: #2e6b30;
+    color: #e0eee0;
+}
+
+[data-theme="dark"] .btn-opt.wrong {
+    background: #5c1b22;
+    border-color: #8c2a34;
+    color: #f8d7da;
+}
+
+[data-theme="dark"] .input-code {
+    background: var(--paper-white);
+    color: var(--coffee-dark);
+}
+
+[data-theme="dark"] .cheat-menu {
+    background: var(--paper-texture);
+}
+
+[data-theme="dark"] .instruction-box {
+    background: var(--paper-texture);
+}
+
+[data-theme="dark"] .town-menu-item {
+    background: var(--paper-texture);
+}
+
+[data-theme="dark"] .town-menu-item:hover {
+    background: var(--light-blue-bg);
+}
+
+[data-theme="dark"] .toc-btn.yale-btn {
+    background: var(--paper-texture);
+    color: var(--coffee-dark);
+}
+
+[data-theme="dark"] .toc-btn.yale-btn:hover {
+    background: var(--yale-blue);
+    color: white;
+}
+
+[data-theme="dark"] .panic-kit {
+    background: #4a4012;
+    color: var(--coffee-dark);
+}
+
+[data-theme="dark"] .panic-kit pre {
+    background: var(--paper-white);
+    border-color: #555;
+    color: var(--coffee-dark);
+}
+
+[data-theme="dark"] .console-img {
+    background: #e0e0e0;
+}
+
+/* Additional adjustments */
+[data-theme="dark"] .lesson-box-large {
+    background: var(--light-blue-bg);
+}
+
+[data-theme="dark"] .lesson-box {
+    background: var(--light-blue-bg);
+}
+
+[data-theme="dark"] .cheat-item-pkg-btn {
+    background: var(--light-blue-bg);
+    border-color: var(--gazette-ink);
+    color: var(--coffee-dark);
+}
+
+[data-theme="dark"] .cheat-item-pkg-btn:hover {
+    background: var(--gazette-ink);
+}
+
+[data-theme="dark"] .copy-btn {
+    background: var(--paper-texture);
+    color: var(--coffee-dark);
+    border-color: var(--coffee-dark);
+}
+
+[data-theme="dark"] .copy-btn:hover {
+    background: var(--coffee-dark);
+    color: var(--paper-white);
+}
+
+[data-theme="dark"] .header-stamp {
+    background: var(--paper-white);
+    color: var(--coffee-dark);
+    border-color: var(--coffee-dark);
+}

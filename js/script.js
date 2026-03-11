@@ -342,11 +342,23 @@ document.addEventListener('DOMContentLoaded', async () => {
             const btn = event.target.closest('.check-btn');
             if (!btn) return;
 
-            const container = btn.closest('.editor-container') || btn.closest('.question-box');
-            if (!container) return;
+            let input = btn._cachedInput;
+            let consoleDiv = btn._cachedConsoleDiv;
 
-            const input = container.querySelector('.input-code');
-            const consoleDiv = container.querySelector('.console-output');
+            if (!input || !consoleDiv) {
+                const container = btn.closest('.editor-container') || btn.closest('.question-box');
+                if (!container) return;
+
+                input = container.querySelector('.input-code');
+                consoleDiv = container.querySelector('.console-output');
+
+                if (input && consoleDiv) {
+                    btn._cachedInput = input;
+                    btn._cachedConsoleDiv = consoleDiv;
+                }
+            }
+
+            if (!input || !consoleDiv) return;
 
             let userCode = input.value;
             if (!userCode || userCode.trim() === "") return;

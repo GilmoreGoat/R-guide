@@ -208,6 +208,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Restore user progress from Server Database (fallback to localStorage if network fails)
     const codeInputs = document.querySelectorAll('.input-code');
+    const codeInputsArray = Array.from(codeInputs);
     const pageName = window.location.pathname.split('/').pop() || 'index.html';
 
     // Function to load progress from API
@@ -452,8 +453,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
 
                 // Save grading progress
-                const allCodeInputs = Array.from(document.querySelectorAll('.input-code'));
-                const inputIndex = allCodeInputs.indexOf(input);
+                const inputIndex = codeInputsArray.indexOf(input);
                 if (inputIndex !== -1) {
                     const pageName = window.location.pathname.split('/').pop() || 'index.html';
                     const currentUser = localStorage.getItem('r_gilmore_currentUser') || 'default';
@@ -503,8 +503,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 input.classList.add('is-error');
 
                 // Save grading progress (error state)
-                const allCodeInputs = Array.from(document.querySelectorAll('.input-code'));
-                const inputIndex = allCodeInputs.indexOf(input);
+                const inputIndex = codeInputsArray.indexOf(input);
                 if (inputIndex !== -1) {
                     const pageName = window.location.pathname.split('/').pop() || 'index.html';
                     const currentUser = localStorage.getItem('r_gilmore_currentUser') || 'default';

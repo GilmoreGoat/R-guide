@@ -32,7 +32,7 @@ app.use(express.static(__dirname));
 const { Pool } = pg;
 const db = new Pool({
     connectionString: process.env.DATABASE_URL || 'postgresql://localhost/gilmore_db',
-    ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false
+    ssl: process.env.DATABASE_URL ? { rejectUnauthorized: true } : false
 });
 
 db.connect((err, client, release) => {

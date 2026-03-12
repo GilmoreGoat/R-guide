@@ -156,7 +156,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const navElements = document.querySelectorAll('nav');
     if (navElements.length > 0) {
         const nav = navElements[0];
-        nav.style.position = 'relative'; // Ensure absolute positioning is relative to nav
 
         // Hide static Login link if user is logged in
         if (currentUser !== 'default') {

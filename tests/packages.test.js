@@ -1,7 +1,7 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert';
 import fs from 'node:fs';
-import { PAGE_PACKAGES, getRequiredPackages, DEFAULT_PACKAGES } from '../js/logic.js';
+import { PAGE_PACKAGES, getRequiredPackages } from '../js/logic.js';
 
 describe('Package Configuration Validation', () => {
     it('should have all keys in PAGE_PACKAGES corresponding to existing HTML files', () => {
@@ -29,8 +29,10 @@ describe('Package Configuration Validation', () => {
 });
 
 describe('getRequiredPackages', () => {
-    it('should return DEFAULT_PACKAGES for empty or null path', () => {
-        const expected = [...new Set(DEFAULT_PACKAGES)];
+    const DEFAULT_PKGS = ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate'];
+
+    it('should return default packages for empty or null path', () => {
+        const expected = [...new Set(DEFAULT_PKGS)];
         assert.deepStrictEqual(getRequiredPackages(null), expected);
         assert.deepStrictEqual(getRequiredPackages(''), expected);
     });
@@ -43,13 +45,13 @@ describe('getRequiredPackages', () => {
         assert.deepStrictEqual(getRequiredPackages('functional.html'), ['purrr', 'dplyr']);
     });
 
-    it('should return DEFAULT_PACKAGES for an unknown page', () => {
-        const expected = [...new Set(DEFAULT_PACKAGES)];
+    it('should return default packages for an unknown page', () => {
+        const expected = [...new Set(DEFAULT_PKGS)];
         assert.deepStrictEqual(getRequiredPackages('unknown.html'), expected);
     });
 
     it('should handle paths with no extension or different extensions', () => {
-        const expected = [...new Set(DEFAULT_PACKAGES)];
+        const expected = [...new Set(DEFAULT_PKGS)];
         assert.deepStrictEqual(getRequiredPackages('/some/path/'), expected);
         assert.deepStrictEqual(getRequiredPackages('/some/file.txt'), expected);
     });

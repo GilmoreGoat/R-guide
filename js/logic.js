@@ -102,7 +102,7 @@ export function processWebRImages(images) {
     return html;
 }
 
-export const DEFAULT_PACKAGES = ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate'];
+const DEFAULT_PACKAGES = ['dplyr', 'ggplot2', 'tidyr', 'stringr', 'lubridate'];
 
 export const PAGE_PACKAGES = {
     'basics.html': DEFAULT_PACKAGES,

@@ -11,7 +11,7 @@ const __dirname = dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 8000;
-const JWT_SECRET = process.env.JWT_SECRET || 'gilmore-secret-key-123';
+export const JWT_SECRET = process.env.JWT_SECRET || 'gilmore-secret-key-123';
 
 app.use(cors());
 app.use(express.json());
@@ -72,7 +72,7 @@ db.connect((err, client, release) => {
 // --- API Routes ---
 
 // --- Auth Middleware ---
-const authenticateToken = (req, res, next) => {
+export const authenticateToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
 
@@ -208,8 +208,10 @@ app.get('/api/progress/:username/:pageName', authenticateToken, (req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
+if (process.argv[1] === __filename) {
+    app.listen(PORT, () => {
+        console.log(`Server is running on http://localhost:${PORT}`);
+    });
+}
 
 export { app, db };

@@ -7,13 +7,13 @@ describe('Package Configuration Validation', () => {
     it('should have all keys in PAGE_PACKAGES corresponding to existing HTML files', () => {
         const rootFiles = fs.readdirSync('.');
         const moduleFiles = fs.readdirSync('modules');
-        const htmlFiles = [
+        const htmlFiles = new Set([
             ...rootFiles.filter(f => f.endsWith('.html')),
             ...moduleFiles.filter(f => f.endsWith('.html'))
-        ];
+        ]);
 
         for (const pageName in PAGE_PACKAGES) {
-            assert.ok(htmlFiles.includes(pageName), `PAGE_PACKAGES key "${pageName}" should correspond to an existing HTML file in the repository.`);
+            assert.ok(htmlFiles.has(pageName), `PAGE_PACKAGES key "${pageName}" should correspond to an existing HTML file in the repository.`);
         }
     });
 

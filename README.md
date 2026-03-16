@@ -141,6 +141,15 @@ Verifies WebR loading and page interactions using Playwright.
 npx playwright test
 ```
 
+### Adding a New Module
+
+To add a new module to the educational platform, follow these steps:
+
+1. **Create the HTML File:** Create a new HTML file for the module inside the `modules/` directory (e.g., `modules/new_module.html`).
+2. **Link in Navigation:** Add a link to the new module in the navigation menu within `index.html`.
+3. **Verify Page Load:** Add the new module's path to the `rPages` array in `tests/verify_pages_load.spec.js` to ensure Playwright tests verify its loading.
+4. **Configure R Packages:** If the new module requires specific R packages, configure them in the `PAGE_PACKAGES` mapping within `js/logic.js`.
+
 ## Project Structure
 
 - `index.html`: Main landing page / Table of Contents.

@@ -30,7 +30,7 @@ A Gilmore Girls-themed interactive study guide for R programming, built with [We
     - **Skill G: Paris Geller's Bunker**: Debugging (`browser()`, `traceback()`).
     - **Future Syllabus**: A roadmap for advanced R skills (`syllabus.html`).
 - **Master Projects (Tier 4)**: 20 downloadable Capstone projects (`.zip` files containing `.Rmd` and `.csv` files) for comprehensive real-world scenarios.
-- **User Authentication & Progress Sync**: Login system using JWT and bcrypt, with code progress synced to a SQLite database and cached in `localStorage`.
+- **User Authentication & Progress Sync**: Login system using JWT and bcrypt, with code progress synced to a PostgreSQL database and cached in `localStorage`.
 - **Pre-loaded Data**: extensive datasets available for practice (see "Available Data" below).
 - **Instant Feedback**: Visual cues (Success/Warning/Error) and console output.
 - **Cheat Menu**: Quick access to common R functions and package loading.
@@ -103,9 +103,9 @@ Since this project uses ES modules and WebAssembly, it must be served via a loca
     ```bash
     npm install
     ```
-4.  Start the Node.js Express server:
+4.  Start the Node.js Express server (requires a PostgreSQL database):
     ```bash
-    npm start
+    DATABASE_URL=postgresql://localhost/gilmore_db npm start
     ```
 5.  Open your browser and go to `http://localhost:8000`.
 
@@ -123,23 +123,34 @@ The project is designed to be simple and maintainable.
     - `escapeHTML(str)`: Prevents XSS attacks by escaping special characters.
     - `processWebROutput(output)`: Formats WebR output arrays into HTML.
 - `style.css`: Global styles using CSS Variables for theming.
-- `server.js`: Node.js Express server that serves static frontend files and provides API routes for user authentication and saving/loading code progress to/from SQLite.
+- `server.js`: Node.js Express server that serves static frontend files and provides API routes for user authentication and saving/loading code progress to/from PostgreSQL.
 
 ### Testing
 
 #### Unit Tests
-Verifies the logic in `logic.js` using Node.js native test runner.
+Verifies the logic in `logic.js` using Node.js native test runner (`node --test tests/*.test.js`).
 
 ```bash
 npm test
 ```
 
 #### End-to-End Tests
-Verifies WebR loading and page interactions using Playwright.
+Verifies WebR loading and page interactions using Playwright. Requires installing Playwright browsers (`npx playwright install`).
 
 ```bash
 npx playwright test
 ```
+
+### Visual Verification
+Visual verification of frontend changes (CSS/Animations, WebR plots) is performed using the `verify_frontend.py` script. This Python script captures screenshots of specific modules (saving them to `verification_screenshots/`). It requires `pip install playwright` and expects the project to be served locally on port 8000.
+
+### Adding a New Module
+
+Adding a new module requires the following steps:
+1. Create its HTML file in the `modules/` directory.
+2. Link to it in `index.html`'s navigation.
+3. Add it to the `rPages` array in `tests/verify_pages_load.spec.js` to ensure Playwright verification.
+4. Optionally configure its R packages in `PAGE_PACKAGES` within `js/logic.js`.
 
 ## Project Structure
 
@@ -176,7 +187,7 @@ npx playwright test
 ## Tech Stack
 
 - **Frontend**: HTML5, CSS3, JavaScript (ES Modules).
-- **Backend**: Node.js, Express, SQLite3, JWT, bcrypt.
+- **Backend**: Node.js, Express, PostgreSQL (`pg`), JWT, bcrypt.
 - **R Engine**: [WebR](https://docs.r-wasm.org/webr/latest/) (WASM).
 - **R Packages**: `tidyverse`, `skimr`, `rstatix`, `lubridate`, `stringr`, `purrr`, `rlang`.
 - **Testing**: Node.js Test Runner, Node Playwright (E2E), Python Playwright (Visual Verification).

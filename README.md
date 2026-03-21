@@ -94,6 +94,7 @@ Since this project uses ES modules and WebAssembly, it must be served via a loca
 ### Prerequisites
 
 - Node.js (required for running the server and running tests).
+- PostgreSQL database (required for user authentication and saving progress).
 
 ### Running the Project
 
@@ -103,9 +104,9 @@ Since this project uses ES modules and WebAssembly, it must be served via a loca
     ```bash
     npm install
     ```
-4.  Start the Node.js Express server:
+4.  Set the required environment variables and start the Node.js Express server:
     ```bash
-    npm start
+    DATABASE_URL=postgresql://localhost/gilmore_db JWT_SECRET=test-secret npm start
     ```
 5.  Open your browser and go to `http://localhost:8000`.
 
@@ -131,7 +132,7 @@ The project is designed to be simple and maintainable.
 Verifies the logic in `logic.js` using Node.js native test runner.
 
 ```bash
-npm test
+JWT_SECRET=test-secret npm test
 ```
 
 #### End-to-End Tests

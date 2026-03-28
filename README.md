@@ -94,6 +94,7 @@ Since this project uses ES modules and WebAssembly, it must be served via a loca
 ### Prerequisites
 
 - Node.js (required for running the server and running tests).
+- PostgreSQL (required for the backend database to sync user progress).
 
 ### Running the Project
 
@@ -103,11 +104,14 @@ Since this project uses ES modules and WebAssembly, it must be served via a loca
     ```bash
     npm install
     ```
-4.  Start the Node.js Express server:
+4.  Set up the required environment variables:
+    - `DATABASE_URL`: The connection string to your PostgreSQL database (e.g., `postgresql://localhost/gilmore_db`).
+    - `JWT_SECRET`: A secret key for JSON Web Tokens (e.g., `test-secret`).
+5.  Start the Node.js Express server:
     ```bash
-    npm start
+    DATABASE_URL=postgresql://localhost/gilmore_db JWT_SECRET=mysecretkey npm start
     ```
-5.  Open your browser and go to `http://localhost:8000`.
+6.  Open your browser and go to `http://localhost:8000`.
 
 ## Architecture & Developer Guide
 
@@ -128,14 +132,14 @@ The project is designed to be simple and maintainable.
 ### Testing
 
 #### Unit Tests
-Verifies the logic in `logic.js` using Node.js native test runner.
+Verifies the logic in `logic.js` using Node.js native test runner. Requires `JWT_SECRET` to be set.
 
 ```bash
-npm test
+JWT_SECRET=test-secret npm test
 ```
 
 #### End-to-End Tests
-Verifies WebR loading and page interactions using Playwright.
+Verifies WebR loading and page interactions using Playwright. Requires Playwright browsers to be installed (`npx playwright install`).
 
 ```bash
 npx playwright test

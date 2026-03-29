@@ -95,6 +95,12 @@ Since this project uses ES modules and WebAssembly, it must be served via a loca
 
 - Node.js (required for running the server and running tests).
 
+### Environment Variables
+
+The project requires the following environment variables:
+- `JWT_SECRET`: Secret key used for JSON Web Tokens. Required for the backend server and testing.
+- `DATABASE_URL`: Connection string for PostgreSQL database. Required to save/load user progress locally. (e.g., `postgresql://localhost/gilmore_db`)
+
 ### Running the Project
 
 1.  Clone the repository.
@@ -105,7 +111,7 @@ Since this project uses ES modules and WebAssembly, it must be served via a loca
     ```
 4.  Start the Node.js Express server:
     ```bash
-    npm start
+    JWT_SECRET=your_secret DATABASE_URL=postgresql://localhost/gilmore_db npm start
     ```
 5.  Open your browser and go to `http://localhost:8000`.
 
@@ -131,14 +137,14 @@ The project is designed to be simple and maintainable.
 Verifies the logic in `logic.js` using Node.js native test runner.
 
 ```bash
-npm test
+JWT_SECRET=test-secret npm test
 ```
 
 #### End-to-End Tests
 Verifies WebR loading and page interactions using Playwright.
 
 ```bash
-npx playwright test
+JWT_SECRET=test-secret npx playwright test
 ```
 
 ## Project Structure

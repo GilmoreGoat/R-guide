@@ -2,6 +2,10 @@
 
 > "Life's short. Talk fast. Code faster."
 
+## Project Status
+
+Active development.
+
 ![The R Gilmore Study Guide](IMG_9881.PNG)
 
 A Gilmore Girls-themed interactive study guide for R programming, built with [WebR](https://docs.r-wasm.org/webr/latest/). This project provides a static website where students can learn R concepts, run code directly in the browser, and receive immediate feedback.

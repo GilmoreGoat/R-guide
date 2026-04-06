@@ -94,6 +94,13 @@ Since this project uses ES modules and WebAssembly, it must be served via a loca
 ### Prerequisites
 
 - Node.js (required for running the server and running tests).
+- PostgreSQL database (required for saving/loading progress).
+
+### Environment Variables
+
+Before running the project or tests, you must set the following environment variables:
+- `JWT_SECRET`: A secret key used for JSON Web Token signing (e.g., `JWT_SECRET=my-secret-key`).
+- `DATABASE_URL`: Connection string for PostgreSQL (e.g., `DATABASE_URL=postgresql://localhost/gilmore_db`).
 
 ### Running the Project
 

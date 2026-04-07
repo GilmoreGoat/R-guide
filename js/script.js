@@ -65,6 +65,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Start the autumn vibes
     createFallingLeaves();
 
+    // --- 0. SIDEBAR TOGGLE (for index page layout) ---
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+    if (mobileMenuBtn && sidebar && sidebarOverlay) {
+        const toggleSidebar = () => {
+            const isOpen = sidebar.classList.toggle('is-open');
+            mobileMenuBtn.classList.toggle('is-active', isOpen);
+            sidebarOverlay.classList.toggle('is-visible', isOpen);
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+        };
+        mobileMenuBtn.addEventListener('click', toggleSidebar);
+        sidebarOverlay.addEventListener('click', toggleSidebar);
+    }
+
     // --- 1. UI SETUP ---
 
     // Theme Toggle Button
@@ -153,57 +169,30 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // --- 1.5 USER UI ---
     const currentUser = localStorage.getItem('r_gilmore_currentUser') || 'default';
-    const navElements = document.querySelectorAll('nav');
-    if (navElements.length > 0) {
-        const nav = navElements[0];
+    // Find the best nav: prefer .top-bar-nav, then .tier-nav, then first nav
+    const nav = document.querySelector('.top-bar-nav') || document.querySelector('.tier-nav') || document.querySelector('nav');
+    if (nav && currentUser !== 'default') {
+        const loginLink = nav.querySelector('a[href="login.html"]') || nav.querySelector('a[href="../login.html"]');
+        if (loginLink) loginLink.style.display = 'none';
 
-        // Hide static Login link if user is logged in
-        if (currentUser !== 'default') {
-            const loginLink = nav.querySelector('a[href="login.html"]');
-            if (loginLink) {
-                loginLink.style.display = 'none';
-            }
+        const userContainer = document.createElement('div');
+        userContainer.style.cssText = 'display:inline-flex;align-items:center;gap:8px;font-size:.84rem;';
 
-            const userContainer = document.createElement('div');
-            userContainer.className = 'user-switcher';
-            userContainer.style.display = 'inline-flex';
-            userContainer.style.alignItems = 'center';
-            userContainer.style.position = 'absolute';
-            userContainer.style.right = '20px';
-            userContainer.style.top = '50%';
-            userContainer.style.transform = 'translateY(-50%)';
-            userContainer.style.fontSize = '0.9em';
-            userContainer.style.background = 'var(--paper-texture)';
-            userContainer.style.padding = '5px 10px';
-            userContainer.style.borderRadius = '5px';
-            userContainer.style.border = '1px dashed var(--coffee-dark)';
+        const userSpan = document.createElement('span');
+        userSpan.textContent = `👤 ${currentUser}`;
+        userSpan.style.cssText = 'font-weight:600;color:var(--yale-blue);';
+        userContainer.appendChild(userSpan);
 
-            const userSpan = document.createElement('span');
-            userSpan.textContent = `👤 ${currentUser} `;
-            userSpan.style.marginRight = '10px';
-            userSpan.style.fontWeight = 'bold';
-            userSpan.style.color = 'var(--yale-blue)';
-            userContainer.appendChild(userSpan);
-
-            const logoutBtn = document.createElement('button');
-            logoutBtn.innerText = 'Logout';
-            logoutBtn.style.marginLeft = '10px';
-            logoutBtn.style.padding = '2px 8px';
-            logoutBtn.style.fontSize = '0.8em';
-            logoutBtn.style.cursor = 'pointer';
-            logoutBtn.style.borderRadius = '5px';
-            logoutBtn.style.border = '1px solid var(--coffee-dark)';
-            logoutBtn.style.background = 'var(--paper-texture)';
-
-            logoutBtn.addEventListener('click', () => {
-                localStorage.removeItem('r_gilmore_currentUser');
-                localStorage.removeItem('r_gilmore_token');
-                window.location.reload();
-            });
-
-            userContainer.appendChild(logoutBtn);
-            nav.appendChild(userContainer);
-        }
+        const logoutBtn = document.createElement('button');
+        logoutBtn.innerText = 'Logout';
+        logoutBtn.style.cssText = 'padding:4px 10px;font-size:.78rem;cursor:pointer;border-radius:6px;border:1px solid var(--border-color);background:var(--bg-surface);color:var(--text-secondary);transition:all .15s;';
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('r_gilmore_currentUser');
+            localStorage.removeItem('r_gilmore_token');
+            window.location.reload();
+        });
+        userContainer.appendChild(logoutBtn);
+        nav.appendChild(userContainer);
     }
 
     // Restore user progress from Server Database (fallback to localStorage if network fails)

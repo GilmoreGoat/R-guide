@@ -20,27 +20,89 @@
         }
     </script>
 </head>
-<body>
+<body class="has-sidebar">
 
-<header>
-    <h1>The R Gilmore Study Guide</h1>
-    <div class="subtitle">"Life's short. Talk fast. Code faster."</div>
-    <div class="header-icons">☕ 🍂 📚</div>
-</header>
+<!-- ===== TOP BAR ===== -->
+<div class="top-bar">
+    <div class="top-bar-inner">
+        <a href="index.html" class="top-bar-logo">
+            <span class="logo-icon">☕</span> The R Gilmore Guide
+        </a>
+        <nav class="top-bar-nav">
+            <a href="reference.html">Reference</a>
+            <a href="about.html">About</a>
+            <a href="login.html">Login</a>
+        </nav>
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle navigation">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</div>
 
-<nav class="tier-nav">
-    <a href="#tier-1">Tier 1: Basics</a>
-    <a href="#tier-2">Tier 2: Research</a>
-    <a href="#tier-3">Tier 3: Pro Cert</a>
-    <a href="#tier-4">Tier 4: Master Projects</a>
-    <a href="login.html" style="margin-left: auto; border-left: 2px dashed var(--coffee-dark); padding-left: 20px;">Login</a>
-</nav>
+<!-- ===== SIDEBAR OVERLAY (mobile) ===== -->
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
 
-<!-- The "Panic Kit" is now a sticky note on the notice board -->
-<div class="panic-kit concept-card">
-    <h3>📌 The "Sunday Night Panic" Starter Kit</h3>
-    <p><em>(Copy this into every new R script to avoid errors!)</em></p>
-    <pre><code>library(tidyverse)
+<!-- ===== APP LAYOUT ===== -->
+<div class="app-layout">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" id="sidebar">
+        <nav class="sidebar-nav">
+            <div class="sidebar-section">
+                <h4 class="sidebar-heading">Quick Links</h4>
+                <a href="reference.html" class="sidebar-link">📖 Reference Guide</a>
+                <a href="about.html" class="sidebar-link">☕ About</a>
+            </div>
+
+            <div class="sidebar-section">
+                <h4 class="sidebar-heading">Tier 1: The Syllabus</h4>
+                <a href="modules/basics.html" class="sidebar-link">Chilton Basics</a>
+                <a href="modules/wrangling.html" class="sidebar-link">Luke's Diner</a>
+                <a href="modules/tidying.html" class="sidebar-link">The Dragonfly Inn</a>
+                <a href="modules/visualization.html" class="sidebar-link">Festival of Living Art</a>
+                <a href="modules/statistics.html" class="sidebar-link">Yale Statistics</a>
+                <a href="modules/anova.html" class="sidebar-link">Friday Night Dinner</a>
+                <a href="modules/regression.html" class="sidebar-link">Richard's Investments</a>
+                <a href="modules/categorical.html" class="sidebar-link">Miss Patty's Studio</a>
+            </div>
+
+            <div class="sidebar-section">
+                <h4 class="sidebar-heading">Tier 2: Research</h4>
+                <a href="modules/module6.html" class="sidebar-link">Life & Death Brigade</a>
+                <a href="modules/skill_b.html" class="sidebar-link">Town Festivals</a>
+                <a href="modules/skill_c.html" class="sidebar-link">Stars Hollow Gazette</a>
+            </div>
+
+            <div class="sidebar-section">
+                <h4 class="sidebar-heading">Tier 3: Pro Cert</h4>
+                <a href="modules/functional.html" class="sidebar-link">Mrs. Kim's Antiques</a>
+                <a href="modules/oop.html" class="sidebar-link">The DAR & Hep Alien</a>
+                <a href="modules/metaprogramming.html" class="sidebar-link">The Troubadour</a>
+                <a href="modules/debugging.html" class="sidebar-link">Paris Geller's Bunker</a>
+            </div>
+
+            <div class="sidebar-section">
+                <h4 class="sidebar-heading">Tier 4: Master</h4>
+                <a href="modules/projects.html" class="sidebar-link">Master Projects</a>
+                <a href="syllabus.html" class="sidebar-link">Future Syllabus</a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+
+        <header>
+            <h1>The R Gilmore Study Guide</h1>
+            <div class="subtitle">"Life's short. Talk fast. Code faster."</div>
+            <div class="header-icons">☕ 🍂 📚</div>
+        </header>
+
+        <!-- The "Panic Kit" is now a sticky note on the notice board -->
+        <div class="panic-kit concept-card">
+            <h3>📌 The "Sunday Night Panic" Starter Kit</h3>
+            <p><em>(Copy this into every new R script to avoid errors!)</em></p>
+            <pre><code>library(tidyverse)
 library(skimr)
 library(rstatix)
 
@@ -49,194 +111,198 @@ library(rstatix)
 
 # Turn off scientific notation (optional)
 options(scipen = 999)</code></pre>
-</div>
-
-<div class="town-divider">
-    <span>🍂</span>
-</div>
-
-<div class="town-square-menu">
-    <a href="reference.html" class="town-menu-item">
-        <span class="menu-icon">📖</span>
-        <div class="menu-text">
-            <h3>The Reference Guide</h3>
-            <p>Every function, defined and organized.</p>
         </div>
-    </a>
-    <a href="about.html" class="town-menu-item">
-        <span class="menu-icon">☕</span>
-        <div class="menu-text">
-            <h3>Town Meeting Minutes (About)</h3>
-            <p>Read the manifesto and credits.</p>
+
+        <div class="town-divider">
+            <span>🍂</span>
         </div>
-    </a>
-</div>
 
-<div id="tier-1" class="toc-header mt-60">
-    <h3>🎓 Tier 1: The BILD 5 Syllabus</h3>
-    <p>Required for Midterms & Finals. Follows the course calendar.</p>
-</div>
-
-<div class="module-grid">
-    <a href="modules/basics.html" class="module-card">
-        <h2>Module 1: Chilton Basics</h2>
-        <p><strong>Weeks 1-2:</strong> Objects, Vectors, and Types. The strict rules you must follow.</p>
-        <div style="font-size: 2em; margin: 10px 0;">🏫</div>
-        <span class="start-btn">Start Studying &rarr;</span>
-    </a>
-
-    <a href="modules/wrangling.html" class="module-card">
-        <h2>Module 2: Luke's Diner</h2>
-        <p><strong>Week 1:</strong> Data Frames. Selecting, filtering, and mutating your menu.</p>
-        <div style="font-size: 2em; margin: 10px 0;">🍔</div>
-        <span class="start-btn">Enter the Diner &rarr;</span>
-    </a>
-
-    <a href="modules/tidying.html" class="module-card">
-        <h2>Module 3: The Dragonfly Inn</h2>
-        <p><strong>Week 2:</strong> Tidying Data. Pivoting wide data into long format.</p>
-        <div style="font-size: 2em; margin: 10px 0;">🏨</div>
-        <span class="start-btn">Start Cleaning &rarr;</span>
-    </a>
-
-    <a href="modules/visualization.html" class="module-card">
-        <h2>Module 4: Festival of Living Art</h2>
-        <p><strong>Week 2:</strong> Graphing. Histograms, Boxplots, and Scatterplots with <code>ggplot2</code>.</p>
-        <div style="font-size: 2em; margin: 10px 0;">🎨</div>
-        <span class="start-btn">Start Posing &rarr;</span>
-    </a>
-
-    <a href="modules/statistics.html" class="module-card">
-        <h2>Module 5: Yale Statistics</h2>
-        <p><strong>Weeks 3-6:</strong> T-Tests, Normality, and Power Analysis. Hard-hitting facts.</p>
-        <div style="font-size: 2em; margin: 10px 0;">🎓</div>
-        <span class="start-btn">Check the Facts &rarr;</span>
-    </a>
-
-    <a href="modules/anova.html" class="module-card">
-        <h2>Module 6: Friday Night Dinner</h2>
-        <p><strong>Weeks 6-7:</strong> Competing groups? Use ANOVA and Tukey's HSD to find the difference.</p>
-        <div style="font-size: 2em; margin: 10px 0;">🍽️</div>
-        <span class="start-btn">Serve the Courses &rarr;</span>
-    </a>
-
-    <a href="modules/regression.html" class="module-card">
-        <h2>Module 7: Richard's Investments</h2>
-        <p><strong>Week 8:</strong> Predict the future. Correlation (<code>cor.test</code>) and Linear Regression (<code>lm</code>).</p>
-        <div style="font-size: 2em; margin: 10px 0;">📈</div>
-        <span class="start-btn">Check Returns &rarr;</span>
-    </a>
-
-    <a href="modules/categorical.html" class="module-card">
-        <h2>Module 8: Miss Patty's Studio</h2>
-        <p><strong>Week 9:</strong> Categorical Data. Use <code>chisq.test</code> to see if style and age are related.</p>
-        <div style="font-size: 2em; margin: 10px 0;">💃</div>
-        <span class="start-btn">Start Dancing &rarr;</span>
-    </a>
-</div>
-
-<div class="town-divider mt-60">
-    <span>🌂</span>
-</div>
-
-<div id="tier-2" class="toc-header">
-    <h3 class="text-yale-blue">🔬 Tier 2: Research Skills (The Life & Death Brigade)</h3>
-    <p>Not on the syllabus, but essential for real-world lab work.</p>
-</div>
-
-<div class="module-grid">
-    <a href="modules/module6.html" class="module-card border-yale-blue">
-        <h2>Skill A: The Life & Death Brigade</h2>
-        <p><strong>Logic & Joining.</strong> Merging datasets with <code>left_join</code> and categorizing with <code>case_when</code>.</p>
-        <div style="font-size: 2em; margin: 10px 0;">🦍</div>
-        <span class="start-btn">Jump In &rarr;</span>
-    </a>
-
-    <a href="modules/skill_b.html" class="module-card border-yale-blue">
-        <h2>Skill B: Town Festivals</h2>
-        <p><strong>Dates & Time.</strong> Using <code>lubridate</code> to parse dates and calculate duration.</p>
-        <div style="font-size: 2em; margin: 10px 0;">📆</div>
-        <span class="start-btn">Check Calendar &rarr;</span>
-    </a>
-
-    <a href="modules/skill_c.html" class="module-card border-yale-blue">
-        <h2>Skill C: Stars Hollow Gazette</h2>
-        <p><strong>Strings & Text.</strong> Using <code>stringr</code> to find patterns, fix typos, and split messy columns.</p>
-        <div style="font-size: 2em; margin: 10px 0;">🗞️</div>
-        <span class="start-btn">Start Editing &rarr;</span>
-    </a>
-</div>
-
-<div class="town-divider mt-60">
-    <span>🚧</span>
-</div>
-
-<div id="tier-3" class="toc-header">
-    <h3>⚙️ Tier 3: Professional Certification</h3>
-    <p>The roadmap to becoming a full-stack R developer.</p>
-</div>
-
-<div class="module-grid">
-    <a href="modules/functional.html" class="module-card border-coffee-dark">
-        <h2>Skill D: Mrs. Kim's Antiques</h2>
-        <p><strong>Functional Programming.</strong> Delegate tasks with <code>purrr</code> to map functions over lists and avoid loops.</p>
-        <div style="font-size: 2em; margin: 10px 0;">🛋️</div>
-        <span class="start-btn">Negotiate &rarr;</span>
-    </a>
-
-    <a href="modules/oop.html" class="module-card border-coffee-dark">
-        <h2>Skill E: The DAR & Hep Alien</h2>
-        <p><strong>Object-Oriented (OOP).</strong> Building your own Classes and Methods using S3, S4, and R6 systems.</p>
-        <div style="font-size: 2em; margin: 10px 0;">🎸</div>
-        <span class="start-btn">Rock Out &rarr;</span>
-    </a>
-
-    <a href="modules/metaprogramming.html" class="module-card border-coffee-dark">
-        <h2>Skill F: The Troubadour</h2>
-        <p><strong>Metaprogramming.</strong> Writing functions that write code (Tidy Eval & <code>rlang</code>).</p>
-        <div style="font-size: 2em; margin: 10px 0;">🎶</div>
-        <span class="start-btn">Sing it &rarr;</span>
-    </a>
-
-    <a href="modules/debugging.html" class="module-card border-coffee-dark">
-        <h2>Skill G: Paris Geller's Bunker</h2>
-        <p><strong>Debugging.</strong> Using <code>browser()</code> and <code>traceback()</code> to fix errors like a surgeon.</p>
-        <div style="font-size: 2em; margin: 10px 0;"> bunker</div>
-        <span class="start-btn">Fix it Fast &rarr;</span>
-    </a>
-</div>
-
-<div class="town-divider mt-60">
-    <span>🏆</span>
-</div>
-
-<div id="tier-4" class="toc-header">
-    <h3>🏆 Tier 4: Master Projects</h3>
-    <p>Put your skills to the test with these comprehensive, real-world scenarios.</p>
-</div>
-
-<div class="module-grid">
-    <a href="modules/projects.html" class="module-card border-coffee-dark">
-        <h2>Master Projects</h2>
-        <p><strong>10 Capstone Challenges.</strong> From Doose's Market Inventory to the Ultimate Stars Hollow Census.</p>
-        <div style="font-size: 2em; margin: 10px 0;">🗺️</div>
-        <span class="start-btn">Start the Challenge &rarr;</span>
-    </a>
-</div>
-
-<div class="town-square-menu">
-    <a href="syllabus.html" class="town-menu-item border-coffee-dark">
-        <span class="menu-icon">🏗️</span>
-        <div class="menu-text">
-            <h3>The Future Syllabus</h3>
-            <p>Functional Programming, Package Dev, and Machine Learning.</p>
+        <div class="town-square-menu">
+            <a href="reference.html" class="town-menu-item">
+                <span class="menu-icon">📖</span>
+                <div class="menu-text">
+                    <h3>The Reference Guide</h3>
+                    <p>Every function, defined and organized.</p>
+                </div>
+            </a>
+            <a href="about.html" class="town-menu-item">
+                <span class="menu-icon">☕</span>
+                <div class="menu-text">
+                    <h3>Town Meeting Minutes (About)</h3>
+                    <p>Read the manifesto and credits.</p>
+                </div>
+            </a>
         </div>
-    </a>
+
+        <div id="tier-1" class="toc-header mt-60">
+            <h3>🎓 Tier 1: The BILD 5 Syllabus</h3>
+            <p>Required for Midterms & Finals. Follows the course calendar.</p>
+        </div>
+
+        <div class="module-grid">
+            <a href="modules/basics.html" class="module-card">
+                <h2>Module 1: Chilton Basics</h2>
+                <p><strong>Weeks 1-2:</strong> Objects, Vectors, and Types. The strict rules you must follow.</p>
+                <div style="font-size: 2em; margin: 10px 0;">🏫</div>
+                <span class="start-btn">Start Studying &rarr;</span>
+            </a>
+
+            <a href="modules/wrangling.html" class="module-card">
+                <h2>Module 2: Luke's Diner</h2>
+                <p><strong>Week 1:</strong> Data Frames. Selecting, filtering, and mutating your menu.</p>
+                <div style="font-size: 2em; margin: 10px 0;">🍔</div>
+                <span class="start-btn">Enter the Diner &rarr;</span>
+            </a>
+
+            <a href="modules/tidying.html" class="module-card">
+                <h2>Module 3: The Dragonfly Inn</h2>
+                <p><strong>Week 2:</strong> Tidying Data. Pivoting wide data into long format.</p>
+                <div style="font-size: 2em; margin: 10px 0;">🏨</div>
+                <span class="start-btn">Start Cleaning &rarr;</span>
+            </a>
+
+            <a href="modules/visualization.html" class="module-card">
+                <h2>Module 4: Festival of Living Art</h2>
+                <p><strong>Week 2:</strong> Graphing. Histograms, Boxplots, and Scatterplots with <code>ggplot2</code>.</p>
+                <div style="font-size: 2em; margin: 10px 0;">🎨</div>
+                <span class="start-btn">Start Posing &rarr;</span>
+            </a>
+
+            <a href="modules/statistics.html" class="module-card">
+                <h2>Module 5: Yale Statistics</h2>
+                <p><strong>Weeks 3-6:</strong> T-Tests, Normality, and Power Analysis. Hard-hitting facts.</p>
+                <div style="font-size: 2em; margin: 10px 0;">🎓</div>
+                <span class="start-btn">Check the Facts &rarr;</span>
+            </a>
+
+            <a href="modules/anova.html" class="module-card">
+                <h2>Module 6: Friday Night Dinner</h2>
+                <p><strong>Weeks 6-7:</strong> Competing groups? Use ANOVA and Tukey's HSD to find the difference.</p>
+                <div style="font-size: 2em; margin: 10px 0;">🍽️</div>
+                <span class="start-btn">Serve the Courses &rarr;</span>
+            </a>
+
+            <a href="modules/regression.html" class="module-card">
+                <h2>Module 7: Richard's Investments</h2>
+                <p><strong>Week 8:</strong> Predict the future. Correlation (<code>cor.test</code>) and Linear Regression (<code>lm</code>).</p>
+                <div style="font-size: 2em; margin: 10px 0;">📈</div>
+                <span class="start-btn">Check Returns &rarr;</span>
+            </a>
+
+            <a href="modules/categorical.html" class="module-card">
+                <h2>Module 8: Miss Patty's Studio</h2>
+                <p><strong>Week 9:</strong> Categorical Data. Use <code>chisq.test</code> to see if style and age are related.</p>
+                <div style="font-size: 2em; margin: 10px 0;">💃</div>
+                <span class="start-btn">Start Dancing &rarr;</span>
+            </a>
+        </div>
+
+        <div class="town-divider mt-60">
+            <span>🌂</span>
+        </div>
+
+        <div id="tier-2" class="toc-header">
+            <h3 class="text-yale-blue">🔬 Tier 2: Research Skills (The Life & Death Brigade)</h3>
+            <p>Not on the syllabus, but essential for real-world lab work.</p>
+        </div>
+
+        <div class="module-grid">
+            <a href="modules/module6.html" class="module-card border-yale-blue">
+                <h2>Skill A: The Life & Death Brigade</h2>
+                <p><strong>Logic & Joining.</strong> Merging datasets with <code>left_join</code> and categorizing with <code>case_when</code>.</p>
+                <div style="font-size: 2em; margin: 10px 0;">🦍</div>
+                <span class="start-btn">Jump In &rarr;</span>
+            </a>
+
+            <a href="modules/skill_b.html" class="module-card border-yale-blue">
+                <h2>Skill B: Town Festivals</h2>
+                <p><strong>Dates & Time.</strong> Using <code>lubridate</code> to parse dates and calculate duration.</p>
+                <div style="font-size: 2em; margin: 10px 0;">📆</div>
+                <span class="start-btn">Check Calendar &rarr;</span>
+            </a>
+
+            <a href="modules/skill_c.html" class="module-card border-yale-blue">
+                <h2>Skill C: Stars Hollow Gazette</h2>
+                <p><strong>Strings & Text.</strong> Using <code>stringr</code> to find patterns, fix typos, and split messy columns.</p>
+                <div style="font-size: 2em; margin: 10px 0;">🗞️</div>
+                <span class="start-btn">Start Editing &rarr;</span>
+            </a>
+        </div>
+
+        <div class="town-divider mt-60">
+            <span>🚧</span>
+        </div>
+
+        <div id="tier-3" class="toc-header">
+            <h3>⚙️ Tier 3: Professional Certification</h3>
+            <p>The roadmap to becoming a full-stack R developer.</p>
+        </div>
+
+        <div class="module-grid">
+            <a href="modules/functional.html" class="module-card border-coffee-dark">
+                <h2>Skill D: Mrs. Kim's Antiques</h2>
+                <p><strong>Functional Programming.</strong> Delegate tasks with <code>purrr</code> to map functions over lists and avoid loops.</p>
+                <div style="font-size: 2em; margin: 10px 0;">🛋️</div>
+                <span class="start-btn">Negotiate &rarr;</span>
+            </a>
+
+            <a href="modules/oop.html" class="module-card border-coffee-dark">
+                <h2>Skill E: The DAR & Hep Alien</h2>
+                <p><strong>Object-Oriented (OOP).</strong> Building your own Classes and Methods using S3, S4, and R6 systems.</p>
+                <div style="font-size: 2em; margin: 10px 0;">🎸</div>
+                <span class="start-btn">Rock Out &rarr;</span>
+            </a>
+
+            <a href="modules/metaprogramming.html" class="module-card border-coffee-dark">
+                <h2>Skill F: The Troubadour</h2>
+                <p><strong>Metaprogramming.</strong> Writing functions that write code (Tidy Eval & <code>rlang</code>).</p>
+                <div style="font-size: 2em; margin: 10px 0;">🎶</div>
+                <span class="start-btn">Sing it &rarr;</span>
+            </a>
+
+            <a href="modules/debugging.html" class="module-card border-coffee-dark">
+                <h2>Skill G: Paris Geller's Bunker</h2>
+                <p><strong>Debugging.</strong> Using <code>browser()</code> and <code>traceback()</code> to fix errors like a surgeon.</p>
+                <div style="font-size: 2em; margin: 10px 0;"> bunker</div>
+                <span class="start-btn">Fix it Fast &rarr;</span>
+            </a>
+        </div>
+
+        <div class="town-divider mt-60">
+            <span>🏆</span>
+        </div>
+
+        <div id="tier-4" class="toc-header">
+            <h3>🏆 Tier 4: Master Projects</h3>
+            <p>Put your skills to the test with these comprehensive, real-world scenarios.</p>
+        </div>
+
+        <div class="module-grid">
+            <a href="modules/projects.html" class="module-card border-coffee-dark">
+                <h2>Master Projects</h2>
+                <p><strong>10 Capstone Challenges.</strong> From Doose's Market Inventory to the Ultimate Stars Hollow Census.</p>
+                <div style="font-size: 2em; margin: 10px 0;">🗺️</div>
+                <span class="start-btn">Start the Challenge &rarr;</span>
+            </a>
+        </div>
+
+        <div class="town-square-menu">
+            <a href="syllabus.html" class="town-menu-item border-coffee-dark">
+                <span class="menu-icon">🏗️</span>
+                <div class="menu-text">
+                    <h3>The Future Syllabus</h3>
+                    <p>Functional Programming, Package Dev, and Machine Learning.</p>
+                </div>
+            </a>
+        </div>
+
+        <footer class="footer-text">
+            <p>In Omnia Paratus • Created for BILD 5</p>
+            <p style="font-size: 0.8em; margin-top: 10px;">Printed in Stars Hollow • Do not copy without permission.</p>
+        </footer>
+
+    </main>
 </div>
 
-<footer class="footer-text">
-    <p>In Omnia Paratus • Created for BILD 5</p>
-    <p style="font-size: 0.8em; margin-top: 10px;">Printed in Stars Hollow • Do not copy without permission.</p>
-</footer>
 </body>
 </html>

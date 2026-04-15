@@ -6,6 +6,20 @@
 
 A Gilmore Girls-themed interactive study guide for R programming, built with [WebR](https://docs.r-wasm.org/webr/latest/). This project provides a static website where students can learn R concepts, run code directly in the browser, and receive immediate feedback.
 
+## Table of Contents
+- [Features](#features)
+- [Available Data](#available-data)
+- [Getting Started](#getting-started)
+- [Architecture & Developer Guide](#architecture--developer-guide)
+- [Project Structure](#project-structure)
+- [Tech Stack](#tech-stack)
+- [Troubleshooting](#troubleshooting)
+- [The Mission](#the-mission)
+- [House Rules](#house-rules)
+- [About the Author](#about-the-author)
+- [Contributing](#contributing)
+- [Credits & License](#credits--license)
+
 ## Features
 
 - **WebR Integration**: Runs R code entirely in the browser using WebAssembly—no server-side R required.
@@ -103,15 +117,19 @@ Since this project uses ES modules and WebAssembly, it must be served via a loca
     ```bash
     npm install
     ```
-4.  Start the Node.js Express server:
+4.  Configure Environment Variables:
+    - `DATABASE_URL`: Set this to your PostgreSQL connection string (e.g., `postgresql://localhost/gilmore_db`). Local development requires setting this variable for the database connection. The server.js connection enforces SSL certificate validation (rejectUnauthorized: true) when `DATABASE_URL` is present.
+    - `JWT_SECRET`: The application strictly requires the `JWT_SECRET` environment variable to be set for the Node/Express backend to run. It will log a critical error and exit if missing. (e.g., `gilmore-secret-key-123`). The frontend authentication explicitly checks against generic network errors to ensure users are accurately prompted to run the Node.js Express backend.
+5.  Start the Node.js Express server:
     ```bash
-    npm start
+    DATABASE_URL=postgresql://localhost/gilmore_db JWT_SECRET=test-secret npm start
     ```
-5.  Open your browser and go to `http://localhost:8000`.
+6.  Open your browser and go to `http://localhost:8000`.
 
 ## Architecture & Developer Guide
 
-The project is designed to be simple and maintainable.
+The project is designed to be simple and maintainable. The application uses PostgreSQL via the `pg` package. User progress (code, validation states, and console output) is synchronized and persists data to a PostgreSQL database via POST `/api/progress` and uses `localStorage` as an immediate fallback and offline cache.
+
 
 ### Key Files
 
@@ -214,6 +232,10 @@ My goal is to take the "scary" out of statistics and replace it with references 
 *Note from the Editor:*
 - This site was built with 100% organic, shade-grown code.
 - No actual penguins were harmed in the making of the T-Tests.
+
+## Contributing
+
+Contributions are welcome! If you're submitting a pull request for testing improvements, please follow this title format: `'🧪 [testing improvement description]'`. Also, include a description detailing the gap addressed, coverage scenarios, and the result/improvement in coverage.
 
 ## Credits & License
 

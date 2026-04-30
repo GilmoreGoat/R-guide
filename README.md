@@ -30,7 +30,7 @@ A Gilmore Girls-themed interactive study guide for R programming, built with [We
     - **Skill G: Paris Geller's Bunker**: Debugging (`browser()`, `traceback()`).
     - **Future Syllabus**: A roadmap for advanced R skills (`syllabus.html`).
 - **Master Projects (Tier 4)**: 20 downloadable Capstone projects (`.zip` files containing `.Rmd` and `.csv` files) for comprehensive real-world scenarios.
-- **User Authentication & Progress Sync**: Login system using JWT and bcrypt, with code progress synced to a SQLite database and cached in `localStorage`.
+- **User Authentication & Progress Sync**: Login system using JWT and bcrypt, with code progress synced to a PostgreSQL database and cached in `localStorage`.
 - **Pre-loaded Data**: extensive datasets available for practice (see "Available Data" below).
 - **Instant Feedback**: Visual cues (Success/Warning/Error) and console output.
 - **Cheat Menu**: Quick access to common R functions and package loading.
@@ -123,15 +123,17 @@ The project is designed to be simple and maintainable.
     - `escapeHTML(str)`: Prevents XSS attacks by escaping special characters.
     - `processWebROutput(output)`: Formats WebR output arrays into HTML.
 - `style.css`: Global styles using CSS Variables for theming.
-- `server.js`: Node.js Express server that serves static frontend files and provides API routes for user authentication and saving/loading code progress to/from SQLite.
+- `server.js`: Node.js Express server that serves static frontend files and provides API routes for user authentication and saving/loading code progress to/from PostgreSQL.
 
 ### Testing
 
 #### Unit Tests
-Verifies the logic in `logic.js` using Node.js native test runner.
+Verifies the logic in `logic.js` using Node.js native test runner. You can run all tests or execute specific modules directly:
 
 ```bash
 npm test
+# Or run specific tests directly:
+node --test tests/[filename].test.js
 ```
 
 #### End-to-End Tests
@@ -169,6 +171,7 @@ npx playwright test
 - `about.html`: About page.
 - `login.html`: User login and registration.
 - `server.js`: Node.js Express server to handle API routes and static files.
+- `create_challenges.py`: Python script to dynamically generate module challenge zip files containing `.Rmd` files.
 - `create_tier4_projects.py`: Python script to dynamically generate zip file challenges.
 - `verify_frontend.py`: Python Playwright script to verify UI visually and take screenshots.
 - `tests/`: Unit and E2E tests.
@@ -176,7 +179,7 @@ npx playwright test
 ## Tech Stack
 
 - **Frontend**: HTML5, CSS3, JavaScript (ES Modules).
-- **Backend**: Node.js, Express, SQLite3, JWT, bcrypt.
+- **Backend**: Node.js, Express, PostgreSQL (pg), JWT, bcrypt.
 - **R Engine**: [WebR](https://docs.r-wasm.org/webr/latest/) (WASM).
 - **R Packages**: `tidyverse`, `skimr`, `rstatix`, `lubridate`, `stringr`, `purrr`, `rlang`.
 - **Testing**: Node.js Test Runner, Node Playwright (E2E), Python Playwright (Visual Verification).
